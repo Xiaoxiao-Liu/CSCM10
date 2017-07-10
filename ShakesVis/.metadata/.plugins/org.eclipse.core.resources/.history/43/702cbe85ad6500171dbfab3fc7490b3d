@@ -59,7 +59,7 @@ public class WFFrame extends JFrame {
 //		WFPanel gundolf=new WFPanel("D:\\dataProcess\\Iiii 011 gundolf.txt",v*5*2,v);
 		getContentPane().add(wfPanel);
 		getContentPane().add(gundolf);
-//		wfPanel.setLayout(null);
+		wfPanel.setLayout(null);
 //		wfPanel.repaint();
 		wfPanel.setVisible(true);
 		gundolf.setVisible(true);

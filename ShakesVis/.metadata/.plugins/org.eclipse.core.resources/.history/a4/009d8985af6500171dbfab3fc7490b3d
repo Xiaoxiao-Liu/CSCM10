@@ -12,7 +12,7 @@ public class WFPanel extends JPanel {
 	private String filePathBase;
 	private int yCoordinate;
 //	WFFrame frame = new WFFrame();
-//	WordFreqFrame frame = new WordFreqFrame();
+	WordFreqFrame frame = new WordFreqFrame();
 //	int value;
 
 	/**

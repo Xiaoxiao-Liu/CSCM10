@@ -49,7 +49,8 @@ public class WordFreqFrame extends JFrame {
 		getContentPane().add(wfPanel);
 		getContentPane().add(gundolf);
 		wfPanel.setSize(300, 300);
-		gundolf.setBounds(310, 0, 300, 300);
+//		gundolf.setSize(300, 300);
+		gundolf.setBounds(300, 10, 300, 300);
 		wfPanel.setVisible(true);
 		gundolf.setVisible(true);
 		

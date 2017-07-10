@@ -10,17 +10,19 @@ import javax.swing.JPanel;
 
 public class WFPanel extends JPanel {
 	private String filePathBase;
+	private int value;
 	private int yCoordinate;
 //	WFFrame frame = new WFFrame();
-//	WordFreqFrame frame = new WordFreqFrame();
+	WordFreqFrame frame = new WordFreqFrame();
 //	int value;
 
 	/**
 	 * Create the panel.
 	 */
-	public WFPanel(String string, int j) {
+	public WFPanel(String string, int i, int j) {
 		setLayout(null);
 		filePathBase=string;
+		value=i;
 		yCoordinate=j;
 	}
 	
