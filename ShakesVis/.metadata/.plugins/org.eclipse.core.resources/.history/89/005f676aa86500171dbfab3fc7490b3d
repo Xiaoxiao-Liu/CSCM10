@@ -1,0 +1,22 @@
+package gui;
+
+import java.awt.Color;
+
+import javax.swing.JFrame;
+
+public class WordFrequencyFrame{
+	// execute application
+	   public static void main( String args[] ){
+	      // create frame for LinesRectsOvalsJPanel
+	      JFrame frame= new JFrame("ShakesVis");
+	      frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//	      WordFrequencyPanel wordFrequencyPanel=new WordFrequencyPanel();
+////	    		  ("D:\\dataProcess\\SHAKESPEAREbaseText.txt",10,10);
+//	      wordFrequencyPanel.paintComponent("D:\\dataProcess\\SHAKESPEAREbaseText.txt",10,10);
+	      
+//	      frame.add(wordFrequencyPanel);
+	      frame.setSize(500, 800);
+	      frame.setVisible(true);
+	      
+	   } // end main
+ }

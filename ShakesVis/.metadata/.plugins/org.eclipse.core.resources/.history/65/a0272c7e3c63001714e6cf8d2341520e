@@ -1,0 +1,7 @@
+package gui;
+
+public class WordFrequencyPanel extends Panel{
+	
+	
+
+}

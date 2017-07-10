@@ -1,0 +1,42 @@
+import java.awt.Graphics;  
+  
+import javax.swing.JFrame;  
+import javax.swing.JPanel;  
+  
+public class NotHelloWorld {  
+  
+    public static void main(String[] args){  
+        NotHelloWorldFrame frame = new NotHelloWorldFrame();  
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+        frame.setVisible(true);  
+    }  
+}  
+/** 
+ * 这是一个包含显示信息面板的框架 
+ */  
+class NotHelloWorldFrame extends JFrame {  
+    private static final int DEFAULT_WIDTH = 500;  
+    private static final int DEFAULT_HEIGHT = 300;  
+    public NotHelloWorldFrame() {  
+        setTitle("NotHelloWorld");  
+        setSize(DEFAULT_WIDTH, DEFAULT_HEIGHT);  
+        //给框架增添面板  
+        NotHelloWorldPanel panel = new NotHelloWorldPanel();  
+        add(panel);  
+        setVisible(true);  
+    }  
+}  
+/** 
+ * 这是一个显示文字信息的面板 
+ */  
+class NotHelloWorldPanel extends JPanel {  
+    private static final int MESSAGE_X = 75;  
+    private static final int MESSAGE_Y = 100;  
+    @Override  
+    protected void paintComponent(Graphics g) {  
+        // TODO Auto-generated method stub  
+        super.paintComponent(g);  
+        g.drawString("NOt Hello World", MESSAGE_X, MESSAGE_Y);  
+    }  
+      
+}  

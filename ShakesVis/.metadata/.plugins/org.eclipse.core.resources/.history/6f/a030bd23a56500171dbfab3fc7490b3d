@@ -1,0 +1,94 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JPanel;
+
+public class WFPanel extends JPanel implements MouseListener {
+	private String filePathBase;
+	private int xCoordinate;
+	private int yCoordinate;
+	WFFrame frame = new WFFrame();
+	int eatdrink=frame.WFFrame();
+
+	/**
+	 * Create the panel.
+	 */
+	public WFPanel(String string, int i, int j) {
+		setLayout(null);
+		filePathBase=string;
+		xCoordinate=i;
+		yCoordinate=j;
+	}
+	
+	public void paintComponent(Graphics g){
+		
+//		super.paintComponent(g);
+		this.setBackground(Color.GRAY);
+		DataPreprocess dp =new DataPreprocess();
+		dp.readFile(filePathBase);
+		List<Map.Entry<String, Integer>> list =dp.sortHash();
+		String str=null;
+		int barWidth=0;
+		FontMetrics fontMetrics = g.getFontMetrics();
+		for (Map.Entry<String, Integer> mapping : list){
+			str=mapping.getKey()+" "+mapping.getValue()+" ";
+			g.drawString(str, xCoordinate-fontMetrics.stringWidth(str), yCoordinate);
+			barWidth=mapping.getValue()*20;
+			g.fillRect(xCoordinate, yCoordinate-5, barWidth, 10);
+			yCoordinate+=13;
+		}
+		xCoordinate=50;
+		yCoordinate=10;
+		System.out.println(yCoordinate);
+		
+	}
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+//		 repaint();  
+		System.out.println("woshizhu");
+	}
+//
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 repaint();  
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		 repaint();  
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+//		 repaint();  
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+//		 int mouseX=e.getX();  
+//         int mouseY=e.getY();  
+//         repaint();  
+	}
+
+
+	
+
+	
+
+}

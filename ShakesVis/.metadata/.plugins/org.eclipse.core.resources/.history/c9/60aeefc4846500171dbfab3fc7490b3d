@@ -1,0 +1,13 @@
+package gui;
+
+import java.awt.Graphics;
+import java.awt.Panel;
+
+
+public class WordFrequencyPanel extends Panel{
+
+	public void paintComponent(Graphics g){
+		
+	}
+
+}

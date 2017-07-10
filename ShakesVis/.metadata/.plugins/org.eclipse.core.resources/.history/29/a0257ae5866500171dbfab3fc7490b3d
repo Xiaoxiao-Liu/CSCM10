@@ -1,0 +1,26 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Panel;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JPanel;
+
+
+public class WordFrequencyPanel extends JPanel{
+	private String filePathBase="D:\\dataProcess\\SHAKESPEAREbaseText.txt";
+	
+
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		this.setBackground(Color.GRAY);
+		DataPreprocess dp =new DataPreprocess();
+		dp.readFile(filePathBase);
+		List<Map.Entry<String, Integer>> list =dp.sortHash();
+	
+		
+	}
+
+}
