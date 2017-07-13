@@ -1,0 +1,176 @@
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.SystemColor;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.List;
+import java.util.Map;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
+
+public class ParallelVis {
+
+	private JFrame frame ;
+	 MultiPopup ppp;
+//	ArrayList<String> array=new ArrayList<String>();
+	BufferedReader br = null;
+	String FILENAME = "D:\\dataProcess\\SHAKESPEAREbaseText.txt";
+	File file=new File(FILENAME);
+//	String FILENAME_1 = "D:\\dataProcess\\test.json";
+	FileReader fr = null;
+	
+	JLabel label3 = new JLabel("Media Outlets:");  
+	Object[] value = new String[]{ "Selected All","Base Text","Iiii 011 gundolf" , "Iiii 014 Schroeder" ,"Iiii 016 Flatter" ,"Iiii 018 Fried","Iiii 019 Lauterbach"};    
+	Object[] defaultValue = new String[]{ "Selected All" };   
+	MultiComboBox mulit = new MultiComboBox(value, defaultValue);  
+	MultiPopup popupHere= new MultiPopup(value, defaultValue);  
+	String x;
+	Hashtable<String, Integer> storeWordS;
+	//wordCount stupidMistakes=new wordCount();
+	
+	
+	static 	Graphics g;
+	
+	
+//	static Hashtable<String, Integer> storeWords_1=new Hashtable<String, Integer>();
+//	static int count_1=0;
+//	static String filePath_1="D:\\dataProcess\\SHAKESPEAREbaseText.txt";
+//	static File file_1=new File(filePath_1);
+//	
+//	
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		textFrame();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ParallelVis window = new ParallelVis();
+					window.frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public ParallelVis() {
+		initialize();
+	}
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		JFrame frame = new JFrame();
+		frame.setBounds(100, 100, 773, 402);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+//		textFrame();
+		versionChoose();
+	}	
+	
+	public void versionChoose(){
+		textFrame();
+//		x=popupHere.getStringValues(x);
+//		mulit.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				if(x=="Base Text"){
+//					scrollPane.setVisible(true);
+//				}
+//			}
+//		});
+		mulit.setBackground(UIManager.getColor("Button.background"));
+		mulit.setBounds(256, 38, 195, 30);
+		frame.getContentPane().add(mulit);
+//		System.out.println(x);
+
+		
+
+	
+		
+				
+	}
+		
+	public static void textFrame(){
+		JFrame frame = new JFrame();
+		wordCount stupidMistakes=new wordCount();
+		String filePath="D:SHAKESPEAREbaseText.txt";
+		File file=new File(filePath);
+		stupidMistakes.readFile();
+		List<Map.Entry<String, Integer>> listList=stupidMistakes.sortHash();
+		String tmp=listList.toString();
+		System.out.println(tmp);
+		System.out.println(listList);
+
+//		readText();
+//		JScrollPane scrollPane = new JScrollPane();
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(45, 24, 144, 167);
+		frame.getContentPane().add(scrollPane);	
+		JTextArea textArea_1 = new JTextArea();
+		textArea_1.setDisabledTextColor(SystemColor.activeCaptionText);
+		textArea_1.setSelectionColor(SystemColor.textText);
+		textArea_1.setFont(new Font("Mongolian Baiti", Font.PLAIN, 13));
+//		JTextArea textArea_1 = new JTextArea();
+//		textArea_1.append(tmp);
+		scrollPane.setViewportView(textArea_1);
+		textArea_1.setEnabled(false);
+		textArea_1.setEditable(false);
+		textArea_1.setWrapStyleWord(true);
+		textArea_1.setLineWrap(true);
+		scrollPane.setVisible(true);
+		
+	}
+	public void readText(){
+//		textFrame();
+		BufferedReader bre = null;
+		try {
+			JTextArea textArea_1 = new JTextArea();
+			String sCurrentLine;
+			br = new BufferedReader(new FileReader(FILENAME));
+			String tmp="";
+			int count=0;
+			while ((sCurrentLine = br.readLine()) != null) {
+				tmp+=sCurrentLine+ System.getProperty("line.separator");
+				textArea_1.setText(tmp);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null)
+					br.close();
+				if (fr != null)
+					fr.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+
+
+		}
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	
+	
+}

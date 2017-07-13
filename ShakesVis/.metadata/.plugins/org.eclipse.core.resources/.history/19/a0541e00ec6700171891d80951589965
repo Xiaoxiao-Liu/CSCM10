@@ -1,0 +1,21 @@
+package gui;
+
+import javax.swing.JPanel;
+import javax.swing.JList;
+
+public class VersionSelection extends JPanel {
+	private static final String[] versionNames={"Base Text", "Gundolf"};
+
+	/**
+	 * Create the panel.
+	 */
+	public VersionSelection() {
+		setLayout(null);
+		
+		JList list = new JList();
+		list.setBounds(40, 41, 126, 109);
+		add(list);
+
+	}
+
+}

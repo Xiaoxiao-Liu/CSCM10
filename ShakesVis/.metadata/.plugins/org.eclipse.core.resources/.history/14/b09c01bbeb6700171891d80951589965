@@ -1,0 +1,20 @@
+package gui;
+
+import javax.swing.JPanel;
+import javax.swing.JList;
+
+public class VersionSelection extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public VersionSelection() {
+		setLayout(null);
+		
+		JList list = new JList();
+		list.setBounds(40, 41, 126, 109);
+		add(list);
+
+	}
+
+}
