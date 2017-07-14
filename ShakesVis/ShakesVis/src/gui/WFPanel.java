@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.JList;
+import javax.swing.JLabel;
 
 public class WFPanel extends JPanel {
 	private String filePathBase;
@@ -22,12 +23,17 @@ public class WFPanel extends JPanel {
 	 */
 	public WFPanel(String string, int j) {
 		setLayout(null);
+		
+		
 		filePathBase=string;
 		yCoordinate=j;
 	}
 	
 	public void paintComponent(Graphics g){
-		int xCoordinate=yCoordinate*5+30;
+		DrawPanel();
+		
+		
+		int xCoordinate=yCoordinate*2+30;
 		int tmp=yCoordinate;
 		super.paintComponent(g);
 //		this.setBackground(Color.GRAY);
@@ -36,12 +42,13 @@ public class WFPanel extends JPanel {
 		List<Map.Entry<String, Integer>> list =dp.sortHash();
 		String str=null;
 		int barWidth=0;
+		
+		
 		FontMetrics fontMetrics = g.getFontMetrics();
 		for (Map.Entry<String, Integer> mapping : list){
-			
 			str=mapping.getKey()+" "+mapping.getValue()+" ";
 //			g.setFont("Serif");
-			g.setFont(new Font("Serif", Font.PLAIN, 14));
+//			g.setFont(new Font("Serif", Font.PLAIN, 14));
 			
 			g.drawString(str, xCoordinate-fontMetrics.stringWidth(str), yCoordinate);
 			barWidth=mapping.getValue()*20;
@@ -53,5 +60,18 @@ public class WFPanel extends JPanel {
 //		xCoordinate=tmp*5;
 		yCoordinate=tmp;
 //		System.out.println(yCoordinate);
+	}
+	
+	
+	public void DrawPanel(){
+		
+		String[] str2 = filePathBase.split("\\\\");
+		
+		System.out.println(str2[2]);
+//		System.out.println(str2[str2.length-1]);
+		
+		JLabel lblNewLabel = new JLabel(str2[2]);
+		lblNewLabel.setBounds(76, 0, 150, 31);
+		add(lblNewLabel);
 	}
 }

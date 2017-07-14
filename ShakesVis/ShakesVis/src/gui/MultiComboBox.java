@@ -38,6 +38,11 @@ public class MultiComboBox extends JComponent {
     private String valueSperator;  
       
     private static final String DEFAULT_VALUE_SPERATOR = ",";   
+    
+    
+    String str;
+    String tmp;
+    String xyz;
   
     public MultiComboBox(Object[] value, Object[] defaultValue){  
         this(value,defaultValue,DEFAULT_VALUE_SPERATOR);  
@@ -47,10 +52,10 @@ public class MultiComboBox extends JComponent {
         values = value;  
         defaultValues = defaultValue;  
         this.valueSperator = valueSperator;  
-        initComponent();  
+//        initComponent();  
     }  
   
-    private void initComponent() {  
+    public void initComponent() {  
         //Layout 
         this.setLayout(new FlowLayout());  
         popup =new  MultiPopup(values,defaultValues);  
@@ -65,12 +70,10 @@ public class MultiComboBox extends JComponent {
         arrowButton.addMouseListener(new EditorHandler());  
         add(editor);  
         add(arrowButton);  
-        setText() ;  
-          
-          
+        setText() ;
     }  
   
-    public Object[] getSelectedValues() {  
+    public Object[] getSelectedValues() {
         return popup.getSelectedValues();  
     }  
       
@@ -90,7 +93,7 @@ public class MultiComboBox extends JComponent {
         }  
     }  
       
-    private class PopupAction implements ActionListener{  
+    public class PopupAction implements ActionListener{  
   
         public void actionPerformed(ActionEvent e) {  
               
@@ -98,7 +101,10 @@ public class MultiComboBox extends JComponent {
                   
             }else if(e.getActionCommand().equals(MultiPopup.COMMIT_EVENT)){  
                 defaultValues = popup.getSelectedValues();  
-                setText();  
+//                setText();  
+                setText();
+//                xyz=setText();
+               
                 //把事件继续传递出去  
                 fireActionPerformed(e);  
             }  
@@ -106,9 +112,13 @@ public class MultiComboBox extends JComponent {
             togglePopup();  
               
               
-        }  
+        }
+        
+        
   
-    }  
+    } 
+    
+   
       
     private void togglePopup(){  
         if(popup.isVisible()){  
@@ -119,7 +129,8 @@ public class MultiComboBox extends JComponent {
         }  
     }  
       
-    private void setText() {  
+    public String setText() {
+    	
         StringBuilder builder = new StringBuilder();  
         for(Object dv : defaultValues){  
             builder.append(dv);  
@@ -128,8 +139,20 @@ public class MultiComboBox extends JComponent {
         }  
           
         editor.setText(builder.substring(0, builder.length() > 0 ? builder.length() -1  : 0).toString());  
+        xyz=editor.getText();
+        System.out.println(xyz+"setText");
+        
+        return xyz;
        
-    }  
+    }
+    
+    public String getString(){
+    	
+    	System.out.println(xyz+"getString");
+    	return xyz;
+    }
+    
+    
       
     private class EditorHandler implements MouseListener{  
   
