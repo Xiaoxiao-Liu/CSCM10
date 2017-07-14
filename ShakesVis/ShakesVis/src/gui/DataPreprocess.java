@@ -36,9 +36,12 @@ public class DataPreprocess{
 			BufferedReader br= new BufferedReader(new FileReader(filePath));
 			String sCurrentLine;
 			String[] words=null;
+			int count = 0;
 			while((sCurrentLine=br.readLine())!=null){			
 				if(sCurrentLine.trim().isEmpty()){					
 				}
+				else if (count==0)
+					count++;
 				else{
 					words=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
 					for(int i=0; i<words.length; i++){
@@ -73,7 +76,7 @@ public class DataPreprocess{
          Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
              //decending order  
              public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {               	                    
-             	//ascending order锛�
+             	//ascending order
 //            	 return o1.getValue().compareTo(o2.getValue());  
                  return o2.getValue().compareTo(o1.getValue());  
              }				
