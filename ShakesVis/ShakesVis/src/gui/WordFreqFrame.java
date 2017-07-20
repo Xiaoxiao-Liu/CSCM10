@@ -1,23 +1,32 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JLayer;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.SwingUtilities;
+import javax.swing.plaf.LayerUI;
 
 public class WordFreqFrame extends JFrame {
 
 	private JScrollPane scrollPanel;
 	private JPanel jPanel_1;
 	private JPanel jPanel_2;
+	 JComponent c;
 	
-//	public Object[] defaultValues;  
-	 private MultiPopup popup; 
-//	 private Object[] values; 
 
 	/**
 	 * Launch the application.
@@ -26,8 +35,9 @@ public class WordFreqFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					
 					WordFreqFrame frame = new WordFreqFrame();
-					frame.setSize(800, 800);
+					frame.setSize(800, 800);			
 					
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,66 +47,63 @@ public class WordFreqFrame extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */
 	public WordFreqFrame() {
-		
-		int v;
-		v=setValue();
-		WFPanel wfPanel=new WFPanel("D:\\dataProcess\\SHAKESPEAREbaseText.txt",v);
-		WFPanel gundolf=new WFPanel("D:\\dataProcess\\Iiii 011 gundolf.txt",v);
-		WFPanel Schroeder=new WFPanel("D:\\dataProcess\\Iiii 014 Schroeder.txt",v);
-		WFPanel Flatter=new WFPanel("D:\\dataProcess\\Iiii 016 Flatter.txt",v);
-		WFPanel Fried=new WFPanel("D:\\dataProcess\\Iiii 018 Fried.txt",v);
-		
+		int xCoordinate=10;
+		int panelWidth=210;
+		int panelHeight=700;
+		WordFreqPanel ShakespearePanel=new WordFreqPanel("src\\data\\BaseText Shakespeare.txt");
+		WordFreqPanel baudissinEdWenigPanel=new WordFreqPanel("src\\data\\1832 Baudissin ed Wenig.txt");
+		WordFreqPanel gundolfPanel=new WordFreqPanel("src\\data\\1920 Gundolf.txt");
+		WordFreqPanel schwarzPanel=new WordFreqPanel("src\\data\\1941 Schwarz.txt");
+		WordFreqPanel baudissinEdBrunnerPanel=new WordFreqPanel("src\\data\\1947 Baudissin ed Brunner.txt");
+		WordFreqPanel flatterPanel=new WordFreqPanel("src\\data\\1952 Flatter.txt");
+		WordFreqPanel schroederPanel=new WordFreqPanel("src\\data\\1962 Schroeder.txt");
+		WordFreqPanel rothePanel=new WordFreqPanel("src\\data\\1963 Rothe.txt");
+		WordFreqPanel friedPanel=new WordFreqPanel("src\\data\\1970 Fried.txt");
+		WordFreqPanel lauterbachPanel=new WordFreqPanel("src\\data\\1973 Lauterbach.txt");
+		WordFreqPanel englerPanel=new WordFreqPanel("src\\data\\1976 Engler.txt");
+		WordFreqPanel laubePanel=new WordFreqPanel("src\\data\\1978 Laube.txt");
+		WordFreqPanel bolteHamblockPanel=new WordFreqPanel("src\\data\\1985 Bolte Hamblock.txt");
+		WordFreqPanel motschachPanel=new WordFreqPanel("src\\data\\1992 Motschach.txt");
+		WordFreqPanel guentherPanel=new WordFreqPanel("src\\data\\1995 Guenther.txt");
+		WordFreqPanel zaimogluPanel=new WordFreqPanel("src\\data\\2003 Zaimoglu.txt");
 		jPanel_2=new JPanel();
-		jPanel_2.setPreferredSize(new Dimension(1200, 800));
+		jPanel_2.setPreferredSize(new Dimension(3400, 800));
 		jPanel_2.setLayout(null);
-		jPanel_2.add(wfPanel);
-		jPanel_2.add(gundolf);
-		jPanel_2.add(Schroeder);
-		jPanel_2.add(Flatter);
-		jPanel_2.add(Fried);
 		
 		
+		List<WordFreqPanel> wordFreqPanelList=new ArrayList<WordFreqPanel>();
+		wordFreqPanelList.add(ShakespearePanel);
+		wordFreqPanelList.add(baudissinEdWenigPanel);
+		wordFreqPanelList.add(gundolfPanel);
+		wordFreqPanelList.add(schwarzPanel);
+		wordFreqPanelList.add(baudissinEdBrunnerPanel);
+		wordFreqPanelList.add(flatterPanel);
+		wordFreqPanelList.add(schroederPanel);
+		wordFreqPanelList.add(rothePanel);
+		wordFreqPanelList.add(friedPanel);
+		wordFreqPanelList.add(lauterbachPanel);
+		wordFreqPanelList.add(englerPanel);
+		wordFreqPanelList.add(laubePanel);
+		wordFreqPanelList.add(bolteHamblockPanel);
+		wordFreqPanelList.add(motschachPanel);
+		wordFreqPanelList.add(guentherPanel);
+		wordFreqPanelList.add(zaimogluPanel);
 		
-		
-		scrollPanel=new JScrollPane(jPanel_2);//add a parent panel (pp) which holds 5 WFPanels
+		scrollPanel=new JScrollPane(jPanel_2);//add a parent panel (pp) which holds 16 WFPanels
 		scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPanel.setPreferredSize(new Dimension(700, 600));
+		scrollPanel.setPreferredSize(new Dimension(700, 500));
 		
-//		Fried.setPreferredSize(new Dimension(1000, 200));//set PP's size via setPreferredSize
+		for(int i=0;i<wordFreqPanelList.size();i++){
+			jPanel_2.add(wordFreqPanelList.get(i));
+			wordFreqPanelList.get(i).setBounds(i*panelWidth,0,panelWidth,panelHeight);
+			wordFreqPanelList.get(i).setVisible(true);
+		}
 		
-		
-//		setBounds(100, 100, 150, 800);
-//		jPanel_1 = new JPanel();
-//		jPanel_1.setBorder(BorderFactory.createLineBorder(Color.black));
-//		jPanel_1.setBorder(new EmptyBorder(5, 5, 5, 5));
-		
-//		jPanel_1.setLayout(null);
-//		getContentPane().setLayout(null);
-		
-//		getContentPane().add(wfPanel);
-//		getContentPane().add(gundolf);
-//		getContentPane().add(Schroeder);
-//		getContentPane().add(Flatter);
-//		getContentPane().add(Fried);
-//		wfPanel.setSize(200, 700);
-		wfPanel.setBounds(10, 0, 210, 700);
-		gundolf.setBounds(260, 0, 210, 700);
-		Schroeder.setBounds(510, 0, 210, 700);
-		Flatter.setBounds(710, 0, 210, 700);
-		Fried.setBounds(910, 0, 210, 700);
-		
-		wfPanel.setVisible(true);
-		gundolf.setVisible(true);
-		Schroeder.setVisible(true);
-		Flatter.setVisible(true);
-		Fried.setVisible(true);
-
 		scrollPanel.setLayout(new ScrollPaneLayout());
 		
 		jPanel_1= new JPanel();
@@ -104,25 +111,36 @@ public class WordFreqFrame extends JFrame {
 		
 				
 		setContentPane(jPanel_1);//add JJ to the parent Frame 
-//		
-//		JLabel label3 = new JLabel("Media Outlets:");  
-//		Object[] value = new String[]{ "Selected All","Base Text" , "Gundolf"};    
-//		Object[] defaultValue = new String[]{ "Selected All" };   
-//		popup =new  MultiPopup(value,defaultValue);  
-//		defaultValue = popup.getSelectedValues();
-//		MultiComboBox mulit = new MultiComboBox(value, defaultValue); 
-//		getContentPane().add(mulit);
-//		mulit.setBounds(510, 10, 300, 200);
-//		mulit.setVisible(true);
-	}
-	
-	public void initialFrame(){
+		
+		
+		
+		 JComponent comp = Box.createVerticalBox();
+		    final JComponent upper = new JPanel();
+		    final JButton upperChild = new JButton("happy in upper");
+		    upper.add(upperChild);
+		    final JComponent lower = new JPanel();
+		    final JButton lowerChild = new JButton("unhappy in lower");
+		    lower.add(lowerChild);
+		    comp.add(upper);
+		    comp.add(lower);
+		    LayerUI<JComponent> ui = new LayerUI<JComponent>() {
+
+		        @Override
+		        public void paint(Graphics g, JComponent c) {
+		            super.paint(g, c);
+		            Rectangle u = SwingUtilities.convertRectangle(upper, upperChild.getBounds(), c);
+		            Rectangle l = SwingUtilities.convertRectangle(lower, lowerChild.getBounds(), c);
+
+		            g.setColor(Color.RED);
+		            g.drawLine(u.x, u.y + u.height, l.x, l.y);
+		        }
+
+		    };
+		    JLayer<JComponent> layer = new JLayer<JComponent>(comp, ui);
+		    jPanel_1.add(layer);
 		
 		
 	}
 	
-	public int setValue(){
-		int value=30;
-		return value;
-	}
+	
 }

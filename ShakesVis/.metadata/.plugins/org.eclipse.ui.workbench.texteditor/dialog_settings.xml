@@ -2,29 +2,34 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Fried" key="selection"/>
+		<item value="Point" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="point"/>
+			<item value=",v"/>
 			<item value="Fried"/>
+			<item value="Flatter"/>
+			<item value="Schroeder"/>
+			<item value="D:\\dataProcess\\"/>
+			<item value="WordFreqProcess"/>
 			<item value="listener"/>
-			<item value="listen"/>
-			<item value="size"/>
-			<item value="drawArea"/>
-			<item value="Grap"/>
-			<item value="layout"/>
-			<item value="DataPreprocess"/>
 		</list>
 		<list key="replacehistory">
+			<item value=""/>
+			<item value="fried"/>
+			<item value="flatter"/>
+			<item value="schroeder"/>
+			<item value="src\\data\\"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="300" key="DIALOG_WIDTH"/>
 		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
 		<item value="410" key="DIALOG_HEIGHT"/>
-		<item value="444" key="DIALOG_X_ORIGIN"/>
-		<item value="112" key="DIALOG_Y_ORIGIN"/>
+		<item value="844" key="DIALOG_X_ORIGIN"/>
+		<item value="117" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

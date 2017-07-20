@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.Hashtable;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,6 +16,12 @@ public class VersionSelection extends JPanel {
 		Object[] defaultValue = new String[]{ "Selected All" };   
 		  
 		MultiComboBox mulit = new MultiComboBox(value, defaultValue);  
+		
+		Hashtable<String, Integer> baicai=new Hashtable<String, Integer>();
+		
+		WordFreqProcess wp= new WordFreqProcess();
+		wp.setFilePath("dsfsjdfhs");
+		wp.setStoreWords(baicai);
 
 	}
 

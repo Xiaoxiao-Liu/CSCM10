@@ -1,4 +1,4 @@
-
+package gui;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,53 +6,67 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.opencsv.CSVWriter;
 
-public class DataPreprocess{
-	Hashtable<String, Integer> storeWords=new Hashtable<String, Integer>();
-	static String filePath="D:\\dataProcess\\SHAKESPEAREbaseText.txt";
-	File file=new File(filePath);
-	int count=0;
-	public static void main(String[] args){
-		
-		DataPreprocess dp=new DataPreprocess();
-		dp.readFile(filePath);
-		dp.sortHash();
+public class WordFreqProcess{
+	Hashtable<String, Integer> storeWords;
+
+
+	public Hashtable<String, Integer> getStoreWords() {
+		return storeWords;
 	}
+
+	public void setStoreWords(Hashtable<String, Integer> storeWords) {
+		this.storeWords = storeWords;
+	}
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+	String filePath;
+	
+	
+//	public static void main(String[] args){
+//		WordFreqProcess dp=new WordFreqProcess();
+//		dp.readFile(filePath);
+//		dp.sortHash();
+//	}
 	//Read file
 	public void readFile(String filePath){
-		
 		try {
 			BufferedReader br= new BufferedReader(new FileReader(filePath));
 			String sCurrentLine;
-			String[] words=null;
-			int count = 0;
+			String[] tmpWordsArray=null;
+			int lineCount = 0;
 			while((sCurrentLine=br.readLine())!=null){			
 				if(sCurrentLine.trim().isEmpty()){					
 				}
-				else if (count==0)
-					count++;
+				else if (lineCount==0)
+					lineCount++;
 				else{
-					words=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
-					for(int i=0; i<words.length; i++){
-			    		if(count<50){
-			    			if(!storeWords.containsKey(words[i])){
-								storeWords.put(words[i], new Integer(1));
-								count=storeWords.size();
+					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
+					for(int i=0; i<tmpWordsArray.length; i++){
+						//Count top 50 words
+			    		if(lineCount<50){
+			    			if(!storeWords.containsKey(tmpWordsArray[i])){
+								storeWords.put(tmpWordsArray[i], new Integer(1));
+								lineCount=storeWords.size();
 							}
 							else{
-								storeWords.put(words[i], storeWords.get(words[i]).intValue()+1);
-								count=storeWords.size();
+								storeWords.put(tmpWordsArray[i], storeWords.get(tmpWordsArray[i]).intValue()+1);
+								lineCount=storeWords.size();
 							}
 			    		}else{
 			    			
@@ -82,7 +96,7 @@ public class DataPreprocess{
              }				
          });  
 //         System.out.println(list);
-         String csv="D:\\dataProcess\\baseTextOccurance.csv";
+         String csv="src\\data\\baseTextOccurance.csv";
     	 List<String[]> stringList=new ArrayList<String[]>();
     	 
          for (Map.Entry<String, Integer> mapping : list) {  
