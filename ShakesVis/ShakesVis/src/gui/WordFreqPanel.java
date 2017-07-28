@@ -16,31 +16,25 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class WordFreqPanel extends JPanel {
-	private String filePathBase;
-	private int yCoordinate;
-	 List<Map.Entry<String, Integer>> list;
-	public List<Point> barLocation = new ArrayList<Point>();
-	 JComponent c;
-	 JButton barButton;
-		public List<JButton> buttonList = new ArrayList<JButton>();
-
-//	JLabel lblNewLabel = new JLabel(fileName);
+	
 	/**
-	 * Create the panel.
-	 * @param c2 
+	 * This method is inherited from JComponent.
+	 * Render various rectangles and strings
+	 * @param graphics - generic graphics object
 	 */
 	public WordFreqPanel(String string) {
-		setLayout(null);
 		filePathBase=string;
-		yCoordinate=30;
 		paintEverything();
 	}
 	
 	
 
 	public void paintEverything(){
+		this.setLayout(null);
 
-		
+
+		this.setBackground(Color.WHITE);
+
 		DrawPanel();
 		int xCoordinate=yCoordinate*2+30;
 		int tmp=yCoordinate;
@@ -108,6 +102,13 @@ public class WordFreqPanel extends JPanel {
 		add(lblNewLabel);
 	}
 	
-	
+
+	private String filePathBase;
+	private int yCoordinate=30;
+	 List<Map.Entry<String, Integer>> list;
+	public List<Point> barLocation = new ArrayList<Point>();
+	 JComponent c;
+	 JButton barButton;
+		public List<JButton> buttonList = new ArrayList<JButton>();
 	 
 }

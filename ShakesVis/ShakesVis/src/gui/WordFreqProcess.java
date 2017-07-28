@@ -38,6 +38,9 @@ public class WordFreqProcess{
 	String filePath;
 	
 	
+	
+	
+	
 //	public static void main(String[] args){
 //		WordFreqProcess dp=new WordFreqProcess();
 //		dp.readFile(filePath);

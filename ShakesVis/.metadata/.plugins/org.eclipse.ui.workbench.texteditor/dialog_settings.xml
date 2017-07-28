@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="System.out" key="selection"/>
+		<item value="IncrementPointCount" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="IncrementPointCount"/>
+			<item value="GetPointCount"/>
+			<item value="package gui;"/>
 			<item value="System.out"/>
 			<item value="point"/>
 			<item value=",v"/>
 			<item value="Fried"/>
 			<item value="Flatter"/>
-			<item value="Schroeder"/>
-			<item value="D:\\dataProcess\\"/>
-			<item value="WordFreqProcess"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

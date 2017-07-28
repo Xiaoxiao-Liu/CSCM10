@@ -8,6 +8,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -26,8 +28,8 @@ public class WordFreqFrame extends JFrame {
 	private JScrollPane scrollPanel;
 	private JPanel jPanel_1;
 	private JPanel jPanel_2;
-	 JComponent c;
-	
+	JComponent c;
+
 
 	/**
 	 * Launch the application.
@@ -36,10 +38,10 @@ public class WordFreqFrame extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 					WordFreqFrame frame = new WordFreqFrame();
 					frame.setSize(800, 800);			
-					
+					frame.setBackground( Color.WHITE );
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				} catch (Exception e) {
@@ -55,11 +57,12 @@ public class WordFreqFrame extends JFrame {
 		int xCoordinate=10;
 		int panelWidth=210;
 		int panelHeight=700;
+		this.setBackground(Color.WHITE);
 		WordFreqPanel ShakespearePanel=new WordFreqPanel("src\\data\\BaseText Shakespeare.txt");
 		ShakespearePanel.DrawPanel();
 		List<Point> barLocation = ShakespearePanel.barLocation;
 		List<JButton> buttonList=ShakespearePanel.buttonList;
-		
+
 		buttonList.get(0);
 		barLocation.get(0);
 		WordFreqPanel baudissinEdWenigPanel=new WordFreqPanel("src\\data\\1832 Baudissin ed Wenig.txt");
@@ -80,8 +83,12 @@ public class WordFreqFrame extends JFrame {
 		jPanel_2=new JPanel();
 		jPanel_2.setPreferredSize(new Dimension(3400, 800));
 		jPanel_2.setLayout(null);
-		
-		
+		jPanel_2.setBackground( Color.WHITE );
+
+
+
+
+
 		List<WordFreqPanel> wordFreqPanelList=new ArrayList<WordFreqPanel>();
 		wordFreqPanelList.add(ShakespearePanel);
 		wordFreqPanelList.add(baudissinEdWenigPanel);
@@ -99,79 +106,106 @@ public class WordFreqFrame extends JFrame {
 		wordFreqPanelList.add(motschachPanel);
 		wordFreqPanelList.add(guentherPanel);
 		wordFreqPanelList.add(zaimogluPanel);
-		
+
 		scrollPanel=new JScrollPane(jPanel_2);//add a parent panel (pp) which holds 16 WFPanels
 		scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPanel.setPreferredSize(new Dimension(700, 500));
-//		System.out.println( scrollPanel.isShowing());
+		//		System.out.println( scrollPanel.isShowing());
 
-//		for(int i=0;i<wordFreqPanelList.size();i++){
-//			jPanel_2.add(wordFreqPanelList.get(i));
-//			wordFreqPanelList.get(i).setBounds(i*panelWidth,0,panelWidth,panelHeight);
-//			wordFreqPanelList.get(i).setVisible(true);
-//		}
-		
+		//		for(int i=0;i<wordFreqPanelList.size();i++){
+		//			jPanel_2.add(wordFreqPanelList.get(i));
+		//			wordFreqPanelList.get(i).setBounds(i*panelWidth,0,panelWidth,panelHeight);
+		//			wordFreqPanelList.get(i).setVisible(true);
+		//		}
+
 		scrollPanel.setLayout(new ScrollPaneLayout());
-		
+
 		jPanel_1= new JPanel();
 		jPanel_1.add(scrollPanel);//add the scrollPanel to a JPanel(JJ)
-		
-				
+		jPanel_1.setBackground( Color.WHITE );
+
+
+
 		setContentPane(jPanel_1);//add JJ to the parent Frame 
 		JComponent comp = Box.createHorizontalBox();
-//		comp.setLayout(null);
-//				
-		 
-				 
-//		 scrollPanel_1.add(comp);
-//		 comp.setPreferredSize(new Dimension(200, 100));
-		   
-		for(int i=0;i<wordFreqPanelList.size()-1;i++){
-			
-			WordFreqPanel upper = wordFreqPanelList.get(i);
-//		    upper.setPreferredSize(new Dimension(200, 200));
-		    upper.setBounds(0, 0, 400, 100);
-		     JButton upperChild = new JButton("happy in upper");
-		    upper.add(upperChild);
-		    WordFreqPanel lower = wordFreqPanelList.get(i+1);
-//		    lower.setPreferredSize(new Dimension(200, 200));
+		//		comp.setLayout(null);
+		//				
 
-		    lower.setBounds(100, 300, 200, 200);
-		     JButton lowerChild = new JButton("unhappy in lower");
-		    lower.add(lowerChild);
 
-		    comp.add(upper);
-//		    comp.add(lower);
-		    LayerUI<JComponent> ui = new LayerUI<JComponent>() {   	
+		//		 scrollPanel_1.add(comp);
+		//		 comp.setPreferredSize(new Dimension(200, 100));
 
-		        @Override
-		        public void paint(Graphics g, JComponent c) {
-		        	
-		        	
-		            super.paint(g, c);
-		            Rectangle u = SwingUtilities.convertRectangle(upper, upper.buttonList.get(0).getBounds(), c);
-		            int tmp_3=u.x;
-		            int tmp_4=u.y ;
-		            Rectangle l = SwingUtilities.convertRectangle(lower, lower.buttonList.get(0).getBounds(), c);
-		            int tmp_1=l.x;
-		            int tmp_2=l.y;
-		            g.setColor(Color.RED);
-		            g.drawLine(u.x, u.y + u.height, l.x, l.y);
-		            l.x=tmp_1;
-		           l.y=tmp_2;
-		          u.x=tmp_3;
-		            u.y = tmp_4;
-		        }
+		for(int k=0;k<wordFreqPanelList.size()-1;k++){
 
-		    };
-		    JLayer<JComponent> layer = new JLayer<JComponent>(comp, ui);
-		    layer.setBounds(30, 0, 3500, 950); //Notice width!!!!
-		    jPanel_2.add(layer);
-//		    jPanel_1.add(layer);
-		
+			WordFreqPanel upper = wordFreqPanelList.get(k);
+			//		    upper.setPreferredSize(new Dimension(200, 200));
+			upper.setBounds(0, 0, 400, 100);
+			JButton upperChild = new JButton("happy in upper");
+			upper.add(upperChild);
+			WordFreqPanel lower = wordFreqPanelList.get(k+1);
+			//		    lower.setPreferredSize(new Dimension(200, 200));
+
+			lower.setBounds(100, 300, 200, 200);
+			JButton lowerChild = new JButton("unhappy in lower");
+			lower.add(lowerChild);
+
+			comp.add(upper);
+			//		    comp.add(lower);
+			LayerUI<JComponent> ui = new LayerUI<JComponent>() {   	
+
+
+				@Override
+				public void paint(Graphics g, JComponent c) {
+					super.paint(g, c);
+					for(int i=0; i<gundolfPanel.list.size(); i++){
+
+						Map.Entry<String, Integer> mapping_1 =upper.list.get(i);
+						for(int j=0; j<baudissinEdWenigPanel.list.size();j++){
+							Map.Entry<String, Integer> mapping_2 =lower.list.get(j);
+
+							int upointX=0;
+							int upointY=0;
+							int lpointX=0;
+							int lpointY=0;
+							int count1=upointX;
+							int count2=upointY;
+							int count3=lpointX;
+							int count4=lpointY;
+							if(mapping_1.getKey().equals(mapping_2.getKey())){
+								Rectangle u = SwingUtilities.convertRectangle(upper, upper.buttonList.get(i).getBounds(), c);
+								upointX=u.x+u.width;
+								upointY=u.y+u.height/2;
+								Rectangle l = SwingUtilities.convertRectangle(lower, lower.buttonList.get(j).getBounds(), c);
+								lpointX=l.x;
+								lpointY=l.y+l.height/2;
+								final Random r=new Random();
+								Color color=new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256),r.nextInt(256));
+
+								g.setColor(color);
+								g.drawLine(upointX, upointY, lpointX, lpointY);
+							}else{
+								
+							}
+							upointX=count1;
+							upointY=count2;
+							lpointX=count3;
+							lpointY=count4;
+							
+							
+						}
+					}
+
+				}
+
+			};
+			JLayer<JComponent> layer = new JLayer<JComponent>(comp, ui);
+			layer.setBounds(30, 0, 3500, 950); //Notice width!!!!
+			jPanel_2.add(layer);
+			//		    jPanel_1.add(layer);
+
 		}
 	}
-	
-	
+
+
 }
