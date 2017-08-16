@@ -20,9 +20,10 @@ public class VersionSelection extends JPanel {
 		Hashtable<String, Integer> baicai=new Hashtable<String, Integer>();
 		
 		WordFreqProcess wp= new WordFreqProcess();
-		wp.setFilePath("dsfsjdfhs");
-		wp.setStoreWords(baicai);
-
+		//wp.setFilePath("dsfsjdfhs");
+		//wp.setStoreWords(baicai);
+//??? where are those methods?
+		
 	}
 
 }

@@ -1,6 +1,5 @@
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.util.List;
 import java.util.Map;
 

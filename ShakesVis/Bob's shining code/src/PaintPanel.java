@@ -1,5 +1,3 @@
-package sourcePackage;
-
 /**
  * @file    -PaintPanel.java
  * @author  -P.J. Deitel, H.M. Deitel and R.S. Laramee
@@ -11,6 +9,7 @@ package sourcePackage;
  *
  */
 
+import java.awt.BorderLayout;
 import java.awt.Point;             /* for x,y Point object */
 import java.awt.Graphics;          /* for drawing          */
 import java.awt.event.MouseEvent;  /* for mouse input      */
@@ -18,6 +17,7 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 import javax.swing.JFrame;        /* for JFrame PaintPanel constructor */
+import javax.swing.JLabel;
 
 /**
  * The PaintPanel class is rather simple.  It simply stores points
@@ -31,12 +31,10 @@ public class PaintPanel extends JPanel {
    public int GetPointCount() {
       return m_PointCount;
    }
-   
    /**
     * @return TRUE on success
-    * 
     */
-   public boolean IncrementPointCount() {
+   public boolean IncrementPointCount() {//returns boolean, not void 
       m_PointCount++;
       return true;
    }
@@ -49,7 +47,7 @@ public class PaintPanel extends JPanel {
    /**
     * @return TRUE on success
     */
-   public boolean SetPoint(Point point) {
+   public boolean SetPoint(Point point) {//returns boolean, not void 
       boolean test = false;
       if (test) {
           System.out.println("PaintPanel::SetPoint() - " + m_PointCount + ", " + point.toString());
@@ -57,12 +55,38 @@ public class PaintPanel extends JPanel {
       m_Points[ GetPointCount() ] = point;
       return true;
    }
+
+   /**
+    * @return the current sample data
+    */
+   public String GetSampleData() {
+      return m_SampleData;
+   }
+   /**
+    * An accessor method demonstrating passing data to this
+    * PaintPanel object
+    * @return TRUE on success
+    */
+   public boolean SetSampleData(String newSampleData) {
+      m_SampleData = newSampleData;
+      return true;
+   }
+   /**
+    * We can use accessor methods to access this object from
+    * the Painter object.
+    * @return TRUE on success
+    */
+   public boolean PassData(String newSampleData) {
+       this.SetSampleData(newSampleData);
+       System.out.println("PaintPanel::Hello() " + this.GetSampleData());
+       return true;      
+   }
+
    /**
     * Constructor:
     * set up GUI and register mouse event handler
     */
    public PaintPanel() {
-
        boolean test = false;
        if (test) {
            System.out.println("PaintPanel::constructor() ");
@@ -75,9 +99,10 @@ public class PaintPanel extends JPanel {
       PaintHandler handler = new PaintHandler();
       this.addMouseListener( handler );
       this.addMouseMotionListener( handler );
+      /** add setHandler(handler) method. **/
 
    } /* end PaintPanel constructor         */
-
+        
    /**
     * Draw an oval in a OVAL_WIDTH-by-OVAL_HEIGHT bounding box
     * at specified location on window.  This method is called
@@ -90,9 +115,11 @@ public class PaintPanel extends JPanel {
            System.out.println("PaintPanel::paintComponent() " + graphics.toString());
        }
 
-       /** clears drawing area */
+       /** clsisears drawing area */
        super.paintComponent( graphics );
 
+     
+       
       /** draw all points in array */
       for ( int i = 0; i < this.GetPointCount(); i++ ) {
 
@@ -138,7 +165,7 @@ public class PaintPanel extends JPanel {
        */
       public void mouseMoved(MouseEvent event) {
 
-         boolean test = false;
+         boolean test = true;
          if (test) {
            System.out.println("PaintHandler::mouseMoved() " + event.toString());
          }
@@ -201,6 +228,7 @@ public class PaintPanel extends JPanel {
 
    }    /* end private inner class PaintHandler */
 
+
       /** the width of the drawing area */
    public final static int FRAME_WIDTH = 500;
 
@@ -209,7 +237,11 @@ public class PaintPanel extends JPanel {
 
    /** The maximum number of drawable points. */
    private final int MAX_POINTS = 10000;
-
+// the value of MAX_POINTS is never changed no matter what.
+   //unless in the situation of paintComponent, which no inside variables can be passed out of the method.
+   // that was why I chose to use a global var 'barLocation'.
+   // all clear?
+   // all in all, follow bob and wang's coding convention. Long live Java.
    /** An oval's width */
    private final int OVAL_WIDTH = 4;
 
@@ -222,5 +254,10 @@ public class PaintPanel extends JPanel {
    /** An array of MAX_POINTS java.awt.Point references */
    private Point m_Points[] = new Point[MAX_POINTS];
 
-
+   /** 
+    * This is used demonstrate passing data to the PaintPanelObject.
+    */
+   private String m_SampleData;
+   
 } /** end class PaintPanel */
+

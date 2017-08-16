@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -16,99 +17,65 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 public class WordFreqPanel extends JPanel {
+	private final String[] versionArray;
+	private String filePathBase;
+	private int yCoordinate=30;
+	private int widthBetween=200;
+	private List<Map.Entry<String, Integer>> list;
+	public List<Point> barLocation = new ArrayList<Point>();
+	public List<JButton> buttonList = new ArrayList<JButton>();
 	
 	/**
 	 * This method is inherited from JComponent.
 	 * Render various rectangles and strings
 	 * @param graphics - generic graphics object
 	 */
-	public WordFreqPanel(String string) {
-		filePathBase=string;
-		paintEverything();
+	public WordFreqPanel(String[] stringArray) {
+		versionArray=stringArray;
 	}
 	
-	
-
-	public void paintEverything(){
+	public void paintComponent(Graphics g){
 		this.setLayout(null);
-
-
 		this.setBackground(Color.WHITE);
-
-		DrawPanel();
-		int xCoordinate=yCoordinate*2+30;
+		super.paintComponent(g);
+		for(int j=0;j<versionArray.length;j++){
+			filePathBase=versionArray[j];
+//		DrawPanel();
+		int xCoordinate=yCoordinate*2+30+(j*widthBetween);
 		int tmp=yCoordinate;
+//		super.paintComponent(g);
 		WordFreqProcess dp =new WordFreqProcess();
-		
 		dp.setFilePath(filePathBase);
 		dp.setStoreWords(new Hashtable<String, Integer>());
 		dp.readFile(filePathBase);
 		list =dp.sortHash();
 		String str=null;
 		int barWidth=0;
-		
-		barLocation=new ArrayList<Point>();
-		FontMetrics fontMetrics;
+		FontMetrics fontMetrics = g.getFontMetrics();
 		for (Map.Entry<String, Integer> mapping : list){
-			
 			str=mapping.getKey()+" "+mapping.getValue()+" ";
-//			g.setFont("Serif");
-//			g.setFont(new Font("Serif", Font.PLAIN, 14));
-			Font myFont = new Font("Serif", Font.BOLD, 12);
-
-			//draw words
-			JLabel wordLabel=new JLabel();
-			wordLabel.setText(str);
-			wordLabel.setFont(myFont);
-			fontMetrics=wordLabel.getFontMetrics(this.getFont());
-			wordLabel.setBounds(xCoordinate-fontMetrics.stringWidth(str), yCoordinate-5, 100, 10);
-			
-			add(wordLabel);
-//			g.drawString(str, xCoordinate-fontMetrics.stringWidth(str), yCoordinate);
+			g.drawString(str, xCoordinate-fontMetrics.stringWidth(str), yCoordinate);
 			barWidth=mapping.getValue()*20;
-			
-			barButton = new JButton("");
-			barButton.setBounds(xCoordinate, yCoordinate-5, barWidth, 10);
-			
-//			g.fillRect(xCoordinate, yCoordinate-5, barWidth, 10);
-			barButton.setVisible(true);
-			barButton.setBackground(Color.DARK_GRAY);
-			add(barButton);
-			buttonList.add(barButton);
-			Point p;
-			p=new Point(xCoordinate, yCoordinate-5);
-			
-//			p=barButton.getLocationOnScreen();
-//			System.out.println(p+"before");
-			SwingUtilities.convertPointToScreen(p, barButton);
-			barLocation.add(p);
-//			Point p=new Point(xCoordinate,yCoordinate-5);
-//			SwingUtilities.convertPointToScreen(p, c);
+			g.fillRect(xCoordinate, yCoordinate-5, barWidth, 10);
 			yCoordinate+=13;
 		}
-//		xCoordinate=tmp*5;
 		yCoordinate=tmp;
+		}
 	}
-	
-	
+
 	public void DrawPanel(){
 		String[] str2 = filePathBase.split("\\\\");
 		String fileName= str2[2];
 		fileName= fileName.substring(0, fileName.length()-4);
-//		System.out.println(fileName);
-//		System.out.println(str2[str2.length-1]);
 		JLabel lblNewLabel = new JLabel(fileName);
 		lblNewLabel.setBounds(76, 0, 150, 31);
 		add(lblNewLabel);
 	}
 	
-
-	private String filePathBase;
-	private int yCoordinate=30;
-	 List<Map.Entry<String, Integer>> list;
-	public List<Point> barLocation = new ArrayList<Point>();
-	 JComponent c;
-	 JButton barButton;
-		public List<JButton> buttonList = new ArrayList<JButton>();
+	public void compareTwoVersions(){
+		Map.Entry<String, Integer> mapping_1;
+	}
+	
+	
 	 
 }

@@ -1,9 +1,7 @@
 package gui;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,39 +11,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.opencsv.CSVWriter;
-
 public class WordFreqProcess{
-	Hashtable<String, Integer> storeWords;
-
+	private Hashtable<String, Integer> m_storeWords;
+	private static String m_filePath;
 
 	public Hashtable<String, Integer> getStoreWords() {
-		return storeWords;
+		return m_storeWords;
 	}
 
 	public void setStoreWords(Hashtable<String, Integer> storeWords) {
-		this.storeWords = storeWords;
+		this.m_storeWords = storeWords;
 	}
 
 	public String getFilePath() {
-		return filePath;
+		return m_filePath;
 	}
 
 	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+		this.m_filePath = filePath;
 	}
-
-	String filePath;
 	
-	
-	
-	
-	
-//	public static void main(String[] args){
-//		WordFreqProcess dp=new WordFreqProcess();
-//		dp.readFile(filePath);
-//		dp.sortHash();
-//	}
 	//Read file
 	public void readFile(String filePath){
 		try {
@@ -56,29 +41,26 @@ public class WordFreqProcess{
 			while((sCurrentLine=br.readLine())!=null){			
 				if(sCurrentLine.trim().isEmpty()){					
 				}
-				else if (lineCount==0)
+				else if(lineCount==0){
 					lineCount++;
+				}
 				else{
 					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
 					for(int i=0; i<tmpWordsArray.length; i++){
-						//Count top 50 words
-			    		if(lineCount<50){
-			    			if(!storeWords.containsKey(tmpWordsArray[i])){
-								storeWords.put(tmpWordsArray[i], new Integer(1));
-								lineCount=storeWords.size();
+						if(lineCount<50){
+			    			if(!m_storeWords.containsKey(tmpWordsArray[i])){
+			    				m_storeWords.put(tmpWordsArray[i], new Integer(1));
+								lineCount=m_storeWords.size();
 							}
 							else{
-								storeWords.put(tmpWordsArray[i], storeWords.get(tmpWordsArray[i]).intValue()+1);
-								lineCount=storeWords.size();
+								m_storeWords.put(tmpWordsArray[i], m_storeWords.get(tmpWordsArray[i]).intValue()+1);
+								lineCount=getStoreWords().size();
 							}
 			    		}else{
-			    			
 			    		}
-			    	}	
+				}
 				}
 			}
-			
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,39 +70,15 @@ public class WordFreqProcess{
 		}	
 	}
 	
+	
 	public List<Map.Entry<String, Integer>> sortHash(){
-		 List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(storeWords.entrySet());  
+		 List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(m_storeWords.entrySet());  
          Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
              //decending order  
              public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {               	                    
-             	//ascending order
-//            	 return o1.getValue().compareTo(o2.getValue());  
                  return o2.getValue().compareTo(o1.getValue());  
              }				
          });  
-//         System.out.println(list);
-         String csv="src\\data\\baseTextOccurance.csv";
-    	 List<String[]> stringList=new ArrayList<String[]>();
-    	 
-         for (Map.Entry<String, Integer> mapping : list) {  
-        	 stringList.add(new String[]{mapping.getKey(),mapping.getValue().toString()});     
-//        	 System.out.println(mapping.getKey());
-         }
-    	 try {
-			CSVWriter writer = new CSVWriter(new FileWriter(csv));
-			writer.writeAll(stringList);
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//         String xyz=list.toString();
-//         System.out.println(xyz);
          return list;
 	}
-	
-	
-	
-	
-
 }

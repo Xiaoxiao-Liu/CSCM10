@@ -16,7 +16,7 @@ import java.util.ListIterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.opencsv.CSVWriter;
+
 
 public class DataPreprocess{
 	Hashtable<String, Integer> storeWords=new Hashtable<String, Integer>();
@@ -27,7 +27,7 @@ public class DataPreprocess{
 		
 		DataPreprocess dp=new DataPreprocess();
 		dp.readFile(filePath);
-		dp.sortHash();
+		System.out.println(dp.sortHash());
 	}
 	//Read file
 	public void readFile(String filePath){
@@ -81,29 +81,8 @@ public class DataPreprocess{
                  return o2.getValue().compareTo(o1.getValue());  
              }				
          });  
-//         System.out.println(list);
-         String csv="D:\\dataProcess\\baseTextOccurance.csv";
-    	 List<String[]> stringList=new ArrayList<String[]>();
-    	 
-         for (Map.Entry<String, Integer> mapping : list) {  
-        	 stringList.add(new String[]{mapping.getKey(),mapping.getValue().toString()});     
-//        	 System.out.println(mapping.getKey());
-         }
-    	 try {
-			CSVWriter writer = new CSVWriter(new FileWriter(csv));
-			writer.writeAll(stringList);
-			writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//         String xyz=list.toString();
-//         System.out.println(xyz);
+      
          return list;
 	}
-	
-	
-	
-	
 
 }
