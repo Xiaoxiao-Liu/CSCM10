@@ -30,6 +30,6 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="com.opencsv.CSVWriter"/>
-<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 <fullyQualifiedTypeName name="java.awt.Graphics"/>
+<fullyQualifiedTypeName name="java.util.Map.Entry"/>
 </qualifiedTypeNameHistroy>

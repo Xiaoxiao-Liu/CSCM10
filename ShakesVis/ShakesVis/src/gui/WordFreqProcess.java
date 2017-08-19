@@ -50,7 +50,7 @@ public class WordFreqProcess{
 						if(lineCount<50){
 			    			if(!m_storeWords.containsKey(tmpWordsArray[i])){
 			    				m_storeWords.put(tmpWordsArray[i], new Integer(1));
-								lineCount=m_storeWords.size();
+								lineCount=getStoreWords().size();
 							}
 							else{
 								m_storeWords.put(tmpWordsArray[i], m_storeWords.get(tmpWordsArray[i]).intValue()+1);
@@ -58,7 +58,7 @@ public class WordFreqProcess{
 							}
 			    		}else{
 			    		}
-				}
+				    }
 				}
 			}
 		} catch (FileNotFoundException e) {
@@ -81,4 +81,6 @@ public class WordFreqProcess{
          });  
          return list;
 	}
+	
+	
 }

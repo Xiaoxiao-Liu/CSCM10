@@ -112,7 +112,7 @@ public class Painter {
        * so we can access the paint panel easily from
        * any method.
        */
-      painter.GetJFrame().add(painter.GetPaintPanel(), BorderLayout.CENTER ); 
+      painter.GetJFrame().add(painter.GetPaintPanel(), BorderLayout.CENTER ); //==m_Frame.add(m_PaintPanel)
 
       /** create a label and place it in SOUTH of BorderLayout */
       painter.GetJFrame().add( new JLabel( "Drag the mouse to draw" ), 
@@ -144,3 +144,6 @@ public class Painter {
    private String m_Data;
 
 }    /* end class Painter */
+
+
+

@@ -24,7 +24,7 @@ public class WordFreqFrame extends JFrame {
 
 	private JScrollPane scrollPanel;
 	private JPanel jPanel_1;
-	private JPanel jPanel_2;
+	private static JPanel jPanel_2;
 	 JComponent c;
 	
 
@@ -42,7 +42,9 @@ public class WordFreqFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public WordFreqFrame() {
+
 		int xCoordinate=10;
 		int panelWidth=210;
 		int panelHeight=700;
@@ -59,9 +61,9 @@ public class WordFreqFrame extends JFrame {
 		
 		scrollPanel.setLayout(new ScrollPaneLayout());
 		jPanel_1= new JPanel();
+		jPanel_1.setBackground(Color.WHITE);
 		jPanel_1.add(scrollPanel);//add the scrollPanel to a JPanel(JJ)
 		setContentPane(jPanel_1);//add JJ to the parent Frame 
-		
 		
 		
 		

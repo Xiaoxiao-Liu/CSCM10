@@ -20,46 +20,64 @@ public class WordFreqPanel extends JPanel {
 	private final String[] versionArray;
 	private String filePathBase;
 	private int yCoordinate=30;
-	private int widthBetween=200;
+	private int xCoordinate=0;
+	private final int widthBetween=200; //distance between two versions
 	private List<Map.Entry<String, Integer>> list;
-	public List<Point> barLocation = new ArrayList<Point>();
-	public List<JButton> buttonList = new ArrayList<JButton>();
+	int barWidth=0;
 	
 	/**
-	 * This method is inherited from JComponent.
-	 * Render various rectangles and strings
-	 * @param graphics - generic graphics object
+	 * Constructor
+	 * @param stringArray
 	 */
 	public WordFreqPanel(String[] stringArray) {
 		versionArray=stringArray;
 	}
 	
+	public int getxCoordinate() {
+		return xCoordinate;
+	}
+	
+	public boolean setxCoordinate(int j){
+		xCoordinate=30*3+(j*widthBetween);
+		return true;
+	}
+	
+	
+	public int getyCoordinate() {
+		return yCoordinate;
+	}
+
+	public boolean resetyCoordinate() {
+		yCoordinate=30;
+		return true;
+	}
+	
+	public boolean setNextLineyCoordinate(){
+		yCoordinate+=13;
+		return true;
+	}
+	
+
 	public void paintComponent(Graphics g){
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		super.paintComponent(g);
 		for(int j=0;j<versionArray.length;j++){
-			filePathBase=versionArray[j];
+		filePathBase=versionArray[j];
 //		DrawPanel();
-		int xCoordinate=yCoordinate*2+30+(j*widthBetween);
-		int tmp=yCoordinate;
-//		super.paintComponent(g);
-		WordFreqProcess dp =new WordFreqProcess();
-		dp.setFilePath(filePathBase);
-		dp.setStoreWords(new Hashtable<String, Integer>());
-		dp.readFile(filePathBase);
-		list =dp.sortHash();
+		readData(filePathBase);
+		setxCoordinate(j);
 		String str=null;
-		int barWidth=0;
+		
 		FontMetrics fontMetrics = g.getFontMetrics();
-		for (Map.Entry<String, Integer> mapping : list){
-			str=mapping.getKey()+" "+mapping.getValue()+" ";
-			g.drawString(str, xCoordinate-fontMetrics.stringWidth(str), yCoordinate);
-			barWidth=mapping.getValue()*20;
-			g.fillRect(xCoordinate, yCoordinate-5, barWidth, 10);
-			yCoordinate+=13;
-		}
-		yCoordinate=tmp;
+			for (Map.Entry<String, Integer> mapping : list){
+				str=mapping.getKey()+" "+mapping.getValue()+" ";
+				g.drawString(str, getxCoordinate()-fontMetrics.stringWidth(str), getyCoordinate());
+				barWidth=mapping.getValue()*20;
+				g.fillRect(getxCoordinate(), getyCoordinate()-5, barWidth, 10);
+				setNextLineyCoordinate();
+			}
+		resetyCoordinate();
 		}
 	}
 
@@ -72,9 +90,15 @@ public class WordFreqPanel extends JPanel {
 		add(lblNewLabel);
 	}
 	
-	public void compareTwoVersions(){
-		Map.Entry<String, Integer> mapping_1;
+	public boolean readData(String filePathBase){
+		WordFreqProcess dp =new WordFreqProcess();
+		dp.setFilePath(filePathBase);
+		dp.setStoreWords(new Hashtable<String, Integer>());
+		dp.readFile(filePathBase);
+		list =dp.sortHash();
+		return true;
 	}
+	
 	
 	
 	 
