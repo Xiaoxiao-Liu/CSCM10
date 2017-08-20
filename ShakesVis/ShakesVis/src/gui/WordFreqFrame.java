@@ -53,6 +53,8 @@ public class WordFreqFrame extends JFrame {
 		ShakespearePanel.setVisible(true);
 		ShakespearePanel.setPreferredSize(new Dimension(3400, 800));
 		ShakespearePanel.setLayout(null);
+		ShakespearePanel.setBackground(Color.WHITE);
+		ShakespearePanel.repaint();
 		
 		scrollPanel=new JScrollPane(ShakespearePanel);//add a parent panel (pp) which holds 16 WFPanels
 		scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -64,9 +66,6 @@ public class WordFreqFrame extends JFrame {
 		jPanel_1.setBackground(Color.WHITE);
 		jPanel_1.add(scrollPanel);//add the scrollPanel to a JPanel(JJ)
 		setContentPane(jPanel_1);//add JJ to the parent Frame 
-		
-		
-		
 		
 	}
 	

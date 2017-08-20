@@ -4,9 +4,13 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -20,6 +24,9 @@ public class WordFreqPanel extends JPanel {
 	private List<Map.Entry<String, Integer>> list;
 	private int barWidth;
 	private String eachWord=null;
+//	public HashMap map=new HashMap();
+//	public List<List> versionList=new ArrayList<List>();
+//	List<Map.Entry<String, Point>> map;
 	/**
 	 * Constructor
 	 * @param stringArray
@@ -88,14 +95,24 @@ public class WordFreqPanel extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g){
+		
+
+		List<List> versionStringList=new ArrayList<List>();
+		List<List> versionPointList=new ArrayList<List>();
+
+
 		Point stringLocation=new Point();//declare a point object
-		this.setLayout(null);
-		this.setBackground(Color.WHITE);
+//		this.setLayout(null);
+//		this.setBackground(Color.WHITE);
 		super.paintComponent(g);
 		String fileName;
 		String[] fileNameSplit;
+		
 		for(int j=0;j<versionArray.length;j++){
+			List<String> stringArray=new ArrayList<String>();
+			List<Point> pointArray=new ArrayList<Point>();
 			fileName=versionArray[j];
+//			System.out.println(fileName);
 //			DrawPanel(fileName);
 			readData(fileName);
 			fileNameSplit=fileName.split("\\\\");
@@ -106,22 +123,55 @@ public class WordFreqPanel extends JPanel {
 			SetVersionxCoordinate(j);
 			resetyCoordinate();
 			FontMetrics fontMetrics = g.getFontMetrics();
+			int w=0;
 				for (Map.Entry<String, Integer> mapping : list){
+					
 					setEachWord(mapping.getKey(), mapping.getValue());
 					
+					stringArray.add(mapping.getKey());
+
 					g.setColor(Color.BLACK);
 					g.drawString(getEachWord(), GetxCoordinate()-fontMetrics.stringWidth(getEachWord()), getyCoordinate());
-					stringLocation.setLocation(GetxCoordinate(), getyCoordinate()); //get the point values
 					
-					System.out.println(stringLocation);
+					stringLocation=new Point(GetxCoordinate(), getyCoordinate());//get the point values
+					pointArray.add(stringLocation);
+//					System.out.println(pointArray);
+//					System.out.println(pointArray);
+
 					setBarWidth(mapping.getValue());
 					setRectYCoordinate();					
-					g.setColor(new Color(35,35,32,70));
+					g.setColor(new Color(35,35,32, 40));//make rectangle transparent
 					g.fillRect(GetxCoordinate(), getyCoordinate(), getbarWidth(), 10);
 					setNextLineYCoordinate();
+					w++;
 				}
+			
+			versionStringList.add(stringArray);	
+			versionPointList.add(pointArray);
+			System.out.println(versionPointList);
 			resetyCoordinate();
 			}
+		System.out.println(versionPointList);
+		
+		for(int i=1; i<versionStringList.size();i++){
+			for(int j=0;j<versionStringList.get(i).size();j++){
+				for(int u=0;u<versionStringList.get(i).size();u++){
+					if(versionStringList.get(i-1).get(j).equals(versionStringList.get(i).get(u))){
+						Point p=(Point)versionPointList.get(i-1).get(j);
+						Point b=(Point)versionPointList.get(i).get(u);
+						final Random r=new Random();
+						Color color=new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256),r.nextInt(256));
+						g.setColor(color);
+						g.drawLine((int)p.getX(), (int)p.getY(), (int)b.getX(), (int)b.getY());
+					}
+					else{
+					}
+				}
+				
+			}
+		}
+		
+		
 	}
 
 	public void DrawPanel(String fileName){

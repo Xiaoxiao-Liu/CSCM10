@@ -70,7 +70,6 @@ public class WordFreqProcess{
 		}	
 	}
 	
-	
 	public List<Map.Entry<String, Integer>> sortHash(){
 		 List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(m_storeWords.entrySet());  
          Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  

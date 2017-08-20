@@ -22,6 +22,7 @@ public class ShapesJPanel extends JPanel  {
     * @param graphics -a generic graphics object
     */
    public void paintComponent(Graphics graphics) {
+	   System.out.println("Great job");
        
       /* call superclass's paint method */
       super.paintComponent( graphics ); 
