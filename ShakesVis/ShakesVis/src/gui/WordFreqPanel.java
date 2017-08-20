@@ -24,9 +24,6 @@ public class WordFreqPanel extends JPanel {
 	private List<Map.Entry<String, Integer>> list;
 	private int barWidth;
 	private String eachWord=null;
-//	public HashMap map=new HashMap();
-//	public List<List> versionList=new ArrayList<List>();
-//	List<Map.Entry<String, Point>> map;
 	/**
 	 * Constructor
 	 * @param stringArray

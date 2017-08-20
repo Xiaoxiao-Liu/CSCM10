@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="sortHash" key="selection"/>
+		<item value="System" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="System"/>
+			<item value="system"/>
 			<item value="sortHash"/>
 			<item value="System.out."/>
 			<item value="setxCoordinate"/>
 			<item value="IncrementPointCount"/>
 			<item value="GetPointCount"/>
 			<item value="m_PointCount"/>
-			<item value="setFilePath"/>
-			<item value="sortWordsFrequency"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
