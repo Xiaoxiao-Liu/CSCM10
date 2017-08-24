@@ -29,20 +29,23 @@ public class TopWord {
 	public Point getM_point() {
 		return m_point;
 	}
-	public void setM_point(int columnCount, int lineCount) {
-		Location location=new Location();
-		location.IncrementM_xCoordinate(columnCount);
-		location.IncrementM_yCoordinate(lineCount);
-		location.setM_point();
-		m_point=location.getM_point();
+	
+	public void setM_point(int versionNumber, int lineNumber) {
+		int x=30;
+		int y=30;
+		int columnSpace=200;
+		int lineSpace=20;
+		x=x+columnSpace*versionNumber;
+		y=y+lineSpace*lineNumber;
+		m_point=new Point(x, y);
 	}
 	
 	public Color getM_color() {
 		return m_color;
 	}
-	public void setM_color(int r) {
-		int c=3*r;
-		m_color=new Color(c,c,c, 150);
+	
+	public void setM_color(int stringNumber) {
+		m_color=new Color(255-stringNumber,stringNumber,stringNumber, 150);
 	}
 	
 	

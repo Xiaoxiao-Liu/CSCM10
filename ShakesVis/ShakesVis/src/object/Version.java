@@ -8,78 +8,59 @@ import java.util.Map;
 import gui.WordFreqProcess;
 
 public class Version {
-	
-	private List<TopWord> m_topWordList=new ArrayList<TopWord>();
+	private DataReader m_dataReader =new DataReader();
 	private String m_versionName;
 	private int m_versionYear;
 	private String m_author;
 	private final String[] fileArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
-	private List<List<Map.Entry<String, Integer>>> m_readerList=new ArrayList<List<Map.Entry<String, Integer>>>();
+	private List<Map.Entry<String, Integer>> m_frequencyIndex=new ArrayList<Map.Entry<String, Integer>>();
 	private Hashtable<String, Integer> m_stringIndex=new Hashtable<String, Integer>();
-//	private List<List<TopWord>>
+	private List<TopWord> m_topWordList=new ArrayList<TopWord>();
 	
+	
+//	public List<List<Map.Entry<String, Integer>>> getM_frequencyIndex() {
+//		return m_frequencyIndex;
+//	}
+
 	public Hashtable<String, Integer> getM_stringIndex() {
 		return m_stringIndex;
 	}
 
-	public List<TopWord> getTopWordList() {
+	
+
+	public void setM_frequencyIndex(int versionNumber) {
+			m_dataReader.setFilePath(fileArray[versionNumber]);
+			m_dataReader.setM_wordFrequency(new Hashtable<String, Integer>());
+			m_dataReader.readFile(fileArray[versionNumber]);
+			m_dataReader.sortHash(m_dataReader.getM_wordFrequency());
+			m_frequencyIndex=m_dataReader.getM_frequencyIndex();
+			if(versionNumber>0){
+				m_dataReader.setStringIndex(m_dataReader.getM_frequencyIndex(), m_stringIndex);
+			}
+			else{
+			}
+	}
+	
+	public void setM_TopWordList(int versionNumber) {
+			int lineNumber=0;
+			for(Map.Entry<String, Integer> mapping : m_frequencyIndex){
+				TopWord topWord=new TopWord();
+				topWord.setM_word(mapping.getKey());
+				topWord.setM_frequency(mapping.getValue());
+				topWord.setM_point(versionNumber, lineNumber);
+				if(m_stringIndex.containsKey(mapping.getKey())){
+					topWord.setM_color(m_stringIndex.get(mapping.getKey()));
+				}
+					
+				m_topWordList.add(topWord);
+				lineNumber++;
+			}
+	}
+	
+	public List<TopWord> getM_topWordList() {
 		return m_topWordList;
 	}
 
-	public void setDataReader(String[] fileArray) {
-		DataReader dataReader =new DataReader();
-		for(int i=0; i<fileArray.length; i++){
-			List<Map.Entry<String, Integer>> list;
-			dataReader.setFilePath(fileArray[i]);
-			dataReader.setStoreWords(new Hashtable<String, Integer>());
-			dataReader.readFile(fileArray[i]);
-			list =dataReader.sortHash(dataReader.getStoreWords());
-			m_readerList.add(list);
-//			System.out.println(list);
-		}
-	}
-	
-	public void setM_stringIndex() {
-		setDataReader(fileArray);
-		int count=0;
-		for(int i=1; i<m_readerList.size();i++){
-			for(Map.Entry<String, Integer> mapping : m_readerList.get(i)){
-				if(!m_stringIndex.containsKey(mapping.getKey())){
-					m_stringIndex.put(mapping.getKey(),count);
-					count++;
-				}
-				else{
-				}
-				
-				
-			}
-		}
-	}
-	
-
-	public void setTopWordList() {
-		TopWord topWord=new TopWord();
-		setDataReader(fileArray);
-		setM_stringIndex();
-		int count=0;
-		for(int i=0; i<m_readerList.size();i++){
-			int lineCount=0;
-			for(Map.Entry<String, Integer> mapping : m_readerList.get(i)){
-				topWord.setM_word(mapping.getKey());
-				topWord.setM_frequency(mapping.getValue());
-				topWord.setM_point(i, lineCount);
-//				System.out.println(topWord.getM_point());
-				topWord.setM_color(m_stringIndex.get(mapping.getKey()));
-				lineCount++;
-				m_topWordList.add(topWord);
-			}
-			
-			
-		}
-		
-		
-		this.m_topWordList = m_topWordList;
-	}
 	public String getVersionName() {
 		return m_versionName;
 	}
@@ -99,24 +80,13 @@ public class Version {
 		this.m_author = author;
 	}
 	
-//	public void readContent(){
-//		for(int i=0; i<50; i++){
-//			
-//		}
-//	}
-//	
-//	public void readVersions(){
-//		for(int j=0; j<16; j++){
-//			
-//		}
-//	}
-	
-	
-	
 	public static void main(String[] args){
 		Version version=new Version();
-		version.setM_stringIndex();
+//		version.setM_frequencyIndex();
 		
+//		System.out.println(m_frequencyIndex.size());
+//		version.setM_stringIndex();
+//		version.setTopWordList();
 	}
 	
 

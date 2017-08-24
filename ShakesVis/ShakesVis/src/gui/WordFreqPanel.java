@@ -5,7 +5,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -14,19 +13,20 @@ import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import object.TopWord;
 import object.Version;
 
 public class WordFreqPanel extends JPanel {
 	private final String[] versionArray;
-	
+	private final String[] fileArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
+
+	private Point m_point=new Point();
 	private int yCoordinate=25;
 	private int xCoordinate=0;
 	private final int versionDidstance=200; //distance between two versions
 	private List<Map.Entry<String, Integer>> list;
 	private int barWidth;
 	private String eachWord=null;
-	private TopWord m_topWord=new TopWord();
+//	private Version version= new Version();
 //	private Map<String, Point> stringPoint = new HashMap<String, Point>();
 	/**
 	 * Constructor
@@ -64,12 +64,20 @@ public class WordFreqPanel extends JPanel {
 		yCoordinate=firstLineYCoordinate;
 		return true;
 	}
-	public boolean setRectYCoordinate(){
-		int gap=8; //8 is the distance between the right bottom of the string and the left top of the rectangle
-		yCoordinate=yCoordinate-gap; 
+	
+	public boolean setRectPoint(int stringX, int stringY){
+		int x=10;
+		int y=-8;
+		x=x+stringX;
+		y=y+stringY;
+		m_point=new Point(x, y);
 		return true;
 	}
 	
+	public Point getM_point() {
+		return m_point;
+	}
+
 	public boolean setNextLineYCoordinate(){
 		int gap=21; //21 is the distance between two lines y coordinate
 		yCoordinate=yCoordinate+gap; 
@@ -101,14 +109,17 @@ public class WordFreqPanel extends JPanel {
 		List<List<String>> versionStringList=new ArrayList<List<String>>();
 		List<List<Point>> versionPointList=new ArrayList<List<Point>>();
 
-		Point stringLocation=new Point();//declare a point object
-//		this.setLayout(null);
-//		this.setBackground(Color.WHITE);
+		this.setLayout(null);
+		this.setBackground(Color.WHITE);
 		super.paintComponent(g);
 		String fileName;
 		String[] fileNameSplit;
 		
+		
 		for(int j=0;j<versionArray.length;j++){
+			Version version= new Version();
+			version.setM_frequencyIndex(j);
+			version.setM_TopWordList(j);
 			
 			List<String> stringArray=new ArrayList<String>();
 			List<Point> pointArray=new ArrayList<Point>();
@@ -120,32 +131,36 @@ public class WordFreqPanel extends JPanel {
 			setStringXCoordinate();
 			setStringYCoordinate();
 			g.setColor(Color.BLACK);
-			g.drawString(fileNameSplit[2].substring(0, fileNameSplit[2].length()-4), GetxCoordinate(), getyCoordinate());
+			
+			
+			g.drawString(fileNameSplit[2].substring(0, fileNameSplit[2].length()-4), GetxCoordinate(), getyCoordinate());//Title
 			SetVersionxCoordinate(j);
-			resetyCoordinate();
+//			resetyCoordinate();
 			FontMetrics fontMetrics = g.getFontMetrics();
 			
 			
-			
-				for (Map.Entry<String, Integer> mapping : list){
-					setEachWord(mapping.getKey(), mapping.getValue());
-					stringArray.add(mapping.getKey());
+			int count=0;
+				for (int i=0;i<50; i++){
+					String string=version.getM_topWordList().get(i).getM_word();
+					int x=version.getM_topWordList().get(i).getM_point().x-fontMetrics.stringWidth(string);
+					int y=version.getM_topWordList().get(i).getM_point().y;
 					g.setColor(Color.BLACK);
-					g.drawString(getEachWord(), GetxCoordinate()-fontMetrics.stringWidth(getEachWord()), getyCoordinate());
-					stringLocation=new Point(GetxCoordinate(), getyCoordinate());//get the point values
-					pointArray.add(stringLocation);
-					
+					g.drawString(string, x, y);
+					setRectPoint(version.getM_topWordList().get(i).getM_point().x,y);
 
-					setBarWidth(mapping.getValue());
-					setRectYCoordinate();					
+					setBarWidth(version.getM_topWordList().get(i).getM_frequency());
 					g.setColor(new Color(35,35,32, 40));//make rectangle transparent
-					g.fillRect(GetxCoordinate(), getyCoordinate(), getbarWidth(), 10);
+					System.out.println(getM_point());
+					g.fillRect(getM_point().x, getM_point().y, getbarWidth(), 10);
 					setNextLineYCoordinate();
+					count++;
 				}
 			
 			versionStringList.add(stringArray);	
 			versionPointList.add(pointArray);
 //			System.out.println(versionPointList);
+//			location.resetXCoordinate(0);
+//			location.resetYCoordinate(30);
 			resetyCoordinate();
 			}
 //		System.out.println(versionStringList);
@@ -154,13 +169,13 @@ public class WordFreqPanel extends JPanel {
 			
 			for(int j=0;j<versionStringList.get(i).size();j++){
 				final Random r=new Random();
-				Color color=new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256));
+//				Color color=new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256));
 
 				for(int u=0;u<versionStringList.get(i).size();u++){
 					if(versionStringList.get(i-1).get(j).equals(versionStringList.get(i).get(u))){
 						Point p=(Point)versionPointList.get(i-1).get(j);
 						Point b=(Point)versionPointList.get(i).get(u);
-						g.setColor(color);
+//						g.setColor(color);
 						g.drawLine((int)p.getX(), (int)p.getY(), (int)b.getX(), (int)b.getY());
 					
 					}
