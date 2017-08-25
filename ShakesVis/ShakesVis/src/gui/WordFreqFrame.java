@@ -34,7 +34,6 @@ public class WordFreqFrame extends JFrame {
 	public static void main(String[] args) {
 		WordFreqFrame frame = new WordFreqFrame();
 		frame.setSize(800, 800);			
-		
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			
@@ -44,9 +43,7 @@ public class WordFreqFrame extends JFrame {
 	 */
 	
 	public WordFreqFrame() {
-
-		String[] stringArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
-		WordFreqPanel ShakespearePanel=new WordFreqPanel(stringArray);
+		WordFreqPanel ShakespearePanel=new WordFreqPanel();
 		ShakespearePanel.setVisible(true);
 		ShakespearePanel.setPreferredSize(new Dimension(3400, 800));
 		ShakespearePanel.setLayout(null);
