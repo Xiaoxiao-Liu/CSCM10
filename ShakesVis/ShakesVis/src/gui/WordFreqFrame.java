@@ -43,6 +43,7 @@ public class WordFreqFrame extends JFrame {
 	 */
 	
 	public WordFreqFrame() {
+		long startTime = System.currentTimeMillis();
 		WordFreqPanel ShakespearePanel=new WordFreqPanel();
 		ShakespearePanel.setVisible(true);
 		ShakespearePanel.setPreferredSize(new Dimension(3400, 800));
@@ -60,7 +61,8 @@ public class WordFreqFrame extends JFrame {
 		jPanel_1.setBackground(Color.WHITE);
 		jPanel_1.add(scrollPanel);//add the scrollPanel to a JPanel(JJ)
 		setContentPane(jPanel_1);//add JJ to the parent Frame 
-		
+	
+		System.out.println(System.currentTimeMillis()-startTime);
 	}
 	
 	

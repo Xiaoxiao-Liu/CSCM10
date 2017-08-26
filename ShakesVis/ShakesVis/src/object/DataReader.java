@@ -17,7 +17,6 @@ import object.TopWord;
 public class DataReader{
 	private Hashtable<String, Integer> m_frequency=new Hashtable<String, Integer>();
 	private String m_filePath;
-	
 	private List<Map.Entry<String, Integer>> m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	private final String[] stringArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
 
@@ -73,7 +72,7 @@ public class DataReader{
 				else{
 					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
 					for(int i=0; i<tmpWordsArray.length; i++){
-						if(lineCount<50){
+						 if(lineCount<50){
 			    			if(!m_frequency.containsKey(tmpWordsArray[i])){
 			    				m_frequency.put(tmpWordsArray[i], new Integer(1));
 								lineCount=getM_wordFrequency().size();
