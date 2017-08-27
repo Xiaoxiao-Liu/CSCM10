@@ -25,6 +25,17 @@ public class Concordance {
 
     /**the width of each rectangle */
 	private int m_RectWidth;
+	
+	private int m_RectHeight=10;
+	
+
+	public int getM_RectHeight() {
+		return m_RectHeight;
+	}
+
+	public void setM_RectHeight(int m_RectHeight) {
+		this.m_RectHeight = m_RectHeight;
+	}
 
 	public String getM_Word() {
 		return m_Word;
@@ -46,32 +57,38 @@ public class Concordance {
 		return m_StringPoint;
 	}
 
-	public void setM_StringPoint(Point m_StringPoint) {
-		this.m_StringPoint = m_StringPoint;
+	public void setM_StringPoint(Point point) {
+		m_StringPoint=point;
 	}
 
 	public Color getM_Color() {
 		return m_Color;
 	}
 
-	public void setM_Color(Color m_Color) {
-		this.m_Color = m_Color;
+	public void setM_Color(Color color) {
+		this.m_Color=color;
+
 	}
 
 	public Point getM_RectPoint() {
 		return m_RectPoint;
 	}
 
-	public void setM_RectPoint(Point m_RectPoint) {
-		this.m_RectPoint = m_RectPoint;
+	public void setM_RectPoint(Point stringPoint) {
+		int x=10;
+		int y=-8;
+		x=x+stringPoint.x;
+		y=y+stringPoint.y;
+		m_RectPoint=new Point(x, y);
 	}
 
 	public int getM_RectWidth() {
 		return m_RectWidth;
 	}
 
-	public void setM_RectWidth(int m_RectWidth) {
-		this.m_RectWidth = m_RectWidth;
+	public void setM_RectWidth(int wordFrequency) {
+		int blockWidth=25; //width of each rectangle block
+		m_RectWidth=wordFrequency*blockWidth;
 	}
 
     

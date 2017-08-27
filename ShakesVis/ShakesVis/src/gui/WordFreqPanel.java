@@ -51,7 +51,9 @@ public class WordFreqPanel extends JPanel {
 		super.paintComponent(g);
 		for(int j=1;j<=fileArray.length;j++){
 			Version version=m_versionList.get(j-1);
+			
 			g.setColor(Color.BLACK);
+			
 			String[] fileNameSplit=version.getVersionName().split("\\\\");
 			g.drawString(fileNameSplit[2].substring(0, fileNameSplit[2].length()-4), version.getM_titlePoint(j-1).x, version.getM_titlePoint(j-1).y);//Title
 			FontMetrics fontMetrics = g.getFontMetrics();

@@ -24,8 +24,6 @@ public class WordFreqFrame extends JFrame {
 
 	private JScrollPane scrollPanel;
 	private JPanel jPanel_1;
-	private static JPanel jPanel_2;
-	 JComponent c;
 	
 
 	/**

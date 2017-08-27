@@ -42,7 +42,7 @@ public class Version {
 		return m_VersionName;
 	}
 
-	public void setM_VersionName(String m_VersionName) {
+	public void setM_VersionName() {
 		this.m_VersionName = m_VersionName;
 	}
 
@@ -50,8 +50,10 @@ public class Version {
 		return m_Author;
 	}
 
-	public void setM_Author(String m_Author) {
-		this.m_Author = m_Author;
+	public void setM_Author(String versionInformation) {
+		int startPosition=5;
+		int endPosition=versionInformation.length()-4;
+		m_Author = versionInformation.substring(startPosition, endPosition);
 	}
 
 	public int getM_VersionNumber() {
@@ -59,6 +61,7 @@ public class Version {
 	}
 
 	public void setM_VersionNumber(int m_VersionNumber) {
+		
 		this.m_VersionNumber = m_VersionNumber;
 	}
 
@@ -66,8 +69,10 @@ public class Version {
 		return m_VersionYear;
 	}
 
-	public void setM_VersionYear(int m_VersionYear) {
-		this.m_VersionYear = m_VersionYear;
+	public void setM_VersionYear(String versionInformation) {
+		int startPosition=0;
+		int endPosition=4;
+		m_VersionYear=Integer.parseInt(versionInformation.substring(startPosition, endPosition));
 	}
 
 	public Concordance getM_Concordance() {
@@ -82,16 +87,17 @@ public class Version {
 		return m_ConcordanceList;
 	}
 
-	public void setM_ConcordanceList(List<Concordance> m_ConcordanceList) {
-		this.m_ConcordanceList = m_ConcordanceList;
+	public void setM_ConcordanceList(Concordance m_Concordance) {
+		m_ConcordanceList.add(m_Concordance);
 	}
 
 	public Point getM_titlePoint() {
 		return m_titlePoint;
 	}
 
-	public void setM_titlePoint(Point m_titlePoint) {
-		this.m_titlePoint = m_titlePoint;
+	public void setM_titlePoint(Point point) {
+		
+		this.m_titlePoint =point;
 	} 
     
     

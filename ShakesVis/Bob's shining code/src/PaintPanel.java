@@ -9,15 +9,13 @@
  *
  */
 
-import java.awt.BorderLayout;
-import java.awt.Point;             /* for x,y Point object */
 import java.awt.Graphics;          /* for drawing          */
+import java.awt.Point;             /* for x,y Point object */
 import java.awt.event.MouseEvent;  /* for mouse input      */
-import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
 import javax.swing.JPanel;
-import javax.swing.JFrame;        /* for JFrame PaintPanel constructor */
-import javax.swing.JLabel;
 
 /**
  * The PaintPanel class is rather simple.  It simply stores points
