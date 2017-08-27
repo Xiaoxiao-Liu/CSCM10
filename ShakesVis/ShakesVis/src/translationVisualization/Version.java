@@ -1,5 +1,6 @@
 package translationVisualization;
 
+import java.awt.Font;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,12 @@ public class Version {
     
     /**the point of title */
     private Point m_titlePoint= new Point();
+    
+	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 16);
+
+	public Font getM_WORD_FONT() {
+		return M_WORD_FONT;
+	}
 
 	public List<String> getM_Words() {
 		return m_Words;

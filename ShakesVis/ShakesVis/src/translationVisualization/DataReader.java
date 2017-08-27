@@ -21,7 +21,7 @@ public class DataReader {
 	private Hashtable<String, Integer> frequency=new Hashtable<String, Integer>();
 	private Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
 	public List<Version> m_VersionList=new ArrayList<Version>();
-	
+//	private Hashtable<String, Integer> m_ColorIndex=new Hashtable<String, Integer>();
 
 
 	
@@ -97,13 +97,12 @@ public class DataReader {
 				 concordance.setM_StringPoint(calculatePoint(i, lineNumber));
 				 concordance.setM_RectPoint(concordance.getM_StringPoint());
 				 addStringIndex(mapping);
-				 concordance.setM_Color(calculateColor(m_StringIndex.size()));
+				 concordance.setM_Color(calculateColor(m_StringIndex.get(concordance.getM_Word())));
 				 version.setM_ConcordanceList(concordance);
 				 lineNumber++;
 			}
 			m_VersionList.add(version);
 		}
-//		System.out.println(m_VersionList.size());
 		return m_VersionList;
 	}
 	
@@ -118,7 +117,7 @@ public class DataReader {
 	}
 	
 	public Color calculateColor(int stringNumber){
-		int colorFrequency=3;
+		double colorFrequency=0.3;
 		double toDouble=(double)stringNumber;
 		float red=(float)(Math.sin(colorFrequency*toDouble+0)*127+128)/255;
 		float green=(float)(Math.sin(colorFrequency*toDouble+2)*127+128)/255;
@@ -129,6 +128,7 @@ public class DataReader {
 	public void addStringIndex(Map.Entry<String, Integer> mapping){
 		if(!m_StringIndex.containsKey(mapping.getKey())){
 			 m_StringIndex.put(mapping.getKey(), m_StringIndex.size());
+			 
 		 }
 	}
 	

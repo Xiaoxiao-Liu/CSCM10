@@ -19,9 +19,9 @@ public class TranslationVisualization {
 	private final static int FRAME_HEIGHT=800;
 
 	private final static int PANEL_WIDTH=3400;
-	private final static int PANEL_HEIGHT=800;
+	private final static int PANEL_HEIGHT=1800;
 	
-	private final static int SCROLL_PANEL_WIDTH=800;
+	private final static int SCROLL_PANEL_WIDTH=900;
 	private final static int SCROLL_PANEL_HEIGHT=600;
 	
 	

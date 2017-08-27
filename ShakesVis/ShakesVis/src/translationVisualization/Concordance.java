@@ -1,6 +1,7 @@
 package translationVisualization;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Point;
 
 /**
@@ -28,6 +29,12 @@ public class Concordance {
 	
 	private int m_RectHeight=25;
 	
+	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 16);
+	
+
+	public Font getM_WORD_FONT() {
+		return M_WORD_FONT;
+	}
 
 	public int getM_RectHeight() {
 		return m_RectHeight;
@@ -75,8 +82,8 @@ public class Concordance {
 	}
 
 	public void setM_RectPoint(Point stringPoint) {
-		int x=8;
-		int y=-8;
+		int x=5;
+		int y=-15;
 		x=x+stringPoint.x;
 		y=y+stringPoint.y;
 		m_RectPoint=new Point(x, y);
