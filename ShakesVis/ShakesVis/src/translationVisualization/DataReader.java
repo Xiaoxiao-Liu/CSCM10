@@ -19,8 +19,8 @@ public class DataReader {
 	private List<Map.Entry<String, Integer>> frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	private final String[] stringArray={"src\\data\\0000 BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
 	private Hashtable<String, Integer> frequency=new Hashtable<String, Integer>();
-	private static Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
-	private List<Version> m_VersionList=new ArrayList<Version>();
+	private Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
+	public List<Version> m_VersionList=new ArrayList<Version>();
 	
 
 
@@ -88,7 +88,7 @@ public class DataReader {
 			version.setM_VersionYear(versionInfomation);
 			version.setM_Author(versionInfomation);
 			version.setM_titlePoint(calculatePoint(i,0));
-			int lineNumber=0;
+			int lineNumber=1;
 			for(Map.Entry<String, Integer> mapping : frequencyIndex){
 				 Concordance concordance=new Concordance();
 				 concordance.setM_Word(mapping.getKey());
@@ -99,17 +99,19 @@ public class DataReader {
 				 addStringIndex(mapping);
 				 concordance.setM_Color(calculateColor(m_StringIndex.size()));
 				 version.setM_ConcordanceList(concordance);
+				 lineNumber++;
 			}
 			m_VersionList.add(version);
 		}
+//		System.out.println(m_VersionList.size());
 		return m_VersionList;
 	}
 	
 	public Point calculatePoint(int versionNumber, int lineNumber){
-		int x=30;
+		int x=55;
 		int y=30;
 		int columnSpace=200;
-		int lineSpace=20;
+		int lineSpace=25;
 		x=x+columnSpace*versionNumber;
 		y=y+lineSpace*lineNumber;
 		return new Point(x,y);
@@ -130,13 +132,13 @@ public class DataReader {
 		 }
 	}
 	
-	public static void main(String[] args){
-		String[] m_stringArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
-		DataReader dataReader=new DataReader();
-		dataReader.readAllFile();
-		System.out.println(m_StringIndex.size());
-		
-	}
+//	public static void main(String[] args){
+//		String[] m_stringArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
+//		DataReader dataReader=new DataReader();
+//		dataReader.readAllFile();
+//		System.out.println(m_StringIndex.size());
+//		
+//	}
 	
 	
 	

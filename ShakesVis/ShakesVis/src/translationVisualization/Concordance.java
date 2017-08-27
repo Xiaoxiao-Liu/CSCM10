@@ -26,7 +26,7 @@ public class Concordance {
     /**the width of each rectangle */
 	private int m_RectWidth;
 	
-	private int m_RectHeight=10;
+	private int m_RectHeight=25;
 	
 
 	public int getM_RectHeight() {
@@ -75,7 +75,7 @@ public class Concordance {
 	}
 
 	public void setM_RectPoint(Point stringPoint) {
-		int x=10;
+		int x=8;
 		int y=-8;
 		x=x+stringPoint.x;
 		y=y+stringPoint.y;

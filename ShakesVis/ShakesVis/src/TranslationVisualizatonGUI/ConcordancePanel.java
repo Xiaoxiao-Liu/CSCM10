@@ -13,15 +13,16 @@ import translationVisualization.Concordance;
 import translationVisualization.Version;
 
 public class ConcordancePanel extends JPanel {
-	private List<Version> m_VersionList=new ArrayList<Version>();
+	public List<Version> m_VersionList=new ArrayList<Version>();
 	
 	
-	public ConcordancePanel(List<Version> m_VersionList) {
-		m_VersionList = m_VersionList;
+	public ConcordancePanel(List<Version> versionList) {
+		m_VersionList = versionList;
 	}
 
 
 	public void paintComponent(Graphics g){
+		System.out.println("Hello World");
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);
@@ -30,34 +31,47 @@ public class ConcordancePanel extends JPanel {
 			g.setColor(Color.black);
 			g.drawString(version.getM_Author(), version.getM_titlePoint().x, version.getM_titlePoint().y);
 			FontMetrics fontMetrics = g.getFontMetrics();
+			int xxxx=0;
 			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 				Concordance concordance=new Concordance();
+				concordance=version.getM_ConcordanceList().get(j);
 				g.setColor(Color.black);
-				g.drawString(concordance.getM_Word(), concordance.getM_StringPoint().x, concordance.getM_StringPoint().y);
-				
-				g.setColor(Color.gray);
-				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
+//				System.out.println(concordance.getM_Word());
+				String string=concordance.getM_Word()+" "+concordance.getM_Frequency();
+				g.drawString(string, concordance.getM_StringPoint().x-fontMetrics.stringWidth(string), concordance.getM_StringPoint().y);
+				g.setColor(Color.LIGHT_GRAY);
+				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
+//				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 			
 				int versionCompare=i+1;
-				if(versionCompare<m_VersionList.size()){
-					Point point=compareVersion(i, concordance);
-					g.setColor(concordance.getM_Color());
-					g.drawLine(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, point.x, point.y);
+				
+				if(versionCompare>1&&versionCompare<m_VersionList.size()){
+				
+					for(int k=0; k<m_VersionList.get(versionCompare).getM_ConcordanceList().size(); k++){
+						Concordance concordanceCompare=m_VersionList.get(versionCompare).getM_ConcordanceList().get(k);
+						if(concordanceCompare.getM_Word().equals(concordance.getM_Word())){
+							g.setColor(concordance.getM_Color());
+							g.drawLine(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordanceCompare.getM_StringPoint().x, concordanceCompare.getM_StringPoint().y);
+							xxxx++;
+//							+concordance.getM_RectWidth()
+						}
+					}
+					
 				}
 			}
 		}
 	}
 	
 	
-	public Point compareVersion(int versionNumber, Concordance concordance){
-		Point point=new Point();
+	public boolean compareVersion(int versionNumber, Concordance concordance){
+		
 		for(int k=0; k<m_VersionList.get(versionNumber).getM_ConcordanceList().size(); k++){
 			Concordance concordanceCompare=m_VersionList.get(versionNumber).getM_ConcordanceList().get(k);
 			if(concordanceCompare.getM_Word().equals(concordance.getM_Word())){
-				point=concordanceCompare.getM_StringPoint();
+//				Point point=concordanceCompare.getM_StringPoint();
 			}
 		}
-		return point;
+		return true;
 	}
 
 }
