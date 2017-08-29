@@ -32,7 +32,6 @@ public class DataReader {
 			String sCurrentLine;
 			String[] tmpWordsArray=null;
 			int lineCount=0;
-			int WordSet=50;
 			
 			while((sCurrentLine=br.readLine())!=null){
 				if(sCurrentLine.trim().isEmpty()){	
@@ -41,13 +40,11 @@ public class DataReader {
 				}else{
 					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
 					for(int i=0; i<tmpWordsArray.length; i++){
-						if(lineCount<WordSet){
 							addWordFrequency(tmpWordsArray[i]);							
-							lineCount++;
-						}
 				    }
 				}
 			}
+//			System.out.println(frequency.size());
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +60,6 @@ public class DataReader {
 		if(!frequency.containsKey(word)){
 			frequency.put(word, new Integer(1));
 		}
-		
 		else{
 			frequency.put(word, frequency.get(word).intValue()+1);
 		}
@@ -71,7 +67,7 @@ public class DataReader {
 
 
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){
-		System.out.println(frequencyIndex.size());
+//		System.out.println(frequencyIndex.size());
 		frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());  
         Collections.sort(frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {  
             //decending order  
@@ -80,6 +76,15 @@ public class DataReader {
             }				
         });  
         return true;
+	}
+	
+	public void getTopFrequencyIndex(List<Map.Entry<String, Integer>> frequencyIndex){
+		List<Map.Entry<String, Integer>> topFrequencyIndex;
+		int countSize=0;
+//		for(Map.Entry<String, Integer> mapping : frequencyIndex){
+//			
+//		}
+//		
 	}
 
 	public List<Version> readAllFile(){
@@ -94,19 +99,27 @@ public class DataReader {
 			version.setM_Author(versionInfomation);
 			version.setM_titlePoint(calculatePoint(i,0));
 			int lineNumber=1;
-			for(Map.Entry<String, Integer> mapping : frequencyIndex){
-				 Concordance concordance=new Concordance();
-				 concordance.setM_Word(mapping.getKey());
-				 concordance.setM_Frequency(mapping.getValue());
-				 concordance.setM_RectWidth(mapping.getValue());
-				 concordance.setM_StringPoint(calculatePoint(i, lineNumber));
-				 concordance.setM_RectPoint(concordance.getM_StringPoint());
-				 addStringIndex(mapping);
-				 concordance.setM_Color(calculateColor(m_StringIndex.get(concordance.getM_Word())));
-				 version.setM_ConcordanceList(concordance);
-				 lineNumber++;
-			}
-			m_VersionList.add(version);
+			int listSize=50;
+				for(Map.Entry<String, Integer> mapping : frequencyIndex){
+					if(version.getM_ConcordanceList().size()<listSize){ //get the top 50 frequency words in every version
+					 Concordance concordance=new Concordance();
+					 concordance.setM_Word(mapping.getKey());
+					 concordance.setM_Frequency(mapping.getValue());
+					 concordance.setM_RectWidth(mapping.getValue());
+					 concordance.setM_StringPoint(calculatePoint(i, lineNumber));
+					 concordance.setM_RectPoint(concordance.getM_StringPoint());
+					 addStringIndex(mapping);
+					 concordance.setM_Color(calculateColor(m_StringIndex.get(concordance.getM_Word())));
+					 version.setM_ConcordanceList(concordance);
+					 lineNumber++;
+					}
+				}
+				System.out.println(version.getM_ConcordanceList().size());
+				m_VersionList.add(version);
+				
+			
+			
+			
 		}
 		
 		return m_VersionList;
