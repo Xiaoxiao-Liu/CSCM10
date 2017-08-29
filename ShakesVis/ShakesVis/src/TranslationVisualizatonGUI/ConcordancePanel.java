@@ -1,9 +1,11 @@
 package TranslationVisualizatonGUI;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,6 @@ public class ConcordancePanel extends JPanel {
 
 
 	public void paintComponent(Graphics g){
-		System.out.println("Hello World");
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);
@@ -69,5 +70,58 @@ public class ConcordancePanel extends JPanel {
 		}
 		return true;
 	}
+	
+	
+	private class MouseAction implements MouseListener, MouseMotionListener{
+
+		@Override
+		public void mouseDragged(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseMoved(MouseEvent arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			
+			
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		
+		
+		
+	}
+	
+	
 
 }

@@ -14,7 +14,6 @@ import javax.swing.ScrollPaneLayout;
 import TranslationVisualizatonGUI.ConcordancePanel;
 
 public class TranslationVisualization {
-//	private List<Version> m_VersionList=new ArrayList<Version>();
 	private final static int FRAME_WIDTH=800;
 	private final static int FRAME_HEIGHT=800;
 

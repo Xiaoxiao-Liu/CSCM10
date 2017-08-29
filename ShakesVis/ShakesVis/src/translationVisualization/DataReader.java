@@ -19,7 +19,7 @@ public class DataReader {
 	private List<Map.Entry<String, Integer>> frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	private final String[] stringArray={"src\\data\\0000 BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
 	private Hashtable<String, Integer> frequency=new Hashtable<String, Integer>();
-	private Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
+	public Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
 	public List<Version> m_VersionList=new ArrayList<Version>();
 //	private Hashtable<String, Integer> m_ColorIndex=new Hashtable<String, Integer>();
 
@@ -33,6 +33,7 @@ public class DataReader {
 			String[] tmpWordsArray=null;
 			int lineCount=0;
 			int WordSet=50;
+			
 			while((sCurrentLine=br.readLine())!=null){
 				if(sCurrentLine.trim().isEmpty()){	
 				}else if(lineCount==0){
@@ -42,7 +43,7 @@ public class DataReader {
 					for(int i=0; i<tmpWordsArray.length; i++){
 						if(lineCount<WordSet){
 							addWordFrequency(tmpWordsArray[i]);							
-							lineCount=frequency.size();
+							lineCount++;
 						}
 				    }
 				}
@@ -58,15 +59,19 @@ public class DataReader {
 	}
 	
 	
-	public void addWordFrequency(String word){ 
-		if(!frequency.containsKey(word))
+	public void addWordFrequency(String word){
+		if(!frequency.containsKey(word)){
 			frequency.put(word, new Integer(1));
-		else
+		}
+		
+		else{
 			frequency.put(word, frequency.get(word).intValue()+1);
+		}
 	}
 
 
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){
+		System.out.println(frequencyIndex.size());
 		frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());  
         Collections.sort(frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {  
             //decending order  
@@ -103,6 +108,7 @@ public class DataReader {
 			}
 			m_VersionList.add(version);
 		}
+		
 		return m_VersionList;
 	}
 	
@@ -131,17 +137,6 @@ public class DataReader {
 			 
 		 }
 	}
-	
-//	public static void main(String[] args){
-//		String[] m_stringArray={"src\\data\\BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
-//		DataReader dataReader=new DataReader();
-//		dataReader.readAllFile();
-//		System.out.println(m_StringIndex.size());
-//		
-//	}
-	
-	
-	
 	
 }
 	
