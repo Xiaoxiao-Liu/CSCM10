@@ -7,21 +7,31 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
+
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
+import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
 
 public class DataReader {
-	private Hashtable<String, Integer> frequencySort=new Hashtable<String, Integer>();
-	private List<Map.Entry<String, Integer>> frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
+	private List<Map.Entry<String, Integer>> m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	private final String[] stringArray={"src\\data\\0000 BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
 	private Hashtable<String, Integer> frequency=new Hashtable<String, Integer>();
 	public Hashtable<String, Integer> m_StringIndex=new Hashtable<String, Integer>();
 	public List<Version> m_VersionList=new ArrayList<Version>();
-//	private Hashtable<String, Integer> m_ColorIndex=new Hashtable<String, Integer>();
+	protected StanfordCoreNLP pipeline;
+	List<String> lemmas=new ArrayList<String>();
 
 
 	
@@ -30,21 +40,24 @@ public class DataReader {
 			frequency=new Hashtable<String, Integer>();
 			BufferedReader br=new BufferedReader(new FileReader(filePath));
 			String sCurrentLine;
-			String[] tmpWordsArray=null;
+			List<String> tmpWordsList=new ArrayList<String>();
 			int lineCount=0;
-			
 			while((sCurrentLine=br.readLine())!=null){
 				if(sCurrentLine.trim().isEmpty()){	
 				}else if(lineCount==0){
 						lineCount++;
 				}else{
-					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
-					for(int i=0; i<tmpWordsArray.length; i++){
-							addWordFrequency(tmpWordsArray[i]);							
+					
+					tmpWordsList= Arrays.asList(sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" "));
+					lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));//!!!!!!!!!!!!!
+					for(int i=0; i<lemmas.size(); i++){
+						
+							addWordFrequency(lemmas.get(i));	
 				    }
+					
 				}
 			}
-//			System.out.println(frequency.size());
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,12 +77,34 @@ public class DataReader {
 			frequency.put(word, frequency.get(word).intValue()+1);
 		}
 	}
+	
+	
+	public boolean lemmatizer(String documentText){
+		Properties props=new Properties();
+		props.put("annotators", "tokenize, ssplit, pos, lemma");
+		this.pipeline=new StanfordCoreNLP(props);
+		
+		lemmas=new ArrayList<String>();
+		Annotation document=new Annotation(documentText);
+		this.pipeline.annotate(document);
+		List<CoreMap> sentences=document.get(SentencesAnnotation.class);
+		for(CoreMap sentence:sentences){
+			for(CoreLabel token: sentence.get(TokensAnnotation.class)){
+				lemmas.add(token.get(LemmaAnnotation.class));
+			}
+		}
+		
+		
+		
+		
+		return true;
+	}
 
 
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){
 //		System.out.println(frequencyIndex.size());
-		frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());  
-        Collections.sort(frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {  
+		m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());  
+        Collections.sort(m_frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {  
             //decending order  
             public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {               	                    
                 return o2.getValue().compareTo(o1.getValue());  
@@ -81,9 +116,11 @@ public class DataReader {
 	
 
 	public List<Version> readAllFile(){
-		for(int i=0; i<stringArray.length; i++){
+//		for(int i=0; i<stringArray.length; i++){
+		
+			int i=0;
 			Version version=new Version();
-			readOneFile(stringArray[i]);
+			readOneFile(stringArray[0]);
 			sortFrequencyIndex(frequency);
 			String[] fileNameSplit=stringArray[i].split("\\\\");
 			int fileNamePosition=2;
@@ -93,7 +130,7 @@ public class DataReader {
 			version.setM_titlePoint(calculatePoint(i,0));
 			int lineNumber=1;
 			int listSize=50;
-				for(Map.Entry<String, Integer> mapping : frequencyIndex){
+				for(Map.Entry<String, Integer> mapping : m_frequencyIndex){
 					if(version.getM_ConcordanceList().size()<listSize){ //get the top 50 frequency words in every version
 					 Concordance concordance=new Concordance();
 					 concordance.setM_Word(mapping.getKey());
@@ -113,7 +150,7 @@ public class DataReader {
 			
 			
 			
-		}
+//		}
 		
 		return m_VersionList;
 	}

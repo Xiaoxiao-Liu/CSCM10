@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Map.Entry;
 
+import edu.stanford.nlp.ling.CoreAnnotations.FreqAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
@@ -112,21 +113,42 @@ public class StanfordLemmatizer {
 	
     public List<String> lemmatize(String documentText)
     {
+    	int m=0;
+    	int k=0;
         List<String> lemmas = new LinkedList<String>();
+        List<String> lemmamath = new LinkedList<String>();
+        Hashtable<String, Integer> lemma=new Hashtable<String, Integer>();
         // Create an empty Annotation just with the given text
         Annotation document = new Annotation(documentText);
         // run all Annotators on this text
         this.pipeline.annotate(document);
         // Iterate over all of the sentences found
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+//        System.out.println(sentences);
         for(CoreMap sentence: sentences) {
             // Iterate over all tokens in a sentence
             for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
+//            	System.out.println(token);
                 // Retrieve and add the lemma for each word into the
                 // list of lemmas
                 lemmas.add(token.get(LemmaAnnotation.class));
+                k++;
+//                lemma.put(LemmaAnnotation.class), Integer.parseInt(FreqAnnotation.class));
+                lemmamath.add(token.value());
+                
+                
+                
+                
+//                token.get(FreqAnnotation.class);
+           
+                System.out.println(token.get(LemmaAnnotation.class));
             }
+            m++;
+           
         }
+        System.out.println(lemmas.size());
+        
+       
         return lemmas;
     }
     
@@ -158,10 +180,9 @@ public class StanfordLemmatizer {
         for(Map.Entry<String, Integer> mapping : frequencyIndex){
         	textArray.add(mapping.getKey());
         }
-        System.out.println(textArray.toString());
-//        String s=textArray.toString();
-        System.out.println(slem.lemmatize(textArray.toString()));
-        System.out.println(slem.lemmatize(text));
+        System.out.println(textArray.size());
+        System.out.println(slem.lemmatize(textArray.toString().replaceAll("\\p{Punct}", "")).size());
+//        System.out.println(slem.lemmatize(text));
     }
 
 }
