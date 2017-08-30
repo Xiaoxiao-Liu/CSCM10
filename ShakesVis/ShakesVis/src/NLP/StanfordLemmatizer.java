@@ -1,8 +1,18 @@
 package NLP;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Map.Entry;
 
 import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
 import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
@@ -13,6 +23,12 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
 public class StanfordLemmatizer {
+	private static List<Map.Entry<String, Integer>> frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
+
+	private static Hashtable<String, Integer> frequency=new Hashtable<String, Integer>();
+
+	private final static String[] stringArray={"src\\data\\0000 BaseText Shakespeare.txt","src\\data\\1832 Baudissin ed Wenig.txt","src\\data\\1920 Gundolf.txt","src\\data\\1941 Schwarz.txt","src\\data\\1947 Baudissin ed Brunner.txt","src\\data\\1952 Flatter.txt","src\\data\\1962 Schroeder.txt","src\\data\\1963 Rothe.txt","src\\data\\1970 Fried.txt","src\\data\\1973 Lauterbach.txt","src\\data\\1976 Engler.txt","src\\data\\1978 Laube.txt","src\\data\\1985 Bolte Hamblock.txt","src\\data\\1992 Motschach.txt","src\\data\\1995 Guenther.txt","src\\data\\2003 Zaimoglu.txt"};
+
 
     protected StanfordCoreNLP pipeline;
 
@@ -41,6 +57,59 @@ public class StanfordLemmatizer {
         this.pipeline = new StanfordCoreNLP(props);
     }
 
+    public boolean readOneFile(String filePath){
+		try {
+			frequency=new Hashtable<String, Integer>();
+			BufferedReader br=new BufferedReader(new FileReader(filePath));
+			String sCurrentLine;
+			String[] tmpWordsArray=null;
+			int lineCount=0;
+			
+			while((sCurrentLine=br.readLine())!=null){
+				if(sCurrentLine.trim().isEmpty()){	
+				}else if(lineCount==0){
+						lineCount++;
+				}else{
+					tmpWordsArray=sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" ");
+					for(int i=0; i<tmpWordsArray.length; i++){
+							addWordFrequency(tmpWordsArray[i]);							
+				    }
+				}
+			}
+//			System.out.println(frequency.size());
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
+	
+	
+	public void addWordFrequency(String word){
+		if(!frequency.containsKey(word)){
+			frequency.put(word, new Integer(1));
+		}
+		else{
+			frequency.put(word, frequency.get(word).intValue()+1);
+		}
+	}
+	
+	
+	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){
+//		System.out.println(frequencyIndex.size());
+		frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());  
+        Collections.sort(frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {  
+            //decending order  
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {               	                    
+                return o2.getValue().compareTo(o1.getValue());  
+            }				
+        });  
+        return true;
+	}
+	
     public List<String> lemmatize(String documentText)
     {
         List<String> lemmas = new LinkedList<String>();
@@ -82,6 +151,16 @@ public class StanfordLemmatizer {
                 "I've been living a lie, there's nothing inside \n"+
                 "You were bringing me to life.";
         StanfordLemmatizer slem = new StanfordLemmatizer();
+        slem.readOneFile(stringArray[0]);
+        slem.sortFrequencyIndex(frequency);
+        List<String> textArray= new ArrayList<String>();
+        
+        for(Map.Entry<String, Integer> mapping : frequencyIndex){
+        	textArray.add(mapping.getKey());
+        }
+        System.out.println(textArray.toString());
+//        String s=textArray.toString();
+        System.out.println(slem.lemmatize(textArray.toString()));
         System.out.println(slem.lemmatize(text));
     }
 

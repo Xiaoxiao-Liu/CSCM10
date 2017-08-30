@@ -41,7 +41,6 @@ public class TestCoreNLP {
         // these are all the sentences in this document
         // a CoreMap is essentially a Map that uses class objects as keys and has values with custom types
         List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-        
         System.out.println("word\tpos\tlemma\tner");
         for(CoreMap sentence: sentences) {
              // traversing the words in the current sentence

@@ -78,14 +78,7 @@ public class DataReader {
         return true;
 	}
 	
-	public void getTopFrequencyIndex(List<Map.Entry<String, Integer>> frequencyIndex){
-		List<Map.Entry<String, Integer>> topFrequencyIndex;
-		int countSize=0;
-//		for(Map.Entry<String, Integer> mapping : frequencyIndex){
-//			
-//		}
-//		
-	}
+	
 
 	public List<Version> readAllFile(){
 		for(int i=0; i<stringArray.length; i++){
