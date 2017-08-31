@@ -65,7 +65,6 @@ public class ConcordancePanel extends JPanel {
 		for(int k=0; k<m_VersionList.get(versionNumber).getM_ConcordanceList().size(); k++){
 			Concordance concordanceCompare=m_VersionList.get(versionNumber).getM_ConcordanceList().get(k);
 			if(concordanceCompare.getM_Word().equals(concordance.getM_Word())){
-//				Point point=concordanceCompare.getM_StringPoint();
 			}
 		}
 		return true;

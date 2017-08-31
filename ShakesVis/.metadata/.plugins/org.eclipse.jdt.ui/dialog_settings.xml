@@ -2,7 +2,7 @@
 <section name="Workbench">
 	<item value="0" key="CallHierarchyViewPart.call_mode"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\stanford-corenlp-full-2017-06-09" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\45109\Desktop" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="C:\Users\45109\Desktop\stanford-corenlp-full-2017-06-09.zip" key="org.eclipse.jdt.ui.lastuserlibrary"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="341" key="CallHierarchyViewPart.ratio1"/>
@@ -48,6 +48,7 @@
 	</section>
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
+		<item value="false" key="configure_problem_severity_dialog_id"/>
 	</section>
 	<section name="SourceActionDialog.constructors">
 		<item value="false" key="SynchronizedModifier"/>

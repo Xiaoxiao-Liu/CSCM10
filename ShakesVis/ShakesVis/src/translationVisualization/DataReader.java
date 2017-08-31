@@ -48,11 +48,11 @@ public class DataReader {
 						lineCount++;
 				}else{
 					
-					tmpWordsList= Arrays.asList(sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").split(" "));
-					lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));//!!!!!!!!!!!!!
-					for(int i=0; i<lemmas.size(); i++){
+					tmpWordsList= Arrays.asList(sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" "));
+//					lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));//!!!!!!!!!!!!!
+					for(int i=0; i<tmpWordsList.size(); i++){
 						
-							addWordFrequency(lemmas.get(i));	
+							addWordFrequency(tmpWordsList.get(i));	
 				    }
 					
 				}
@@ -79,26 +79,27 @@ public class DataReader {
 	}
 	
 	
-	public boolean lemmatizer(String documentText){
-		Properties props=new Properties();
-		props.put("annotators", "tokenize, ssplit, pos, lemma");
-		this.pipeline=new StanfordCoreNLP(props);
-		
-		lemmas=new ArrayList<String>();
-		Annotation document=new Annotation(documentText);
-		this.pipeline.annotate(document);
-		List<CoreMap> sentences=document.get(SentencesAnnotation.class);
-		for(CoreMap sentence:sentences){
-			for(CoreLabel token: sentence.get(TokensAnnotation.class)){
-				lemmas.add(token.get(LemmaAnnotation.class));
-			}
-		}
-		
-		
-		
-		
-		return true;
-	}
+//	public boolean lemmatizer(String documentText){
+//		Properties props=new Properties();
+//		props.put("annotators", "tokenize, ssplit, pos, lemma");
+//		
+//		this.pipeline=new StanfordCoreNLP(props);
+//		
+//		lemmas=new ArrayList<String>();
+//		Annotation document=new Annotation(documentText);
+//		this.pipeline.annotate(document);
+//		List<CoreMap> sentences=document.get(SentencesAnnotation.class);
+//		for(CoreMap sentence:sentences){
+//			for(CoreLabel token: sentence.get(TokensAnnotation.class)){
+//				lemmas.add(token.get(LemmaAnnotation.class));
+//			}
+//		}
+//		
+//		
+//		
+//		
+//		return true;
+//	}
 
 
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){
@@ -116,11 +117,10 @@ public class DataReader {
 	
 
 	public List<Version> readAllFile(){
-//		for(int i=0; i<stringArray.length; i++){
+		for(int i=0; i<stringArray.length; i++){
 		
-			int i=0;
 			Version version=new Version();
-			readOneFile(stringArray[0]);
+			readOneFile(stringArray[i]);
 			sortFrequencyIndex(frequency);
 			String[] fileNameSplit=stringArray[i].split("\\\\");
 			int fileNamePosition=2;
@@ -150,7 +150,7 @@ public class DataReader {
 			
 			
 			
-//		}
+		}
 		
 		return m_VersionList;
 	}
@@ -166,11 +166,16 @@ public class DataReader {
 	}
 	
 	public Color calculateColor(int stringNumber){
+		int colorRange=255;
+		int halfRange=127;
+		int redVar=0;
+		int greenVar=2;
+		int blueVar=4;
 		double colorFrequency=0.3;
 		double toDouble=(double)stringNumber;
-		float red=(float)(Math.sin(colorFrequency*toDouble+0)*127+128)/255;
-		float green=(float)(Math.sin(colorFrequency*toDouble+2)*127+128)/255;
-		float blue=(float)(Math.sin(colorFrequency*toDouble+4)*127+128)/255;
+		float red=(float)(Math.sin(colorFrequency*toDouble+redVar)*halfRange+halfRange+1)/colorRange;
+		float green=(float)(Math.sin(colorFrequency*toDouble+greenVar)*halfRange+halfRange+1)/colorRange;
+		float blue=(float)(Math.sin(colorFrequency*toDouble+blueVar)*halfRange+halfRange+1)/colorRange;
 		return new Color(red, green, blue);
 	}
 	
@@ -183,5 +188,8 @@ public class DataReader {
 	
 }
 	
+
+
+
 	
 	

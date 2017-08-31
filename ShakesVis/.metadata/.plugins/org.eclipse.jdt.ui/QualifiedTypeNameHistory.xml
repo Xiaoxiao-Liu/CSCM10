@@ -36,10 +36,19 @@
 <fullyQualifiedTypeName name="object.Version"/>
 <fullyQualifiedTypeName name="object.Location"/>
 <fullyQualifiedTypeName name="object.TopWord"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
 <fullyQualifiedTypeName name="java.awt.Point"/>
 <fullyQualifiedTypeName name="translationVisualization.Concordance"/>
 <fullyQualifiedTypeName name="java.awt.Dimension"/>
 <fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreAnnotations.FreqAnnotation"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.CoreMap"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.patterns.surface.Token"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.ling.CoreLabel"/>
+<fullyQualifiedTypeName name="java.util.Arrays"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.coref.data.Document"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.dcoref.Document"/>
 </qualifiedTypeNameHistroy>
