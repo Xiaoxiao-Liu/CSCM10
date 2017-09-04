@@ -2,9 +2,12 @@ package translationVisualization;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -45,10 +48,19 @@ public class TranslationVisualization {
 		scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPanel.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 		scrollPanel.setLayout(new ScrollPaneLayout());
+		scrollPanel.setVisible(false);
+		
+		
+		JButton ConcordanceButton=new JButton("Concordances");
 		
 		JPanel jPanel_1= new JPanel();
 		jPanel_1.setBackground(Color.WHITE);
 		jPanel_1.add(scrollPanel);
+		
+		jPanel_1.add(ConcordanceButton);
+		
+		
+			
 		
 		
 		concordanceFrame.setContentPane(jPanel_1);
@@ -56,7 +68,23 @@ public class TranslationVisualization {
 		concordanceFrame.setVisible(true);
 		concordanceFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		concordanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		ConcordanceButton.addActionListener(new ActionListener(){
+			@Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("按钮被点击");
+                scrollPanel.setVisible(true);
+                jPanel_1.add(scrollPanel);
+                concordanceFrame.revalidate(); 
+//                Object source = e.getSource();
+//                JButton button = (JButton) source;
+//                String text = button.getText();
+//                if ("按钮被点击".equals(text)) {
+//                    button.setText("点我");
+//                } else {
+//                    button.setText("按钮被点击");
+//                }
+            }
+		});
 	}
 	
 	
