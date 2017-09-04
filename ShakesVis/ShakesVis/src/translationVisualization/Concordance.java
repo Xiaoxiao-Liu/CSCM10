@@ -27,9 +27,9 @@ public class Concordance {
     /**the width of each rectangle */
 	private int m_RectWidth;
 	
-	private int m_RectHeight=25;
+	private final int m_RectHeight=17;
 	
-	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 16);
+	private final Font M_WORD_FONT=new Font("sansserif",Font.PLAIN, 13);
 	
 
 	public Font getM_WORD_FONT() {
@@ -38,10 +38,6 @@ public class Concordance {
 
 	public int getM_RectHeight() {
 		return m_RectHeight;
-	}
-
-	public void setM_RectHeight(int m_RectHeight) {
-		this.m_RectHeight = m_RectHeight;
 	}
 
 	public String getM_Word() {
@@ -94,7 +90,7 @@ public class Concordance {
 	}
 
 	public void setM_RectWidth(int wordFrequency) {
-		int blockWidth=25; //width of each rectangle block
+		int blockWidth=4; //width of each rectangle block
 		m_RectWidth=wordFrequency*blockWidth;
 	}
 

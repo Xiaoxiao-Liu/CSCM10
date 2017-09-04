@@ -1,4 +1,4 @@
-package NLP;
+package nlp;
 import edu.stanford.nlp.util.logging.Redwood;
 
 import java.io.StringReader;

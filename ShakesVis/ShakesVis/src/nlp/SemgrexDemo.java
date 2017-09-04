@@ -1,4 +1,4 @@
-package NLP;
+package nlp;
 
 import edu.stanford.nlp.parser.lexparser.EnglishTreebankParserParams;
 import edu.stanford.nlp.parser.lexparser.TreebankLangParserParams;

@@ -20,8 +20,8 @@ public class TranslationVisualization {
 	private final static int PANEL_WIDTH=3400;
 	private final static int PANEL_HEIGHT=1800;
 	
-	private final static int SCROLL_PANEL_WIDTH=900;
-	private final static int SCROLL_PANEL_HEIGHT=600;
+	private final static int SCROLL_PANEL_WIDTH=500;
+	private final static int SCROLL_PANEL_HEIGHT=300;
 	
 	
 	
@@ -31,7 +31,6 @@ public class TranslationVisualization {
 		DataReader dataReader=new DataReader();
 		
 		m_VersionList=dataReader.readAllFile();
-//		System.out.println(m_VersionList.size());
 
 		JFrame concordanceFrame=new JFrame("Translation Visualization");
 		

@@ -158,8 +158,8 @@ public class DataReader {
 	public Point calculatePoint(int versionNumber, int lineNumber){
 		int x=55;
 		int y=30;
-		int columnSpace=200;
-		int lineSpace=25;
+		int columnSpace=150;
+		int lineSpace=17;
 		x=x+columnSpace*versionNumber;
 		y=y+lineSpace*lineNumber;
 		return new Point(x,y);

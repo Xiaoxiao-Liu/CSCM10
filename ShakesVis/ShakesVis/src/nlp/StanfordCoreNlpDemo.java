@@ -1,4 +1,4 @@
-package NLP;
+package nlp;
 import java.io.*;
 import java.util.*;
 

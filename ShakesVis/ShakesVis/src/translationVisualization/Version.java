@@ -31,7 +31,7 @@ public class Version {
     /**the point of title */
     private Point m_titlePoint= new Point();
     
-	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 16);
+	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 13);
 
 	public Font getM_WORD_FONT() {
 		return M_WORD_FONT;
