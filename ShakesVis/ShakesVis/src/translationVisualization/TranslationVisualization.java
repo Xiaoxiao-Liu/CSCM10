@@ -1,9 +1,9 @@
 package translationVisualization;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -28,12 +28,6 @@ public class TranslationVisualization {
 	private final static int SCROLL_PANEL_WIDTH=500;
 	private final static int SCROLL_PANEL_HEIGHT=300;
 	
-	private final static int VISUALIZATION_PANEL_WIDTH=600;
-	private final static int VISUALIZATION_PANEL_HEIGHT=800;
-	
-	private final static int BUTTON_PANEL_WIDTH=500;
-	private final static int BUTTON_PANEL_HEIGHT=300;
-	
 	private JFrame concordanceFrame;
 	
 	private JScrollPane scrollPanel;
@@ -56,8 +50,6 @@ public class TranslationVisualization {
 
 	public void setConcordanceFrame(JFrame concordanceFrame) {
 		this.concordanceFrame = concordanceFrame;
-		getConcordanceFrame().getContentPane().setBackground(Color.BLACK);
-		getConcordanceFrame().setLayout(new BorderLayout());
 		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
 	}
 	
@@ -89,10 +81,8 @@ public class TranslationVisualization {
 
 	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
 		this.m_visuallizationPanel = m_visuallizationPanel;
-		getM_visuallizationPanel().setLayout(new FlowLayout());
 		getM_visuallizationPanel().setVisible(true);
 		getM_visuallizationPanel().setBackground(Color.WHITE);
-		getM_visuallizationPanel().setPreferredSize(new Dimension(VISUALIZATION_PANEL_WIDTH, VISUALIZATION_PANEL_HEIGHT));
 	}
 
 	public JPanel getM_buttonPanel() {
@@ -102,10 +92,8 @@ public class TranslationVisualization {
 
 	public void setM_buttonPanel(JPanel m_buttonPanel) {
 		this.m_buttonPanel = m_buttonPanel;
-//		getM_buttonPanel().setLayout(new FlowLayout());
 		getM_buttonPanel().setVisible(true);
 		getM_buttonPanel().setBackground(Color.WHITE);
-		getM_buttonPanel().setPreferredSize(new Dimension(BUTTON_PANEL_WIDTH, BUTTON_PANEL_HEIGHT ));
 	}
 	
 	public List<Version> GetVersionList(){
@@ -148,13 +136,25 @@ public class TranslationVisualization {
                 transVis.getConcordanceFrame().revalidate(); 
             }
 		});
+		GridBagLayout layout = new GridBagLayout();
+		transVis.getConcordanceFrame().setLayout(layout);
+		GridBagConstraints s=new GridBagConstraints();
+		s.fill=GridBagConstraints.BOTH;
+		s.gridwidth=1;
+		s.weightx=0;
+		s.weighty=1;
+		layout.setConstraints(transVis.getM_buttonPanel(), s);
+		s.gridwidth=5;
+		s.weightx=1;
+		s.weighty=1;
+		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
 
-//		transVis.getConcordanceFrame().setContentPane(transVis.getM_visuallizationPanel());
-		transVis.getConcordanceFrame().add("West", transVis.getM_buttonPanel());
-		transVis.getConcordanceFrame().add("Center",transVis.getM_visuallizationPanel());
+		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());
+		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel());
 		transVis.getConcordanceFrame().setVisible(true);
 		transVis.getConcordanceFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		transVis.getConcordanceFrame().setLocationRelativeTo(null);
 		transVis.getConcordanceFrame().setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+		
 	}
 }
