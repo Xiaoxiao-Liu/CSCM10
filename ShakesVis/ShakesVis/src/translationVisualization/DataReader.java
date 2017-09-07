@@ -49,12 +49,16 @@ public class DataReader {
 				}else{
 					
 					tmpWordsList= Arrays.asList(sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" "));
-//					lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));//!!!!!!!!!!!!!
+					if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){
+					lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));
+					for(int i=0; i<lemmas.size(); i++){
+						addWordFrequency(lemmas.get(i));	
+					}
+					}
 					for(int i=0; i<tmpWordsList.size(); i++){
 						
 							addWordFrequency(tmpWordsList.get(i));	
 				    }
-					
 				}
 			}
 			
@@ -79,27 +83,27 @@ public class DataReader {
 	}
 	
 	
-//	public boolean lemmatizer(String documentText){
-//		Properties props=new Properties();
-//		props.put("annotators", "tokenize, ssplit, pos, lemma");
-//		
-//		this.pipeline=new StanfordCoreNLP(props);
-//		
-//		lemmas=new ArrayList<String>();
-//		Annotation document=new Annotation(documentText);
-//		this.pipeline.annotate(document);
-//		List<CoreMap> sentences=document.get(SentencesAnnotation.class);
-//		for(CoreMap sentence:sentences){
-//			for(CoreLabel token: sentence.get(TokensAnnotation.class)){
-//				lemmas.add(token.get(LemmaAnnotation.class));
-//			}
-//		}
-//		
-//		
-//		
-//		
-//		return true;
-//	}
+	public boolean lemmatizer(String documentText){
+		Properties props=new Properties();
+		props.put("annotators", "tokenize, ssplit, pos, lemma");
+		
+		this.pipeline=new StanfordCoreNLP(props);
+		
+		lemmas=new ArrayList<String>();
+		Annotation document=new Annotation(documentText);
+		this.pipeline.annotate(document);
+		List<CoreMap> sentences=document.get(SentencesAnnotation.class);
+		for(CoreMap sentence:sentences){
+			for(CoreLabel token: sentence.get(TokensAnnotation.class)){
+				lemmas.add(token.get(LemmaAnnotation.class));
+			}
+		}
+		
+		
+		
+		
+		return true;
+	}
 
 
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted){

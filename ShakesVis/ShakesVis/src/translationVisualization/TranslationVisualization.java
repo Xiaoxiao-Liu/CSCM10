@@ -22,11 +22,17 @@ public class TranslationVisualization {
 	private final static int FRAME_WIDTH=800;
 	private final static int FRAME_HEIGHT=800;
 
-	private final static int PANEL_WIDTH=3400;
-	private final static int PANEL_HEIGHT=1800;
+	private final static int CONCORDANCE_PANEL_WIDTH=2500;
+	private final static int CONCORDANCE_PANEL_HEIGHT=900;
 	
 	private final static int SCROLL_PANEL_WIDTH=500;
 	private final static int SCROLL_PANEL_HEIGHT=300;
+	
+	private final static int VISUALIZATION_PANEL_WIDTH=600;
+	private final static int VISUALIZATION_PANEL_HEIGHT=800;
+	
+	private final static int BUTTON_PANEL_WIDTH=500;
+	private final static int BUTTON_PANEL_HEIGHT=300;
 	
 	private JFrame concordanceFrame;
 	
@@ -38,7 +44,7 @@ public class TranslationVisualization {
 	
 	private JButton ConcordanceButton;
 	
-	private JPanel jPanel_1;
+	private JPanel m_visuallizationPanel;
 
 	private JPanel m_buttonPanel;
 
@@ -48,10 +54,10 @@ public class TranslationVisualization {
 		return concordanceFrame;
 	}
 
-
 	public void setConcordanceFrame(JFrame concordanceFrame) {
 		this.concordanceFrame = concordanceFrame;
-		getConcordanceFrame().setLayout(new FlowLayout(FlowLayout.LEADING));
+		getConcordanceFrame().getContentPane().setBackground(Color.BLACK);
+		getConcordanceFrame().setLayout(new BorderLayout());
 		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
 	}
 	
@@ -77,19 +83,18 @@ public class TranslationVisualization {
 		ConcordanceButton = concordanceButton;
 	}
 	
-	public JPanel getjPanel_1() {
-		return jPanel_1;
+	public JPanel getM_visuallizationPanel() {
+		return m_visuallizationPanel;
 	}
 
-
-	public void setjPanel_1(JPanel jPanel_1) {
-		this.jPanel_1 = jPanel_1;
-		getjPanel_1().setLayout(new FlowLayout(FlowLayout.LEFT));
-		getjPanel_1().setVisible(true);
-		getjPanel_1().setBackground(Color.GRAY);
-		getjPanel_1().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT/2));
+	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
+		this.m_visuallizationPanel = m_visuallizationPanel;
+		getM_visuallizationPanel().setLayout(new FlowLayout());
+		getM_visuallizationPanel().setVisible(true);
+		getM_visuallizationPanel().setBackground(Color.WHITE);
+		getM_visuallizationPanel().setPreferredSize(new Dimension(VISUALIZATION_PANEL_WIDTH, VISUALIZATION_PANEL_HEIGHT));
 	}
-	
+
 	public JPanel getM_buttonPanel() {
 		return m_buttonPanel;
 	}
@@ -97,10 +102,10 @@ public class TranslationVisualization {
 
 	public void setM_buttonPanel(JPanel m_buttonPanel) {
 		this.m_buttonPanel = m_buttonPanel;
-		getM_buttonPanel().setLayout(new FlowLayout(FlowLayout.LEFT));
+//		getM_buttonPanel().setLayout(new FlowLayout());
 		getM_buttonPanel().setVisible(true);
 		getM_buttonPanel().setBackground(Color.WHITE);
-		getM_buttonPanel().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT/2));
+		getM_buttonPanel().setPreferredSize(new Dimension(BUTTON_PANEL_WIDTH, BUTTON_PANEL_HEIGHT ));
 	}
 	
 	public List<Version> GetVersionList(){
@@ -113,13 +118,12 @@ public class TranslationVisualization {
 		return concordancePanel;
 	}
 
-
 	public void setConcordancePanel(ConcordancePanel concordancePanel) {
 		this.concordancePanel = concordancePanel;
 		getConcordancePanel().setLayout(null);
 		getConcordancePanel().setBackground(Color.white);
 		getConcordancePanel().setVisible(true);
-		getConcordancePanel().setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
+		getConcordancePanel().setPreferredSize(new Dimension(CONCORDANCE_PANEL_WIDTH,CONCORDANCE_PANEL_HEIGHT));
 		
 	}
 
@@ -127,14 +131,12 @@ public class TranslationVisualization {
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.GetVersionList()));
-
 		transVis.setScrollPanel(new JScrollPane(transVis.getConcordancePanel()));
-		
 		transVis.setConcordanceButton(new JButton("Concordances"));
-		transVis.getConcordanceButton().setBounds(900, 100, 10, 10);//magic numbers
 		
-		transVis.setjPanel_1(new JPanel());
-		transVis.getjPanel_1().add(transVis.getScrollPanel());
+		
+		transVis.setM_visuallizationPanel(new JPanel());
+		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
 		
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
@@ -143,24 +145,16 @@ public class TranslationVisualization {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button pressed");
                 transVis.getScrollPanel().setVisible(true);
-//                jPanel_1.add(scrollPanel);
                 transVis.getConcordanceFrame().revalidate(); 
             }
 		});
 
-//		transVis.getConcordanceFrame().setContentPane(transVis.getjPanel_1());
-		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());
-		transVis.getConcordanceFrame().add(transVis.getjPanel_1());
-//		transVis.getConcordanceFrame().setLayout(new FlowLayout(FlowLayout.LEADING));
-//		transVis.getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
+//		transVis.getConcordanceFrame().setContentPane(transVis.getM_visuallizationPanel());
+		transVis.getConcordanceFrame().add("West", transVis.getM_buttonPanel());
+		transVis.getConcordanceFrame().add("Center",transVis.getM_visuallizationPanel());
 		transVis.getConcordanceFrame().setVisible(true);
 		transVis.getConcordanceFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		
+		transVis.getConcordanceFrame().setLocationRelativeTo(null);
+		transVis.getConcordanceFrame().setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 	}
-
-
-	
-	
-	
-
 }
