@@ -1,7 +1,9 @@
 package translationVisualization;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -26,66 +28,138 @@ public class TranslationVisualization {
 	private final static int SCROLL_PANEL_WIDTH=500;
 	private final static int SCROLL_PANEL_HEIGHT=300;
 	
+	private JFrame concordanceFrame;
 	
-	
-	public static void main(String[] args){
-		
-		List<Version> m_VersionList=new ArrayList<Version>();
-		DataReader dataReader=new DataReader();
-		
-		m_VersionList=dataReader.readAllFile();
+	private JScrollPane scrollPanel;
 
-		JFrame concordanceFrame=new JFrame("Translation Visualization");
+	private List<Version> m_VersionList=new ArrayList<Version>();
+
+	private ConcordancePanel concordancePanel;
+	
+	private JButton ConcordanceButton;
+	
+	private JPanel jPanel_1;
+
+	private JPanel m_buttonPanel;
+
+
+
+	public JFrame getConcordanceFrame() {
+		return concordanceFrame;
+	}
+
+
+	public void setConcordanceFrame(JFrame concordanceFrame) {
+		this.concordanceFrame = concordanceFrame;
+		getConcordanceFrame().setLayout(new FlowLayout(FlowLayout.LEADING));
+		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
+	}
+	
+	public JScrollPane getScrollPanel() {
+		return scrollPanel;
+	}
+
+	public void setScrollPanel(JScrollPane scrollPanel) {
+		this.scrollPanel = scrollPanel;
+		getScrollPanel().setLayout(null);
+		getScrollPanel().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		getScrollPanel().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		getScrollPanel().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+		getScrollPanel().setLayout(new ScrollPaneLayout());
+		getScrollPanel().setVisible(false);
+	}
+	
+	public JButton getConcordanceButton() {
+		return ConcordanceButton;
+	}
+
+	public void setConcordanceButton(JButton concordanceButton) {
+		ConcordanceButton = concordanceButton;
+	}
+	
+	public JPanel getjPanel_1() {
+		return jPanel_1;
+	}
+
+
+	public void setjPanel_1(JPanel jPanel_1) {
+		this.jPanel_1 = jPanel_1;
+		getjPanel_1().setLayout(new FlowLayout(FlowLayout.LEFT));
+		getjPanel_1().setVisible(true);
+		getjPanel_1().setBackground(Color.GRAY);
+		getjPanel_1().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT/2));
+	}
+	
+	public JPanel getM_buttonPanel() {
+		return m_buttonPanel;
+	}
+
+
+	public void setM_buttonPanel(JPanel m_buttonPanel) {
+		this.m_buttonPanel = m_buttonPanel;
+		getM_buttonPanel().setLayout(new FlowLayout(FlowLayout.LEFT));
+		getM_buttonPanel().setVisible(true);
+		getM_buttonPanel().setBackground(Color.WHITE);
+		getM_buttonPanel().setPreferredSize(new Dimension(FRAME_WIDTH, FRAME_HEIGHT/2));
+	}
+	
+	public List<Version> GetVersionList(){
+		DataReader dataReader=new DataReader();
+		m_VersionList=dataReader.readAllFile();
+		return m_VersionList;
+	}
+
+	public ConcordancePanel getConcordancePanel() {
+		return concordancePanel;
+	}
+
+
+	public void setConcordancePanel(ConcordancePanel concordancePanel) {
+		this.concordancePanel = concordancePanel;
+		getConcordancePanel().setLayout(null);
+		getConcordancePanel().setBackground(Color.white);
+		getConcordancePanel().setVisible(true);
+		getConcordancePanel().setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
 		
-		ConcordancePanel concordancePanel=new ConcordancePanel(m_VersionList);
-		concordancePanel.setLayout(null);
-		concordancePanel.setBackground(Color.white);
-		concordancePanel.setVisible(true);
-		concordancePanel.setPreferredSize(new Dimension(PANEL_WIDTH,PANEL_HEIGHT));
+	}
+
+	public static void main(String[] args){
+		TranslationVisualization transVis=new TranslationVisualization();
+		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
+		transVis.setConcordancePanel(new ConcordancePanel(transVis.GetVersionList()));
+
+		transVis.setScrollPanel(new JScrollPane(transVis.getConcordancePanel()));
 		
-		JScrollPane scrollPanel=new JScrollPane(concordancePanel);
-		scrollPanel.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		scrollPanel.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPanel.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
-		scrollPanel.setLayout(new ScrollPaneLayout());
-		scrollPanel.setVisible(false);
+		transVis.setConcordanceButton(new JButton("Concordances"));
+		transVis.getConcordanceButton().setBounds(900, 100, 10, 10);//magic numbers
 		
+		transVis.setjPanel_1(new JPanel());
+		transVis.getjPanel_1().add(transVis.getScrollPanel());
 		
-		JButton ConcordanceButton=new JButton("Concordances");
-		
-		JPanel jPanel_1= new JPanel();
-		jPanel_1.setBackground(Color.WHITE);
-		jPanel_1.add(scrollPanel);
-		
-		jPanel_1.add(ConcordanceButton);
-		
-		
-			
-		
-		
-		concordanceFrame.setContentPane(jPanel_1);
-		concordanceFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);	
-		concordanceFrame.setVisible(true);
-		concordanceFrame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-		concordanceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		ConcordanceButton.addActionListener(new ActionListener(){
+		transVis.setM_buttonPanel(new JPanel());
+		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
+		transVis.getConcordanceButton().addActionListener(new ActionListener(){
 			@Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("按钮被点击");
-                scrollPanel.setVisible(true);
-                jPanel_1.add(scrollPanel);
-                concordanceFrame.revalidate(); 
-//                Object source = e.getSource();
-//                JButton button = (JButton) source;
-//                String text = button.getText();
-//                if ("按钮被点击".equals(text)) {
-//                    button.setText("点我");
-//                } else {
-//                    button.setText("按钮被点击");
-//                }
+                System.out.println("Button pressed");
+                transVis.getScrollPanel().setVisible(true);
+//                jPanel_1.add(scrollPanel);
+                transVis.getConcordanceFrame().revalidate(); 
             }
 		});
+
+//		transVis.getConcordanceFrame().setContentPane(transVis.getjPanel_1());
+		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());
+		transVis.getConcordanceFrame().add(transVis.getjPanel_1());
+//		transVis.getConcordanceFrame().setLayout(new FlowLayout(FlowLayout.LEADING));
+//		transVis.getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
+		transVis.getConcordanceFrame().setVisible(true);
+		transVis.getConcordanceFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//		
 	}
+
+
+	
 	
 	
 

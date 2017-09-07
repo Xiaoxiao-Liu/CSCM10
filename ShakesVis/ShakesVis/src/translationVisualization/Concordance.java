@@ -3,6 +3,8 @@ package translationVisualization;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Rosa
@@ -10,7 +12,7 @@ import java.awt.Point;
  */
 public class Concordance {
 	/**the string of each word*/
-	private String m_Word;
+	private String m_Token;
 	
 	/**the frequency of each word*/
 	private int m_Frequency;
@@ -27,8 +29,13 @@ public class Concordance {
     /**the width of each rectangle */
 	private int m_RectWidth;
 	
-	private final int m_RectHeight=17;
+	 /**the list of all tokens */
+    private List<Concordance> m_TokenList=new ArrayList<Concordance>();
 	
+	/**the height of the rectangle*/
+    private final int m_RectHeight=17;
+	
+    /** the font of the words */
 	private final Font M_WORD_FONT=new Font("sansserif",Font.PLAIN, 13);
 	
 
@@ -40,12 +47,12 @@ public class Concordance {
 		return m_RectHeight;
 	}
 
-	public String getM_Word() {
-		return m_Word;
+	public String getM_Token() {
+		return m_Token;
 	}
 
-	public void setM_Word(String m_Word) {
-		this.m_Word = m_Word;
+	public void setM_Token(String m_Token) {
+		this.m_Token = m_Token;
 	}
 
 	public int getM_Frequency() {

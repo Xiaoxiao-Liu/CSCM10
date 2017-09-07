@@ -1,0 +1,42 @@
+<!-- resource.xml GermanLemmatizer -->
+<!--  perera, 3/10/2005 -->
+<!-- $Id: resource.xml,v 1.3 2006/01/25 14:02:16 perera Exp $ -->
+
+<CREOLE-DIRECTORY>
+
+<CREOLE>
+  <RESOURCE>
+    <NAME>GermanLemmatizer</NAME>
+    <JAR>GermanLemmatizer.jar</JAR>
+    <CLASS>ipd.creole.germanlemmatizer.GermanLemmatizer</CLASS>
+    <PARAMETER NAME="document"
+        RUNTIME="true"
+        COMMENT="The document to be processed">
+        gate.Document
+    </PARAMETER>
+    <PARAMETER NAME="inputASName"
+        COMMENT="The name of the annotation set used for parsing"
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String
+    </PARAMETER>
+    <PARAMETER NAME="outputASName"
+        COMMENT="The name of the annotation set used for output"
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String
+    </PARAMETER>
+    <PARAMETER NAME="extractAnnotations"
+         RUNTIME="true"
+         DEFAULT="NP"
+         OPTIONAL="true"
+         COMMENT="Annotations to extract in addition to ''tokens'' for the stemmer.">java.util.ArrayList
+    </PARAMETER>
+    <PARAMETER NAME="lexiconPath"
+         RUNTIME="false"
+         DEFAULT="userhome:/Dictionary/Lexicon/Lex"
+         OPTIONAL="true"
+         COMMENT="files to store the probabilities">java.net.URL
+    </PARAMETER>
+  </RESOURCE>
+</CREOLE>
+
+</CREOLE-DIRECTORY>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="CaseTagger/src"/>
+	<classpathentry kind="src" path="GermanLemmatizer/src"/>
+	<classpathentry kind="src" path="GermanMorphologicalAnalyzer/src"/>
+	<classpathentry kind="src" path="Number/src"/>
+	<classpathentry kind="lib" path="CaseTagger/build/CaseTagger.jar"/>
+	<classpathentry kind="lib" path="GermanLemmatizer/build/GermanLemmatizer.jar"/>
+	<classpathentry kind="lib" path="GermanMorphologicalAnalyzer/build/GermanMorphologicalAnalyzer.jar"/>
+	<classpathentry kind="lib" path="Number/build/Number.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="CaseTagger/classes"/>
+</classpath>

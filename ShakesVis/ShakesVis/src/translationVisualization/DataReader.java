@@ -133,13 +133,13 @@ public class DataReader {
 				for(Map.Entry<String, Integer> mapping : m_frequencyIndex){
 					if(version.getM_ConcordanceList().size()<listSize){ //get the top 50 frequency words in every version
 					 Concordance concordance=new Concordance();
-					 concordance.setM_Word(mapping.getKey());
+					 concordance.setM_Token(mapping.getKey());
 					 concordance.setM_Frequency(mapping.getValue());
 					 concordance.setM_RectWidth(mapping.getValue());
 					 concordance.setM_StringPoint(calculatePoint(i, lineNumber));
 					 concordance.setM_RectPoint(concordance.getM_StringPoint());
 					 addStringIndex(mapping);
-					 concordance.setM_Color(calculateColor(m_StringIndex.get(concordance.getM_Word())));
+					 concordance.setM_Color(calculateColor(m_StringIndex.get(concordance.getM_Token())));
 					 version.setM_ConcordanceList(concordance);
 					 lineNumber++;
 					}
