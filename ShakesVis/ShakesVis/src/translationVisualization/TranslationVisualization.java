@@ -96,7 +96,7 @@ public class TranslationVisualization {
 		getM_buttonPanel().setBackground(Color.WHITE);
 	}
 	
-	public List<Version> GetVersionList(){
+	public List<Version> GetVersionList() throws Exception{
 		DataReader dataReader=new DataReader();
 		m_VersionList=dataReader.readAllFile();
 		return m_VersionList;
@@ -115,7 +115,7 @@ public class TranslationVisualization {
 		
 	}
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws Exception{
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.GetVersionList()));

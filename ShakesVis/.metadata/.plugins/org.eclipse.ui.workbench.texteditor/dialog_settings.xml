@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="M_ConcordanceList" key="selection"/>
-		<item value="false" key="casesensitive"/>
+		<item value="BUTTON" key="selection"/>
+		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="SCROLL"/>
+			<item value="getjPanel_1()"/>
 			<item value="m_ConcordanceList"/>
 			<item value="point"/>
 			<item value="font"/>
 			<item value="color"/>
 			<item value="’s"/>
 			<item value="&apos;s"/>
-			<item value="–"/>
-			<item value="-"/>
 		</list>
 		<list key="replacehistory">
+			<item value="BUTTON"/>
+			<item value="getM_visuallizationPanel()"/>
 			<item value=" "/>
 			<item value=""/>
 			<item value="m_frequencyIndex"/>
 			<item value="m_frequency"/>
 			<item value="fried"/>
 			<item value="flatter"/>
-			<item value="schroeder"/>
-			<item value="src\\data\\"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

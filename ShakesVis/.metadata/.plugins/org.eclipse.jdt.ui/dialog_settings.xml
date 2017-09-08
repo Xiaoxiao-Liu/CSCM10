@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="0" key="CallHierarchyViewPart.call_mode"/>
+	<item value="3" key="TypeHierarchyViewPart.orientation"/>
 	<item value="2" key="CallHierarchyViewPart.field_mode"/>
+	<item value="false" key="TypeHierarchyViewPart.linkeditors"/>
+	<item value="2" key="TypeHierarchyViewPart.hierarchyview"/>
+	<item value="341" key="CallHierarchyViewPart.ratio1"/>
+	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
+	<item value="500" key="CallHierarchyViewPart.ratio3"/>
+	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
+	<item value="1" key="CallHierarchyViewPart.call_mode"/>
 	<item value="C:\Users\45109\Desktop" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="C:\Users\45109\Desktop\stanford-corenlp-full-2017-06-09.zip" key="org.eclipse.jdt.ui.lastuserlibrary"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
-	<item value="341" key="CallHierarchyViewPart.ratio1"/>
-	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
 	<item value="480,578" key="UserLibraryLoadSaveDialog.size"/>
-	<item value="500" key="CallHierarchyViewPart.ratio3"/>
 	<list key="SearchScopeActionGroup.working_set">
 	</list>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">

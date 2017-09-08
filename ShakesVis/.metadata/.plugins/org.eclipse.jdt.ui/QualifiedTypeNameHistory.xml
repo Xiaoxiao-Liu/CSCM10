@@ -53,4 +53,8 @@
 <fullyQualifiedTypeName name="javax.swing.JButton"/>
 <fullyQualifiedTypeName name="java.awt.BorderLayout"/>
 <fullyQualifiedTypeName name="java.awt.FlowLayout"/>
+<fullyQualifiedTypeName name="java.awt.GridLayout"/>
+<fullyQualifiedTypeName name="java.awt.GridBagLayout"/>
+<fullyQualifiedTypeName name="org.annolab.tt4j.TreeTaggerWrapper"/>
+<fullyQualifiedTypeName name="org.annolab.tt4j.TokenHandler"/>
 </qualifiedTypeNameHistroy>
