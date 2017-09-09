@@ -11,91 +11,146 @@ import java.util.List;
  *
  */
 public class Concordance {
-	/**the string of each word*/
+	/**
+	 * Use this method to access the Concordance Object
+	 */
+	
+	/**a way to access the tokens*/
 	private String m_Token;
 	
-	/**the frequency of each word*/
+	/**the frequency number of each token*/
 	private int m_Frequency;
 	
-	/**the point of each string*/
+	/**use point to show the location of each token*/
 	private Point m_StringPoint;
 	
-	/** the color of each string*/
+	/** the color of each token*/
 	private Color m_Color;
 	
-	/**the point of the rectangle bar for each string */
+	/**the location of the rectangle bar for each token */
 	private Point m_RectPoint;
 
     /**the width of each rectangle */
 	private int m_RectWidth;
 	
-	 /**the list of all tokens */
-    private List<Concordance> m_TokenList=new ArrayList<Concordance>();
-	
-	/**the height of the rectangle*/
+	/**the height of each rectangle*/
     private final int m_RectHeight=17;
 	
-    /** the font of the words */
-	private final Font M_WORD_FONT=new Font("sansserif",Font.PLAIN, 13);
+    /** the font of tokens */
+	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13);
 	
-
-	public Font getM_WORD_FONT() {
-		return M_WORD_FONT;
-	}
-
-	public int getM_RectHeight() {
-		return m_RectHeight;
-	}
-
+	/**
+	 * @return tokens
+	 */
 	public String getM_Token() {
 		return m_Token;
 	}
 
+	/**
+	 * An accessor method to pass string to
+	 * Concordance object and set token  
+	 * @param m_Token
+	 */
 	public void setM_Token(String m_Token) {
 		this.m_Token = m_Token;
 	}
 
+	/**
+	 * @return the fond
+	 */
+	public Font getM_WORD_FONT() {
+		return M_Token_Font;
+	}
+
+	/**
+	 * @return the height of rectangle
+	 */
+	public int getM_RectHeight() {
+		return m_RectHeight;
+	}
+
+	/**
+	 * @return the frequency of each token
+	 */
 	public int getM_Frequency() {
 		return m_Frequency;
 	}
 
+	/**
+	 * An accessor method to pass number to 
+	 * Concordance object and set frequency
+	 * @param m_Frequency 
+	 */
 	public void setM_Frequency(int m_Frequency) {
 		this.m_Frequency = m_Frequency;
 	}
 
+	/**
+	 * @return the location point of each token
+	 */
 	public Point getM_StringPoint() {
 		return m_StringPoint;
 	}
 
+	/**
+	 * An accessor method to pass point to 
+	 * Concordance object and set location 
+	 * of the string
+	 * @param point
+	 */
 	public void setM_StringPoint(Point point) {
 		m_StringPoint=point;
 	}
 
+	/**
+	 * @return the color of each token
+	 */
 	public Color getM_Color() {
 		return m_Color;
 	}
 
+	/**
+	 * An accessor method to pass the color to
+	 * Concordance object and set color
+	 * @param color
+	 */
 	public void setM_Color(Color color) {
 		this.m_Color=color;
 
 	}
 
+	/**
+	 * @return the location of the rectangle
+	 */
 	public Point getM_RectPoint() {
 		return m_RectPoint;
 	}
 
+	/**
+	 * Pass the point of string to
+	 * Concordance object and calculate location
+	 * @param stringPoint
+	 */
 	public void setM_RectPoint(Point stringPoint) {
-		int x=5;
-		int y=-15;
-		x=x+stringPoint.x;
-		y=y+stringPoint.y;
+		int x=5;  // the distance between the string and rectangle
+		int y=-15;  //the location of the rectangle needs to move up
+		x=stringPoint.x+x;
+		y=stringPoint.y+y;
 		m_RectPoint=new Point(x, y);
 	}
 
+	/**
+	 * @return the width of the rectangle
+	 */
 	public int getM_RectWidth() {
 		return m_RectWidth;
 	}
 
+	/**
+	 * Pass the frequency number to 
+	 * compute the width of rectangle
+	 * @param wordFrequency 
+	 */
 	public void setM_RectWidth(int wordFrequency) {
 		int blockWidth=4; //width of each rectangle block
 		m_RectWidth=wordFrequency*blockWidth;
@@ -104,4 +159,4 @@ public class Concordance {
     
 	
 	
-}
+}  /* end class Concordance */

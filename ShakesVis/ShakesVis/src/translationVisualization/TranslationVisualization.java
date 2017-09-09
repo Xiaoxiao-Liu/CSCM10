@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
@@ -19,13 +20,17 @@ import javax.swing.ScrollPaneLayout;
 import TranslationVisualizatonGUI.ConcordancePanel;
 
 public class TranslationVisualization {
+	
 	private final static int FRAME_WIDTH=800;
+ 	
 	private final static int FRAME_HEIGHT=800;
 
 	private final static int CONCORDANCE_PANEL_WIDTH=2500;
+	
 	private final static int CONCORDANCE_PANEL_HEIGHT=900;
 	
 	private final static int SCROLL_PANEL_WIDTH=500;
+	
 	private final static int SCROLL_PANEL_HEIGHT=300;
 	
 	private JFrame concordanceFrame;
@@ -41,8 +46,8 @@ public class TranslationVisualization {
 	private JPanel m_visuallizationPanel;
 
 	private JPanel m_buttonPanel;
-
-
+	
+//	private JScrollBar m_scrollBar;
 
 	public JFrame getConcordanceFrame() {
 		return concordanceFrame;
@@ -89,7 +94,6 @@ public class TranslationVisualization {
 		return m_buttonPanel;
 	}
 
-
 	public void setM_buttonPanel(JPanel m_buttonPanel) {
 		this.m_buttonPanel = m_buttonPanel;
 		getM_buttonPanel().setVisible(true);
@@ -116,6 +120,7 @@ public class TranslationVisualization {
 	}
 
 	public static void main(String[] args) throws Exception{
+		JScrollBar m_scrollBar=new JScrollBar();
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.GetVersionList()));
@@ -125,6 +130,7 @@ public class TranslationVisualization {
 		
 		transVis.setM_visuallizationPanel(new JPanel());
 		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
+		transVis.getM_visuallizationPanel().add(m_scrollBar);
 		
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());

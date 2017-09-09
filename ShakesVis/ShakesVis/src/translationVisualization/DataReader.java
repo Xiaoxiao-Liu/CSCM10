@@ -30,9 +30,8 @@ import edu.stanford.nlp.util.CoreMap;
 
 public class DataReader {
 	private List<Map.Entry<String, Integer>> m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
-	private final String[] stringArray = { "src\\data\\0000 BaseText Shakespeare.txt",
-			"src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
-			"src\\data\\1947 Baudissin ed Brunner.txt", "src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
+	private final String[] stringArray = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
 			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
@@ -40,8 +39,8 @@ public class DataReader {
 	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
 	public List<Version> m_VersionList = new ArrayList<Version>();
 	protected StanfordCoreNLP pipeline;
-	List<String> lemmas = new ArrayList<String>();
-
+	List<String> lemmas; 
+//	= new ArrayList<String>();
 	public boolean readOneFile(String filePath) throws Exception {
 		try {
 			frequency = new Hashtable<String, Integer>();
@@ -61,24 +60,24 @@ public class DataReader {
 					// "").replaceAll("--", "").split(" "));
 					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "")
 							.split(" ");
-					// if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){
+					// if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
 					// lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}",
 					// ""));
 					// for(int i=0; i<lemmas.size(); i++){
 					// addWordFrequency(lemmas.get(i));
 					// }
 					// }
-					germanLemmatizer(tmpWordsList);
+//					germanLemmatizer(tmpWordsList);
+//					for (int i = 0; i < lemmas.size(); i++) {
+//						addWordFrequency(lemmas.get(i));
+//					}
+//					
+//					System.out.println(tmpWordsList.length);
+
 					for (int i = 0; i < tmpWordsList.length; i++) {
+
 						addWordFrequency(tmpWordsList[i]);
 					}
-					
-					System.out.println(tmpWordsList.length);
-
-//					for (int i = 0; i < tmpWordsList.size(); i++) {
-//
-//						addWordFrequency(tmpWordsList.get(i));
-//					}
 				}
 			}
 
@@ -166,15 +165,7 @@ public class DataReader {
 			int lineNumber = 1;
 			int listSize = 50;
 			for (Map.Entry<String, Integer> mapping : m_frequencyIndex) {
-				if (version.getM_ConcordanceList().size() < listSize) { // get
-																		// the
-																		// top
-																		// 50
-																		// frequency
-																		// words
-																		// in
-																		// every
-																		// version
+				if (version.getM_ConcordanceList().size() < listSize) { 
 					Concordance concordance = new Concordance();
 					concordance.setM_Token(mapping.getKey());
 					concordance.setM_Frequency(mapping.getValue());
