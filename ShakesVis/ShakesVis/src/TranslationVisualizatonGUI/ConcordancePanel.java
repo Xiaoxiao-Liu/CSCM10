@@ -64,9 +64,11 @@ public class ConcordancePanel extends JPanel {
 				String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
 				g.setFont(concordance.getM_WORD_FONT());
 				g.drawString(string, concordance.getM_StringPoint().x-fontMetrics.stringWidth(string), concordance.getM_StringPoint().y);
-				g.setColor(Color.LIGHT_GRAY);
+				g.setColor(concordance.getM_RectColor());
+				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
+
+				g.setColor(Color.GRAY);
 				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
-//				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				int versionCompare=i+1;
 				if(versionCompare>1&&versionCompare<m_VersionList.size()){
 				
@@ -74,7 +76,7 @@ public class ConcordancePanel extends JPanel {
 						Concordance concordanceCompare=m_VersionList.get(versionCompare).getM_ConcordanceList().get(k);
 						if(concordanceCompare.getM_Token().equals(concordance.getM_Token())){
 							int gap=15;
-							g.setColor(concordance.getM_Color());
+							g.setColor(concordance.getM_TokenColor());
 							g.drawLine(concordance.getM_RectPoint().x, concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
 						}
 					}

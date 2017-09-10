@@ -25,7 +25,7 @@ public class Concordance {
 	private Point m_StringPoint;
 	
 	/** the color of each token*/
-	private Color m_Color;
+	private Color m_TokenColor;
 	
 	/**the location of the rectangle bar for each token */
 	private Point m_RectPoint;
@@ -35,10 +35,21 @@ public class Concordance {
 	
 	/**the height of each rectangle*/
     private final int m_RectHeight=17;
+    
+    /** the color of each rectangle*/
+	private Color m_RectColor;
 	
     /** the font of tokens */
 	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13);
 	
+	public Color getM_RectColor() {
+		return m_RectColor;
+	}
+
+	public void setM_RectColor(Color m_RectColor) {
+		this.m_RectColor = m_RectColor;
+	}
+
 	/**
 	 * @return tokens
 	 */
@@ -105,8 +116,8 @@ public class Concordance {
 	/**
 	 * @return the color of each token
 	 */
-	public Color getM_Color() {
-		return m_Color;
+	public Color getM_TokenColor() {
+		return m_TokenColor;
 	}
 
 	/**
@@ -114,8 +125,8 @@ public class Concordance {
 	 * Concordance object and set color
 	 * @param color
 	 */
-	public void setM_Color(Color color) {
-		this.m_Color=color;
+	public void setM_TokenColor(Color color) {
+		this.m_TokenColor=color;
 
 	}
 
