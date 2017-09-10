@@ -18,7 +18,7 @@ import translationVisualization.Version;
 public class ConcordancePanel extends JPanel {
 	public List<Version> m_VersionList=new ArrayList<Version>();
 	
-	private int m_scaleValue=10;
+	private double m_scaleValue=10;
 
 	/**
 	 * Constructor
@@ -30,7 +30,9 @@ public class ConcordancePanel extends JPanel {
 	
 
 	public double getScaleValue() {
-		return m_scaleValue;
+		int divideValue=100;
+		int plusValue=1;
+		return m_scaleValue/divideValue+plusValue;
 	}
 
 	public void setScaleValue(int scaleValue) {
@@ -43,7 +45,7 @@ public class ConcordancePanel extends JPanel {
 	
 	public void paintComponent(Graphics g){
 		Graphics2D g2d=(Graphics2D)g;
-		g2d.scale(getScaleValue()/10, getScaleValue()/10);
+		g2d.scale(getScaleValue(),getScaleValue());
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);

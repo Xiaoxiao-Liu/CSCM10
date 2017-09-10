@@ -18,6 +18,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -52,6 +53,7 @@ public class TranslationVisualization {
 	private JPanel m_visuallizationPanel;
 
 	private JPanel m_buttonPanel;
+	static int m_scaleValue=1;
 	
 //	private JScrollBar m_scrollBar;
 
@@ -61,6 +63,10 @@ public class TranslationVisualization {
 
 	public void setM_Slider(JSlider m_Slider) {
 		this.m_Slider = m_Slider;
+		m_Slider.setMajorTickSpacing(10);
+//		m_Slider.setPaintTicks(true);
+		m_Slider.setPaintLabels(true);
+		m_Slider.setBackground(Color.WHITE);
 	}
 
 	public JFrame getConcordanceFrame() {
@@ -78,10 +84,12 @@ public class TranslationVisualization {
 
 	public void setScrollPanel(JScrollPane scrollPanel) {
 		this.scrollPanel = scrollPanel;
+//		int scaleValue=m_scaleValue;
+//		scaleValue=( scaleValue >= 1 ? scaleValue : 1 );
 		getScrollPanel().setLayout(null);
 		getScrollPanel().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		getScrollPanel().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		getScrollPanel().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+		getScrollPanel().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4));//magic number
 		getScrollPanel().setLayout(new ScrollPaneLayout());
 		getScrollPanel().setVisible(false);
 	}
@@ -141,7 +149,7 @@ public class TranslationVisualization {
 		transVis.setScrollPanel(new JScrollPane(transVis.getConcordancePanel()));
 		transVis.setConcordanceButton(new JButton("Concordances"));
 		
-		transVis.setM_Slider(new JSlider());//magic number
+		transVis.setM_Slider(new JSlider( SwingConstants.HORIZONTAL, 10, 100, 10));//magic number
 		
 		transVis.setM_visuallizationPanel(new JPanel());
 		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
@@ -152,10 +160,12 @@ public class TranslationVisualization {
 		
 		transVis.getM_Slider().addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent event) {
-				int zoomValue=transVis.getM_Slider().getValue();
-				System.out.println(zoomValue);
-				transVis.getConcordancePanel().setScaleValue(zoomValue);//magic number
+				m_scaleValue=transVis.getM_Slider().getValue();
+				System.out.println(m_scaleValue);
+				transVis.getConcordancePanel().setScaleValue(m_scaleValue);//magic number
 //				transVis.getConcordancePanel().repaint();
+				transVis.setScrollPanel(transVis.getScrollPanel());
+				transVis.getScrollPanel().setVisible(true);
 				transVis.getConcordanceFrame().revalidate(); 
 			}
 		});
