@@ -57,4 +57,6 @@
 <fullyQualifiedTypeName name="java.awt.GridBagLayout"/>
 <fullyQualifiedTypeName name="org.annolab.tt4j.TreeTaggerWrapper"/>
 <fullyQualifiedTypeName name="org.annolab.tt4j.TokenHandler"/>
+<fullyQualifiedTypeName name="javax.swing.JProgressBar"/>
+<fullyQualifiedTypeName name="java.awt.ScrollPane"/>
 </qualifiedTypeNameHistroy>

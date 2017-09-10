@@ -3,6 +3,7 @@ package TranslationVisualizatonGUI;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -17,18 +18,39 @@ import translationVisualization.Version;
 public class ConcordancePanel extends JPanel {
 	public List<Version> m_VersionList=new ArrayList<Version>();
 	
-	
+	private int m_scaleValue=10;
+
+	/**
+	 * Constructor
+	 * @param versionList
+	 */
 	public ConcordancePanel(List<Version> versionList) {
 		m_VersionList = versionList;
 	}
+	
 
+	public double getScaleValue() {
+		return m_scaleValue;
+	}
 
+	public void setScaleValue(int scaleValue) {
+		
+		// if diameter invalid, default to 10
+		m_scaleValue =( scaleValue >= 0 ? scaleValue : 10 ); 
+		repaint();
+	}
+
+	
 	public void paintComponent(Graphics g){
+		Graphics2D g2d=(Graphics2D)g;
+		g2d.scale(getScaleValue()/10, getScaleValue()/10);
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);
 		for(int i=0; i<m_VersionList.size(); i++){
 			Version version=m_VersionList.get(i);
+			
+
 			g.setColor(Color.black);
 			g.setFont(version.getM_WORD_FONT());
 			g.drawString(version.getM_Author(), version.getM_titlePoint().x, version.getM_titlePoint().y);

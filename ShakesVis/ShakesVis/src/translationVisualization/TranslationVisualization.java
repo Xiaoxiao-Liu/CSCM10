@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,10 +13,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSlider;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import TranslationVisualizatonGUI.ConcordancePanel;
 
@@ -43,11 +47,21 @@ public class TranslationVisualization {
 	
 	private JButton ConcordanceButton;
 	
+	private JSlider m_Slider;
+
 	private JPanel m_visuallizationPanel;
 
 	private JPanel m_buttonPanel;
 	
 //	private JScrollBar m_scrollBar;
+
+	public JSlider getM_Slider() {
+		return m_Slider;
+	}
+
+	public void setM_Slider(JSlider m_Slider) {
+		this.m_Slider = m_Slider;
+	}
 
 	public JFrame getConcordanceFrame() {
 		return concordanceFrame;
@@ -120,20 +134,32 @@ public class TranslationVisualization {
 	}
 
 	public static void main(String[] args) throws Exception{
-		JScrollBar m_scrollBar=new JScrollBar();
+		
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.GetVersionList()));
 		transVis.setScrollPanel(new JScrollPane(transVis.getConcordancePanel()));
 		transVis.setConcordanceButton(new JButton("Concordances"));
 		
+		transVis.setM_Slider(new JSlider());//magic number
 		
 		transVis.setM_visuallizationPanel(new JPanel());
 		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
-		transVis.getM_visuallizationPanel().add(m_scrollBar);
 		
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
+		transVis.getM_buttonPanel().add(transVis.getM_Slider());
+		
+		transVis.getM_Slider().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent event) {
+				int zoomValue=transVis.getM_Slider().getValue();
+				System.out.println(zoomValue);
+				transVis.getConcordancePanel().setScaleValue(zoomValue);//magic number
+//				transVis.getConcordancePanel().repaint();
+				transVis.getConcordanceFrame().revalidate(); 
+			}
+		});
+		
 		transVis.getConcordanceButton().addActionListener(new ActionListener(){
 			@Override
             public void actionPerformed(ActionEvent e) {
@@ -154,6 +180,7 @@ public class TranslationVisualization {
 		s.weightx=1;
 		s.weighty=1;
 		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
+		
 
 		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());
 		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel());
