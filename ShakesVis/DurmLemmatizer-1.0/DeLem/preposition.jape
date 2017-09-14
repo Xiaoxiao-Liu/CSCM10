@@ -1,0 +1,13 @@
+
+
+
+Phase: Preposition
+Input: Token 
+
+Rule: Prep
+(
+  {Token.category == APPR} | { Token.category == APPRART}
+
+):Prep
+-->
+ :Prep.Preposition = {kind = "prep"}

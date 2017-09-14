@@ -1,0 +1,36 @@
+<!-- resource.xml Number -->
+<!--  perera, 3/10/2005 -->
+<!-- $Id: resource.xml~,v 1.1 2005/10/03 12:51:51 perera Exp $ -->
+
+<CREOLE-DIRECTORY>
+
+<CREOLE>
+  <RESOURCE>
+    <NAME>Number</NAME>
+    <JAR>Number.jar</JAR>
+    <CLASS>ipd.creole.number.Number</CLASS>
+    <PARAMETER NAME="document"
+        RUNTIME="true"
+        COMMENT="The document to be processed">
+        gate.Document
+    </PARAMETER>
+    <PARAMETER NAME="inputASName"
+        COMMENT="The name of the annotation set used for parsing"
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String
+    </PARAMETER>
+    <PARAMETER NAME="outputASName"
+        COMMENT="The name of the annotation set used for output"
+        RUNTIME="true"
+        OPTIONAL="true">java.lang.String
+    </PARAMETER>
+    <PARAMETER NAME="extractAnnotations"
+         RUNTIME="true"
+         DEFAULT="NP"
+         OPTIONAL="true"
+         COMMENT="Annotations to extract in addition to ''tokens'' for the stemmer.">java.util.ArrayList
+    </PARAMETER>
+  </RESOURCE>
+</CREOLE>
+
+</CREOLE-DIRECTORY>

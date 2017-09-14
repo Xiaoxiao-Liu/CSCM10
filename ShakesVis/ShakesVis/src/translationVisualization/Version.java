@@ -8,7 +8,7 @@ import java.util.List;
 public class Version {
 
     /**the list of all words of one version */
-	private List<String> m_Words=new ArrayList<String>();
+	private List<String> m_WordsList=new ArrayList<String>();
 
     /**the name of the version */
 	private String m_VersionName;
@@ -28,28 +28,47 @@ public class Version {
     /**the list of all concordances */
     private List<Concordance> m_ConcordanceList=new ArrayList<Concordance>();
     
-    /**the point of title */
+    /**the location of title */
     private Point m_titlePoint= new Point();
     
-	private final Font M_WORD_FONT=new Font("TimesRoman",Font.PLAIN, 16);
+    /**the font of the title */
+	private final Font M_Word_Font=new Font("TimesRoman",Font.PLAIN, 13);
 
+	/**
+	 * @return the fond of the title
+	 */
 	public Font getM_WORD_FONT() {
-		return M_WORD_FONT;
+		return M_Word_Font;
 	}
 
-	public List<String> getM_Words() {
-		return m_Words;
+	/**
+	 * @return a list of all tokens in one version 
+	 */
+	public List<String> getM_WordsList() {
+		return m_WordsList;
 	}
 
-	public void setM_Words(List<String> m_Words) {
-		this.m_Words = m_Words;
+	/**
+	 * An accessor method to pass the list of words
+	 * to Version object and set the list
+	 * @param m_Words
+	 */
+	public void setM_WordsList(List<String> m_Words) {
+		this.m_WordsList = m_Words;
 	}
 
+	/**
+	 * @return version name
+	 */
 	public String getM_VersionName() {
 		return m_VersionName;
 	}
 
-	public void setM_VersionName() {
+	/**
+	 * An accessor method to pass the version name
+	 * @param m_VersionName
+	 */
+	public void setM_VersionName(String m_VersionName) {
 		this.m_VersionName = m_VersionName;
 	}
 

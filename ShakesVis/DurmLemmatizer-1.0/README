@@ -1,0 +1,41 @@
+This is the Durm German Lemmatization System.
+
+This distribution includes:
+
+GATE components
+===============
+Components for use with the GATE system (http://gate.ac.uk/):
+
+o CaseTagger: the German Case Tagger component
+o Number: the German Number Tagger component
+o GermanMorphologicalAnalyzer: the German Morphological Analyzer component
+o GermanLemmatizer: the main Lemmatization component
+
+All components are pre-compiled (note: Java1.5!), so you can use them directly
+with your GATE installation without compiling them yourself.
+
+
+Resources
+=========
+The following directories include the resources needed for running the system:
+
+o CaseProbs: probability files for use with the CaseTagger
+o DeLem: JAPE grammar file (to be used as a multi-phase transducer)
+o DE-Lexicon: the automatically created German lexicon
+
+Note: all text files are Unicode (UTF-8) encoded.
+
+
+Documentation
+=============
+
+Some documentation is in the "docs" directiory.  See the web page:
+    http://www.ipd.uka.de/~durm/tm/lemma/
+for more information.
+
+
+License
+=======
+
+This system is distributed under the GNU GPL license.  Read the LICENSE.txt
+file if you don't know what this entails.

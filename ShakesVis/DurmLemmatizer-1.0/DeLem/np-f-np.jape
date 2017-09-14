@@ -1,0 +1,17 @@
+
+
+Phase: NPFNP
+Input: Token NP NPFNP
+
+Rule: Npafternp
+(
+  
+  {NP}{NP}|{NPFNP}{NP}
+  
+  
+
+):Npafternp
+-->
+ :Npafternp.NPFNP = {kind = "npafternp"}
+
+ 

@@ -1,0 +1,22 @@
+
+
+
+Phase: PN
+Input: Token NP Preposition
+
+Rule: Prepnp
+(
+  
+  {Preposition} 
+  {NP}
+  
+  
+
+):Prepnp
+-->
+ :Prepnp.PN = {kind = "prepnp"}
+
+
+
+ 
+ 
