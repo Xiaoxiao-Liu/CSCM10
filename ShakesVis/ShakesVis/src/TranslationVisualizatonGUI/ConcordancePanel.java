@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -36,11 +37,12 @@ public class ConcordancePanel extends JPanel {
 	}
 
 	public void setScaleValue(int scaleValue) {
-		
 		// if diameter invalid, default to 10
 		m_scaleValue =( scaleValue >= 0 ? scaleValue : 10 ); 
 		repaint();
 	}
+	
+	
 
 	
 	public void paintComponent(Graphics g){
@@ -51,8 +53,6 @@ public class ConcordancePanel extends JPanel {
 		super.paintComponent(g);
 		for(int i=0; i<m_VersionList.size(); i++){
 			Version version=m_VersionList.get(i);
-			
-
 			g.setColor(Color.black);
 			g.setFont(version.getM_WORD_FONT());
 			g.drawString(version.getM_Author(), version.getM_titlePoint().x, version.getM_titlePoint().y);

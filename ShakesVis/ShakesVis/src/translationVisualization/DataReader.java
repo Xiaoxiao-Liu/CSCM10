@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,16 @@ public class DataReader {
 	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
 	public List<Version> m_VersionList = new ArrayList<Version>();
 	protected StanfordCoreNLP pipeline;
-	List<String> lemmas; 
-//	= new ArrayList<String>();
+	private List<String> lemmas; 
+	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
+	private List<Map.Entry<Integer, Color>> m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>();
+
+
+	
+	public Hashtable<Integer, Color> getM_frequencyColorIndex() {
+		return m_frequencyColorIndex;
+	}
+
 	public boolean readOneFile(String filePath) throws Exception {
 		try {
 			frequency = new Hashtable<String, Integer>();
@@ -80,7 +89,6 @@ public class DataReader {
 					}
 				}
 			}
-
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,7 +142,6 @@ public class DataReader {
 				lemmas.add(token.get(LemmaAnnotation.class));
 			}
 		}
-
 		return true;
 	}
 
@@ -149,10 +156,21 @@ public class DataReader {
 		});
 		return true;
 	}
+	
+	public List<Map.Entry<Integer, Color>> sortColorIndex(Hashtable<Integer, Color> frequencyColorIndex){
+		m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>(frequencyColorIndex.entrySet());
+		Collections.sort(m_ColorIndex, new Comparator<Map.Entry<Integer, Color>>() {
+			// decending order
+			public int compare(Entry<Integer, Color> o1, Entry<Integer, Color> o2) {
+				return o2.getKey().compareTo(o1.getKey());
+			}
+		});
+		System.out.println(m_ColorIndex);
+		return m_ColorIndex;
+	}
 
 	public List<Version> readAllFile() throws Exception {
 		for (int i = 0; i < stringArray.length; i++) {
-
 			Version version = new Version();
 			readOneFile(stringArray[i]);
 			sortFrequencyIndex(frequency);
@@ -176,14 +194,14 @@ public class DataReader {
 					concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
 					concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
 					version.setM_ConcordanceList(concordance);
+					addfrequencyColorIndex(mapping,concordance.getM_RectColor());
 					lineNumber++;
 				}
 			}
-			System.out.println(version.getM_ConcordanceList().size());
+			System.out.println(m_frequencyColorIndex);
 			m_VersionList.add(version);
 
 		}
-
 		return m_VersionList;
 	}
 
@@ -215,6 +233,12 @@ public class DataReader {
 		if (!m_StringIndex.containsKey(mapping.getKey())) {
 			m_StringIndex.put(mapping.getKey(), m_StringIndex.size());
 
+		}
+	}
+	
+	public void addfrequencyColorIndex(Map.Entry<String, Integer> mapping, Color color){
+		if(!m_frequencyColorIndex.containsKey(mapping.getValue())){
+			m_frequencyColorIndex.put(mapping.getValue(), color);
 		}
 	}
 

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.ScrollPaneConstants;
@@ -22,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import TranslationVisualizatonGUI.ColorLegendPanel;
 import TranslationVisualizatonGUI.ConcordancePanel;
 
 public class TranslationVisualization {
@@ -53,6 +52,9 @@ public class TranslationVisualization {
 	private JPanel m_visuallizationPanel;
 
 	private JPanel m_buttonPanel;
+	
+	private static ColorLegendPanel m_colorLegend=new ColorLegendPanel();
+	
 	static int m_scaleValue=1;
 	
 //	private JScrollBar m_scrollBar;
@@ -125,6 +127,8 @@ public class TranslationVisualization {
 	public List<Version> GetVersionList() throws Exception{
 		DataReader dataReader=new DataReader();
 		m_VersionList=dataReader.readAllFile();
+		m_colorLegend.colorLegend(dataReader.sortColorIndex(dataReader.getM_frequencyColorIndex()));
+		
 		return m_VersionList;
 	}
 
@@ -153,7 +157,7 @@ public class TranslationVisualization {
 		
 		transVis.setM_visuallizationPanel(new JPanel());
 		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
-		
+		transVis.getM_visuallizationPanel().add(m_colorLegend);
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
 		transVis.getM_buttonPanel().add(transVis.getM_Slider());
