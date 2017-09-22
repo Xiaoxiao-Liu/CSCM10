@@ -29,53 +29,119 @@ import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.util.CoreMap;
 
+/**
+ * 
+ * @author Rosa
+ * This is a logic class to read the data from .txt file and compute the token frequency and other information
+ */
 public class DataReader {
-	private List<Map.Entry<String, Integer>> m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
-	private final String[] stringArray = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+	
+	/**an array list of word and frequency index after sorting as ascending order*/
+	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
+	
+	/**an string array to store file paths for basic text and translation versions*/
+	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
 			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
 			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
-	private Hashtable<String, Integer> frequency = new Hashtable<String, Integer>();
+	
+	
+
+	/**a hashtable to store tokens and frequency but without sorting*/
+	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
+	
+	/***/
 	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
+	
+	/***/
 	public List<Version> m_VersionList = new ArrayList<Version>();
+
+	/***/
 	protected StanfordCoreNLP pipeline;
+
+	/***/
 	private List<String> lemmas; 
+
+	/***/
 	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
+
+	/***/
 	private List<Map.Entry<Integer, Color>> m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>();
 
+	/***/
+	private Version version;
 
 	
+	public Version getVersion() {
+		return version;
+	}
+
+	public void setVersion(Version version) {
+		this.version = version;
+	}
+
 	public Hashtable<Integer, Color> getM_frequencyColorIndex() {
 		return m_frequencyColorIndex;
 	}
+	
+	/**
+	 * @return m_UnsortedFrequency
+	 */
+	public Hashtable<String, Integer> getM_UnsortedFrequency() {
+		return m_UnsortedFrequency;
+	}
 
+	/**
+	 * an accessor method to set the unsorted frequency hashtable
+	 * @param m_UnsortedFrequency
+	 */
+	public void setM_UnsortedFrequency(Hashtable<String, Integer> m_UnsortedFrequency) {
+		this.m_UnsortedFrequency = m_UnsortedFrequency;
+	}
+
+	/**
+	 * @return file path string array
+	 */
+	public String[] getM_FilePath() {
+		return m_FilePath;
+	}
+	
+	/**
+	 * pass the file path and read one file 
+	 * @param filePath
+	 * @return TRUE on success
+	 * @throws Exception
+	 */
 	public boolean readOneFile(String filePath) throws Exception {
-		try {
-			frequency = new Hashtable<String, Integer>();
-			BufferedReader br = new BufferedReader(new FileReader(filePath));
-			String sCurrentLine;
+		
+		/*
+		 * Read the text line by line and pass each token to other methods
+		 */
+		try { 
+			setM_UnsortedFrequency(new Hashtable<String, Integer>()); //initiate the frequency hashtable
+			BufferedReader br = new BufferedReader(new FileReader(filePath)); //create a BufferedReader and read file
+			String sCurrentLine; // used to store string one line as a string 
 			// List<String> tmpWordsList=new ArrayList<String>();
-			String[] tmpWordsList;
-			int lineCount = 0;
-			while ((sCurrentLine = br.readLine()) != null) {
-				if (sCurrentLine.trim().isEmpty()) {
-				} else if (lineCount == 0) {
-					lineCount++;
-				} else {
 
-					// tmpWordsList=
-					// Arrays.asList(sCurrentLine.toLowerCase().replaceAll("\\p{Punct}",
-					// "").replaceAll("--", "").split(" "));
-					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "")
-							.split(" ");
-					// if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
-					// lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}",
-					// ""));
-					// for(int i=0; i<lemmas.size(); i++){
-					// addWordFrequency(lemmas.get(i));
-					// }
-					// }
+			String[] tmpWordsList; // a string array used to store strings after sCurrentLine beings splited
+			int lineCount = 0; 
+			while ((sCurrentLine = br.readLine()) != null) { //read a line of the text each time
+				if (sCurrentLine.trim().isEmpty()) { // get rid of empty lines
+				} else if (lineCount == 0) { //get rid of first line
+					lineCount++;
+				} else { 
+				
+					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
+					//split the sCurrentLine, make every string to lower case, remove all punctuation
+					
+//					 if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
+//					 lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}",
+//					 ""));
+//					 for(int i=0; i<lemmas.size(); i++){
+//					 addWordFrequency(lemmas.get(i));
+//					 }
+//					 }
 //					germanLemmatizer(tmpWordsList);
 //					for (int i = 0; i < lemmas.size(); i++) {
 //						addWordFrequency(lemmas.get(i));
@@ -83,12 +149,15 @@ public class DataReader {
 //					
 //					System.out.println(tmpWordsList.length);
 
+					/*
+					 * pass each word to addWordFrequency() method
+					 */
 					for (int i = 0; i < tmpWordsList.length; i++) {
-
 						addWordFrequency(tmpWordsList[i]);
 					}
 				}
 			}
+			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,57 +168,31 @@ public class DataReader {
 		return true;
 	}
 
-	public void addWordFrequency(String word) {
-		if (!frequency.containsKey(word)) {
-			frequency.put(word, new Integer(1));
+	/**
+	 * Compute the frequency for each word.
+	 * @param eachWord
+	 * @return TRUE on success.
+	 */
+	public boolean addWordFrequency(String eachWord) {
+		if (!getM_UnsortedFrequency().containsKey(eachWord)) { //if the token appears first time
+			getM_UnsortedFrequency().put(eachWord, new Integer(1)); // set the frequency as 1
 		} else {
-			frequency.put(word, frequency.get(word).intValue() + 1);
-		}
-	}
-
-	public boolean germanLemmatizer(String[] documentText) throws Exception {
-		lemmas = new ArrayList<String>();
-		System.setProperty("treetagger.home", "src\\org\\annolab\\tt4j\\TreeTagger");
-		TreeTaggerWrapper<String> tt = new TreeTaggerWrapper<String>();
-		try {
-			tt.setModel("src\\org\\annolab\\tt4j\\german.par");
-			tt.setHandler(new TokenHandler<String>() {
-				public void token(String token, String pos, String lemma) {
-					lemmas.add(lemma);
-					// System.out.println(token + "\t" + pos + "\t" + lemma);
-				}
-			});
-			tt.process(documentText);
-
-		} finally {
-			tt.destroy();
+			getM_UnsortedFrequency().put(eachWord, getM_UnsortedFrequency().get(eachWord).intValue() + 1);
+			//increment frequency number
 		}
 		return true;
 	}
 
-	public boolean lemmatizer(String documentText) {
-		Properties props = new Properties();
-		props.put("annotators", "tokenize, ssplit, pos, lemma");
-
-		this.pipeline = new StanfordCoreNLP(props);
-
-		lemmas = new ArrayList<String>();
-		Annotation document = new Annotation(documentText);
-		this.pipeline.annotate(document);
-		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-		for (CoreMap sentence : sentences) {
-			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
-				lemmas.add(token.get(LemmaAnnotation.class));
-			}
-		}
-		return true;
-	}
-
+	/**
+	 * Sort the frequency in m_fequencyIndex as descending order.
+	 * @param frequencyUnsorted
+	 * @return TRUE on success.
+	 */
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted) {
-		// System.out.println(frequencyIndex.size());
-		m_frequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());
-		Collections.sort(m_frequencyIndex, new Comparator<Map.Entry<String, Integer>>() {
-			// decending order
+		m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());
+		//map the hashtable of unsorted frequency and save them into arraylist
+		Collections.sort(m_FrequencyIndex, new Comparator<Map.Entry<String, Integer>>() {// sort the frequency
+			// descending order
 			public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
 				return o2.getValue().compareTo(o1.getValue());
 			}
@@ -157,10 +200,15 @@ public class DataReader {
 		return true;
 	}
 	
+	/**
+	 * Sort the Color index as descending order
+	 * @param frequencyColorIndex
+	 * @return
+	 */
 	public List<Map.Entry<Integer, Color>> sortColorIndex(Hashtable<Integer, Color> frequencyColorIndex){
 		m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>(frequencyColorIndex.entrySet());
 		Collections.sort(m_ColorIndex, new Comparator<Map.Entry<Integer, Color>>() {
-			// decending order
+			// descending order
 			public int compare(Entry<Integer, Color> o1, Entry<Integer, Color> o2) {
 				return o2.getKey().compareTo(o1.getKey());
 			}
@@ -169,42 +217,65 @@ public class DataReader {
 		return m_ColorIndex;
 	}
 
-	public List<Version> readAllFile() throws Exception {
-		for (int i = 0; i < stringArray.length; i++) {
-			Version version = new Version();
-			readOneFile(stringArray[i]);
-			sortFrequencyIndex(frequency);
-			String[] fileNameSplit = stringArray[i].split("\\\\");
-			int fileNamePosition = 2;
-			String versionInfomation = fileNameSplit[fileNamePosition];
-			version.setM_VersionYear(versionInfomation);
-			version.setM_Author(versionInfomation);
-			version.setM_titlePoint(calculatePoint(i, 0));
-			int lineNumber = 1;
-			int listSize = 50;
-			for (Map.Entry<String, Integer> mapping : m_frequencyIndex) {
-				if (version.getM_ConcordanceList().size() < listSize) { 
-					Concordance concordance = new Concordance();
-					concordance.setM_Token(mapping.getKey());
-					concordance.setM_Frequency(mapping.getValue());
-					concordance.setM_RectWidth(mapping.getValue());
-					concordance.setM_StringPoint(calculatePoint(i, lineNumber));
-					concordance.setM_RectPoint(concordance.getM_StringPoint());
-					addStringIndex(mapping);
-					concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
-					concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
-					version.setM_ConcordanceList(concordance);
-					addfrequencyColorIndex(mapping,concordance.getM_RectColor());
-					lineNumber++;
-				}
+	/**
+	 * Process the data and set the data into the version
+	 * @param versionNumber
+	 * @return
+	 */
+	public boolean addVersionInfo(int versionNumber){
+		setVersion(new Version()); //initialize a new version
+		int fileNamePosition = 2; //the file name is the third element in the array
+		String[] fileNameSplit=getM_FilePath()[versionNumber].split("\\\\"); //split the file path
+		String versionName=fileNameSplit[fileNamePosition]; //fetch the version name
+		getVersion().setM_VersionYear(versionName);
+		getVersion().setM_Author(versionName);
+		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0)); //0 is line number, title has only one line
+		int lineNumber = 1; //used to count line and pass the number to calculate the point location
+		int listSize = 50; //used to fetch top 50 frequent tokens
+		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
+			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+				Concordance concordance = new Concordance();
+				concordance.setM_Token(mapping.getKey());
+				concordance.setM_Frequency(mapping.getValue());
+				concordance.setM_RectWidth(mapping.getValue());
+				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber));
+				concordance.setM_RectPoint(concordance.getM_StringPoint());
+				addStringIndex(mapping);
+				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
+				getVersion().setM_ConcordanceList(concordance);
+				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
+				lineNumber++;
 			}
-			System.out.println(m_frequencyColorIndex);
-			m_VersionList.add(version);
+		}
+		return true;
+	}
 
+	/**
+	 * Read all files and process the data
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Version> readAllFile() throws Exception {
+		/*
+		 * 
+		 */
+		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
+//			Version version = new Version(); 
+			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
+			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
+			addVersionInfo(i); //pass i to method as version number and add information for one version
+			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 		return m_VersionList;
 	}
 
+	/**
+	 * Calculate the point location
+	 * @param versionNumber
+	 * @param lineNumber
+	 * @return the point calculated
+	 */
 	public Point calculatePoint(int versionNumber, int lineNumber) {
 		int x = 55;
 		int y = 30;
@@ -215,6 +286,11 @@ public class DataReader {
 		return new Point(x, y);
 	}
 
+	/**
+	 * Calculate the color according to the variable numbers
+	 * @param stringNumber
+	 * @return color variable
+	 */
 	public Color calculateColor(int stringNumber) {
 		int colorRange = 255;
 		int halfRange = 127;
@@ -229,6 +305,11 @@ public class DataReader {
 		return new Color(red, green, blue);
 	}
 
+	/**
+	 * Compute how many strings occurred in all versions
+	 * used to compute the color for each token
+	 * @param mapping
+	 */
 	public void addStringIndex(Map.Entry<String, Integer> mapping) {
 		if (!m_StringIndex.containsKey(mapping.getKey())) {
 			m_StringIndex.put(mapping.getKey(), m_StringIndex.size());
@@ -236,10 +317,65 @@ public class DataReader {
 		}
 	}
 	
+	/**
+	 * Compute the color index
+	 * @param mapping
+	 * @param color
+	 */
 	public void addfrequencyColorIndex(Map.Entry<String, Integer> mapping, Color color){
 		if(!m_frequencyColorIndex.containsKey(mapping.getValue())){
 			m_frequencyColorIndex.put(mapping.getValue(), color);
 		}
 	}
 
+//	/**
+//	 * Lemmatize the German tokens.
+//	 * @param documentText
+//	 * @return TRUE on success.
+//	 * @throws Exception
+//	 */
+//	public boolean germanLemmatizer(String[] documentText) throws Exception {
+//		lemmas = new ArrayList<String>();
+//		System.setProperty("treetagger.home", "src\\org\\annolab\\tt4j\\TreeTagger");
+//		TreeTaggerWrapper<String> tt = new TreeTaggerWrapper<String>();
+//		try {
+//			tt.setModel("src\\org\\annolab\\tt4j\\german.par");
+//			tt.setHandler(new TokenHandler<String>() {
+//				public void token(String token, String pos, String lemma) {
+//					lemmas.add(lemma);
+//					// System.out.println(token + "\t" + pos + "\t" + lemma);
+//				}
+//			});
+//			tt.process(documentText);
+//
+//		} finally {
+//			tt.destroy();
+//		}
+//		return true;
+//	}
+
+//	/**
+//	 * Lemmatize English tokens.
+//	 * @param documentText
+//	 * @return TRUE on success.
+//	 */
+//	public boolean EnglishLemmatizer(String documentText) {
+//		Properties props = new Properties();
+//		props.put("annotators", "tokenize, ssplit, pos, lemma");
+//
+//		this.pipeline = new StanfordCoreNLP(props);
+//
+//		lemmas = new ArrayList<String>();
+//		Annotation document = new Annotation(documentText);
+//		this.pipeline.annotate(document);
+//		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+//		for (CoreMap sentence : sentences) {
+//			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+//				lemmas.add(token.get(LemmaAnnotation.class));
+//			}
+//		}
+//		return true;
+//	}
+	
+	
 }

@@ -11,9 +11,6 @@ import java.util.List;
  *
  */
 public class Concordance {
-	/**
-	 * Use this method to access the Concordance Object
-	 */
 	
 	/**a way to access the tokens*/
 	private String m_Token;

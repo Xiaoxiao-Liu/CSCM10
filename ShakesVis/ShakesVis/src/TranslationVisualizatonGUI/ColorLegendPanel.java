@@ -2,6 +2,8 @@ package TranslationVisualizatonGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
@@ -11,25 +13,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ColorLegendPanel extends JPanel {
+	private final int PANEL_WIDTH=20;
+	private final int PANEL_HEIGHT=20;
+
+	private final int String_WIDTH=30;
+	private final int Strign_HEIGHT=30;
+	
 	
 	public void colorLegend(List<Map.Entry<Integer, Color>> m_ColorIndex){
 		for (Map.Entry<Integer, Color> mapping : m_ColorIndex) {
-			JLabel colorLegend=new JLabel(mapping.getKey().toString());
-			colorLegend.setPreferredSize(new Dimension(20, 20));
-//			mapping.getKey().toString()
+					
+			JLabel colorLegend=new JLabel();
+			JLabel frequencyNumber=new JLabel(mapping.getKey().toString());
+			frequencyNumber.setPreferredSize(new Dimension(String_WIDTH, String_WIDTH));
+			colorLegend.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
 			colorLegend.setBackground(mapping.getValue());
-//			colorLegend.setForeground(mapping.getValue());
 			colorLegend.setOpaque(true);
 			colorLegend.setVisible(true);
+			this.add(frequencyNumber);
 			this.add(colorLegend);
-//			colorLegend.addActionListener(new ActionListener(){
-//				@Override
-//	            public void actionPerformed(ActionEvent e) {
-//	                System.out.println(mapping.getKey());
-//	                //we can get the frequency value from the clicking button
-//	           
-//				}
-//			});
+			this.setBackground(Color.white);
+			this.setLayout(new GridLayout(m_ColorIndex.size(),1));
 		}
 		
 	}

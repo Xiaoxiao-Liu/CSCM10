@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -111,6 +112,7 @@ public class TranslationVisualization {
 	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
 		this.m_visuallizationPanel = m_visuallizationPanel;
 		getM_visuallizationPanel().setVisible(true);
+		getM_visuallizationPanel().setLayout(new GridLayout(1,2));
 		getM_visuallizationPanel().setBackground(Color.WHITE);
 	}
 
@@ -194,6 +196,10 @@ public class TranslationVisualization {
 		s.weightx=1;
 		s.weighty=1;
 		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
+//		s.gridwidth=5;
+//		s.weightx=1;
+//		s.weighty=1;
+//		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
 		
 
 		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());

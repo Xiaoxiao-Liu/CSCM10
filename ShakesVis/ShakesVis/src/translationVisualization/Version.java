@@ -66,61 +66,107 @@ public class Version {
 
 	/**
 	 * An accessor method to pass the version name
+	 * to Version object and set the version name
 	 * @param m_VersionName
 	 */
 	public void setM_VersionName(String m_VersionName) {
 		this.m_VersionName = m_VersionName;
 	}
 
+	/**
+	 * @return author name
+	 */
 	public String getM_Author() {
 		return m_Author;
 	}
 
-	public void setM_Author(String versionInformation) {
+	/**
+	 * An accessor method to pass the version file name
+	 * to Version object and fetch the author name
+	 * @param versionInformation
+	 */
+	public void setM_Author(String versionFileName) {
 		int startPosition=5;
-		int endPosition=versionInformation.length()-4;
-		m_Author = versionInformation.substring(startPosition, endPosition);
+		int endPosition=versionFileName.length()-4;
+		m_Author = versionFileName.substring(startPosition, endPosition);
 	}
 
+	/**
+	 * @return the number of version
+	 */
 	public int getM_VersionNumber() {
 		return m_VersionNumber;
 	}
 
+	/**
+	 * An accessor method to pass the number of version
+	 * to Version object and set the number
+	 * @param m_VersionNumber
+	 */
 	public void setM_VersionNumber(int m_VersionNumber) {
 		
 		this.m_VersionNumber = m_VersionNumber;
 	}
 
+	/**
+	 * @return the version year
+	 */
 	public int getM_VersionYear() {
 		return m_VersionYear;
 	}
 
-	public void setM_VersionYear(String versionInformation) {
+	/**
+	 * An accessor method to pass one version file name
+	 * to Version object and fetch the version year
+	 * @param versionInformation
+	 */
+	public void setM_VersionYear(String versionFileName) {
 		int startPosition=0;
 		int endPosition=4;
-		m_VersionYear=Integer.parseInt(versionInformation.substring(startPosition, endPosition));
+		m_VersionYear=Integer.parseInt(versionFileName.substring(startPosition, endPosition));
 	}
 
+	/**
+	 * @return one concordance
+	 */
 	public Concordance getM_Concordance() {
 		return m_Concordance;
 	}
 
+	/**
+	 * An accessor method to set one concordance
+	 * @param m_Concordance
+	 */
 	public void setM_Concordance(Concordance m_Concordance) {
 		this.m_Concordance = m_Concordance;
 	}
 
+	/**
+	 * @return a list of concordance in current version
+	 */
 	public List<Concordance> getM_ConcordanceList() {
 		return m_ConcordanceList;
 	}
 
+	/**
+	 * An accessor method to set the list of concordance
+	 * @param m_Concordance
+	 */
 	public void setM_ConcordanceList(Concordance m_Concordance) {
 		m_ConcordanceList.add(m_Concordance);
 	}
 
+	/**
+	 * @return the location point of version title
+	 */
 	public Point getM_titlePoint() {
 		return m_titlePoint;
 	}
 
+	/**
+	 * An accessor method to set location point of version title
+	 * @param point
+	 */
 	public void setM_titlePoint(Point point) {
 		
 		this.m_titlePoint =point;
