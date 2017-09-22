@@ -1,10 +1,10 @@
 package translationVisualization;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,9 +30,9 @@ public class TranslationVisualization {
  	
 	private final static int FRAME_HEIGHT=800;
 
-	private final static int CONCORDANCE_PANEL_WIDTH=2500;
+	private final static int CONCORDANCE_PANEL_WIDTH=3500;
 	
-	private final static int CONCORDANCE_PANEL_HEIGHT=900;
+	private final static int CONCORDANCE_PANEL_HEIGHT=2900;
 	
 	private final static int SCROLL_PANEL_WIDTH=500;
 	
@@ -66,7 +66,8 @@ public class TranslationVisualization {
 
 	public void setM_Slider(JSlider m_Slider) {
 		this.m_Slider = m_Slider;
-		m_Slider.setMajorTickSpacing(10);
+		int tickSpacing=10;
+		m_Slider.setMajorTickSpacing(tickSpacing);
 //		m_Slider.setPaintTicks(true);
 		m_Slider.setPaintLabels(true);
 		m_Slider.setBackground(Color.WHITE);
@@ -112,7 +113,8 @@ public class TranslationVisualization {
 	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
 		this.m_visuallizationPanel = m_visuallizationPanel;
 		getM_visuallizationPanel().setVisible(true);
-		getM_visuallizationPanel().setLayout(new GridLayout(1,2));
+//		GridBagLayout layout = new GridBagLayout();
+//		getM_visuallizationPanel().setLayout(layout);
 		getM_visuallizationPanel().setBackground(Color.WHITE);
 	}
 
@@ -155,11 +157,25 @@ public class TranslationVisualization {
 		transVis.setScrollPanel(new JScrollPane(transVis.getConcordancePanel()));
 		transVis.setConcordanceButton(new JButton("Concordances"));
 		
-		transVis.setM_Slider(new JSlider( SwingConstants.HORIZONTAL, 10, 100, 10));//magic number
-		
+		int min=10;
+		int max=100;
+		transVis.setM_Slider(new JSlider( SwingConstants.HORIZONTAL, min, max, min));
 		transVis.setM_visuallizationPanel(new JPanel());
-		transVis.getM_visuallizationPanel().add(transVis.getScrollPanel());
-		transVis.getM_visuallizationPanel().add(m_colorLegend);
+		transVis.getM_visuallizationPanel().add( transVis.getScrollPanel());
+		transVis.getM_visuallizationPanel().add( m_colorLegend);
+		GridBagLayout panelLayout = new GridBagLayout();
+		transVis.getM_visuallizationPanel().setLayout(panelLayout);
+		GridBagConstraints constraint=new GridBagConstraints();
+		constraint.fill=GridBagConstraints.BOTH;
+		constraint.gridwidth=4;
+		constraint.weightx=1;
+		constraint.weighty=0;
+		panelLayout.setConstraints(transVis.getScrollPanel(), constraint);
+		constraint.gridwidth=1;
+		constraint.weightx=0;
+		constraint.weighty=1;
+		panelLayout.setConstraints(m_colorLegend, constraint);
+		
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
 		transVis.getM_buttonPanel().add(transVis.getM_Slider());
@@ -170,7 +186,7 @@ public class TranslationVisualization {
 				System.out.println(m_scaleValue);
 				transVis.getConcordancePanel().setScaleValue(m_scaleValue);//magic number
 //				transVis.getConcordancePanel().repaint();
-				transVis.setScrollPanel(transVis.getScrollPanel());
+//				transVis.setScrollPanel(transVis.getScrollPanel());
 				transVis.getScrollPanel().setVisible(true);
 				transVis.getConcordanceFrame().revalidate(); 
 			}
@@ -190,16 +206,12 @@ public class TranslationVisualization {
 		s.fill=GridBagConstraints.BOTH;
 		s.gridwidth=1;
 		s.weightx=0;
-		s.weighty=1;
+		s.weighty=0;
 		layout.setConstraints(transVis.getM_buttonPanel(), s);
 		s.gridwidth=5;
 		s.weightx=1;
 		s.weighty=1;
 		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
-//		s.gridwidth=5;
-//		s.weightx=1;
-//		s.weighty=1;
-//		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
 		
 
 		transVis.getConcordanceFrame().add(transVis.getM_buttonPanel());
