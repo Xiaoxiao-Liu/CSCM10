@@ -241,7 +241,9 @@ public class DataReader {
 				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
 				addStringIndex(mapping);
-				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+//				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
+
 				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 

@@ -8,6 +8,7 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="scaled"/>
 			<item value="slider"/>
 			<item value="jslider"/>
 			<item value="true"/>
@@ -15,7 +16,6 @@
 			<item value="SCROLL"/>
 			<item value="getjPanel_1()"/>
 			<item value="m_ConcordanceList"/>
-			<item value="point"/>
 		</list>
 		<list key="replacehistory">
 			<item value="BUTTON"/>

@@ -26,36 +26,52 @@ import TranslationVisualizatonGUI.ConcordancePanel;
 
 public class TranslationVisualization {
 	
+	/** the width of the frame */
 	private final static int FRAME_WIDTH=800;
  	
+	/** the height of the frame */
 	private final static int FRAME_HEIGHT=800;
 
+	/** the width of the ConcordancePanel */
 	private final static int CONCORDANCE_PANEL_WIDTH=3500;
 	
+	/** the height of the ConcordancePanel */
 	private final static int CONCORDANCE_PANEL_HEIGHT=2900;
 	
+	/** the width of the ScrollPanel */
 	private final static int SCROLL_PANEL_WIDTH=500;
 	
+	/** the height of the ScrollPanel */
 	private final static int SCROLL_PANEL_HEIGHT=300;
 	
-	private JFrame concordanceFrame;
+	/** a way to access the JFrame object */
+	private JFrame m_ConcordanceFrame;
 	
+	/** a way to access the JScrollPane object */
 	private JScrollPane scrollPanel;
 
+	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
 
+	/** a way to access the ConcordancePanel object */
 	private ConcordancePanel concordancePanel;
 	
+	/** */
 	private JButton ConcordanceButton;
 	
+	/** */
 	private JSlider m_Slider;
 
+	/** */
 	private JPanel m_visuallizationPanel;
 
+	/** */
 	private JPanel m_buttonPanel;
 	
+	/** */
 	private static ColorLegendPanel m_colorLegend=new ColorLegendPanel();
 	
+	/** */
 	static int m_scaleValue=1;
 	
 //	private JScrollBar m_scrollBar;
@@ -74,11 +90,11 @@ public class TranslationVisualization {
 	}
 
 	public JFrame getConcordanceFrame() {
-		return concordanceFrame;
+		return m_ConcordanceFrame;
 	}
 
 	public void setConcordanceFrame(JFrame concordanceFrame) {
-		this.concordanceFrame = concordanceFrame;
+		this.m_ConcordanceFrame = concordanceFrame;
 		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
 	}
 	
@@ -88,8 +104,6 @@ public class TranslationVisualization {
 
 	public void setScrollPanel(JScrollPane scrollPanel) {
 		this.scrollPanel = scrollPanel;
-//		int scaleValue=m_scaleValue;
-//		scaleValue=( scaleValue >= 1 ? scaleValue : 1 );
 		getScrollPanel().setLayout(null);
 		getScrollPanel().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		getScrollPanel().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -113,8 +127,6 @@ public class TranslationVisualization {
 	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
 		this.m_visuallizationPanel = m_visuallizationPanel;
 		getM_visuallizationPanel().setVisible(true);
-//		GridBagLayout layout = new GridBagLayout();
-//		getM_visuallizationPanel().setLayout(layout);
 		getM_visuallizationPanel().setBackground(Color.WHITE);
 	}
 
@@ -159,7 +171,8 @@ public class TranslationVisualization {
 		
 		int min=10;
 		int max=100;
-		transVis.setM_Slider(new JSlider( SwingConstants.HORIZONTAL, min, max, min));
+		transVis.setM_Slider(new JSlider(SwingConstants.HORIZONTAL, min, max, min));
+
 		transVis.setM_visuallizationPanel(new JPanel());
 		transVis.getM_visuallizationPanel().add( transVis.getScrollPanel());
 		transVis.getM_visuallizationPanel().add( m_colorLegend);
@@ -178,13 +191,13 @@ public class TranslationVisualization {
 		
 		transVis.setM_buttonPanel(new JPanel());
 		transVis.getM_buttonPanel().add(transVis.getConcordanceButton());
-		transVis.getM_buttonPanel().add(transVis.getM_Slider());
 		
+		transVis.getM_buttonPanel().add(transVis.getM_Slider());
 		transVis.getM_Slider().addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent event) {
 				m_scaleValue=transVis.getM_Slider().getValue();
-				System.out.println(m_scaleValue);
-				transVis.getConcordancePanel().setScaleValue(m_scaleValue);//magic number
+//				System.out.println(m_scaleValue);
+				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
 //				transVis.getConcordancePanel().repaint();
 //				transVis.setScrollPanel(transVis.getScrollPanel());
 				transVis.getScrollPanel().setVisible(true);
