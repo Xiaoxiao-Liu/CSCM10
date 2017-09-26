@@ -20,9 +20,8 @@ public class ColorLegendPanel extends JPanel {
 	private final int Strign_HEIGHT=30;
 	
 	
-	public void colorLegend(List<Map.Entry<Integer, Color>> m_ColorIndex){
+	public void setColorLegend(List<Map.Entry<Integer, Color>> m_ColorIndex){
 		for (Map.Entry<Integer, Color> mapping : m_ColorIndex) {
-					
 			JLabel colorLegend=new JLabel();
 			JLabel frequencyNumber=new JLabel(mapping.getKey().toString());
 			frequencyNumber.setPreferredSize(new Dimension(PANEL_WIDTH, PANEL_HEIGHT));

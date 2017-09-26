@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="paint" key="selection"/>
 		<item value="true" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="paint"/>
+			<item value="PaintHandler"/>
+			<item value="paintComponent"/>
+			<item value="System"/>
+			<item value="ConcordancePanel"/>
 			<item value="scaled"/>
 			<item value="slider"/>
 			<item value="jslider"/>
-			<item value="true"/>
-			<item value="background"/>
-			<item value="SCROLL"/>
-			<item value="getjPanel_1()"/>
-			<item value="m_ConcordanceList"/>
 		</list>
 		<list key="replacehistory">
 			<item value="BUTTON"/>
