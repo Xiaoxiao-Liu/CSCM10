@@ -100,7 +100,7 @@ public class DataReader {
 	}
 	
 	
-	public void googleAPIAuth(){
+	public void googleAPIAuth(List<String> stringList){
 		try {           
             // See comments on 
             //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
@@ -110,14 +110,11 @@ public class DataReader {
                     , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
                     //Need to update this to your App-Name
                     .setApplicationName("ShakesVis")                    
-                    .build();           
+                    .build(); 
             Translate.Translations.List list = t.new Translations().list(
-                    Arrays.asList(
-                            //Pass in list of strings to be translated
-                            "Hello World",
-                            "How to use Google Translate from Java"), 
-                        //Target language   
-                        "ES");  
+            		stringList, 
+                        //Target language
+                        "en");  
             //Set your API-Key from https://console.developers.google.com/
             list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
             TranslationsListResponse response = list.execute();
@@ -137,7 +134,7 @@ public class DataReader {
 	 * @throws Exception
 	 */
 	public boolean readOneFile(String filePath) throws Exception {
-		googleAPIAuth();
+		
 		
 		/*
 		 * Read the text line by line and pass each token to other methods
@@ -258,6 +255,7 @@ public class DataReader {
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
 			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
 				concordance.setM_Frequency(mapping.getValue());
@@ -267,7 +265,6 @@ public class DataReader {
 				addStringIndex(mapping);
 //				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
 				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
-
 				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 

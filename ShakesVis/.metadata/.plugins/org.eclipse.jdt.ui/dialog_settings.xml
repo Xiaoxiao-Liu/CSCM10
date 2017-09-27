@@ -9,7 +9,7 @@
 	<item value="500" key="CallHierarchyViewPart.ratio3"/>
 	<item value="false" key="TypeHierarchyViewPart.qualifiednames"/>
 	<item value="1" key="CallHierarchyViewPart.call_mode"/>
-	<item value="C:\Users\45109\Desktop\translate\libs" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\45109\Desktop\google-api-java-client\libs" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="C:\Users\45109\Downloads\google-api-services-translate-v2-rev51-java-1.22.0.zip" key="org.eclipse.jdt.ui.lastuserlibrary"/>
 	<item value="3" key="CallHierarchyViewPart.orientation"/>
 	<item value="480,578" key="UserLibraryLoadSaveDialog.size"/>
@@ -88,7 +88,7 @@
 		<item value="false" key="FinalModifier"/>
 	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="4" key="index"/>
+		<item value="8" key="index"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>

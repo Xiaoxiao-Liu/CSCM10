@@ -2,6 +2,7 @@ package translationVisualization;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -69,7 +70,7 @@ public class TranslationVisualization {
 	private JSlider m_ConcordanceSlider;
 	
 	/** a JSlider to zoom in and out scrollPane */
-	private JSlider m_ScrollPaneSlder;
+	private JSlider m_ScrollPaneSlider;
 
 	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
@@ -98,16 +99,16 @@ public class TranslationVisualization {
 		m_Slider.setBackground(Color.WHITE);
 	}
 
-	public JSlider getM_ScrollPaneSlder() {
-		return m_ScrollPaneSlder;
+	public JSlider getM_ScrollPaneSlider() {
+		return m_ScrollPaneSlider;
 	}
 
-	public void setM_ScrollPaneSlder(JSlider scrollPaneSlder) {
-		this.m_ScrollPaneSlder = scrollPaneSlder;
+	public void setM_ScrollPaneSlider(JSlider scrollPaneSlider) {
+		this.m_ScrollPaneSlider = scrollPaneSlider;
 		int tickSpacing=10;
-		m_ScrollPaneSlder.setMajorTickSpacing(tickSpacing);
-		m_ScrollPaneSlder.setPaintTicks(true);
-		m_ScrollPaneSlder.setBackground(Color.pink);
+		m_ScrollPaneSlider.setMajorTickSpacing(tickSpacing);
+		m_ScrollPaneSlider.setPaintTicks(true);
+		m_ScrollPaneSlider.setBackground(Color.pink);
 	}
 
 	/**
@@ -141,12 +142,11 @@ public class TranslationVisualization {
 	 */
 	public void setScrollPane(JScrollPane scrollPanel) {
 		this.m_ScrollPane = scrollPanel;
+		getScrollPane().setLayout(null);
 		//we need both horizontal and vertical scroll bars
 		getScrollPane().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		getScrollPane().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
-//		getScrollPanel().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4));//magic number
-		
+		getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4));//magic number
 		//The layout manager used by JScrollPane. JScrollPaneLayout is responsible for nine components: 
 		//a viewport, two scrollbars, a row header, a column header, and four "corner" components.
 		getScrollPane().setLayout(new ScrollPaneLayout());
@@ -232,7 +232,8 @@ public class TranslationVisualization {
 	public List<Version> getVersionList() throws Exception{
 		DataReader dataReader=new DataReader();
 		m_VersionList=dataReader.readAllFile();
-		
+//		dataReader.googleAPIAuth(m_VersionList.get(0).getM_WordsList());
+		dataReader.googleAPIAuth(m_VersionList.get(1).getM_WordsList());
 		/** pass DataReader object to setColorLegend method */
 		setM_ColorLegendPanel(new ColorLegendPanel(), dataReader); 
 		return m_VersionList;
@@ -302,10 +303,28 @@ public class TranslationVisualization {
 			public void stateChanged(ChangeEvent event) {
 				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
 				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+				transVis.getConcordanceFrame().revalidate(); 
+			}
+		});
+		
+		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
+//		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
+		transVis.getM_UserOptionPanel().add(transVis.getM_ScrollPaneSlider());
+		transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent event) {
+				m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
+				System.out.println(m_scaleValue);
+				transVis.setScrollPane(transVis.getScrollPane());
+//				transVis.getScrollPane().setBounds(10, 10, SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4);
+//				transVis.getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4));
+//				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
 				transVis.getScrollPane().setVisible(true);
 				transVis.getConcordanceFrame().revalidate(); 
 			}
 		});
+		
+		
+		
 		
 		transVis.getM_visuallizationPanel().add( transVis.getM_ColorLegendPanel());
 		
@@ -313,14 +332,14 @@ public class TranslationVisualization {
 		GridBagLayout panelLayout = new GridBagLayout();
 		transVis.getM_visuallizationPanel().setLayout(panelLayout);
 		GridBagConstraints constraint=new GridBagConstraints();
-		constraint.fill=GridBagConstraints.BOTH;
+		constraint.fill=GridBagConstraints.HORIZONTAL;
 		constraint.gridwidth=4;
-		constraint.weightx=1;
+		constraint.weightx=0;
 		constraint.weighty=0;
 		panelLayout.setConstraints(transVis.getScrollPane(), constraint);
 		constraint.gridwidth=1;
 		constraint.weightx=0;
-		constraint.weighty=1;
+		constraint.weighty=0;
 		panelLayout.setConstraints(transVis.getM_ColorLegendPanel(), constraint);
 		
 		GridBagLayout layout = new GridBagLayout();

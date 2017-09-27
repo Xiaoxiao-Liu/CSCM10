@@ -45,6 +45,7 @@ public class Version {
 	 * @return a list of all tokens in one version 
 	 */
 	public List<String> getM_WordsList() {
+//		System.out.println(m_WordsList);
 		return m_WordsList;
 	}
 
