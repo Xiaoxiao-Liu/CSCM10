@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="java.awt.event.ComponentAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.ComponentEvent"/>
 <fullyQualifiedTypeName name="javax.swing.border.EmptyBorder"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
@@ -60,4 +59,5 @@
 <fullyQualifiedTypeName name="TranslationVisualizatonGUI.ColorLegendPanel"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
 <fullyQualifiedTypeName name="java.awt.GridLayout"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.international.Language"/>
 </qualifiedTypeNameHistroy>

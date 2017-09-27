@@ -10,24 +10,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.annolab.tt4j.TokenHandler;
-import org.annolab.tt4j.TreeTaggerWrapper;
+import com.google.api.services.translate.Translate;
+import com.google.api.services.translate.model.TranslationsListResponse;
+import com.google.api.services.translate.model.TranslationsResource;
 
-import java.util.Properties;
-
-import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
 
 /**
  * 
@@ -107,6 +99,37 @@ public class DataReader {
 		return m_FilePath;
 	}
 	
+	
+	public void googleAPIAuth(){
+		try {           
+            // See comments on 
+            //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+            // on options to set
+            Translate t = new Translate.Builder(
+                    com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+                    , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+                    //Need to update this to your App-Name
+                    .setApplicationName("ShakesVis")                    
+                    .build();           
+            Translate.Translations.List list = t.new Translations().list(
+                    Arrays.asList(
+                            //Pass in list of strings to be translated
+                            "Hello World",
+                            "How to use Google Translate from Java"), 
+                        //Target language   
+                        "ES");  
+            //Set your API-Key from https://console.developers.google.com/
+            list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+            TranslationsListResponse response = list.execute();
+            for(TranslationsResource tr : response.getTranslations()) {
+                System.out.println(tr.getTranslatedText());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	}
+	
+	
 	/**
 	 * pass the file path and read one file 
 	 * @param filePath
@@ -114,6 +137,7 @@ public class DataReader {
 	 * @throws Exception
 	 */
 	public boolean readOneFile(String filePath) throws Exception {
+		googleAPIAuth();
 		
 		/*
 		 * Read the text line by line and pass each token to other methods

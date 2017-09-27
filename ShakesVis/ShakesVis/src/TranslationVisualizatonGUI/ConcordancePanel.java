@@ -24,7 +24,7 @@ public class ConcordancePanel extends JPanel {
 	/** the default integer used to set zoom level, we use 10 is because when the first time 
 	 * the panel painted, we do not get zoom value from 
 	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
-	private double m_ZoomValue=10;
+	private double m_ZoomValue=40; //initiate zoomvalue
 
 	/**
 	 * Constructor

@@ -68,6 +68,7 @@ public class TranslationVisualization {
 	/** a JSlider to zoom in and out concordancePanel */
 	private JSlider m_ConcordanceSlider;
 	
+	/** a JSlider to zoom in and out scrollPane */
 	private JSlider m_ScrollPaneSlder;
 
 	/** an arrayList to pass version list to other classes */
@@ -95,6 +96,18 @@ public class TranslationVisualization {
 		m_Slider.setMajorTickSpacing(tickSpacing);
 		m_Slider.setPaintLabels(true);
 		m_Slider.setBackground(Color.WHITE);
+	}
+
+	public JSlider getM_ScrollPaneSlder() {
+		return m_ScrollPaneSlder;
+	}
+
+	public void setM_ScrollPaneSlder(JSlider scrollPaneSlder) {
+		this.m_ScrollPaneSlder = scrollPaneSlder;
+		int tickSpacing=10;
+		m_ScrollPaneSlder.setMajorTickSpacing(tickSpacing);
+		m_ScrollPaneSlder.setPaintTicks(true);
+		m_ScrollPaneSlder.setBackground(Color.pink);
 	}
 
 	/**
@@ -280,7 +293,7 @@ public class TranslationVisualization {
 		//concordance slider
 		int min=10; //minimum value
 		int max=100; //maximum value
-		int initialVar=20; //initial value
+		int initialVar=40; //initial value
 		//JSlider(int orientation, int min, int max, int value)
 		//JSlider(orientation, minimum value, maximum value, and initial value)
 		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
