@@ -4,14 +4,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.AbstractButton;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -62,6 +65,9 @@ public class TranslationVisualization {
 
 	/** a JPanel object containing user-option components (Layer 3)*/
 	private JPanel m_UserOptionPanel;
+	
+	/** a JPanel object used to select which version displayed (Layer 4)*/
+	private JPanel m_VersionSelectionPanel;
 
 	/** a JButton to initiate concordancePanel */
 	private JButton m_ConcordanceButton;
@@ -78,8 +84,14 @@ public class TranslationVisualization {
 	/**  */
 	private static int m_scaleValue=0;
 	
-	/** */
+	/** a JCheckBox to show version names */
 	private JCheckBox versionMenu;
+	
+	private static JComboBox comboMenu;
+	
+	private List<Integer> versionChoosed;
+	
+	boolean bool=false;
 	
 	//accessor methods
 	/**
@@ -118,15 +130,13 @@ public class TranslationVisualization {
 		return versionMenu;
 	}
 
-	public void setVersionMenu(List<String> versionNames) {
-		this.versionMenu = versionMenu;
-		versionMenu = new JCheckBox(versionNames.get(0), true);
-//		for(int i=0; i<versionNames.length; i++){
-//			versionMenu = new JCheckBox(versionNames[i], true);
-//		}
-		
-		
-		
+	
+	
+	
+	
+	public void addtoList(boolean string){
+//		versionChoosed.add(string);
+		System.out.println(string);
 	}
 
 	/**
@@ -226,6 +236,14 @@ public class TranslationVisualization {
 		getM_UserOptionPanel().setBackground(Color.WHITE);
 	}
 	
+	public JPanel getM_VersionSelectionPanel() {
+		return m_VersionSelectionPanel;
+	}
+
+	public void setM_VersionSelectionPanel(JPanel m_VersionSelectionPanel) {
+		this.m_VersionSelectionPanel = m_VersionSelectionPanel;
+	}
+
 	/**
 	 * Use this method to access m_ColorLegendPanel
 	 * @return m_ColorLegendPanel
@@ -256,7 +274,7 @@ public class TranslationVisualization {
 		dataReader.googleAPIAuth(m_VersionList.get(1).getM_WordsList());
 		/** pass DataReader object to setColorLegend method */
 		setM_ColorLegendPanel(new ColorLegendPanel(), dataReader); 
-		setVersionMenu(m_VersionList.get(1).getM_WordsList());
+//		setVersionMenu(m_VersionList.get(1).getM_WordsList());
 		return m_VersionList;
 	}
 
@@ -297,7 +315,9 @@ public class TranslationVisualization {
 		transVis.setM_UserOptionPanel(new JPanel());
 		
 		transVis.getM_visuallizationPanel().add( transVis.getM_ColorLegendPanel());
-		transVis.getM_visuallizationPanel().add(transVis.getVersionMenu());
+//		transVis.getM_visuallizationPanel().add(comboMenu);
+		
+//		System.out.println(comboMenu.getSelectedIndex());
 		
 		//layer 4 - Scroll Panel
 		transVis.setScrollPane(new JScrollPane(transVis.getConcordancePanel()));	
@@ -306,15 +326,24 @@ public class TranslationVisualization {
 		
 		//concordance button
 		transVis.setConcordanceButton(new JButton("Concordances"));
-		transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton());
-		transVis.getConcordanceButton().addActionListener(new ActionListener(){
-			@Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
-                transVis.getScrollPane().setVisible(true);
-                transVis.getConcordanceFrame().revalidate(); 
-            }
-		});
+//		transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton());
+//		transVis.getConcordanceButton().addActionListener(new ActionListener(){
+//			@Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println("Button pressed");
+//                transVis.getScrollPane().setVisible(true);
+//                transVis.getConcordanceFrame().revalidate(); 
+//            }
+//		});
+		
+		
+//		
+//		JLabel label3 = new JLabel("Media Outlets:");  
+//		Object[] value = new String[]{ "Selected All","Al-Jazeera" , "BBC News" ,"Daily Mail" ,"Fox News","New York Daily News", "New York Times","the Guardian","Wall Street Journal"};    
+//		Object[] defaultValue = new String[]{ "Selected All" };   
+//		  
+//		MultiComboBox mulit = new MultiComboBox(value, defaultValue);  
+//		transVis.getM_visuallizationPanel().add(mulit);
 		
 		//concordance slider
 		int min=10; //minimum value
@@ -323,14 +352,14 @@ public class TranslationVisualization {
 		//JSlider(int orientation, int min, int max, int value)
 		//JSlider(orientation, minimum value, maximum value, and initial value)
 		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
-		transVis.getM_UserOptionPanel().add(transVis.getM_ConcordanceSlider());
-		transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
-			public void stateChanged(ChangeEvent event) {
-				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
-				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
-				transVis.getConcordanceFrame().revalidate(); 
-			}
-		});
+//		transVis.getM_UserOptionPanel().add(transVis.getM_ConcordanceSlider());
+//		transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
+//			public void stateChanged(ChangeEvent event) {
+//				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
+//				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+//				transVis.getConcordanceFrame().revalidate(); 
+//			}
+//		});
 		
 		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
 //		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
@@ -362,26 +391,61 @@ public class TranslationVisualization {
 		constraint.weightx=0;
 		constraint.weighty=0;
 		panelLayout.setConstraints(transVis.getScrollPane(), constraint);
-		
 
 		// set layout for user-option panel
 		GridBagLayout userOptionPaneLayout = new GridBagLayout( );
-		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
 		GridBagConstraints useroptionConstraint=new GridBagConstraints();
 //		useroptionConstraint.fill=GridBagConstraints.VERTICAL;
-		useroptionConstraint.anchor=GridBagConstraints.NORTH;
-//		useroptionConstraint.gridwidth=1;
-//		useroptionConstraint.weightx=0;
-//		useroptionConstraint.weighty=0;
-		userOptionPaneLayout.setConstraints(transVis.getConcordanceButton(), constraint);
-//		useroptionConstraint.gridwidth=4;
-//		useroptionConstraint.weightx=0;
-		useroptionConstraint.weighty=0;
-		userOptionPaneLayout.setConstraints(transVis.getM_ConcordanceSlider(), constraint);
-//		useroptionConstraint.gridwidth=4;
-//		useroptionConstraint.weightx=0;
-		useroptionConstraint.weighty=0;
-		userOptionPaneLayout.setConstraints(transVis.getM_ScrollPaneSlider(), constraint);
+//		useroptionConstraint.anchor=GridBagConstraints.NORTH;
+		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
+		
+		
+		useroptionConstraint.gridx = 1;
+		useroptionConstraint.gridy = 1;
+		useroptionConstraint.fill = GridBagConstraints.BOTH;
+        useroptionConstraint.insets = new Insets(10,20,80,20);
+        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),useroptionConstraint);
+        transVis.getConcordanceButton().addActionListener(new ActionListener(){
+			@Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Button pressed");
+                transVis.getScrollPane().setVisible(true);
+                transVis.getConcordanceFrame().revalidate(); 
+            }
+		});
+        
+        useroptionConstraint.gridx = 1;
+        useroptionConstraint.gridy = 2;
+        useroptionConstraint.fill = GridBagConstraints.BOTH;
+        useroptionConstraint.insets = new Insets(10,0,0,0);
+        transVis.getM_UserOptionPanel().add(transVis.getM_ConcordanceSlider(),useroptionConstraint);
+		transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent event) {
+				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
+				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+				transVis.getConcordanceFrame().revalidate(); 
+			}
+		});
+        
+		useroptionConstraint.gridx = 1;
+		useroptionConstraint.gridy = 3;
+		useroptionConstraint.fill = GridBagConstraints.BOTH;
+		useroptionConstraint.insets = new Insets(10,0,0,0);
+		 transVis.getM_UserOptionPanel().add(transVis.getM_ScrollPaneSlider(),useroptionConstraint);
+		 transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
+				public void stateChanged(ChangeEvent event) {
+					m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
+					System.out.println(m_scaleValue);
+					transVis.setScrollPane(transVis.getScrollPane());
+//					transVis.getScrollPane().setBounds(10, 10, SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4);
+//					transVis.getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*4, SCROLL_PANEL_HEIGHT+m_scaleValue*4));
+//					transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+					transVis.getScrollPane().setVisible(true);
+					transVis.getConcordanceFrame().revalidate(); 
+				}
+			});
+		 
+		 
 		
 		GridBagLayout layout = new GridBagLayout();
 		transVis.getConcordanceFrame().setLayout(layout);

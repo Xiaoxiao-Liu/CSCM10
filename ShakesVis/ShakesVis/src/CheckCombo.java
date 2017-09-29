@@ -1,145 +1,87 @@
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.Path2D;
-import javax.swing.*;
- 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
+
 public class CheckCombo implements ActionListener {
-    JPopupMenu popupMenu;
- 
+
+    JComboBox combo = null;
+
     public void actionPerformed(ActionEvent e) {
-        JButton button = (JButton)e.getSource();
-        Component parent = button.getParent();
-        if(popupMenu.getInvoker() == null) {
-            popupMenu.setInvoker(parent);
-            int w = ((JComponent)parent).getPreferredSize().width;
-            Dimension d = popupMenu.getComponent(0).getPreferredSize();
-            d.width = w;
-            popupMenu.setPopupSize(d);
+
+        JComboBox cb = (JComboBox) e.getSource();
+        CheckComboStore store = (CheckComboStore) cb.getSelectedItem();
+        CheckComboRenderer ccr = (CheckComboRenderer) cb.getRenderer();
+        ccr.checkBox.setSelected((store.state = !store.state));
+        if (store.id.equals("ALL")){
+            for (int i = 0; i < combo.getItemCount(); i++){
+                ((CheckComboStore)combo.getItemAt(i)).state = ccr.checkBox.isSelected();
+            }
         }
-        Rectangle r = parent.getBounds();
-        Point p = r.getLocation();
-        Container topLevel = button.getTopLevelAncestor();
-        Container cp = ((JFrame)topLevel).getContentPane();
-        SwingUtilities.convertPointToScreen(p, cp);
-        popupMenu.setLocation(p.x, p.y+r.height);
-        popupMenu.setVisible(true);
     }
- 
+
     private JPanel getContent() {
-        createPopupMenu();
-        JLabel label = new JLabel(" Select Features!");
-        label.setBorder(
-            BorderFactory.createLineBorder(new Color(175,175,200), 1));
-        JButton button = new JButton() {
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                Graphics2D g2 = (Graphics2D)g;
-                g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                                    RenderingHints.VALUE_ANTIALIAS_ON);
-                int w = getWidth();
-                double width = 10.0;
-                double x = (w - width)/2.0;
-                double height = 5.0;
-                double y = (getHeight() - height)/2.0;
-                Path2D.Double path = new Path2D.Double();
-                path.moveTo(x, y);
-                path.lineTo(x+width, y);
-                path.lineTo(w/2.0, y+height);
-                path.closePath();
-                g2.fill(path);
-            }
- 
-            public Dimension getPreferredSize() {
-                return new Dimension(20,25);
-            }
-        };
-        button.addActionListener(this);
-        JPanel p = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.weightx = 1.0;
-        gbc.fill = gbc.BOTH;
-        p.add(label, gbc);
-        gbc.weightx = 0;
-        p.add(button, gbc);
-        JPanel panel = new JPanel(new GridBagLayout());
-        panel.add(p, gbc);
-        Dimension d = p.getPreferredSize();
-        d.width = 120;
-        p.setPreferredSize(d);
-        return panel;
-    }
- 
-    private void createPopupMenu() {
-        final CheckComboStore[] stores = {
-            new CheckComboStore("one",   true),
-            new CheckComboStore("two",   false),
-            new CheckComboStore("three", false)
-        };
-        ActionListener al = new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JCheckBox cb = (JCheckBox)e.getSource();
-                String ac = cb.getActionCommand();
-                for(int i = 0; i < stores.length; i++) {
-                    if(stores[i].toString().equals(ac)) {
-                        stores[i].state = cb.isSelected();
-                    }
-                }
-                popupMenu.setVisible(false);
-            }
-        };
-        popupMenu = new JPopupMenu();
-        JPanel panel = new JPanel(new GridLayout(0,1));
-        GridBagLayout gridbag = new GridBagLayout();
-        GridBagConstraints gbc = new GridBagConstraints();
-        for(int i = 0; i < stores.length; i++) {
-            JCheckBox cb = new JCheckBox();
-            cb.setActionCommand(stores[i].toString());
-            cb.addActionListener(al);
-            JLabel label = new JLabel(stores[i].toString(), JLabel.CENTER);
-            JPanel p = new JPanel(gridbag);
-            gbc.weightx = 0;
-            gbc.gridwidth = GridBagConstraints.RELATIVE;
-            p.add(cb, gbc);
-            gbc.weightx = 1.0;
-            gbc.fill = GridBagConstraints.BOTH;
-            gbc.gridwidth = GridBagConstraints.REMAINDER;
-            p.add(label, gbc);
-            panel.add(p);
-        }
-        popupMenu.add(panel);
-    }
- 
-    private JPanel getComparisonCombo() {
-        JComboBox combo = new JComboBox(new String[]{"Select Features!"});
-        Dimension d = combo.getPreferredSize();
-        System.out.printf("comparisonSize = [%d, %d]%n", d.width, d.height);
+
+        String[] ids = { "north", "west", "south", "east", "ALL" };
+        Boolean[] values = { Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE, Boolean.FALSE };
+        CheckComboStore[] stores = new CheckComboStore[ids.length];
+        for (int j = 0; j < ids.length; j++)
+            stores[j] = new CheckComboStore(ids[j], values[j]);
+        combo = new JComboBox(stores);
+        combo.setRenderer(new CheckComboRenderer());
+        combo.addActionListener(this);
         JPanel panel = new JPanel();
         panel.add(combo);
         return panel;
     }
- 
+
     public static void main(String[] args) {
-        CheckCombo test = new CheckCombo();
+
         JFrame f = new JFrame();
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.add(test.getContent());
-        f.add(test.getComparisonCombo(), "Last");
-        f.setSize(300,200);
-        f.setLocation(200,200);
+        f.getContentPane().add(new CheckCombo().getContent());
+        f.setSize(300, 160);
+        f.setLocation(200, 200);
         f.setVisible(true);
     }
 }
- 
-class CheckComboStore {
-    String text;
-    boolean state;
- 
-    public CheckComboStore(String text, boolean state) {
-        this.text = text;
-        this.state = state;
+
+/** adapted from comment section of ListCellRenderer api */
+class CheckComboRenderer implements ListCellRenderer {
+
+    JCheckBox checkBox;
+
+    public CheckComboRenderer() {
+
+        checkBox = new JCheckBox();
     }
- 
-    public String toString() {
-        return text;
+
+    public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+
+        CheckComboStore store = (CheckComboStore) value;
+        checkBox.setText(store.id);
+        checkBox.setSelected(((Boolean) store.state).booleanValue());
+        checkBox.setBackground(isSelected ? Color.red : Color.white);
+        checkBox.setForeground(isSelected ? Color.white : Color.black);
+        return checkBox;
+    }
+}
+
+class CheckComboStore {
+
+    String id;
+    Boolean state;
+
+    public CheckComboStore(String id, Boolean state) {
+
+        this.id = id;
+        this.state = state;
     }
 }
