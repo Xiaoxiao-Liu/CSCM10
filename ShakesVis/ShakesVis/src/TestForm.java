@@ -88,10 +88,9 @@ public class TestForm extends JFrame
     private JPanel createCenterPanel()
     {
         centerPanel = new JPanel();
-
+ 
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints gbc = new GridBagConstraints();
-
         centerPanel.setLayout(gbl);
 
         gbc.gridx = 1;
@@ -156,11 +155,9 @@ public class TestForm extends JFrame
 
         centerPanel.setBorder(BorderFactory.createTitledBorder("The Testing Form"));
         centerPanel.validate();
-
         return centerPanel;
 
     }
-
 
      private JPanel createSouthPanel()
     {
@@ -188,7 +185,6 @@ public class TestForm extends JFrame
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(10,0,0,0);
         southPanel.add(endTargetLabel,gbc);
-
 
         gbc.gridx = 1;
         gbc.gridy = 3;

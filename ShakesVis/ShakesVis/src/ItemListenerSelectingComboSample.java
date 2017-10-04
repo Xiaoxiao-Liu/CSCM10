@@ -26,7 +26,9 @@ public class ItemListenerSelectingComboSample {
   
     comboBox.addActionListener(new ActionListener() {   
       public void actionPerformed(ActionEvent e) {   
-        System.out.println("Selected index=" + ((JComboBox)e.getSource()).getItemCount());   
+        System.out.println("Selected index=" + ((JComboBox)e.getSource()).getItemCount()); 
+        System.out.println("Selected index=" + ((JComboBox)e.getSource()).getSelectedIndex());
+        System.out.println("Selected index=" + ((JComboBox)e.getSource()).getName()); 
       }   
     });   
   
@@ -35,10 +37,10 @@ public class ItemListenerSelectingComboSample {
     ItemListener itemListener = new ItemListener() {   
       public void itemStateChanged(ItemEvent itemEvent) {   
         int state = itemEvent.getStateChange();   
-        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");   
-        System.out.print("Item: " + itemEvent.getItem());   
-        ItemSelectable is = itemEvent.getItemSelectable();   
-        System.out.println(", Selected: " + selectedString(is));   
+//        System.out.println((state == ItemEvent.SELECTED) ? "Selected" : "Deselected");   
+//        System.out.print("Item: " + itemEvent.getItem());   
+//        ItemSelectable is = itemEvent.getItemSelectable();   
+//        System.out.println(", Selected: " + selectedString(is));   
       }   
     };   
     comboBox.addItemListener(itemListener);   

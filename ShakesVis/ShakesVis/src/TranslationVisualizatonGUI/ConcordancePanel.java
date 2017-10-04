@@ -21,10 +21,14 @@ public class ConcordancePanel extends JPanel {
 	/** the list of versions passed from translation visualization */
 	public List<Version> m_VersionList=new ArrayList<Version>();
 	
+	
+
 	/** the default integer used to set zoom level, we use 10 is because when the first time 
 	 * the panel painted, we do not get zoom value from 
 	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
 	private double m_ZoomValue=40; //initiate zoomvalue
+	
+	
 
 	/**
 	 * Constructor
@@ -32,6 +36,15 @@ public class ConcordancePanel extends JPanel {
 	 */
 	public ConcordancePanel(List<Version> versionList) {
 		m_VersionList = versionList;
+	}
+	
+	
+	public List<Version> getM_VersionList() {
+		return m_VersionList;
+	}
+
+	public void setM_VersionList(List<Version> m_VersionList) {
+		this.m_VersionList = m_VersionList;
 	}
 
 	/**
@@ -56,6 +69,18 @@ public class ConcordancePanel extends JPanel {
 		repaint(); 
 	}
 	
+	
+	public void setVersions(List<String> versionTitles){
+		
+		for(int i=0; i<getM_VersionList().size(); i++){
+			if(getM_VersionList().get(i).getM_VersionName()==versionTitles.get(i)){
+				getM_VersionList().remove(i);
+			}
+		}
+		setM_VersionList(getM_VersionList());
+		repaint(); 
+	}
+	
 	/**
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
@@ -72,8 +97,8 @@ public class ConcordancePanel extends JPanel {
 		super.paintComponent(g);
 		
 		//read and paint all 16 versions on the panel
-		for(int i=0; i<m_VersionList.size(); i++){
-			Version version=m_VersionList.get(i); //get current Version object to fetch information stored in the Version
+		for(int i=0; i<getM_VersionList().size(); i++){
+			Version version=getM_VersionList().get(i); //get current Version object to fetch information stored in the Version
 			
 			// draw title Strings
 			g.setColor(Color.black); //set color of strings(tokens)

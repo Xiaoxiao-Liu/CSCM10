@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="javax.swing.BoxLayout"/>
 <fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="javax.swing.ListSelectionModel"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
@@ -50,7 +49,6 @@
 <fullyQualifiedTypeName name="javax.swing.JLabel"/>
 <fullyQualifiedTypeName name="TranslationVisualizatonGUI.ColorLegendPanel"/>
 <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
-<fullyQualifiedTypeName name="java.awt.GridLayout"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.international.Language"/>
 <fullyQualifiedTypeName name="java.awt.ComponentOrientation"/>
 <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
@@ -60,4 +58,6 @@
 <fullyQualifiedTypeName name="javax.swing.AbstractButton"/>
 <fullyQualifiedTypeName name="TranslationVisualizatonGUI.MultiComboBox"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.awt.GridLayout"/>
+<fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
 </qualifiedTypeNameHistroy>
