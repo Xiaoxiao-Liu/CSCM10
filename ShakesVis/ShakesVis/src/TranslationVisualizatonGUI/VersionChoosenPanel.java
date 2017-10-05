@@ -74,12 +74,13 @@ public class VersionChoosenPanel extends JPanel {
 	            		Object objName;
 	            		if(oneSelected==true){ //if the item is selected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
-		            		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
+		            		
 		            		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
+		            		System.out.println("Selected item=" + getM_versionNames()); 
 		            		concordancePanel.setVersionDisplaying(getM_versionNames());//invoke concordancePanel method to repaint
 		            	}else{ //if the item is unselected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
-		            		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
+//		            		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
 		            		getM_versionNames().remove(objName); //remove this item from versionName list
 		            		concordancePanel.setVersionDisplaying(getM_versionNames()); //invoke concordancePanel method to repaint
 		            	}
