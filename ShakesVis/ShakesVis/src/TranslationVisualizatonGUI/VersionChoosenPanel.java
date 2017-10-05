@@ -14,6 +14,8 @@ public class VersionChoosenPanel extends JPanel {
 	
 	private List<JCheckBox> m_checkList=new ArrayList<JCheckBox>();
 	
+	public List<String> m_versionNames;
+	
 //	private ConcordancePanel concordancePanel;
 	
 	public String[] string={ "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
@@ -22,6 +24,14 @@ public class VersionChoosenPanel extends JPanel {
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
 	
+	public List<String> getM_versionNames() {
+		return m_versionNames;
+	}
+
+	public void setM_versionNames(List<String> m_versionNames) {
+		this.m_versionNames = m_versionNames;
+	}
+
 	public List<JCheckBox> getM_checkList() {
 		return m_checkList;
 	}
@@ -62,15 +72,20 @@ public class VersionChoosenPanel extends JPanel {
 	            		Object stringObj=((JCheckBox)actionEvent.getSource()).getName();
 	            		String[] fileNameSplit=stringObj.toString().split("\\\\");
 	            		int fileNamePosition = 2;
-	            		concordancePanel.setVersionDisplaying(fileNameSplit[fileNamePosition]);
 	            		 System.out.println(fileNameSplit[fileNamePosition]);
 	            		System.out.println("Selected index=" + ((JCheckBox)actionEvent.getSource()).getName()); 
-	                }
+	            		String str=((JCheckBox)actionEvent.getSource()).getName().toString();
+	            		getM_versionNames().add(fileNameSplit[fileNamePosition]);
+	            		 System.out.println("Should be this?"+fileNameSplit[fileNamePosition]);
+
+	            		concordancePanel.setVersionDisplaying(getM_versionNames());
+	            	}
 	            }};
 	            return actionListener;
 	}
 	
 	public void addVersions(String[] string, ConcordancePanel concordancePanel){
+		setM_versionNames(new ArrayList<String>());
 		this.setLayout(new GridLayout(16, 1));
 		for(int i=0; i<string.length; i++){
 			String str=string[i];

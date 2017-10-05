@@ -81,6 +81,8 @@ public class TranslationVisualization {
 	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
 
+	private DataReader dataReader;
+	
 	/**  */
 	private static int m_scaleValue=0;
 	
@@ -95,6 +97,30 @@ public class TranslationVisualization {
 	
 	private VersionChoosenPanel versionChoosingPanel;
 	
+	public DataReader getDataReader() {
+		return dataReader;
+	}
+
+	public void setDataReader(DataReader dataReader) throws Exception {
+		this.dataReader = dataReader;
+		setM_VersionList(dataReader.readAllFile());
+		dataReader.googleAPIAuth(m_VersionList.get(1).getM_WordsList());
+		
+	}
+
+	/**
+	 * Use this method to access m_VersionList
+	 * @return m_VersionList
+	 * @throws Exception
+	 */
+	public List<Version> getVersionList(){
+		return m_VersionList;
+	}
+
+	public void setM_VersionList(List<Version> m_VersionList) {
+		this.m_VersionList = m_VersionList;
+	}
+
 	public VersionChoosenPanel getVersionChoosingPanel() {
 		return versionChoosingPanel;
 	}
@@ -275,22 +301,6 @@ public class TranslationVisualization {
 	}
 
 	/**
-	 * Use this method to access m_VersionList
-	 * @return m_VersionList
-	 * @throws Exception
-	 */
-	public List<Version> getVersionList() throws Exception{
-		DataReader dataReader=new DataReader();
-		m_VersionList=dataReader.readAllFile();
-//		dataReader.googleAPIAuth(m_VersionList.get(0).getM_WordsList());
-		dataReader.googleAPIAuth(m_VersionList.get(1).getM_WordsList());
-		/** pass DataReader object to setColorLegend method */
-		setM_ColorLegendPanel(new ColorLegendPanel(), dataReader); 
-//		setVersionMenu(m_VersionList.get(1).getM_WordsList());
-		return m_VersionList;
-	}
-
-	/**
 	 * Use this method to access m_ConcordancePanel
 	 * @return m_ConcordancePanel
 	 */
@@ -311,14 +321,17 @@ public class TranslationVisualization {
 	}
 
 	public static void main(String[] args) throws Exception{
-		
+		 
 		TranslationVisualization transVis=new TranslationVisualization();
-		
+		transVis.setDataReader(new DataReader());
+		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
 		//layer 1 - Concordance Frame
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		
 		//layer 2 - Concordance Panel
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
+//		transVis.setConcordancePanel(new ConcordancePanel());
+
 		
 		//layer 3 - Visualization Panel
 		transVis.setM_visuallizationPanel(new JPanel());
