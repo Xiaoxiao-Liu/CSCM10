@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -117,7 +118,6 @@ public class ConcordancePanel extends JPanel {
 	 */
 	public void setVersionDisplaying(List<String> VersionSelected){
 		List<Version> m_VersionListChoosen=new ArrayList<Version>();
-//		System.out.println("Hello"+VersionSelected);
 		for(int i=0; i<m_VersionList.size(); i++){
 			String str=m_VersionList.get(i).getM_VersionName();
 			for(int j=0; j<VersionSelected.size(); j++){
@@ -129,7 +129,26 @@ public class ConcordancePanel extends JPanel {
 		setM_VersionList(m_VersionListChoosen);
 		System.out.println("Hi, there "+m_VersionList.size());
 		repaint(); 
-//		setM_VersionList()
+	}
+	
+	public void setAllVersionDisplaying(boolean displayOrNot){
+		if(displayOrNot==true){
+			setM_VersionList(m_VersionList);
+		}else{
+			setM_VersionList(null);
+		}
+		repaint();
+		
+	}
+	
+	public Point calculatePoint(int versionNumber, int lineNumber) {
+		int x = 55;
+		int y = 30;
+		int columnSpace = 150;
+		int lineSpace = 17;
+		x = x + columnSpace * versionNumber;
+		y = y + lineSpace * lineNumber;
+		return new Point(x, y);
 	}
 	
 	/**

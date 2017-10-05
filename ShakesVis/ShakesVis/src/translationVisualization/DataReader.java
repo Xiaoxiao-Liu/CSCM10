@@ -37,8 +37,6 @@ public class DataReader {
 			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
-	
-	
 
 	/**a hashtable to store tokens and frequency but without sorting*/
 	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
@@ -48,6 +46,9 @@ public class DataReader {
 	
 	/***/
 	public List<Version> m_VersionList = new ArrayList<Version>();
+	
+	/**a list of String stored all version names*/
+	public List<String> m_VersionNameList = new ArrayList<String>();
 
 	/***/
 	protected StanfordCoreNLP pipeline;
@@ -65,6 +66,26 @@ public class DataReader {
 	private Version version;
 
 	
+	/**
+	 *  @return m_VersionNameList
+	 * */
+	public List<String> getM_VersionNameList() {
+		return m_VersionNameList;
+	}
+
+	/**
+	 * 
+	 * @param filePath-a string array of file paths 
+	 * @param versionNumber - an integer of version's number
+	 * @param position - an integer telling the method which string in the array you want
+	 * @return name -  the name of the version
+	 */
+	public String filePathProcess(String[] filePath, int versionNumber, int position){
+		String[] fileNameSplit=filePath[versionNumber].split("\\\\"); //split the file path
+		String name=fileNameSplit[position];
+		return name;
+	}
+
 	public Version getVersion() {
 		return version;
 	}
@@ -248,12 +269,11 @@ public class DataReader {
 	public boolean addVersionInfo(int versionNumber){
 		setVersion(new Version()); //initialize a new version
 		int fileNamePosition = 2; //the author name and the year is the third element in the array
-		System.out.println(getM_FilePath()[versionNumber]);
-		String[] fileNameSplit=getM_FilePath()[versionNumber].split("\\\\"); //split the file path
-//		String versionName=fileNameSplit[fileNamePosition]; //fetch the version name
-		getVersion().setM_VersionName(fileNameSplit[fileNamePosition]);
-		getVersion().setM_VersionYear(fileNameSplit[fileNamePosition]);
-		getVersion().setM_Author(fileNameSplit[fileNamePosition]);
+		String fileName=filePathProcess(getM_FilePath(), versionNumber, fileNamePosition);
+		m_VersionNameList.add(fileName); //create a list of String to store all version names
+		getVersion().setM_VersionName(fileName);
+		getVersion().setM_VersionYear(fileName);
+		getVersion().setM_Author(fileName);
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0)); //0 is line number, title has only one line
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
@@ -293,6 +313,7 @@ public class DataReader {
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
 			addVersionInfo(i); //pass i to method as version number and add information for one version
 			m_VersionList.add(getVersion()); //add one version to the version list
+			
 		}
 		return m_VersionList;
 	}

@@ -89,12 +89,6 @@ public class TranslationVisualization {
 	/** a JCheckBox to show version names */
 	private JCheckBox versionMenu;
 	
-	private static JComboBox comboMenu;
-	
-	private List<Integer> versionChoosed;
-	
-	boolean bool=false;
-	
 	private VersionChoosenPanel versionChoosingPanel;
 	
 	public DataReader getDataReader() {
@@ -125,7 +119,7 @@ public class TranslationVisualization {
 		return versionChoosingPanel;
 	}
 
-	public void setVersionChoosingPanel(VersionChoosenPanel versionChoosingPanel, TranslationVisualization transVis) {
+	public void setVersionChoosingPanel(VersionChoosenPanel versionChoosingPanel, ConcordancePanel concordancePanel, List<String> versionNames) {
 		this.versionChoosingPanel = versionChoosingPanel;
 		
 		//Deletable
@@ -134,7 +128,7 @@ public class TranslationVisualization {
 				"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 				"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 				"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
-		versionChoosingPanel.addVersions(string, transVis.getConcordancePanel());
+		versionChoosingPanel.addVersions(versionNames, concordancePanel);
 		
 		//
 		versionChoosingPanel.setBackground(Color.WHITE);
@@ -401,7 +395,7 @@ public class TranslationVisualization {
 //				transVis.getConcordanceFrame().revalidate(); 
 //			}
 //		});
-		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis);
+		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
 		
 		// set layout for visualization panel
 		GridBagLayout panelLayout = new GridBagLayout( );
