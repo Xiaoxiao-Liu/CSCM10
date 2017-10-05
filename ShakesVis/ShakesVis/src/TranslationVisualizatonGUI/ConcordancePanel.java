@@ -30,8 +30,6 @@ public class ConcordancePanel extends JPanel {
 	 * the panel painted, we do not get zoom value from 
 	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
 	private double m_ZoomValue=40; //initiate zoomvalue
-	
-	
 
 	public List<Version> getM_VersionListChoosen() {
 		return m_VersionListChoosen;

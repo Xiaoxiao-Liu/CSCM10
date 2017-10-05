@@ -101,6 +101,7 @@ public class DataReader {
 	
 	
 	public void googleAPIAuth(List<String> stringList){
+		List<String> tokenTranslation=new ArrayList<String>();
 		try {           
             // See comments on 
             //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
@@ -119,6 +120,7 @@ public class DataReader {
             list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
             TranslationsListResponse response = list.execute();
             for(TranslationsResource tr : response.getTranslations()) {
+            	tokenTranslation.add(tr.getTranslatedText());
                 System.out.println(tr.getTranslatedText());
             }
         } catch (Exception e) {
