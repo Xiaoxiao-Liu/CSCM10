@@ -21,6 +21,9 @@ public class ConcordancePanel extends JPanel {
 	/** the list of versions passed from translation visualization */
 	public List<Version> m_VersionList=new ArrayList<Version>();
 	
+	public List<Version> m_VersionListChoosen=new ArrayList<Version>();;
+	/** one Version object */
+	Version m_singleVersion=new Version();
 	
 
 	/** the default integer used to set zoom level, we use 10 is because when the first time 
@@ -29,6 +32,26 @@ public class ConcordancePanel extends JPanel {
 	private double m_ZoomValue=40; //initiate zoomvalue
 	
 	
+
+	public List<Version> getM_VersionListChoosen() {
+		return m_VersionListChoosen;
+	}
+
+
+	public void setM_VersionListChoosen(List<Version> m_VersionListChoosen) {
+		this.m_VersionListChoosen = m_VersionListChoosen;
+	}
+
+
+	public Version getM_singleVersion() {
+		return m_singleVersion;
+	}
+
+
+	public void setM_singleVersion(Version m_singleVersion) {
+		this.m_singleVersion = m_singleVersion;
+	}
+
 
 	/**
 	 * Constructor
@@ -70,14 +93,25 @@ public class ConcordancePanel extends JPanel {
 	}
 	
 	
-	public void setVersions(List<String> versionTitles){
-		
+	public void setVersionDisplaying(String versionName){
+		System.out.println("Hello");
+		System.out.println(getM_VersionList().get(1).getM_VersionName());
+		System.out.println(versionName);
 		for(int i=0; i<getM_VersionList().size(); i++){
-			if(getM_VersionList().get(i).getM_VersionName()==versionTitles.get(i)){
-				getM_VersionList().remove(i);
+			String str=getM_VersionList().get(i).getM_VersionName();
+			if(str.equals(versionName)){
+				for(int j=0; j<getM_VersionListChoosen().size(); j++){
+					if(!getM_VersionListChoosen().contains(versionName)){
+						setM_singleVersion(getM_VersionList().get(i));
+						System.out.println("Hello Java");
+					}
+					
+				}
+				
 			}
 		}
-		setM_VersionList(getM_VersionList());
+		getM_VersionListChoosen().add(getM_singleVersion());
+		
 		repaint(); 
 	}
 	
@@ -86,7 +120,8 @@ public class ConcordancePanel extends JPanel {
 	 * This method is called from ConcordancePanel. 
 	 */
 	public void paintComponent(Graphics g){
-		
+		setM_VersionListChoosen(m_VersionList);
+		setM_VersionList(getM_VersionListChoosen());
 		//create Graphics2D object to zoom ConcordancePanel
 		Graphics2D g2d=(Graphics2D)g;
 		g2d.scale(getZoomValue(),getZoomValue());

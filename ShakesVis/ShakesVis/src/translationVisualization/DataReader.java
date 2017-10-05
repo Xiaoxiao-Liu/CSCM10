@@ -245,11 +245,13 @@ public class DataReader {
 	 */
 	public boolean addVersionInfo(int versionNumber){
 		setVersion(new Version()); //initialize a new version
-		int fileNamePosition = 2; //the file name is the third element in the array
+		int fileNamePosition = 2; //the author name and the year is the third element in the array
+		System.out.println(getM_FilePath()[versionNumber]);
 		String[] fileNameSplit=getM_FilePath()[versionNumber].split("\\\\"); //split the file path
-		String versionName=fileNameSplit[fileNamePosition]; //fetch the version name
-		getVersion().setM_VersionYear(versionName);
-		getVersion().setM_Author(versionName);
+//		String versionName=fileNameSplit[fileNamePosition]; //fetch the version name
+		getVersion().setM_VersionName(fileNameSplit[fileNamePosition]);
+		getVersion().setM_VersionYear(fileNameSplit[fileNamePosition]);
+		getVersion().setM_Author(fileNameSplit[fileNamePosition]);
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0)); //0 is line number, title has only one line
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens

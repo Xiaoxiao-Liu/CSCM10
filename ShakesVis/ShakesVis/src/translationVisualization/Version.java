@@ -88,7 +88,7 @@ public class Version {
 	 */
 	public void setM_Author(String versionFileName) {
 		int startPosition=5;
-		int endPosition=versionFileName.length()-4;
+		int endPosition=versionFileName.length()-4; //substract substring(int beginIndex, int endIndex)
 		m_Author = versionFileName.substring(startPosition, endPosition);
 	}
 
