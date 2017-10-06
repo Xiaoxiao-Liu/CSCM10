@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="setZoomValue" key="selection"/>
+		<item value="getM_VersionName" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="getM_VersionName"/>
 			<item value="setZoomValue"/>
 			<item value="setM_WordsList"/>
 			<item value="Selected All"/>
@@ -15,7 +16,6 @@
 			<item value="transVis.getM_UserOptionPanel().add"/>
 			<item value="m_VersionList"/>
 			<item value="datarea"/>
-			<item value="paint"/>
 		</list>
 		<list key="replacehistory">
 			<item value="BUTTON"/>
