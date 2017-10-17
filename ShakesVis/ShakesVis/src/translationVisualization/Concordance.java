@@ -39,6 +39,28 @@ public class Concordance {
     /** the font of tokens */
 	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13);
 	
+	/**a way to access the English token translation*/
+	private String m_TokenTranslation;
+	
+	/**a way to access the lemmatized English token*/
+	private String m_TokenLemma;
+	
+	public String getM_TokenTranslation() {
+		return m_TokenTranslation;
+	}
+
+	public void setM_TokenTranslation(String m_TokenTranslation) {
+		this.m_TokenTranslation = m_TokenTranslation;
+	}
+
+	public String getM_TokenLemma() {
+		return m_TokenLemma;
+	}
+
+	public void setM_TokenLemma(String m_TokenLemma) {
+		this.m_TokenLemma = m_TokenLemma;
+	}
+
 	public Color getM_RectColor() {
 		return m_RectColor;
 	}

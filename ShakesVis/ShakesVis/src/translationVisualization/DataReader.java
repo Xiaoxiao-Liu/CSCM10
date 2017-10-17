@@ -7,19 +7,28 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
+
+import org.json.JSONObject;
 
 import com.google.api.services.translate.Translate;
+import com.google.api.services.translate.Translate.Translations;
 import com.google.api.services.translate.model.TranslationsListResponse;
 import com.google.api.services.translate.model.TranslationsResource;
 
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
+import edu.stanford.nlp.ling.CoreLabel;
+import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.util.CoreMap;
 
 /**
  * 
@@ -121,35 +130,6 @@ public class DataReader {
 	}
 	
 	
-	public void googleAPIAuth(List<String> stringList){
-		List<String> tokenTranslation=new ArrayList<String>();
-		try {           
-            // See comments on 
-            //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-            // on options to set
-            Translate t = new Translate.Builder(
-                    com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-                    , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-                    //Need to update this to your App-Name
-                    .setApplicationName("ShakesVis")                    
-                    .build(); 
-            Translate.Translations.List list = t.new Translations().list(
-            		stringList, 
-                        //Target language
-                        "en");  
-            //Set your API-Key from https://console.developers.google.com/
-            list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-            TranslationsListResponse response = list.execute();
-            for(TranslationsResource tr : response.getTranslations()) {
-            	tokenTranslation.add(tr.getTranslatedText());
-                System.out.println(tr.getTranslatedText());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	}
-	
-	
 	/**
 	 * pass the file path and read one file 
 	 * @param filePath
@@ -175,22 +155,21 @@ public class DataReader {
 				} else if (lineCount == 0) { //get rid of first line
 					lineCount++;
 				} else { 
-				
 					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
 					//split the sCurrentLine, make every string to lower case, remove all punctuation
-					
+//					
 //					 if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
-//					 lemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}",
-//					 ""));
+//					 EnglishLemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));
 //					 for(int i=0; i<lemmas.size(); i++){
 //					 addWordFrequency(lemmas.get(i));
+//					 
 //					 }
 //					 }
 //					germanLemmatizer(tmpWordsList);
 //					for (int i = 0; i < lemmas.size(); i++) {
 //						addWordFrequency(lemmas.get(i));
 //					}
-//					
+					
 //					System.out.println(tmpWordsList.length);
 
 					/*
@@ -295,6 +274,11 @@ public class DataReader {
 				lineNumber++;
 			}
 		}
+//		if(versionNumber==0){
+//			googleAPIEng(getVersion());
+//		}
+		googleAPIAuth(getVersion());
+		
 		return true;
 	}
 
@@ -402,28 +386,121 @@ public class DataReader {
 //		return true;
 //	}
 
-//	/**
-//	 * Lemmatize English tokens.
-//	 * @param documentText
-//	 * @return TRUE on success.
-//	 */
-//	public boolean EnglishLemmatizer(String documentText) {
-//		Properties props = new Properties();
-//		props.put("annotators", "tokenize, ssplit, pos, lemma");
-//
-//		this.pipeline = new StanfordCoreNLP(props);
-//
-//		lemmas = new ArrayList<String>();
-//		Annotation document = new Annotation(documentText);
-//		this.pipeline.annotate(document);
-//		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-//		for (CoreMap sentence : sentences) {
-//			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
-//				lemmas.add(token.get(LemmaAnnotation.class));
-//			}
-//		}
-//		return true;
-//	}
+	public void googleAPIAuth(Version version){
+		List<String> tokenTranslation=new ArrayList<String>();
+		tokenTranslation=version.getM_WordsList();
+		try {           
+	        // See comments on 
+	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+	        // on options to set
+	        Translate t = new Translate.Builder(
+	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+	                //Need to update this to your App-Name
+	                .setApplicationName("ShakesVis")                    
+	                .build(); 
+	        Translate.Translations.List list = t.new Translations().list(
+	        		version.getM_WordsList(), 
+	                    //Target language
+	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
+	                    "en");  
+	        //Set your API-Key from https://console.developers.google.com/
+	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+	        TranslationsListResponse response = list.execute();
+	        int i=0;
+	        for(TranslationsResource tr : response.getTranslations()) {
+//	        	tokenTranslation.add(tr.getTranslatedText());
+//	            System.out.println(i+": "+tr.getTranslatedText());
+	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+	            i++;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	public void googleAPIEng(Version version){
+		List<String> tokenTranslation=new ArrayList<String>();
+		tokenTranslation=version.getM_WordsList();
+		try {           
+	        // See comments on 
+	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+	        // on options to set
+	        Translate t = new Translate.Builder(
+	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+	                //Need to update this to your App-Name
+	                .setApplicationName("ShakesVis")                    
+	                .build(); 
+	        Translate.Translations.List list = t.new Translations().list(
+	        		version.getM_WordsList(), 
+	                    //Target language 
+	                    "de");  
+	        //Set your API-Key from https://console.developers.google.com/
+	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+	        TranslationsListResponse response = list.execute();
+	        int i=0;
+	        for(TranslationsResource tr : response.getTranslations()) {
+//	        	tokenTranslation.add(tr.getTranslatedText());
+//	            System.out.println(i+": "+tr.getTranslatedText());
+	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+	            System.out.println(version.getM_ConcordanceList().get(i).getM_TokenTranslation());
+//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+	            i++;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	public boolean jSonReader(){
+		try {
+			BufferedReader br = new BufferedReader(new FileReader("src\\data\\English-German.json"));
+			String str;
+			try {
+				while((str=br.readLine())!=null){
+					
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * Lemmatize English tokens.
+	 * @param documentText
+	 * @return TRUE on success.
+	 */
+	public boolean EnglishLemmatizer(String documentText) {
+		Properties props = new Properties();
+		String str;
+		props.put("annotators", "tokenize, ssplit, pos, lemma");
+
+		this.pipeline = new StanfordCoreNLP(props);
+
+		lemmas = new ArrayList<String>();
+		Annotation document = new Annotation(documentText);
+		this.pipeline.annotate(document);
+		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+		for (CoreMap sentence : sentences) {
+			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+				lemmas.add(token.get(LemmaAnnotation.class));
+				str=token.get(LemmaAnnotation.class);
+				
+			}
+		}
+		
+		return true;
+	}
 	
 	
 }

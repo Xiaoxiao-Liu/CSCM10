@@ -35,7 +35,7 @@ public class Version {
     private Point m_titlePoint= new Point();
     
     /**the font of the title */
-	private final Font M_Word_Font=new Font("TimesRoman",Font.PLAIN, 13);
+	private final Font M_Word_Font=new Font("TimesRoman",Font.PLAIN, 12);
 
 	public List<String> getM_tokenTranslation() {
 		return m_tokenTranslation;

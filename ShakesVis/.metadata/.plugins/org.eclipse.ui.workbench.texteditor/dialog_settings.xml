@@ -2,20 +2,20 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="getM_VersionName" key="selection"/>
+		<item value="googleAPIAuth" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="getM_VersionName"/>
-			<item value="setZoomValue"/>
-			<item value="setM_WordsList"/>
-			<item value="Selected All"/>
-			<item value="colorlegend"/>
-			<item value="transVis.getM_UserOptionPanel().add"/>
-			<item value="m_VersionList"/>
-			<item value="datarea"/>
+			<item value="googleAPIAuth"/>
+			<item value="EnglishLemmatizer"/>
+			<item value="slider"/>
+			<item value="pink"/>
+			<item value="Dimension"/>
+			<item value="setScrollPane"/>
+			<item value="setM_ScrollPaneSlider"/>
+			<item value="lemmatizer"/>
 		</list>
 		<list key="replacehistory">
 			<item value="BUTTON"/>
@@ -32,7 +32,7 @@
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="940" key="DIALOG_X_ORIGIN"/>
-		<item value="174" key="DIALOG_Y_ORIGIN"/>
+		<item value="643" key="DIALOG_X_ORIGIN"/>
+		<item value="211" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>
