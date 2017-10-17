@@ -15,10 +15,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.json.JSONObject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonString;
 
 import com.google.api.services.translate.Translate;
-import com.google.api.services.translate.Translate.Translations;
 import com.google.api.services.translate.model.TranslationsListResponse;
 import com.google.api.services.translate.model.TranslationsResource;
 
@@ -299,6 +302,8 @@ public class DataReader {
 			m_VersionList.add(getVersion()); //add one version to the version list
 			
 		}
+		
+//		jSonReader();
 		return m_VersionList;
 	}
 
@@ -329,7 +334,7 @@ public class DataReader {
 		int redVar = 0;
 		int greenVar = 2;
 		int blueVar = 4;
-		double colorFrequency = 0.3;
+		double colorFrequency = 0.22;
 		double toDouble = (double) stringNumber;
 		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
@@ -454,23 +459,29 @@ public class DataReader {
 	    }
 	}
 
-	public boolean jSonReader(){
+	public boolean jSonReader(String token){
 		try {
-			BufferedReader br = new BufferedReader(new FileReader("src\\data\\English-German.json"));
-			String str;
-			try {
-				while((str=br.readLine())!=null){
-					
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			JsonReader jsonReader=Json.createReader(new FileReader("src\\data\\English-German.json"));
+			JsonObject object = jsonReader.readObject();
+			
+//			JsonArray ja_data = object.getJsonArray("the");
+			JsonArray ja_data = object.getJsonArray(token);
+//			Object obj="der";
+			String str="der";
+			
+			for(int i=0; i<ja_data.size(); i++){
+				int length=ja_data.get(i).toString().length()-1;
+				String string=ja_data.get(i).toString().substring(1, length);
+				if(string.equals(str)){
+				System.out.println(string);
+			}
 			}
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+//		= Json.createReader(...);
 		
 		return true;
 	}

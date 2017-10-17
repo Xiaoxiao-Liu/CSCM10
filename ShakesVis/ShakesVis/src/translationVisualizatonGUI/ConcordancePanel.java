@@ -138,13 +138,10 @@ public class ConcordancePanel extends JPanel {
 	}
 	
 	public void resetLocations(){
-//		System.out.println("Hi, there "+getM_VersionList());
 		DataReader dataReader=new DataReader();
 		int versionNumber;
 		for(int i=0; i<getM_VersionList().size(); i++){
-			
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
-			System.out.println("Hi, there "+getM_VersionList().get(i).getM_VersionName()+versionNumber);
 			getM_VersionList().get(i).setM_titlePoint(dataReader.calculatePoint(versionNumber, 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(dataReader.calculatePoint(i, j+1));
