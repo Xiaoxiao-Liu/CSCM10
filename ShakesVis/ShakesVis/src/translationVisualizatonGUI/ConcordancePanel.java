@@ -282,9 +282,9 @@ public class ConcordancePanel extends JPanel {
 			
 			Point point=event.getPoint();
 //			rangeListener(point,)
-//			int x=point.x;
-//			int y=point.y;
-//			System.out.println("Moved:"+event.getPoint());
+			int x=point.x;
+			int y=point.y;
+			System.out.println("Moved:"+event.getPoint());
 		
 			repaint();
 		}
