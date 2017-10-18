@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\45109\Desktop\Bob&apos;s shining code"/>
+		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis"/>
+		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\Bob&apos;s shining code"/>
+		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\ShakesVis"/>
+		<item value="C:\Users\45109\Desktop\components-FileChooserDemo2Project"/>
+		<item value="C:\Users\45109\Desktop\java-google-translate-text-to-speech"/>
+		<item value="C:\Users\45109\Desktop\text-to-speech-master.zip"/>
+		<item value="C:\Users\45109\Desktop\translate"/>
+		<item value="C:\Users\45109\Desktop\JavaSolitaire-master.zip"/>
+		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\TreeTagger"/>
+		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\DurmLemmatizer-1.0"/>
 		<item value="C:\Users\45109\Documents\GitHub\CSCM10"/>
 	</list>
 	<section name="CleanDialogSettings">
@@ -15,6 +26,9 @@
 		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
 		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
 		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="C:\Users\45109\Documents\GitHub\CSCM10"/>
+			<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis"/>
+			<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\ShakesVis"/>
 			<item value="C:\Users\45109\Desktop\CSCM94_SEP-master"/>
 			<item value="D:\App\Eclipse\Rosa&apos;s practice\OthelloVis"/>
 			<item value="C:\Users\45109\Documents\GitHub\xdat"/>
@@ -23,6 +37,9 @@
 		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
 			<item value=""/>
 		</list>
+	</section>
+	<section name="org.eclipse.ui.internal.ide.dialogs.ProjectContentsLocationArea">
+		<item value="D:\Rosa\Git" key="OUTSIDE_LOCATION"/>
 	</section>
 	<section name="NewWizardAction">
 		<item value="org.eclipse.ui.wizards.new.project" key="NewWizardSelectionPage.STORE_SELECTED_ID"/>

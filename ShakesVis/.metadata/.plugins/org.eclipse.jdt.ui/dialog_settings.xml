@@ -1,43 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="0" key="CallHierarchyViewPart.call_mode"/>
-	<item value="2" key="CallHierarchyViewPart.field_mode"/>
-	<item value="C:\Users\45109\Downloads" key="org.eclipse.jdt.ui.lastextjar"/>
-	<item value="3" key="CallHierarchyViewPart.orientation"/>
-	<item value="341" key="CallHierarchyViewPart.ratio1"/>
-	<item value="1" key="SearchScopeActionGroup.search_scope_type"/>
-	<item value="480,578" key="UserLibraryLoadSaveDialog.size"/>
-	<item value="500" key="CallHierarchyViewPart.ratio3"/>
-	<list key="SearchScopeActionGroup.working_set">
-	</list>
+	<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\ShakesVis\src" key="org.eclipse.jdt.ui.lastextjar"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>
 		<item value="*" key="patterns"/>
 		<item value="false" key="updateTextualMatches"/>
 	</section>
-	<section name="SearchInDialog">
-		<item value="true" key="SearchInProjects"/>
-		<item value="true" key="SearchInAppLibs"/>
-		<item value="true" key="SearchInJRE"/>
-		<item value="true" key="SearchInSources"/>
-	</section>
-	<section name="GenerateConstructorUsingFieldsSelectionDialog">
-		<item value="false" key="OmitCallToSuper"/>
-	</section>
 	<section name="org.eclipse.jdt.internal.ui.packageview.PackageExplorerPart">
 		<item value="2" key="layout"/>
 		<item value="true" key="group_libraries"/>
-		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;packageExplorer group_libraries=&quot;1&quot; layout=&quot;2&quot; linkWithEditor=&quot;0&quot; rootMode=&quot;1&quot; workingSetName=&quot;Aggregate for window 1499105018344&quot;&gt;&#x0D;&#x0A;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;&gt;&#x0D;&#x0A;&lt;xmlDefinedFilters&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.StaticsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.buildship.ui.packageexplorer.filter.gradle.buildfolder&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.mylyn.java.ui.MembersFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.m2e.MavenModuleFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.buildship.ui.packageexplorer.filter.gradle.subProject&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.BinaryProjectFilter1&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.ExternalPluginLibrariesFilter1&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.FieldsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;/xmlDefinedFilters&gt;&#x0D;&#x0A;&lt;/customFilters&gt;&#x0D;&#x0A;&lt;/packageExplorer&gt;" key="memento"/>
+		<item value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x0D;&#x0A;&lt;packageExplorer group_libraries=&quot;1&quot; layout=&quot;2&quot; linkWithEditor=&quot;0&quot; rootMode=&quot;1&quot; workingSetName=&quot;Aggregate for window 1507160903418&quot;&gt;&#x0D;&#x0A;&lt;customFilters userDefinedPatternsEnabled=&quot;false&quot;&gt;&#x0D;&#x0A;&lt;xmlDefinedFilters&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.StaticsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.buildship.ui.packageexplorer.filter.gradle.buildfolder&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.mylyn.java.ui.MembersFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonSharedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyInnerPackageFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.m2e.MavenModuleFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.buildship.ui.packageexplorer.filter.gradle.subProject&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ClosedProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.EmptyLibraryContainerFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.PackageDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.BinaryProjectFilter1&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LocalTypesFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.pde.ui.ExternalPluginLibrariesFilter1&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.FieldsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaProjectsFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer_patternFilterId_.*&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.SyntheticMembersFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ContainedLibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.HideInnerClassFilesFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.ImportDeclarationFilter&quot; isEnabled=&quot;true&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonJavaElementFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.LibraryFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.CuAndClassFileFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.internal.ui.PackageExplorer.EmptyPackageFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;child filterId=&quot;org.eclipse.jdt.ui.PackageExplorer.NonPublicFilter&quot; isEnabled=&quot;false&quot;/&gt;&#x0D;&#x0A;&lt;/xmlDefinedFilters&gt;&#x0D;&#x0A;&lt;/customFilters&gt;&#x0D;&#x0A;&lt;/packageExplorer&gt;" key="memento"/>
 		<item value="1" key="rootMode"/>
 		<item value="false" key="linkWithEditor"/>
-	</section>
-	<section name="DialogBounds_GenerateConstructorUsingFieldsSelectionDialog">
-		<item value="574" key="DIALOG_WIDTH"/>
-		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
-		<item value="728" key="DIALOG_HEIGHT"/>
-		<item value="404" key="DIALOG_X_ORIGIN"/>
-		<item value="8" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="NewClassWizardPage">
 		<item value="false" key="create_constructor"/>
@@ -46,27 +21,26 @@
 	<section name="OptionalMessageDialog.hide.">
 		<item value="true" key="org.eclipse.jdt.ui.typecomment.deprecated"/>
 	</section>
-	<section name="SourceActionDialog.constructors">
-		<item value="false" key="SynchronizedModifier"/>
-		<item value="false" key="Comments"/>
-		<item value="1" key="VisibilityModifier"/>
-		<item value="false" key="FinalModifier"/>
-	</section>
-	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
-		<item value="587" key="DIALOG_WIDTH"/>
-		<item value="1|Microsoft YaHei UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Microsoft YaHei UI" key="DIALOG_FONT_NAME"/>
-		<item value="728" key="DIALOG_HEIGHT"/>
-		<item value="92" key="DIALOG_X_ORIGIN"/>
+	<section name="DialogBounds_GenerateHashCodeEqualsDialog">
+		<item value="516" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="573" key="DIALOG_HEIGHT"/>
+		<item value="433" key="DIALOG_X_ORIGIN"/>
 		<item value="8" key="DIALOG_Y_ORIGIN"/>
 	</section>
-	<section name="org.eclipse.jdt.internal.ui.text.QuickOutline">
-		<item value="true" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_SIZE"/>
-		<item value="350" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_WIDTH"/>
-		<item value="317" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_HEIGHT"/>
-		<item value="false" key="GoIntoTopLevelTypeAction.isChecked"/>
-		<item value="false" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
+	<section name="DialogBounds_OverrideMethodDialog">
+		<item value="526" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="467" key="DIALOG_HEIGHT"/>
+		<item value="428" key="DIALOG_X_ORIGIN"/>
+		<item value="61" key="DIALOG_Y_ORIGIN"/>
 	</section>
-	<section name="CallHierarchySearchScope">
+	<section name="DialogBounds_GetterSetterTreeSelectionDialog">
+		<item value="528" key="DIALOG_WIDTH"/>
+		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
+		<item value="696" key="DIALOG_HEIGHT"/>
+		<item value="655" key="DIALOG_X_ORIGIN"/>
+		<item value="30" key="DIALOG_Y_ORIGIN"/>
 	</section>
 	<section name="RefactoringWizard.preview">
 		<item value="600" key="width"/>
@@ -74,13 +48,18 @@
 	</section>
 	<section name="SourceActionDialog.methods">
 		<item value="false" key="SynchronizedModifier"/>
+		<item value="false" key="Blocks"/>
 		<item value="false" key="Comments"/>
 		<item value="2" key="InsertPosition.v2"/>
 		<item value="1" key="VisibilityModifier"/>
+		<item value="false" key="InstanceOf"/>
 		<item value="false" key="FinalModifier"/>
 	</section>
+	<section name="OverrideMethodDialog">
+		<item value="true" key="showtypes"/>
+	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="4" key="index"/>
+		<item value="0" key="index"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
