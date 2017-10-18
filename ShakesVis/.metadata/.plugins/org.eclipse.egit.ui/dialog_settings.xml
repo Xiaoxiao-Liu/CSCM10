@@ -6,8 +6,8 @@
 		<item value="https://github.com/abel533/ECharts.git"/>
 	</list>
 	<list key="EGit.KnownHosts">
-		<item value="git.eclipse.org"/>
 		<item value="bitbucket.org"/>
+		<item value="git.eclipse.org"/>
 		<item value="github.com"/>
 	</list>
 	<section name="org.eclipse.egit.ui.internal.dialogs.ResetTargetSelectionDialog.dialogBounds">

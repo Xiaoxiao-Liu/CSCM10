@@ -36,7 +36,20 @@ public class Concordance {
     /** the color of each rectangle*/
 	private Color m_RectColor;
 	
-    /** the font of tokens */
+	/**the right-bottom point of rectangle applied to mouse listener method */
+	private Point m_RangeEndPoint;
+	
+    public Point getM_RangeEndPoint() {
+		return m_RangeEndPoint;
+	}
+
+	public void setM_RangeEndPoint(Point rectPoint, int rectHeight, int rectWidth) {
+		int x=rectPoint.x+rectWidth;
+		int y=rectPoint.y+rectHeight;
+		m_RangeEndPoint = new Point(x, y);
+	}
+
+	/** the font of tokens */
 	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13);
 	
 	/**a way to access the English token translation*/

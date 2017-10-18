@@ -4,4 +4,9 @@
 <fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
+<fullyQualifiedTypeName name="javax.json.JsonReader"/>
+<fullyQualifiedTypeName name="javax.json.Json"/>
+<fullyQualifiedTypeName name="javax.json.JsonObject"/>
+<fullyQualifiedTypeName name="org.json.JSONArray"/>
+<fullyQualifiedTypeName name="javax.json.JsonString"/>
 </qualifiedTypeNameHistroy>

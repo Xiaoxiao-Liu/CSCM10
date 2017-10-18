@@ -24,6 +24,10 @@ public class ConcordancePanel extends JPanel {
 	
 	private List<Version> m_VersionListCopied=new ArrayList<Version>();
 	
+	private Point startPoint=new Point();
+	
+	private Point endPoint=new Point();
+	
 	/** one Version object */
 	Version m_singleVersion=new Version();
 	
@@ -151,11 +155,29 @@ public class ConcordancePanel extends JPanel {
 		}
 	}
 	
+	public boolean rangeListener(Point eventPoint){
+		boolean bool=false;
+		boolean xRange=(eventPoint.x>startPoint.x)&&(eventPoint.x<endPoint.x);
+		boolean yRange=(eventPoint.y>startPoint.y)&&(eventPoint.y<endPoint.y);
+		
+		if(xRange&&yRange){
+			bool=true;
+			System.out.println(bool);
+		}
+		
+		
+		return bool;
+		
+	}
 	/**
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
 	 */
 	public void paintComponent(Graphics g){
+		
+		MouseAction action=new MouseAction();
+		this.addMouseListener(action);
+		this.addMouseMotionListener(action);
 		
 		//create Graphics2D object to zoom ConcordancePanel
 		Graphics2D g2d=(Graphics2D)g;
@@ -184,7 +206,6 @@ public class ConcordancePanel extends JPanel {
 			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 				Concordance concordance=new Concordance(); //every time read a new concordance
 				concordance=version.getM_ConcordanceList().get(j);
-				
 				//set color of strings/tokens
 				g.setColor(Color.black);
 				//paint both token and its frequency
@@ -247,15 +268,25 @@ public class ConcordancePanel extends JPanel {
 	private class MouseAction implements MouseListener, MouseMotionListener{
 
 		@Override
-		public void mouseDragged(MouseEvent arg0) {
+		public void mouseDragged(MouseEvent event) {
 			// TODO Auto-generated method stub
-			
+			Point point=event.getPoint();
+			int x=point.x;
+			int y=point.y;
+			System.out.println("Get Point:"+event.getPoint());
 		}
 
 		@Override
-		public void mouseMoved(MouseEvent arg0) {
+		public void mouseMoved(MouseEvent event) {
 			// TODO Auto-generated method stub
 			
+			Point point=event.getPoint();
+//			rangeListener(point,)
+//			int x=point.x;
+//			int y=point.y;
+//			System.out.println("Moved:"+event.getPoint());
+		
+			repaint();
 		}
 
 		@Override

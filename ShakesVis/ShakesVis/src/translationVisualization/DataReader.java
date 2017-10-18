@@ -268,6 +268,7 @@ public class DataReader {
 				concordance.setM_RectWidth(mapping.getValue());
 				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
+				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
 //				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
 				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
