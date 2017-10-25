@@ -2,6 +2,8 @@ package translationVisualization;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.awt.geom.Point2D.Double;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -236,6 +238,56 @@ public class DataReader {
 		return m_ColorIndex;
 	}
 
+//	public boolean addConcordanceInfo(int versionNumber)throws Exception{
+//		Concordance concordance = new Concordance();
+//		concordance.setM_Tokens(new ArrayList<String>());
+//		concordance.setM_Frequencies(new ArrayList<Integer>());
+//		concordance.setM_Rectangles(new ArrayList<Rectangle>());
+//		
+//		
+//		
+//		setVersion(new Version()); //initialize a new version
+//		int fileNamePosition = 2; //the author name and the year is the third element in the array
+//		String fileName=filePathProcess(getM_FilePath(), versionNumber, fileNamePosition);
+//		m_VersionNameList.add(fileName); //create a list of String to store all version names
+//		getVersion().setM_VersionName(fileName);
+//		getVersion().setM_VersionYear(fileName);
+//		getVersion().setM_Author(fileName);
+//		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 0)); //0 is line number, title has only one line
+//		int lineNumber = 1; //used to count line and pass the number to calculate the point location
+//		int listSize = 50; //used to fetch top 50 frequent tokens
+//		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
+//			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+//				getVersion().getM_WordsList().add(mapping.getKey());
+//				
+//				concordance.setM_Token(mapping.getKey());
+//				
+//				if(versionNumber==0){
+//				concordance.setM_TokenTranslations(new ArrayList<String>());
+//				jSonReader(concordance.getM_Token(), concordance);
+//				}
+//				concordance.setM_Frequency(mapping.getValue());
+//				concordance.setM_RectWidth(mapping.getValue(), 1);
+//				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber, 0));
+//				concordance.setM_RectPoint(concordance.getM_StringPoint());
+//				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
+//				addStringIndex(mapping);
+//				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+//				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
+//				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
+//				getVersion().setM_ConcordanceList(concordance);
+//				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
+//				lineNumber++;
+//			}
+//		}
+////		if(versionNumber==0){
+////			googleAPIEng(getVersion());
+////		}
+//		googleAPIAuth(getVersion());
+//		
+//		return true;
+//	}
+	
 	/**
 	 * Process the data and set the data into the version
 	 * @param versionNumber
@@ -250,7 +302,7 @@ public class DataReader {
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
 		getVersion().setM_Author(fileName);
-		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0)); //0 is line number, title has only one line
+		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 1)); //0 is line number, title has only one line
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
@@ -258,18 +310,18 @@ public class DataReader {
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
-				
+				       
 				if(versionNumber==0){
 				concordance.setM_TokenTranslations(new ArrayList<String>());
 				jSonReader(concordance.getM_Token(), concordance);
 				}
 				concordance.setM_Frequency(mapping.getValue());
-				concordance.setM_RectWidth(mapping.getValue());
-				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber));
+				concordance.setM_RectWidth(mapping.getValue(),1);
+				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber, 1));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
-				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
+//				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
-//				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
 				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
 				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
 				getVersion().setM_ConcordanceList(concordance);
@@ -315,13 +367,30 @@ public class DataReader {
 	 * @param lineNumber
 	 * @return the point calculated
 	 */
-	public Point calculatePoint(int versionNumber, int lineNumber) {
+	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue) {
 		int x = 55;
 		int y = 30;
 		int columnSpace = 150;
 		int lineSpace = 17;
-		x = x + columnSpace * versionNumber;
-		y = y + lineSpace * lineNumber;
+		
+		int scaleLevel=scaleValue*scaleValue;
+		
+		x = (x + columnSpace * versionNumber)*scaleLevel/1000;
+		y = (y + lineSpace * lineNumber)*scaleLevel/1500;
+		
+		System.out.println("x: "+x);
+		System.out.println("y: "+y);
+		
+//		double xx = x + columnSpace * versionNumber;
+//		double yy = y + lineSpace * lineNumber;
+//		Point point=new Point();
+//
+////		Point2D point=new Point2D.Double(xx, yy);
+//		System.out.println("point1: "+point);
+////		System.out.println("y: "+y);
+//		point.setLocation(xx/100, yy/100);
+//		System.out.println("point2: "+point);
+////		System.out.println("y: "+y);
 		return new Point(x, y);
 	}
 

@@ -454,7 +454,9 @@ public class TranslationVisualization {
         transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
 			public void stateChanged(ChangeEvent event) {
 				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
-				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+//				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
+				transVis.getConcordancePanel().scaleConcordancePanel(m_scaleValue);
+//				scaleConcordancePanel
 				transVis.getConcordanceFrame().revalidate(); 
 			}
 		});

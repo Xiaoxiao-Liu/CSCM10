@@ -1,10 +1,12 @@
 package translationVisualizatonGUI;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -24,10 +26,21 @@ public class ConcordancePanel extends JPanel {
 	
 	private List<Version> m_VersionListCopied=new ArrayList<Version>();
 	
+	private DataReader dataReader;
+	
 //	private Point startPoint=new Point();
 //	
 //	private Point endPoint=new Point();
 	
+	public DataReader getDataReader() {
+		return dataReader;
+	}
+
+
+	public void setDataReader(DataReader dataReader) {
+		this.dataReader = dataReader;
+	}
+
 	/** one Version object */
 	Version m_singleVersion=new Version();
 	
@@ -133,17 +146,34 @@ public class ConcordancePanel extends JPanel {
 	}
 	
 	public void resetLocations(){
-		DataReader dataReader=new DataReader();
+		setDataReader(new DataReader());
 		int versionNumber;
 		for(int i=0; i<getM_VersionList().size(); i++){
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
-			getM_VersionList().get(i).setM_titlePoint(dataReader.calculatePoint(versionNumber, 0));
+			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(dataReader.calculatePoint(i, j+1));
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(dataReader.calculatePoint(versionNumber, j+1));
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(getDataReader().calculatePoint(i, j+1 , 0));
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getDataReader().calculatePoint(versionNumber, j+1, 0));
 				
 			}
 		}
+	}
+	
+	public void scaleConcordancePanel(int scaleValue){
+		setDataReader(new DataReader());
+		for(int i=0; i<getM_VersionList().size(); i++){
+//			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
+//			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(i, 0 , scaleValue));
+			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), scaleValue);
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(getDataReader().calculatePoint(i, j+1 , scaleValue));
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getDataReader().calculatePoint(i, j+1, scaleValue));
+				
+				
+				
+			}
+		}
+		repaint();
 	}
 	
 	public boolean rangeListener(Point eventPoint){
@@ -182,8 +212,8 @@ public class ConcordancePanel extends JPanel {
 		this.addMouseMotionListener(action);
 		
 		//create Graphics2D object to zoom ConcordancePanel
-		Graphics2D g2d=(Graphics2D)g;
-		g2d.scale(getZoomValue(),getZoomValue());
+//		Graphics2D g2d=(Graphics2D)g;
+//		g2d.scale(getZoomValue(),getZoomValue());
 		
 		//set the ConcordancePanelg
 		this.setLayout(null);
@@ -220,12 +250,20 @@ public class ConcordancePanel extends JPanel {
 				g.setColor(concordance.getM_RectColor());
 				//drawr filled rectangles, fillRect(int x, int y, int width, int height),
 				//x and y represent the top left position of the rectangle,
-				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
+//				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 
+				double x=(double)(concordance.getM_RectPoint().x);
+				double y=(double)(concordance.getM_RectPoint().y);
+				double height=(double)(concordance.getM_RectHeight());
+				//draw rectangle using double values
+				Graphics2D g2d = (Graphics2D)g;
+				Rectangle rectangle=new Rectangle();
+				rectangle.setRect(x, y, concordance.getM_RectWidth(), height);
+				g2d.fill(rectangle);
+				
 				//draw the lines for rectangle
 				g.setColor(Color.GRAY);
-				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
-				
+//				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
 				//if this version is Base text

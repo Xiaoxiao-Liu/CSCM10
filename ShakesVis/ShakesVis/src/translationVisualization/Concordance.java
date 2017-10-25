@@ -44,7 +44,7 @@ public class Concordance {
 	private Point m_RectPoint;
 
     /**the width of each rectangle */
-	private int m_RectWidth;
+	private double m_RectWidth;
 	
 	/**the height of each rectangle*/
     private final int m_RectHeight=17;
@@ -225,7 +225,7 @@ public class Concordance {
 	/**
 	 * @return the width of the rectangle
 	 */
-	public int getM_RectWidth() {
+	public double getM_RectWidth() {
 		return m_RectWidth;
 	}
 
@@ -234,9 +234,11 @@ public class Concordance {
 	 * compute the width of rectangle
 	 * @param wordFrequency 
 	 */
-	public void setM_RectWidth(int wordFrequency) {
+	public void setM_RectWidth(int wordFrequency, double scaleValue) {
 		int blockWidth=4; //width of each rectangle block
-		m_RectWidth=wordFrequency*blockWidth;
+		double scaleLevel=scaleValue/100;
+		int originalValue=wordFrequency*blockWidth;
+		m_RectWidth=wordFrequency*blockWidth*scaleLevel+blockWidth;
 	}
 
     
