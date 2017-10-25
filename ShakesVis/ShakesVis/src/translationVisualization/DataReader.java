@@ -258,6 +258,7 @@ public class DataReader {
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
+				
 				if(versionNumber==0){
 				concordance.setM_TokenTranslations(new ArrayList<String>());
 				jSonReader(concordance.getM_Token(), concordance);

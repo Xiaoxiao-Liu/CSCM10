@@ -12,6 +12,22 @@ import java.util.List;
  */
 public class Concordance {
 	
+	private List<String> m_Tokens=new ArrayList<String>();
+	
+	 public List<Rectangle> getM_Rectangles() {
+		return m_Rectangles;
+	}
+
+	public void setM_Rectangles(List<Rectangle> m_Rectangles) {
+		this.m_Rectangles = m_Rectangles;
+	}
+
+	private List<String> m_TokenTranslations;
+
+	private List<Integer> m_Frequencies=new ArrayList<Integer>();
+	
+	private List<Rectangle> m_Rectangles=new ArrayList<Rectangle>();
+	
 	/**a way to access the tokens*/
 	private String m_Token;
 	
@@ -42,14 +58,8 @@ public class Concordance {
 	/**a way to access the English token translation*/
 	private String m_TokenTranslation;
 
-	private List<String> m_Tokens=new ArrayList<String>();
-
-	private List<Integer> m_Frequencies=new ArrayList<Integer>();
-
 	/**the right-bottom point of rectangle applied to mouse listener method */
 	private Point m_RangeEndPoint;
-	
-    private List<String> m_TokenTranslations;
 
 	/**a way to access the lemmatized English token*/
 	private String m_TokenLemma;

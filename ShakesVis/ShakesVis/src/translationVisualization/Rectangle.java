@@ -5,8 +5,10 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
 
-public class Rectangle {
+
+public class Rectangle extends JPanel {
 	 /**the list of points of one rectangle**/
 	private List<Point> m_RegionPoints = new ArrayList<Point>();
 	
