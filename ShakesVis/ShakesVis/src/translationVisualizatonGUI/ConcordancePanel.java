@@ -24,9 +24,9 @@ public class ConcordancePanel extends JPanel {
 	
 	private List<Version> m_VersionListCopied=new ArrayList<Version>();
 	
-	private Point startPoint=new Point();
-	
-	private Point endPoint=new Point();
+//	private Point startPoint=new Point();
+//	
+//	private Point endPoint=new Point();
 	
 	/** one Version object */
 	Version m_singleVersion=new Version();
@@ -78,7 +78,6 @@ public class ConcordancePanel extends JPanel {
 	public ConcordancePanel(List<Version> versionList) {
 		m_VersionList = versionList;
 		setM_VersionList(m_VersionList);
-		System.out.println("Hello"+m_VersionList.size());
 		
 	}
 	
@@ -111,17 +110,18 @@ public class ConcordancePanel extends JPanel {
 	 * 
 	 * @param List<String>
 	 */
-	public void setVersionDisplaying(List<String> VersionSelected){
+	public void displaySingleVersion(List<String> VersionSelected){
 		List<Version> m_VersionListChoosen=new ArrayList<Version>();
 		int versionNumber=0;
 		
+		
+		//
 		for(int j=0; j<VersionSelected.size(); j++){
 			String str=VersionSelected.get(j);
 			for(int i=0; i<m_VersionList.size(); i++){
 				if(str.equals(m_VersionList.get(i).getM_VersionName())){
 					m_VersionListChoosen.add(m_VersionList.get(i));
 					m_VersionListChoosen.get(versionNumber).setM_VersionNumber(versionNumber);
-					System.out.println("vN"+m_VersionListChoosen.get(versionNumber).getM_VersionName()+" "+m_VersionListChoosen.get(versionNumber).getM_VersionNumber());
 					setM_VersionNumber(versionNumber);
 					versionNumber++;
 				}
@@ -130,15 +130,6 @@ public class ConcordancePanel extends JPanel {
 		setM_VersionList(m_VersionListChoosen);
 		resetLocations();
 		repaint(); 
-	}
-	
-	public void setAllVersionDisplaying(boolean displayOrNot){
-		if(displayOrNot==true){
-			setM_VersionList(m_VersionList);
-		}else{
-			setM_VersionList(null);
-		}
-		repaint();
 	}
 	
 	public void resetLocations(){
@@ -157,15 +148,27 @@ public class ConcordancePanel extends JPanel {
 	
 	public boolean rangeListener(Point eventPoint){
 		boolean bool=false;
-		boolean xRange=(eventPoint.x>startPoint.x)&&(eventPoint.x<endPoint.x);
-		boolean yRange=(eventPoint.y>startPoint.y)&&(eventPoint.y<endPoint.y);
 		
-		if(xRange&&yRange){
-			bool=true;
-			System.out.println(bool);
+		for(int i=0; i<m_VersionList.size(); i++){
+			for(int j=0; j<m_VersionList.get(i).getM_ConcordanceList().size(); j++){
+				Point startPoint=m_VersionList.get(i).getM_ConcordanceList().get(j).getM_RectPoint();
+				Point endPoint=m_VersionList.get(i).getM_ConcordanceList().get(j).getM_RangeEndPoint();
+				boolean xRange=(eventPoint.x>startPoint.x)&&(eventPoint.x<endPoint.x);
+				boolean yRange=(eventPoint.y>startPoint.y)&&(eventPoint.y<endPoint.y);
+				
+				System.out.println("startPoint:"+startPoint);
+				
+				System.out.println("endPoint:"+endPoint);
+				
+				System.out.println("eventPoint:"+eventPoint);
+				
+				if(xRange==true&&yRange==true){
+					bool=true;
+					
+				}
+			}
 		}
-		
-		
+		System.out.println("Pay attention here:"+bool);
 		return bool;
 		
 	}
@@ -174,7 +177,6 @@ public class ConcordancePanel extends JPanel {
 	 * This method is called from ConcordancePanel. 
 	 */
 	public void paintComponent(Graphics g){
-		
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);
@@ -183,16 +185,16 @@ public class ConcordancePanel extends JPanel {
 		Graphics2D g2d=(Graphics2D)g;
 		g2d.scale(getZoomValue(),getZoomValue());
 		
-		//set the ConcordancePanel
+		//set the ConcordancePanelg
 		this.setLayout(null);
 		this.setBackground(Color.white);
-		super.paintComponent(g);
+		super.paintComponent(g);  
 		
 		//read and paint all 16 versions on the panel
 		for(int i=0; i<getM_VersionList().size(); i++){
 			Version version=getM_VersionList().get(i); //get current Version object to fetch information stored in the Version
-			System.out.println(version.getM_VersionName());
 			// draw title Strings
+			
 			g.setColor(Color.black); //set color of strings(tokens)
 			g.setFont(version.getM_WORD_FONT()); //set font of strings
 			//drawString(String, int x, int y), x and y represents the leftmost position of the string
@@ -226,23 +228,23 @@ public class ConcordancePanel extends JPanel {
 				
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
+				//if this version is Base text
 				if(version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){
 					for(int m=0; m<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); m++){
 						Concordance concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(m);
-						if(concordanceCompare.getM_TokenTranslation().equals(concordance.getM_Token())){
-							g.setColor(concordance.getM_RectColor()); 
-							System.out.println("Shake: "+concordanceCompare.getM_Token());
-							System.out.println("ShakesPoint: "+concordanceCompare.getM_RectPoint().x+", "+concordanceCompare.getM_StringPoint().y);
-							System.out.println("Trans: "+concordance.getM_TokenTranslation());
-							System.out.println("Trans:Point:"+concordance.getM_RectPoint().x+", "+ concordance.getM_StringPoint().y);
-							g.drawLine( concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y, concordance.getM_RectPoint().x, concordance.getM_StringPoint().y);
+						
+						for(int transArray=0; transArray<concordance.getM_TokenTranslations().size(); transArray++){
+							if(concordanceCompare.getM_Token().equals(concordance.getM_TokenTranslations().get(transArray))){
+								g.setColor(concordance.getM_RectColor()); 
+								g.drawLine( concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y, concordance.getM_RectPoint().x, concordance.getM_StringPoint().y);
+							}
 						}
 					}
 					
 				}
 				//versionCompare>1, means we the compared version start from the third one
 				//versionCompare<m_VersionList.size(), controal the last version compared
-//				if(versionCompare>1&&versionCompare<getM_VersionList().size()){ 
+				//if this version is not base text
 				else if(!version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){ 
 					//read and compare all the concordances in the compared version
 					for(int k=0; k<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); k++){
@@ -273,7 +275,7 @@ public class ConcordancePanel extends JPanel {
 			Point point=event.getPoint();
 			int x=point.x;
 			int y=point.y;
-			System.out.println("Get Point:"+event.getPoint());
+//			System.out.println("Get Point:"+event.getPoint());
 		}
 
 		@Override
@@ -284,14 +286,22 @@ public class ConcordancePanel extends JPanel {
 //			rangeListener(point,)
 			int x=point.x;
 			int y=point.y;
-			System.out.println("Moved:"+event.getPoint());
+//			System.out.println("Moved:"+event.getSource().toString());
 		
 			repaint();
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent e) {
+		public void mouseClicked(MouseEvent event) {
 			// TODO Auto-generated method stub
+			
+			Point point=event.getPoint();
+//			rangeListener(point);
+//			int x=point.x;
+//			int y=point.y;
+			System.out.println("Click:"+point);
+		
+			repaint();
 		}
 
 		@Override

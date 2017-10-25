@@ -13,25 +13,17 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
 
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.JsonString;
 
 import com.google.api.services.translate.Translate;
 import com.google.api.services.translate.model.TranslationsListResponse;
 import com.google.api.services.translate.model.TranslationsResource;
 
-import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
-import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.util.CoreMap;
 
 /**
  * 
@@ -65,8 +57,6 @@ public class DataReader {
 	/***/
 	protected StanfordCoreNLP pipeline;
 
-	/***/
-	private List<String> lemmas; 
 
 	/***/
 	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
@@ -77,7 +67,11 @@ public class DataReader {
 	/***/
 	private Version version;
 
+	/***/
+	private JsonReader jsonReader;
 	
+	
+
 	/**
 	 *  @return m_VersionNameList
 	 * */
@@ -239,7 +233,6 @@ public class DataReader {
 				return o2.getKey().compareTo(o1.getKey());
 			}
 		});
-		System.out.println(m_ColorIndex);
 		return m_ColorIndex;
 	}
 
@@ -247,8 +240,9 @@ public class DataReader {
 	 * Process the data and set the data into the version
 	 * @param versionNumber
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean addVersionInfo(int versionNumber){
+	public boolean addVersionInfo(int versionNumber) throws Exception{
 		setVersion(new Version()); //initialize a new version
 		int fileNamePosition = 2; //the author name and the year is the third element in the array
 		String fileName=filePathProcess(getM_FilePath(), versionNumber, fileNamePosition);
@@ -264,6 +258,10 @@ public class DataReader {
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
+				if(versionNumber==0){
+				concordance.setM_TokenTranslations(new ArrayList<String>());
+				jSonReader(concordance.getM_Token(), concordance);
+				}
 				concordance.setM_Frequency(mapping.getValue());
 				concordance.setM_RectWidth(mapping.getValue());
 				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber));
@@ -292,6 +290,8 @@ public class DataReader {
 	 * @throws Exception
 	 */
 	public List<Version> readAllFile() throws Exception {
+		
+		
 		/*
 		 * 
 		 */
@@ -304,7 +304,7 @@ public class DataReader {
 			
 		}
 		
-//		jSonReader();
+		
 		return m_VersionList;
 	}
 
@@ -340,7 +340,8 @@ public class DataReader {
 		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
 		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
-		return new Color(red, green, blue);
+		float a=1f;// transparent
+		return new Color(red, green, blue, a);
 	}
 
 	/**
@@ -459,60 +460,51 @@ public class DataReader {
 	        e.printStackTrace();
 	    }
 	}
+	
 
-	public boolean jSonReader(String token){
-		try {
-			JsonReader jsonReader=Json.createReader(new FileReader("src\\data\\English-German.json"));
-			JsonObject object = jsonReader.readObject();
-			
-//			JsonArray ja_data = object.getJsonArray("the");
-			JsonArray ja_data = object.getJsonArray(token);
-//			Object obj="der";
-			String str="der";
-			
-			for(int i=0; i<ja_data.size(); i++){
-				int length=ja_data.get(i).toString().length()-1;
-				String string=ja_data.get(i).toString().substring(1, length);
-				if(string.equals(str)){
-				System.out.println(string);
-			}
-			}
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-//		= Json.createReader(...);
+	public boolean jSonReader(String token, Concordance concordance) throws Exception{
+			jsonReader = Json.createReader(new FileReader("src\\data\\English-German.json"));
+
+		JsonObject object = jsonReader.readObject();
+		JsonArray jsonArray = object.getJsonArray(token);
+		if(jsonArray!=null){
+		for(int i=0; i<jsonArray.size(); i++){
+			int length=jsonArray.get(i).toString().length()-1;
+			String string=jsonArray.get(i).toString().substring(1, length);
+			concordance.getM_TokenTranslations().add(string);
+		}
+		}
 		
 		return true;
 	}
+	
 	
 	/**
 	 * Lemmatize English tokens.
 	 * @param documentText
 	 * @return TRUE on success.
 	 */
-	public boolean EnglishLemmatizer(String documentText) {
-		Properties props = new Properties();
-		String str;
-		props.put("annotators", "tokenize, ssplit, pos, lemma");
-
-		this.pipeline = new StanfordCoreNLP(props);
-
-		lemmas = new ArrayList<String>();
-		Annotation document = new Annotation(documentText);
-		this.pipeline.annotate(document);
-		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-		for (CoreMap sentence : sentences) {
-			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
-				lemmas.add(token.get(LemmaAnnotation.class));
-				str=token.get(LemmaAnnotation.class);
-				
-			}
-		}
-		
-		return true;
-	}
+//	public boolean EnglishLemmatizer(String documentText) {
+//		Properties props = new Properties();
+//		String str;
+//		props.put("annotators", "tokenize, ssplit, pos, lemma");
+//
+//		this.pipeline = new StanfordCoreNLP(props);
+//
+//		lemmas = new ArrayList<String>();
+//		Annotation document = new Annotation(documentText);
+//		this.pipeline.annotate(document);
+//		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+//		for (CoreMap sentence : sentences) {
+//			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+//				lemmas.add(token.get(LemmaAnnotation.class));
+//				str=token.get(LemmaAnnotation.class);
+//				
+//			}
+//		}
+//		
+//		return true;
+//	}
 	
 	
 }

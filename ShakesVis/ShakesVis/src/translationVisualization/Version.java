@@ -10,9 +10,6 @@ public class Version {
     /**the list of all words of one version */
 	private List<String> m_WordsList=new ArrayList<String>();
 
-	 /**the list of all translated words of one version */
-	private List<String> m_tokenTranslation=new ArrayList<String>();
-
     /**the name of the version */
 	private String m_VersionName;
 
@@ -37,13 +34,6 @@ public class Version {
     /**the font of the title */
 	private final Font M_Word_Font=new Font("TimesRoman",Font.PLAIN, 12);
 
-	public List<String> getM_tokenTranslation() {
-		return m_tokenTranslation;
-	}
-
-	public void setM_tokenTranslation(List<String> m_tokenTranslation) {
-		this.m_tokenTranslation = m_tokenTranslation;
-	}
 
 	/**
 	 * @return the fond of the title

@@ -19,11 +19,20 @@ public class VersionChoosenPanel extends JPanel {
 	
 //	private ConcordancePanel concordancePanel;
 	
-//	public String[] string={ "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
-//			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
-//			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
-//			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
-//			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
+	public String[] string={ "0000 BaseText Shakespeare.txt", "1832 Baudissin ed Wenig.txt", "1920 Gundolf.txt", "1941 Schwarz.txt",
+			"1947 Baudissin ed Brunner.txt",	"1952 Flatter.txt", "1962 Schroeder.txt",
+			"1963 Rothe.txt", "1970 Fried.txt", "1973 Lauterbach.txt",
+			"1976 Engler.txt", "1978 Laube.txt", "1985 Bolte Hamblock.txt",
+			"1992 Motschach.txt", "1995 Guenther.txt", "2003 Zaimoglu.txt" };
+	
+	public void addAllVersions(String[] string){
+		
+		setM_versionNames(new ArrayList<String>());
+		for(int i=0; i<string.length; i++){
+			getM_versionNames().add(string[i]);
+		}
+		
+	}
 	
 	public List<String> getM_versionNames() {
 		return m_versionNames;
@@ -56,35 +65,42 @@ public class VersionChoosenPanel extends JPanel {
 	            public void actionPerformed(ActionEvent actionEvent) {
 	            	Object oneBoxSelect=((JCheckBox) actionEvent.getSource()).isSelected(); //the object used to listen the selecting states of items
 	                Boolean oneSelected = new Boolean((boolean) oneBoxSelect); //change the oneBoxSelect Object to Boolean
+	               
 	                // if select "all"
 	            	if(((JCheckBox) actionEvent.getSource()).getName().toString().equals("All")){
 	            		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
 		                Boolean boolAll = new Boolean((boolean) objectAll);
 		                if(boolAll){
 		                	System.out.println("Yes");
-		            		defaultState(true);
-		            		concordancePanel.setAllVersionDisplaying(true);
+		            		
+		            		addAllVersions(string);
+		            		System.out.println("Selected All item=" + getM_versionNames()); 
+		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
+
 		                }
 		                else{
-		                	defaultState(false);
-		                	concordancePanel.setAllVersionDisplaying(false);
+		                	
+		                	String[] strArr=new String[0];
+		                	addAllVersions(strArr);
+		            		System.out.println("Selected Not All item=" + getM_versionNames()); 
+		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
 		                }
 	            	}
+	            	
 	            	// if select only one item
 	            	else{
 	            		Object objName;
 	            		if(oneSelected==true){ //if the item is selected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
-		            		
 		            		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
 		            		System.out.println("Selected item=" + getM_versionNames()); 
-		            		concordancePanel.setVersionDisplaying(getM_versionNames());//invoke concordancePanel method to repaint
+		            		concordancePanel.displaySingleVersion(getM_versionNames());//invoke concordancePanel method to repaint
 		            				
 		            	}else{ //if the item is unselected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
 //		            		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
 		            		getM_versionNames().remove(objName); //remove this item from versionName list
-		            		concordancePanel.setVersionDisplaying(getM_versionNames()); //invoke concordancePanel method to repaint
+		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
 
 		            	}
 	            	}
@@ -112,10 +128,5 @@ public class VersionChoosenPanel extends JPanel {
 		getM_VersionNameCBox().addActionListener(add_ActionListener(concordancePanel));;
 	}
 	
-	public void defaultState( boolean bool){
-		for(int i=0; i<getM_checkList().size(); i++){
-			getM_checkList().get(i).setSelected(bool);
-		}
-	}
 
 }

@@ -36,10 +36,25 @@ public class Concordance {
     /** the color of each rectangle*/
 	private Color m_RectColor;
 	
+	/** the font of tokens */
+	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13); //magic number
+
+	/**a way to access the English token translation*/
+	private String m_TokenTranslation;
+
+	private List<String> m_Tokens=new ArrayList<String>();
+
+	private List<Integer> m_Frequencies=new ArrayList<Integer>();
+
 	/**the right-bottom point of rectangle applied to mouse listener method */
 	private Point m_RangeEndPoint;
 	
-    public Point getM_RangeEndPoint() {
+    private List<String> m_TokenTranslations;
+
+	/**a way to access the lemmatized English token*/
+	private String m_TokenLemma;
+
+	public Point getM_RangeEndPoint() {
 		return m_RangeEndPoint;
 	}
 
@@ -49,15 +64,30 @@ public class Concordance {
 		m_RangeEndPoint = new Point(x, y);
 	}
 
-	/** the font of tokens */
-	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13);
-	
-	/**a way to access the English token translation*/
-	private String m_TokenTranslation;
-	
-	/**a way to access the lemmatized English token*/
-	private String m_TokenLemma;
-	
+	public List<String> getM_Tokens() {
+		return m_Tokens;
+	}
+
+	public void setM_Tokens(List<String> m_Tokens) {
+		this.m_Tokens = m_Tokens;
+	}
+
+	public List<Integer> getM_Frequencies() {
+		return m_Frequencies;
+	}
+
+	public void setM_Frequencies(List<Integer> m_Frequencies) {
+		this.m_Frequencies = m_Frequencies;
+	}
+
+	public List<String> getM_TokenTranslations() {
+		return m_TokenTranslations;
+	}
+
+	public void setM_TokenTranslations(List<String> m_TokenTranslations) {
+		this.m_TokenTranslations = m_TokenTranslations;
+	}
+
 	public String getM_TokenTranslation() {
 		return m_TokenTranslation;
 	}

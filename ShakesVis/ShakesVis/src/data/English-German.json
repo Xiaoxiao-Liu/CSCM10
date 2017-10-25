@@ -156,9 +156,6 @@
 		"",
 		"",
 		"",
-		"",
-		"",
-		"",
 		""
 	],
 	"father": [
@@ -177,6 +174,39 @@
 	"be": [
 		"ist",
 		"sein"
+	],
+	"these": [
+		"dieser"
+    ],
+	"am": [
+		"bin",
+		"sein"
+	],
+	"othello": [
+		"othello"
+	],
+	"would": [
+		"würde",
+		"würden",
+		"",
+		""
+	],
+	"brabantio": [
+		"brabantio",
+		""
+	],
+	"voice": [
+		"stimme"
+	],
+	"words": [
+		"wörter"
+	],
+	"turk": [
+		""
+	],
+	"place": [
+		"ort"
 	]
+	
 		
 }

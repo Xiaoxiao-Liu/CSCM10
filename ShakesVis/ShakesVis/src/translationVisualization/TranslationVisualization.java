@@ -34,7 +34,7 @@ public class TranslationVisualization {
 	
 //	/** the width of the frame */
 //	private final static int FRAME_WIDTH=800;
-// 	
+// 	  
 //	/** the height of the frame */
 //	private final static int FRAME_HEIGHT=800;
 
@@ -83,6 +83,11 @@ public class TranslationVisualization {
 		return m_SliderLabel;
 	}
 
+	/**
+	 * 
+	 * @param m_SliderLabel
+	 * @param string
+	 */
 	public void setM_SliderLabel(JLabel m_SliderLabel, String string) {
 		this.m_SliderLabel = m_SliderLabel;
 		int fontSize=13;
