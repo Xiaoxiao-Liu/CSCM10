@@ -47,6 +47,8 @@ public class DataReader {
 	/**a hashtable to store tokens and frequency but without sorting*/
 	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
 	
+	
+	
 	/***/
 	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
 	
@@ -301,8 +303,11 @@ public class DataReader {
 		m_VersionNameList.add(fileName); //create a list of String to store all version names
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
+
 		getVersion().setM_Author(fileName);
-		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 1)); //0 is line number, title has only one line
+		
+//		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 1)); //0 is line number, title has only one line
+		
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
@@ -310,14 +315,16 @@ public class DataReader {
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
-				       
+				concordance.getM_Tokens().add(mapping.getKey());
 				if(versionNumber==0){
 				concordance.setM_TokenTranslations(new ArrayList<String>());
 				jSonReader(concordance.getM_Token(), concordance);
 				}
 				concordance.setM_Frequency(mapping.getValue());
-				concordance.setM_RectWidth(mapping.getValue(),1);
-				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber, 1));
+				concordance.getM_Frequencies().add(mapping.getValue());
+				concordance.setM_RectWidth(mapping.getValue(),50);
+				concordance.setM_RectHeight(17);
+				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber, 1, concordance.getM_RectWidth(), concordance.getM_RectHeight()));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
 //				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
@@ -365,33 +372,24 @@ public class DataReader {
 	 * Calculate the point location
 	 * @param versionNumber
 	 * @param lineNumber
+	 * @return 
 	 * @return the point calculated
 	 */
-	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue) {
-		int x = 55;
-		int y = 30;
-		int columnSpace = 150;
-		int lineSpace = 17;
+	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue, double rectWidth, double rectHeight) {
 		
-		int scaleLevel=scaleValue*scaleValue;
+		int originalX = 55;
+		int columnSpace = 30;
 		
-		x = (x + columnSpace * versionNumber)*scaleLevel/1000;
-		y = (y + lineSpace * lineNumber)*scaleLevel/1500;
+		double scaleValueProcess=scaleValue/10;
 		
-		System.out.println("x: "+x);
-		System.out.println("y: "+y);
+		int versionGapWidth=(int) ((rectWidth+columnSpace)*scaleValueProcess); //the distance between the string of one version to next version.
 		
-//		double xx = x + columnSpace * versionNumber;
-//		double yy = y + lineSpace * lineNumber;
-//		Point point=new Point();
-//
-////		Point2D point=new Point2D.Double(xx, yy);
-//		System.out.println("point1: "+point);
-////		System.out.println("y: "+y);
-//		point.setLocation(xx/100, yy/100);
-//		System.out.println("point2: "+point);
-////		System.out.println("y: "+y);
-		return new Point(x, y);
+		Point stringPoint=new Point();
+		
+		stringPoint.x=(originalX+versionGapWidth)*versionNumber;
+		stringPoint.y=(int) ((stringPoint.y+rectHeight)*lineNumber);
+		System.out.println("stringPoint.x"+stringPoint.x);
+		return stringPoint;
 	}
 
 	/**

@@ -150,11 +150,12 @@ public class ConcordancePanel extends JPanel {
 		int versionNumber;
 		for(int i=0; i<getM_VersionList().size(); i++){
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
-			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
+//			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(getDataReader().calculatePoint(i, j+1 , 0));
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getDataReader().calculatePoint(versionNumber, j+1, 0));
-				
+				Point point=getDataReader().calculatePoint(i, j, 10, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
+								
 			}
 		}
 	}
@@ -166,8 +167,11 @@ public class ConcordancePanel extends JPanel {
 //			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(i, 0 , scaleValue));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), scaleValue);
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(getDataReader().calculatePoint(i, j+1 , scaleValue));
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getDataReader().calculatePoint(i, j+1, scaleValue));
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(scaleValue);
+
+				Point point=getDataReader().calculatePoint(i, j, scaleValue, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
 				
 				
 				
@@ -206,7 +210,7 @@ public class ConcordancePanel extends JPanel {
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
 	 */
-	public void paintComponent(Graphics g){
+	public void paintComponent(Graphics  g){
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);

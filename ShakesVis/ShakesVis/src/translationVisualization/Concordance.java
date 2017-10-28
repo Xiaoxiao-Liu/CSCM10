@@ -47,9 +47,16 @@ public class Concordance {
 	private double m_RectWidth;
 	
 	/**the height of each rectangle*/
-    private final int m_RectHeight=17;
+    private double m_RectHeight;
     
-    /** the color of each rectangle*/
+    public void setM_RectHeight( double scaleValue) {
+		
+		int originalHeight=17;
+		double scaleLevel=scaleValue/80;
+		m_RectHeight=originalHeight+originalHeight*scaleLevel;
+	}
+
+	/** the color of each rectangle*/
 	private Color m_RectColor;
 	
 	/** the font of tokens */
@@ -148,7 +155,7 @@ public class Concordance {
 	/**
 	 * @return the height of rectangle
 	 */
-	public int getM_RectHeight() {
+	public double getM_RectHeight() {
 		return m_RectHeight;
 	}
 
@@ -236,9 +243,10 @@ public class Concordance {
 	 */
 	public void setM_RectWidth(int wordFrequency, double scaleValue) {
 		int blockWidth=4; //width of each rectangle block
-		double scaleLevel=scaleValue/100;
+		double scaleLevel=scaleValue/30;
 		int originalValue=wordFrequency*blockWidth;
-		m_RectWidth=wordFrequency*blockWidth*scaleLevel+blockWidth;
+		m_RectWidth=originalValue+originalValue*scaleLevel;
+		System.out.println(m_RectWidth);
 	}
 
     
