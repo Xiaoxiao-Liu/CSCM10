@@ -28,10 +28,22 @@ public class ConcordancePanel extends JPanel {
 	
 	private DataReader dataReader;
 	
+	private int scaleValue;
+	
 //	private Point startPoint=new Point();
 //	
 //	private Point endPoint=new Point();
 	
+	public int getScaleValue() {
+		return scaleValue;
+	}
+
+
+	public void setScaleValue(int scaleValue) {
+		this.scaleValue = scaleValue;
+	}
+
+
 	public DataReader getDataReader() {
 		return dataReader;
 	}
@@ -118,6 +130,18 @@ public class ConcordancePanel extends JPanel {
 		repaint(); 
 	}
 	
+	public int getHighlightPoint(Point eventPoint, int scaleValue){
+		System.out.println(eventPoint);
+		int lineNumber;
+		double scaleValueProcess=scaleValue/100.0;
+		int spacingY=(int) (25*scaleValueProcess*scaleValueProcess);
+		lineNumber=eventPoint.y/spacingY;
+		System.out.println(lineNumber);
+		return lineNumber;
+	}
+	
+	
+	
 	
 	/**
 	 * 
@@ -152,7 +176,7 @@ public class ConcordancePanel extends JPanel {
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
 //			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				Point point=getDataReader().calculatePoint(i, j, 10, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				Point point=getDataReader().calculatePoint(i, j, 100, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
 								
@@ -162,19 +186,19 @@ public class ConcordancePanel extends JPanel {
 	
 	public void scaleConcordancePanel(int scaleValue){
 		setDataReader(new DataReader());
+		setScaleValue(scaleValue);
 		for(int i=0; i<getM_VersionList().size(); i++){
 //			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
 //			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(i, 0 , scaleValue));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), scaleValue);
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(scaleValue);
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(getScaleValue());
 
-				Point point=getDataReader().calculatePoint(i, j, scaleValue, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				Point point=getDataReader().calculatePoint(i, j, getScaleValue(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
-				
-				
-				
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), getScaleValue());
+
 			}
 		}
 		repaint();
@@ -205,6 +229,34 @@ public class ConcordancePanel extends JPanel {
 		System.out.println("Pay attention here:"+bool);
 		return bool;
 		
+	}
+	
+	public void hightLightColor(int lineNumber){
+		for(int i=0; i<getM_VersionList().size(); i++){
+			Version version=getM_VersionList().get(i);
+//			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
+//				if(j!=lineNumber){
+//					System.out.println("Worked");
+//					version.getM_ConcordanceList().get(j).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
+//				}
+//			}
+			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
+			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 0.5f));
+
+			
+		}
+		repaint();
+	}
+	
+	public void defaultColor(int lineNumber){
+		for(int i=0; i<getM_VersionList().size(); i++){
+			Version version=getM_VersionList().get(i);
+			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
+			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
+
+			
+		}
+		repaint();
 	}
 	/**
 	 * Draw the version visualization on ConcordancePanel.
@@ -255,14 +307,15 @@ public class ConcordancePanel extends JPanel {
 				//drawr filled rectangles, fillRect(int x, int y, int width, int height),
 				//x and y represent the top left position of the rectangle,
 //				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
-
-				double x=(double)(concordance.getM_RectPoint().x);
-				double y=(double)(concordance.getM_RectPoint().y);
-				double height=(double)(concordance.getM_RectHeight());
+				int x=concordance.getM_RectPoint().x;
+				int y=concordance.getM_RectPoint().y;
+//				double x=(double)(concordance.getM_RectPoint().x);
+//				double y=(double)(concordance.getM_RectPoint().y);
+//				double height=(double)(concordance.getM_RectHeight());
 				//draw rectangle using double values
 				Graphics2D g2d = (Graphics2D)g;
 				Rectangle rectangle=new Rectangle();
-				rectangle.setRect(x, y, concordance.getM_RectWidth(), height);
+				rectangle.setRect(x, y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				g2d.fill(rectangle);
 				
 				//draw the lines for rectangle
@@ -324,10 +377,11 @@ public class ConcordancePanel extends JPanel {
 		public void mouseMoved(MouseEvent event) {
 			// TODO Auto-generated method stub
 			
-			Point point=event.getPoint();
+			
+
 //			rangeListener(point,)
-			int x=point.x;
-			int y=point.y;
+//			int x=point.x;
+//			int y=point.y;
 //			System.out.println("Moved:"+event.getSource().toString());
 		
 			repaint();
@@ -338,26 +392,30 @@ public class ConcordancePanel extends JPanel {
 			// TODO Auto-generated method stub
 			
 			Point point=event.getPoint();
+//			highlightPoint(point, getScaleValue());
+			hightLightColor(getHighlightPoint(point, getScaleValue()));
 //			rangeListener(point);
 //			int x=point.x;
 //			int y=point.y;
-			System.out.println("Click:"+point);
+			System.out.println("getScaleValue(): "+getScaleValue());
 		
 			repaint();
 		}
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
+		public void mouseEntered(MouseEvent event) {
 			
-			
+//			Point point=event.getPoint();
+//			hightLightColor(getHighlightPoint(point, getScaleValue()));
 			// TODO Auto-generated method stub
 			
 		}
 
 		@Override
-		public void mouseExited(MouseEvent e) {
+		public void mouseExited(MouseEvent event) {
 			// TODO Auto-generated method stub
-			
+//			Point point=event.getPoint();
+//			defaultColor(getHighlightPoint(point, getScaleValue()));
 		}
 
 		@Override

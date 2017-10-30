@@ -304,6 +304,7 @@ public class DataReader {
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
 
+		System.out.println("versionNumber"+versionNumber);
 		getVersion().setM_Author(fileName);
 		
 //		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 1)); //0 is line number, title has only one line
@@ -322,15 +323,15 @@ public class DataReader {
 				}
 				concordance.setM_Frequency(mapping.getValue());
 				concordance.getM_Frequencies().add(mapping.getValue());
-				concordance.setM_RectWidth(mapping.getValue(),50);
-				concordance.setM_RectHeight(17);
-				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber, 1, concordance.getM_RectWidth(), concordance.getM_RectHeight()));
+				concordance.setM_RectWidth(mapping.getValue(),100);
+				concordance.setM_RectHeight(100);
+				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber, 100, concordance.getM_RectWidth(), concordance.getM_RectHeight()));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
 //				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
-				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
-				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
-				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
+				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token()), 1f));
+				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
+				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency(), 1f));
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
 				lineNumber++;
@@ -376,19 +377,18 @@ public class DataReader {
 	 * @return the point calculated
 	 */
 	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue, double rectWidth, double rectHeight) {
-		
-		int originalX = 55;
-		int columnSpace = 30;
-		
-		double scaleValueProcess=scaleValue/10;
-		
-		int versionGapWidth=(int) ((rectWidth+columnSpace)*scaleValueProcess); //the distance between the string of one version to next version.
-		
+		double scaleValueProcess=scaleValue/100.0;
+		int spacingX=(int) (150*scaleValueProcess);
+		int spacingY=(int) (25*scaleValueProcess);
+
+		System.out.println("spacing: "+spacingX);
+		int offSetX=55;
 		Point stringPoint=new Point();
-		
-		stringPoint.x=(originalX+versionGapWidth)*versionNumber;
-		stringPoint.y=(int) ((stringPoint.y+rectHeight)*lineNumber);
-		System.out.println("stringPoint.x"+stringPoint.x);
+		stringPoint.x=(int) (versionNumber*spacingX*scaleValueProcess)+offSetX;
+		System.out.println("stringPoint.x: "+stringPoint.x);
+		stringPoint.y=(int) ((lineNumber+1)*spacingY*scaleValueProcess);
+		System.out.println("stringPoint.y: "+stringPoint.y);
+
 		return stringPoint;
 	}
 
@@ -397,7 +397,7 @@ public class DataReader {
 	 * @param stringNumber
 	 * @return color variable
 	 */
-	public Color calculateColor(int stringNumber) {
+	public Color calculateColor(int stringNumber, float a) {
 		int colorRange = 255;
 		int halfRange = 127;
 		int redVar = 0;
@@ -408,7 +408,7 @@ public class DataReader {
 		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
 		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
-		float a=1f;// transparent
+		float b=1f;// transparent
 		return new Color(red, green, blue, a);
 	}
 

@@ -45,7 +45,7 @@ public class TranslationVisualization {
 	private final static int CONCORDANCE_PANEL_HEIGHT=2900;
 	
 	/** the width of the ScrollPanel */
-	private final static int SCROLL_PANEL_WIDTH=480;
+	private final static int SCROLL_PANEL_WIDTH=390;
 	
 	/** the height of the ScrollPanel */
 	private final static int SCROLL_PANEL_HEIGHT=280;
@@ -110,7 +110,7 @@ public class TranslationVisualization {
 	private DataReader dataReader;
 	
 	/**  */
-	private static int m_scaleValue=0;
+	private static double m_scaleValue=100;
 
 	
 	/** a JCheckBox to show version names */
@@ -389,9 +389,9 @@ public class TranslationVisualization {
 	
 		
 		//concordance slider
-		int min=0; //minimum value
-		int max=100; //maximum value
-		int initialVar=40; //initial value
+		int min=50; //minimum value
+		int max=200; //maximum value
+		int initialVar=100; //initial value
 		//JSlider(int orientation, int min, int max, int value)
 		//JSlider(orientation, minimum value, maximum value, and initial value)
 		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
@@ -455,7 +455,7 @@ public class TranslationVisualization {
 			public void stateChanged(ChangeEvent event) {
 				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
 //				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
-				transVis.getConcordancePanel().scaleConcordancePanel(m_scaleValue);
+				transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
 //				scaleConcordancePanel
 				transVis.getConcordanceFrame().revalidate(); 
 			}
@@ -479,10 +479,13 @@ public class TranslationVisualization {
         transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
         	public void stateChanged(ChangeEvent event) {
         		m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
+        		
+        		
         		System.out.println("This is it: "+m_scaleValue);
-        		int widthMultiple=3;
-        		int heightMultiple=3;
-        		Dimension dimension=new Dimension(SCROLL_PANEL_WIDTH+m_scaleValue*widthMultiple, SCROLL_PANEL_HEIGHT+m_scaleValue*heightMultiple);
+        		m_scaleValue=m_scaleValue/100.0;
+        		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
+        		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
+        		Dimension dimension=new Dimension(widthScale, heightScale);
         		transVis.getScrollPane().setPreferredSize(dimension);
         		transVis.getConcordanceFrame().revalidate(); 
         		transVis.getConcordanceFrame().repaint(); 

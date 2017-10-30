@@ -47,13 +47,14 @@ public class Concordance {
 	private double m_RectWidth;
 	
 	/**the height of each rectangle*/
-    private double m_RectHeight;
+    private int m_RectHeight;
     
-    public void setM_RectHeight( double scaleValue) {
+    public void setM_RectHeight( int scaleValue) {
 		
-		int originalHeight=17;
-		double scaleLevel=scaleValue/80;
-		m_RectHeight=originalHeight+originalHeight*scaleLevel;
+		int originalHeight=25;
+		double scaleLevel=scaleValue/100.0;
+//		m_RectHeight=originalHeight+originalHeight*scaleLevel;
+		m_RectHeight=(int) (originalHeight*scaleLevel*scaleLevel);
 	}
 
 	/** the color of each rectangle*/
@@ -155,7 +156,7 @@ public class Concordance {
 	/**
 	 * @return the height of rectangle
 	 */
-	public double getM_RectHeight() {
+	public int getM_RectHeight() {
 		return m_RectHeight;
 	}
 
@@ -223,7 +224,7 @@ public class Concordance {
 	 */
 	public void setM_RectPoint(Point stringPoint) {
 		int x=5;  // the distance between the string and rectangle
-		int y=-15;  //the location of the rectangle needs to move up
+		int y=-16;  //the location of the rectangle needs to move up
 		x=stringPoint.x+x;
 		y=stringPoint.y+y;
 		m_RectPoint=new Point(x, y);
@@ -242,11 +243,11 @@ public class Concordance {
 	 * @param wordFrequency 
 	 */
 	public void setM_RectWidth(int wordFrequency, double scaleValue) {
-		int blockWidth=4; //width of each rectangle block
-		double scaleLevel=scaleValue/30;
-		int originalValue=wordFrequency*blockWidth;
-		m_RectWidth=originalValue+originalValue*scaleLevel;
-		System.out.println(m_RectWidth);
+		double scaleLevel=scaleValue/100.0;
+		double unit=4.7*scaleLevel; //width of each rectangle block
+//		int originalValue=wordFrequency*blockWidth;
+		m_RectWidth=wordFrequency*unit*scaleLevel;
+		System.out.println("m_RectWidth: "+m_RectWidth);
 	}
 
     
