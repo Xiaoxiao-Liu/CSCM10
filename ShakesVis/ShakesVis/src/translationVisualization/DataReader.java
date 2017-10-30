@@ -330,7 +330,7 @@ public class DataReader {
 //				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
 				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token()), 1f));
-				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
+//				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
 				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency(), 1f));
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
@@ -397,14 +397,14 @@ public class DataReader {
 	 * @param stringNumber
 	 * @return color variable
 	 */
-	public Color calculateColor(int stringNumber, float a) {
+	public Color calculateColor(int frequency, float a) {
 		int colorRange = 255;
 		int halfRange = 127;
 		int redVar = 0;
 		int greenVar = 2;
 		int blueVar = 4;
 		double colorFrequency = 0.22;
-		double toDouble = (double) stringNumber;
+		double toDouble = (double) frequency;
 		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
 		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;

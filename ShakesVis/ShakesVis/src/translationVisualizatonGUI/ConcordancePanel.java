@@ -130,14 +130,19 @@ public class ConcordancePanel extends JPanel {
 		repaint(); 
 	}
 	
-	public int getHighlightPoint(Point eventPoint, int scaleValue){
+	public Point getHighlightPoint(Point eventPoint, int scaleValue){
 		System.out.println(eventPoint);
 		int lineNumber;
+		int versionNumber;
 		double scaleValueProcess=scaleValue/100.0;
 		int spacingY=(int) (25*scaleValueProcess*scaleValueProcess);
+		int spacingX=(int) (150*scaleValueProcess*scaleValueProcess);
+		versionNumber=(eventPoint.x-55)/spacingX;
 		lineNumber=eventPoint.y/spacingY;
-		System.out.println(lineNumber);
-		return lineNumber;
+		
+		System.out.println(versionNumber);
+		Point point=new Point(versionNumber, lineNumber);
+		return point;
 	}
 	
 	
@@ -204,44 +209,34 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 	}
 	
-	public boolean rangeListener(Point eventPoint){
-		boolean bool=false;
-		
-		for(int i=0; i<m_VersionList.size(); i++){
-			for(int j=0; j<m_VersionList.get(i).getM_ConcordanceList().size(); j++){
-				Point startPoint=m_VersionList.get(i).getM_ConcordanceList().get(j).getM_RectPoint();
-				Point endPoint=m_VersionList.get(i).getM_ConcordanceList().get(j).getM_RangeEndPoint();
-				boolean xRange=(eventPoint.x>startPoint.x)&&(eventPoint.x<endPoint.x);
-				boolean yRange=(eventPoint.y>startPoint.y)&&(eventPoint.y<endPoint.y);
-				
-				System.out.println("startPoint:"+startPoint);
-				
-				System.out.println("endPoint:"+endPoint);
-				
-				System.out.println("eventPoint:"+eventPoint);
-				
-				if(xRange==true&&yRange==true){
-					bool=true;
-					
-				}
-			}
-		}
-		System.out.println("Pay attention here:"+bool);
-		return bool;
-		
-	}
 	
-	public void hightLightColor(int lineNumber){
+	public void hightLightColor(Point point){
+		int versionNumber=point.x;
+		int lineNumber=point.y;
+		String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
+
 		for(int i=0; i<getM_VersionList().size(); i++){
 			Version version=getM_VersionList().get(i);
-//			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
+			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
+				Concordance concordance=version.getM_ConcordanceList().get(j);
+				if(!hightlightToken.equals(concordance.getM_Token())){
+					
+
+//					concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.4f));
+					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 0.4f));
+					System.out.println("Color: "+concordance.getM_RectColor());
+				}else{
+					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1f));
+				}
+					
+			}
 //				if(j!=lineNumber){
 //					System.out.println("Worked");
 //					version.getM_ConcordanceList().get(j).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
 //				}
 //			}
-			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
-			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 0.5f));
+//			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
+//			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 0.5f));
 
 			
 		}
@@ -318,6 +313,7 @@ public class ConcordancePanel extends JPanel {
 				rectangle.setRect(x, y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				g2d.fill(rectangle);
 				
+				
 				//draw the lines for rectangle
 				g.setColor(Color.GRAY);
 //				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
@@ -331,7 +327,7 @@ public class ConcordancePanel extends JPanel {
 						for(int transArray=0; transArray<concordance.getM_TokenTranslations().size(); transArray++){
 							if(concordanceCompare.getM_Token().equals(concordance.getM_TokenTranslations().get(transArray))){
 								g.setColor(concordance.getM_RectColor()); 
-								g.drawLine( concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y, concordance.getM_RectPoint().x, concordance.getM_StringPoint().y);
+								g.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
 							}
 						}
 					}
@@ -353,7 +349,7 @@ public class ConcordancePanel extends JPanel {
 							g.setColor(concordance.getM_RectColor()); // color edge according to frequency (same with rectangle color)
 							
 							//drawLine(int x1, int y1, int x2, int y2), x1 and y1 represent start point of the line, x2 and y2 represent end point of the line
-							g.drawLine(concordance.getM_RectPoint().x, concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
+							g.drawLine((int) (concordance.getM_RectPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
 						}
 					}
 					
