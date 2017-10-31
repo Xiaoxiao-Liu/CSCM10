@@ -61,7 +61,15 @@ public class Concordance {
 	private Color m_RectColor;
 	
 	/** the font of tokens */
-	private final Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13); //magic number
+	private Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13); //magic number
+
+	public Font getM_Token_Font() {
+		return M_Token_Font;
+	}
+
+	public void setM_Token_Font(Font m_Token_Font) {
+		M_Token_Font = m_Token_Font;
+	}
 
 	/**a way to access the English token translation*/
 	private String m_TokenTranslation;

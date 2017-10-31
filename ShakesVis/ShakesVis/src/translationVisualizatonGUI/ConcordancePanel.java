@@ -1,7 +1,8 @@
 package translationVisualizatonGUI;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Component;
+import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,6 +11,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -214,29 +216,21 @@ public class ConcordancePanel extends JPanel {
 		int versionNumber=point.x;
 		int lineNumber=point.y;
 		String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
-
+		Font M_Token_Font=new Font("sansserif",Font.BOLD, 14);
 		for(int i=0; i<getM_VersionList().size(); i++){
 			Version version=getM_VersionList().get(i);
 			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 				Concordance concordance=version.getM_ConcordanceList().get(j);
 				if(!hightlightToken.equals(concordance.getM_Token())){
-					
-
 //					concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.4f));
 					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 0.4f));
 					System.out.println("Color: "+concordance.getM_RectColor());
 				}else{
 					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1f));
+					concordance.setM_Token_Font(M_Token_Font);
 				}
 					
 			}
-//				if(j!=lineNumber){
-//					System.out.println("Worked");
-//					version.getM_ConcordanceList().get(j).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
-//				}
-//			}
-//			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 0.5f));
-//			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 0.5f));
 
 			
 		}
@@ -326,8 +320,14 @@ public class ConcordancePanel extends JPanel {
 						
 						for(int transArray=0; transArray<concordance.getM_TokenTranslations().size(); transArray++){
 							if(concordanceCompare.getM_Token().equals(concordance.getM_TokenTranslations().get(transArray))){
-								g.setColor(concordance.getM_RectColor()); 
-								g.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
+								Graphics2D g2 = (Graphics2D)g;
+								g2.setStroke(new BasicStroke(2));
+								g2.setColor(concordance.getM_RectColor()); 
+								g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
+								
+								
+//								g.setColor(concordance.getM_RectColor()); 
+//								g.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
 							}
 						}
 					}
