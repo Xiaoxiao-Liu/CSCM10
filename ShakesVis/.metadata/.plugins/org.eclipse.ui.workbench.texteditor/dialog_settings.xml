@@ -2,26 +2,26 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="hightLightColor" key="selection"/>
+		<item value="setM_rectLine" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="hightLightColor"/>
-			<item value="calculateColor"/>
-			<item value="setM_RectWidth"/>
-			<item value="setM_RectHeight"/>
-			<item value="version"/>
-			<item value="width"/>
-			<item value="calculate"/>
-			<item value="range"/>
+			<item value="setM_rectLine"/>
+			<item value="magic"/>
+			<item value="duke"/>
+			<item value="This is it"/>
+			<item value="slpit"/>
+			<item value="ColorLegendPanel"/>
+			<item value="scale"/>
+			<item value="font"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
+			<item value=" "/>
 			<item value="BUTTON"/>
 			<item value="getM_visuallizationPanel()"/>
-			<item value=" "/>
 			<item value="m_frequencyIndex"/>
 			<item value="m_frequency"/>
 			<item value="fried"/>
@@ -32,7 +32,7 @@
 		<item value="284" key="DIALOG_WIDTH"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 		<item value="391" key="DIALOG_HEIGHT"/>
-		<item value="823" key="DIALOG_X_ORIGIN"/>
+		<item value="1009" key="DIALOG_X_ORIGIN"/>
 		<item value="345" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

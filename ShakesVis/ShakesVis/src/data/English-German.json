@@ -98,24 +98,23 @@
 	
 	],
 	"duke": [
-		"Herzog"
+		"herzog"
 	],
 	"it": [
 		"das",
 		"er",
 		"sie"
-	
 	],
 	"in": [
 		"im"
-	
 	],
 	"which": [
 		"welche"
 	
 	],
 	"he": [
-		"er"
+		"er",
+		"sein"
 	],
 	"her": [
 		"ihr"
@@ -124,7 +123,8 @@
 		"wie"
 	],
 	"me": [
-		"mich"
+		"mich",
+		"mein"
 	],
 	"venice": [
 		"Venedig"

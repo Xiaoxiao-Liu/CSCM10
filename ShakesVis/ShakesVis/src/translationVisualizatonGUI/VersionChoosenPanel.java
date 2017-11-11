@@ -14,6 +14,7 @@ public class VersionChoosenPanel extends JPanel {
 	
 	private List<JCheckBox> m_checkList=new ArrayList<JCheckBox>();
 	
+	
 	/**the list of String to store version names and pass this list to concordance panel and repaint new panel with versions only selected*/
 	public List<String> m_versionNames;
 	
@@ -71,19 +72,20 @@ public class VersionChoosenPanel extends JPanel {
 	            		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
 		                Boolean boolAll = new Boolean((boolean) objectAll);
 		                if(boolAll){
-		                	System.out.println("Yes");
-		            		
 		            		addAllVersions(string);
-		            		System.out.println("Selected All item=" + getM_versionNames()); 
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
-
+		            		for(int  i=0; i<getM_versionNames().size(); i++){
+		            			getM_checkList().get(i).setSelected(true);
+		            		}
 		                }
 		                else{
 		                	
 		                	String[] strArr=new String[0];
 		                	addAllVersions(strArr);
-		            		System.out.println("Selected Not All item=" + getM_versionNames()); 
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
+		            		for(int i=0; i<getM_versionNames().size(); i++){
+		            			getM_checkList().get(i).setSelected(false);
+		            		}
 		                }
 	            	}
 	            	
@@ -93,7 +95,6 @@ public class VersionChoosenPanel extends JPanel {
 	            		if(oneSelected==true){ //if the item is selected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
 		            		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
-		            		System.out.println("Selected item=" + getM_versionNames()); 
 		            		concordancePanel.displaySingleVersion(getM_versionNames());//invoke concordancePanel method to repaint
 		            				
 		            	}else{ //if the item is unselected
@@ -126,6 +127,10 @@ public class VersionChoosenPanel extends JPanel {
 		getM_VersionNameCBox().setVisible(true);
 		this.add(getM_VersionNameCBox());
 		getM_VersionNameCBox().addActionListener(add_ActionListener(concordancePanel));;
+	}
+	
+	public void setSelected(){
+		
 	}
 	
 

@@ -28,6 +28,17 @@ public class Concordance {
 	
 	private List<Rectangle> m_Rectangles=new ArrayList<Rectangle>();
 	
+	/**a boolean value used to highlight choosen rectangles*/
+	private boolean m_rectLine=false;
+	
+	public boolean isM_rectLine() {
+		return m_rectLine;
+	}
+
+	public void setM_rectLine(boolean m_rectLine) {
+		this.m_rectLine = m_rectLine;
+	}
+
 	/**a way to access the tokens*/
 	private String m_Token;
 	
@@ -60,9 +71,9 @@ public class Concordance {
 	/** the color of each rectangle*/
 	private Color m_RectColor;
 	
+	private int fontSize=13;
 	/** the font of tokens */
-	private Font M_Token_Font=new Font("sansserif",Font.PLAIN, 13); //magic number
-
+	private Font M_Token_Font=new Font("sansserif",Font.PLAIN, fontSize); 
 	public Font getM_Token_Font() {
 		return M_Token_Font;
 	}
@@ -255,7 +266,6 @@ public class Concordance {
 		double unit=4.7*scaleLevel; //width of each rectangle block
 //		int originalValue=wordFrequency*blockWidth;
 		m_RectWidth=wordFrequency*unit*scaleLevel;
-		System.out.println("m_RectWidth: "+m_RectWidth);
 	}
 
     

@@ -37,6 +37,15 @@ public class DataReader {
 	/**an array list of word and frequency index after sorting as ascending order*/
 	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	
+	public List<Map.Entry<String, Integer>> getM_FrequencyIndex() {
+		return m_FrequencyIndex;
+	}
+
+	public void setM_FrequencyIndex(List<Map.Entry<String, Integer>> m_FrequencyIndex) {
+		this.m_FrequencyIndex = m_FrequencyIndex;
+	}
+
+
 	/**an string array to store file paths for basic text and translation versions*/
 	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
 			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
@@ -157,6 +166,7 @@ public class DataReader {
 					lineCount++;
 				} else { 
 					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
+
 					//split the sCurrentLine, make every string to lower case, remove all punctuation
 //					
 //					 if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
@@ -304,10 +314,9 @@ public class DataReader {
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
 
-		System.out.println("versionNumber"+versionNumber);
 		getVersion().setM_Author(fileName);
 		
-//		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 1)); //0 is line number, title has only one line
+		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 100, 0, 0)); //0 is line number, title has only one line
 		
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
@@ -381,16 +390,15 @@ public class DataReader {
 		int spacingX=(int) (150*scaleValueProcess);
 		int spacingY=(int) (25*scaleValueProcess);
 
-		System.out.println("spacing: "+spacingX);
-		int offSetX=55;
+		int offSetX=75;
 		Point stringPoint=new Point();
 		stringPoint.x=(int) (versionNumber*spacingX*scaleValueProcess)+offSetX;
-		System.out.println("stringPoint.x: "+stringPoint.x);
-		stringPoint.y=(int) ((lineNumber+1)*spacingY*scaleValueProcess);
-		System.out.println("stringPoint.y: "+stringPoint.y);
+		stringPoint.y=(int) ((lineNumber+2)*spacingY*scaleValueProcess);
 
 		return stringPoint;
 	}
+	
+	
 
 	/**
 	 * Calculate the color according to the variable numbers
@@ -520,7 +528,6 @@ public class DataReader {
 //	        	tokenTranslation.add(tr.getTranslatedText());
 //	            System.out.println(i+": "+tr.getTranslatedText());
 	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-	            System.out.println(version.getM_ConcordanceList().get(i).getM_TokenTranslation());
 //	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
 	            i++;
 	        }
