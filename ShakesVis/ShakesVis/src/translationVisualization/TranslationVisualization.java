@@ -403,8 +403,9 @@ public class TranslationVisualization {
 //		//concordance button
 //		transVis.setConcordanceButton(new JButton("Concordances"));
 		
-		
-
+		// add this method
+		// this.SetConcordanceSlider(new ConcordanceSlider());
+		// this.GetConcordanceSlider().Initialize();
 	
 		
 		//concordance slider
@@ -417,6 +418,8 @@ public class TranslationVisualization {
 		
 		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
+		
+        // end initialize concordance slide
 		
 		// set layout for visualization panel
 		GridBagLayout panelLayout = new GridBagLayout( );
