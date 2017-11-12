@@ -2,8 +2,6 @@ package translationVisualization;
 
 import java.awt.Color;
 import java.awt.Point;
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -25,7 +23,7 @@ import com.google.api.services.translate.Translate;
 import com.google.api.services.translate.model.TranslationsListResponse;
 import com.google.api.services.translate.model.TranslationsResource;
 
-import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+//import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 
 /**
  * 
@@ -68,7 +66,7 @@ public class DataReader {
 	public List<String> m_VersionNameList = new ArrayList<String>();
 
 	/***/
-	protected StanfordCoreNLP pipeline;
+//	protected StanfordCoreNLP pipeline;
 
 
 	/***/

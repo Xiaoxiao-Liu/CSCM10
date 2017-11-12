@@ -21,7 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSlider;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
@@ -31,6 +30,7 @@ import javax.swing.event.ChangeListener;
 
 import translationVisualizatonGUI.ColorLegendPanel;
 import translationVisualizatonGUI.ConcordancePanel;
+import translationVisualizatonGUI.TransVislider;
 import translationVisualizatonGUI.VersionChoosenPanel;
 
 public class TranslationVisualization {
@@ -113,10 +113,15 @@ public class TranslationVisualization {
 	}
 
 	/** a JSlider to zoom in and out concordancePanel */
-	private JSlider m_ConcordanceSlider;
+//	private JSlider m_ConcordanceSlider;
 	
+	/** a JSlider to zoom in and out concordancePanel */
+	private TransVislider m_ConcordanceSlider;
+	
+	
+
 	/** a JSlider to zoom in and out scrollPane */
-	private JSlider m_ScrollPaneSlider;
+	private TransVislider m_ScrollPaneSlider;
 	
 	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
@@ -176,23 +181,18 @@ public class TranslationVisualization {
 	 *  Use this method to access m_ConcordanceSlider
 	 * @return m_ConcordanceSlider
 	 */
-	public JSlider getM_ConcordanceSlider() {
+	public TransVislider getM_ConcordanceSlider() {
 		return m_ConcordanceSlider;
 	}
 
 	/**
-	 * Use this method to create and set m_ConcordanceSlider
-	 * @param m_Slider
+	 *  Use this method to create and set m_ConcordanceSlider
+	 * @param m_ConcordanceSlider
 	 */
-	public void setM_ConcordanceSlider(JSlider m_Slider) {
-		this.m_ConcordanceSlider = m_Slider;
-		int fontSize=11;
-		int tickSpacing=10; //set tick space: 0, 10, 20...100
-		m_Slider.setMajorTickSpacing(tickSpacing);
-		m_Slider.setFont(new Font("Serif", Font.PLAIN, fontSize));
-		m_Slider.setPaintLabels(true);
-		m_Slider.setBackground(Color.WHITE);
+	public void setM_ConcordanceSlider(TransVislider m_ConcordanceSlider) {
+		this.m_ConcordanceSlider = m_ConcordanceSlider;
 	}
+
 
 	public JCheckBox getVersionMenu() {
 		return versionMenu;
@@ -215,18 +215,12 @@ public class TranslationVisualization {
 //		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
 	}
 	
-	public JSlider getM_ScrollPaneSlider() {
+	public TransVislider getM_ScrollPaneSlider() {
 		return m_ScrollPaneSlider;
 	}
 
-	public void setM_ScrollPaneSlider(JSlider m_ScrollPaneSlider) {
+	public void setM_ScrollPaneSlider(TransVislider m_ScrollPaneSlider) {
 		this.m_ScrollPaneSlider = m_ScrollPaneSlider;
-		int fontSize=11;
-		int tickSpacing=10; //set tick space: 0, 10, 20...100
-		m_ScrollPaneSlider.setMajorTickSpacing(tickSpacing);
-		m_ScrollPaneSlider.setFont(new Font("Serif", Font.PLAIN, fontSize));
-		m_ScrollPaneSlider.setPaintLabels(true);
-		m_ScrollPaneSlider.setBackground(Color.WHITE);
 	}
 
 	public JPanel getM_ScrollPanel() {
@@ -350,6 +344,12 @@ public class TranslationVisualization {
 
 		
 	}
+	
+	public void initialJslider(){
+		int min=50; //minimum value
+		int max=200; //maximum value
+		int initialVar=100; //initial value
+	}
 
 	/**
 	 * Use this method to access m_ConcordancePanel
@@ -401,25 +401,38 @@ public class TranslationVisualization {
 		
 		
 //		//concordance button
-//		transVis.setConcordanceButton(new JButton("Concordances"));
-		
-		// add this method
-		// this.SetConcordanceSlider(new ConcordanceSlider());
-		// this.GetConcordanceSlider().Initialize();
-	
+		transVis.setConcordanceButton(new JButton("Concordances"));
 		
 		//concordance slider
-		int min=50; //minimum value
-		int max=200; //maximum value
-		int initialVar=100; //initial value
-		//JSlider(int orientation, int min, int max, int value)
-		//JSlider(orientation, minimum value, maximum value, and initial value)
-		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
 		
-		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
+		transVis.setM_ConcordanceSlider(new TransVislider());
+		transVis.getM_ConcordanceSlider().initialize();
+		transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
+	        	public void stateChanged(ChangeEvent event){
+	        		m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
+				transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
+				transVis.getConcordanceFrame().revalidate(); 
+	        	}
+	        });
+		
+		//scrollPane slider   SwingConstants.HORIZONTAL, min, max, initialVar
+		transVis.setM_ScrollPaneSlider(new TransVislider());
+		transVis.getM_ScrollPaneSlider().initialize();
+		transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
+        	public void stateChanged(ChangeEvent event) {
+        		m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
+        		m_scaleValue=m_scaleValue/100.0;
+        		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
+        		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
+        		Dimension dimension=new Dimension(widthScale, heightScale);
+        		transVis.getScrollPane().setPreferredSize(dimension);
+        		transVis.getConcordanceFrame().revalidate(); 
+			}
+        });
+		
+		//versionChoosing Panel
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
 		
-        // end initialize concordance slide
 		
 		// set layout for visualization panel
 		GridBagLayout panelLayout = new GridBagLayout( );
@@ -495,15 +508,6 @@ public class TranslationVisualization {
 //        useroptionConstraint.anchor = GridBagConstraints.EAST;
         useroptionConstraint.insets = new Insets(13,0,0,5);
         transVis.getM_UserOptionPanel().add(transVis.getM_ConcordanceSlider(),useroptionConstraint);
-        transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
-			public void stateChanged(ChangeEvent event) {
-				m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
-//				transVis.getConcordancePanel().setZoomValue(m_scaleValue);
-				transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
-//				scaleConcordancePanel
-				transVis.getConcordanceFrame().revalidate(); 
-			}
-		});
         
         //concordanceSlider label
         transVis.setM_SliderLabel(new JLabel(), "Concordance");
@@ -520,18 +524,6 @@ public class TranslationVisualization {
         useroptionConstraint.insets = new Insets(13,0,50,5);
         transVis.getM_ScrollPaneSlider().setToolTipText("Hello");
         transVis.getM_UserOptionPanel().add(transVis.getM_ScrollPaneSlider(), useroptionConstraint);
-        transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
-        	public void stateChanged(ChangeEvent event) {
-        		m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
-        		m_scaleValue=m_scaleValue/100.0;
-        		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
-        		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
-        		Dimension dimension=new Dimension(widthScale, heightScale);
-        		transVis.getScrollPane().setPreferredSize(dimension);
-        		transVis.getConcordanceFrame().revalidate(); 
-        		transVis.getConcordanceFrame().repaint(); 
-			}
-        });
         
       //scrollpaneSlider label
         transVis.setM_SliderLabel(new JLabel(), "Panel");

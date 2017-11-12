@@ -15,11 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class ColorLegendPanel extends JPanel {
-	private final int PANEL_WIDTH=100;
-	private final int PANEL_HEIGHT=50;
 
-	private final int m_NumberWidth=15;
-	private final int m_NumberHeight=50;
 	private ConcordancePanel m_ConcordancePanel;
 	
 	public ConcordancePanel getM_ConcordancePanel() {
