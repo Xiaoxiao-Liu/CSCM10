@@ -118,7 +118,7 @@ public class UserOptionPanel extends JPanel{
         
         //concordance slider
         transVis.setM_TransViSlider(new TransVislider());
-		transVis.getM_TransViSlider().concordanceSlider(transVis);
+		transVis.getM_TransViSlider().concordanceSlider(transVis, transVis.getConcordancePanel());
         this.add(transVis.getM_TransViSlider(),transVis.getM_TransViSlider().getM_Constraint());
         //scroll panel slider
         transVis.setM_TransViSlider(new TransVislider());

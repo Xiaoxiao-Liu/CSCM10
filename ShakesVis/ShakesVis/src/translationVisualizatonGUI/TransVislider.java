@@ -16,7 +16,11 @@ import javax.swing.event.ChangeListener;
 import translationVisualization.TranslationVisualization;
 
 public class TransVislider extends JSlider{
+	private int SCROLL_PANEL_WIDTH=420;
+	private int SCROLL_PANEL_HEIGHT=330;
 
+	private double m_scaleValue=100;
+	
 	private static int orientation=SwingConstants.HORIZONTAL;
 	private static int min=50; //minimum value
 	private static int max=200; //maximum value
@@ -46,7 +50,7 @@ public class TransVislider extends JSlider{
 		
 	}
 	
-	public void concordanceSlider(TranslationVisualization transVis){
+	public void concordanceSlider(TranslationVisualization transVis, ConcordancePanel concordancePanel){
 		initializeSlider();
 		int gridx=1;
 		int gridy=3;
@@ -55,16 +59,15 @@ public class TransVislider extends JSlider{
 		setM_Constraint( gridx,  gridy,  top,  bottom);
 		this.addChangeListener(new ChangeListener(){
         	public void stateChanged(ChangeEvent event){
-        		double m_scaleValue=getValue();
-        		transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
+        		m_scaleValue=getValue();
+        		concordancePanel.scaleConcordancePanel((int) m_scaleValue);
         		transVis.getConcordanceFrame().revalidate(); 
         	}
         });
 	}
 	
 	public void scrollPaneSlider(TranslationVisualization transVis){
-		int SCROLL_PANEL_WIDTH=420;
-		int SCROLL_PANEL_HEIGHT=330;
+		
 		initializeSlider();
 		int gridx=1;
 		int gridy=4;
@@ -73,13 +76,14 @@ public class TransVislider extends JSlider{
 		setM_Constraint( gridx,  gridy,  top,  bottom);
 		this.addChangeListener(new ChangeListener(){
         	public void stateChanged(ChangeEvent event) {
-        		double m_scaleValue=getValue();
+        		m_scaleValue=getValue();
         		m_scaleValue=m_scaleValue/100.0;
         		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
         		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
         		Dimension dimension=new Dimension(widthScale, heightScale);
         		transVis.getM_TransViScrollPane().setPreferredSize(dimension);
         		transVis.getConcordanceFrame().revalidate(); 
+        		transVis.getConcordanceFrame().repaint(); 
 			}
         });
 	}

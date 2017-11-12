@@ -39,11 +39,15 @@ public class ScrollPanel extends JPanel{
 	
 	public void initialize(){
 		this.setBackground(Color.WHITE);
-		this.setLayout(null);
+//		this.setLayout(null);
 		this.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 	}
 	 
 	public void addComponents(TranslationVisualization transVis){
+
+		transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
+		this.add(transVis.getConcordancePanel());
+//		transVis.getConcordancePanel()
 		transVis.setM_TransViScrollPane(new TransViScrollPane(transVis.getConcordancePanel()));	
 		transVis.getM_TransViScrollPane().initialize(); 
 		transVis.getM_TransViScrollPane().addComponents(transVis);

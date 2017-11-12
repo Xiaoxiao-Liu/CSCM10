@@ -37,14 +37,14 @@ public class TransViScrollPane extends JScrollPane{
 	
 	public void initialize(){
 		
-		setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+		this.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		this.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		this.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 		//The layout manager used by JScrollPane. JScrollPaneLayout is responsible for nine components: 
 		//a viewport, two scrollbars, a row header, a column header, and four "corner" components.
-		setLayout(new ScrollPaneLayout());
+		this.setLayout(new ScrollPaneLayout());
 		//the m_ScrollPanel only display after concordance button is clicked
-		setVisible(true);
+		this.setVisible(false);
 	}
 	
 	public void addComponents(TranslationVisualization transVis){
