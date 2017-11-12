@@ -8,6 +8,8 @@ import java.awt.LayoutManager;
 
 import javax.swing.JPanel;
 
+import translationVisualization.TranslationVisualization;
+
 public class ScrollPanel extends JPanel{
 	/** the width of the ScrollPanel */
 	private final static int SCROLL_PANEL_WIDTH=420;
@@ -38,6 +40,13 @@ public class ScrollPanel extends JPanel{
 	public void initialize(){
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+	}
+	
+	public void addComponents(TranslationVisualization transVis){
+		transVis.setM_TransViScrollPane(new TransViScrollPane(transVis.getConcordancePanel()));	
+		transVis.getM_TransViScrollPane().initialize(); 
+		transVis.getM_TransViScrollPane().addComponents(transVis);
+		add(transVis.getM_TransViScrollPane());
 	}
 	
 	public GridBagConstraints getConstraint() {

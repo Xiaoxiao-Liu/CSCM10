@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import translationVisualization.TranslationVisualization;
+
 public class ConcordanceButton extends JButton{
 	
 
@@ -39,13 +41,13 @@ public class ConcordanceButton extends JButton{
 		// TODO Auto-generated constructor stub
 	}
 
-	public void initialize(JScrollPane scrollPane, JFrame jFrame){
+	public void initialize(TranslationVisualization transVis){
 		this.addActionListener(new ActionListener(){
 			@Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button pressed");
-                scrollPane.setVisible(true);
-                jFrame.revalidate(); 
+                transVis.getM_ScrollPanel().setVisible(true);
+                transVis.getConcordanceFrame().revalidate(); 
             }
 		});
 	}

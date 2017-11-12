@@ -3,14 +3,10 @@ package translationVisualization;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,9 +20,11 @@ import translationVisualizatonGUI.ConcordanceButton;
 import translationVisualizatonGUI.ConcordancePanel;
 import translationVisualizatonGUI.ScrollPanel;
 import translationVisualizatonGUI.TextOnOffButton;
+import translationVisualizatonGUI.TransViScrollPane;
 import translationVisualizatonGUI.TransVislider;
 import translationVisualizatonGUI.UserOptionPanel;
 import translationVisualizatonGUI.VersionChoosenPanel;
+import translationVisualizatonGUI.VisualizationPanel;
 
 public class TranslationVisualization {
 	
@@ -53,11 +51,11 @@ public class TranslationVisualization {
 	/** a way to access the JFrame object (Layer 1) */
 	private JFrame m_ConcordanceFrame;
 
-	/** a way to access the ConcordancePanel object (Layer 2)*/
+	/** a way to access the ConcordancePanel object (Layer 5)*/
 	private ConcordancePanel m_ConcordancePanel;
 
-	/** a JPanel object containing visualization components (Layer 3)*/
-	private JPanel m_visuallizationPanel;
+	/** a JPanel object containing visualization components (Layer 2)*/
+	private VisualizationPanel m_visuallizationPanel;
 	
 	private ScrollPanel m_ScrollPanel;
 
@@ -65,9 +63,9 @@ public class TranslationVisualization {
 	private  ColorLegendPanel m_ColorLegendPanel=new ColorLegendPanel();
 
 	/** a way to access the JScrollPane object (Layer 4)*/ 
-	private JScrollPane m_ScrollPane;
+	private TransViScrollPane m_TransViScrollPane;
 
-	/** a JPanel object containing user-option components (Layer 3)*/
+	/** a JPanel object containing user-option components (Layer 2)*/
 //	private JPanel m_UserOptionPanel;
 	
 	/** a JPanel object used to select which version displayed (Layer 4)*/
@@ -222,26 +220,26 @@ public class TranslationVisualization {
 	 * Use this method to access m_ScrollPanel
 	 * @return m_ScrollPanel
 	 */
-	public JScrollPane getScrollPane() {
-		return m_ScrollPane;
+	public TransViScrollPane getM_TransViScrollPane() {
+		return m_TransViScrollPane;
 	}
 
 	/**
 	 * Use this method to create and set m_ScrollPanel
 	 * @param scrollPanel
 	 */
-	public void setScrollPane(JScrollPane scrollPanel) {
-		this.m_ScrollPane = scrollPanel;
+	public void setM_TransViScrollPane(TransViScrollPane transViScrollPane) {
+		this.m_TransViScrollPane = transViScrollPane;
 		//we need both horizontal and vertical scroll bars
-		getScrollPane().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-		getScrollPane().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-//		getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
-
-		//The layout manager used by JScrollPane. JScrollPaneLayout is responsible for nine components: 
-		//a viewport, two scrollbars, a row header, a column header, and four "corner" components.
-		getScrollPane().setLayout(new ScrollPaneLayout());
-		//the m_ScrollPanel only display after concordance button is clicked
-		getScrollPane().setVisible(false); 
+//		getScrollPane().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+//		getScrollPane().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+////		getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+//
+//		//The layout manager used by JScrollPane. JScrollPaneLayout is responsible for nine components: 
+//		//a viewport, two scrollbars, a row header, a column header, and four "corner" components.
+//		getScrollPane().setLayout(new ScrollPaneLayout());
+//		//the m_ScrollPanel only display after concordance button is clicked
+//		getScrollPane().setVisible(false); 
 	}
 	
 	/**
@@ -264,7 +262,7 @@ public class TranslationVisualization {
 	 * Use this method to access m_visuallizationPanel
 	 * @return m_visuallizationPanel
 	 */
-	public JPanel getM_visuallizationPanel() {
+	public VisualizationPanel getM_visuallizationPanel() {
 		return m_visuallizationPanel;
 	}
 
@@ -272,11 +270,11 @@ public class TranslationVisualization {
 	 * Use this method to create and set m_visuallizationPanel
 	 * @param m_visuallizationPanel
 	 */
-	public void setM_visuallizationPanel(JPanel m_visuallizationPanel) {
+	public void setM_visuallizationPanel(VisualizationPanel m_visuallizationPanel) {
 		this.m_visuallizationPanel = m_visuallizationPanel;
-		m_visuallizationPanel.setBorder(BorderFactory.createTitledBorder(" --Visualization-- "));
-		getM_visuallizationPanel().setVisible(true);
-		getM_visuallizationPanel().setBackground(Color.WHITE);
+//		m_visuallizationPanel.setBorder(BorderFactory.createTitledBorder(" --Visualization-- "));
+//		getM_visuallizationPanel().setVisible(true);
+//		getM_visuallizationPanel().setBackground(Color.WHITE);
 		
 		
 	}
@@ -359,110 +357,34 @@ public class TranslationVisualization {
 		 
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setDataReader(new DataReader());
-//		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
+		
+		
+		//layer 2 - Visualization Panel
+		transVis.setM_visuallizationPanel(new VisualizationPanel());
+		transVis.getM_visuallizationPanel().initialize();
+		transVis.getM_visuallizationPanel().addComponents(transVis);
+
+		
+		//layer 2 - User-option Panel
+		transVis.setM_UserOptionPanel(new UserOptionPanel());
+		transVis.getM_UserOptionPanel().initialize();
+		transVis.getM_UserOptionPanel().addComponents(transVis);
+		
+			
 		//layer 1 - Concordance Frame
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
 		
-		//layer 2 - Concordance Panel
-		transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
-//		transVis.setConcordancePanel(new ConcordancePanel());
-		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
-
-		
-		//layer 3 - Visualization Panel
-		transVis.setM_visuallizationPanel(new JPanel());
-		
-		//layer 3 - User-option Panel
-		transVis.setM_UserOptionPanel(new UserOptionPanel());
-		transVis.getM_UserOptionPanel().initialize();
-		//layer 4 - Scroll Panel
-		
-		transVis.setScrollPane(new JScrollPane(transVis.getConcordancePanel()));	
-//		transVis.getM_visuallizationPanel().add( transVis.getScrollPane());
-		
-		transVis.setM_ScrollPanel(new ScrollPanel());
-		transVis.getM_ScrollPanel().add(transVis.getScrollPane());
-		
-		
-//		//concordance button
-		transVis.setConcordanceButton(new ConcordanceButton("Concordances"));
-		
-		//concordance slider
-//		transVis.setM_ConcordanceSlider(new TransVislider());
-//		transVis.setM_TransViSlider(new TransVislider());
-//		transVis.getM_ConcordanceSlider().initialize();
-//		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
-		
-//		//scrollPane slider   SwingConstants.HORIZONTAL, min, max, initialVar
-//		transVis.setM_ScrollPaneSlider(new TransVislider());
-//		transVis.getM_ScrollPaneSlider().scrollPaneSlider(transVis.getScrollPane(), transVis.getConcordanceFrame());
-//		
-		//versionChoosing Panel
-		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
-		
-		
-		// set layout for visualization panel
-		GridBagLayout panelLayout = new GridBagLayout( );
-		GridBagConstraints constraint=new GridBagConstraints();
-		transVis.getM_visuallizationPanel().setLayout(panelLayout);
-
-	    transVis.getM_visuallizationPanel().add(transVis.getM_ColorLegendPanel(),transVis.getM_ColorLegendPanel().getConstraint());
-		
-//		constraint.gridx = 2;
-//		constraint.gridy = 1;
-////		constraint.gridwidth=5;
-//	     constraint.weightx=5;
-//	     constraint.weighty=0;
-////		constraint.fill=GridBagConstraints.
-//		constraint.fill = GridBagConstraints.BOTH;
-//		constraint.insets = new Insets(0,0,0,0);
-		transVis.getM_visuallizationPanel().add(transVis.getM_ScrollPanel(),transVis.getM_ScrollPanel().getConstraint());
-
-		// set layout for user-option panel
-//		GridBagLayout userOptionPaneLayout = new GridBagLayout( );
-//		GridBagConstraints useroptionConstraint=new GridBagConstraints();
-//		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
-		
-		//ConcordanceButton
-//        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),transVis.getConcordanceButton().getConstraint());
-        transVis.getConcordanceButton().initialize(transVis.getScrollPane(), transVis.getConcordanceFrame());
-
-        //text on off button
-//		transVis.setM_TextOnOffButton(new TextOnOffButton("Text On"));
-		transVis.setM_TextOnOffButton(new TextOnOffButton());
-//        transVis.getM_UserOptionPanel().add(transVis.getM_TextOnOffButton(),transVis.getM_TextOnOffButton().getConstraint());
-        transVis.getM_TextOnOffButton().initialize(transVis.getConcordancePanel());
-		
-        //concordance slider
-		transVis.setM_TransViSlider(new TransVislider());
-		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
-//        transVis.getM_UserOptionPanel().add(transVis.getM_TransViSlider(),transVis.getM_TransViSlider().getM_Constraint());
-        
-		//Layer 2 layout
-		GridBagLayout layout = new GridBagLayout();
-		transVis.getConcordanceFrame().setLayout(layout);
-		GridBagConstraints s=new GridBagConstraints();
-		s.fill=GridBagConstraints.BOTH;
-		s.gridwidth=1;
-		s.weightx=0;
-		s.weighty=0;
-//		transVis.getM_UserOptionPanel().initialize();
-//		transVis.getM_UserOptionPanel().addComponents(transVis);
-		transVis.getM_UserOptionPanel().addComponents(transVis);
-
-		layout.setConstraints(transVis.getM_UserOptionPanel(), transVis.getM_UserOptionPanel().getConstraint());
-		s.gridwidth=5;
-		s.weightx=1;
-		s.weighty=1;
-		layout.setConstraints(transVis.getM_visuallizationPanel(), s);
-		
-
-		transVis.getConcordanceFrame().add(transVis.getM_UserOptionPanel());
-		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel());
 		transVis.getConcordanceFrame().setVisible(true);
 		transVis.getConcordanceFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		transVis.getConcordanceFrame().setLocationRelativeTo(null);
 		transVis.getConcordanceFrame().setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-		
+		GridBagLayout layout = new GridBagLayout();
+		transVis.getConcordanceFrame().setLayout(layout);
+		transVis.getConcordanceFrame().add(transVis.getM_UserOptionPanel(),transVis.getM_UserOptionPanel().getM_Constraint());
+		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel(),transVis.getM_visuallizationPanel().getM_Constraint());
+	}
+	
+	public void initializeConcordanceFrame(){
+//		this.setConcordanceFrame(concordanceFrame);
 	}
 }

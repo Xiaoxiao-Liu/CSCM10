@@ -13,6 +13,8 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import translationVisualization.TranslationVisualization;
+
 public class TransVislider extends JSlider{
 
 	private static int orientation=SwingConstants.HORIZONTAL;
@@ -44,7 +46,7 @@ public class TransVislider extends JSlider{
 		
 	}
 	
-	public void concordanceSlider(ConcordancePanel concordancePanel, JFrame jFrame){
+	public void concordanceSlider(TranslationVisualization transVis){
 		initializeSlider();
 		int gridx=1;
 		int gridy=3;
@@ -54,13 +56,13 @@ public class TransVislider extends JSlider{
 		this.addChangeListener(new ChangeListener(){
         	public void stateChanged(ChangeEvent event){
         		double m_scaleValue=getValue();
-        		concordancePanel.scaleConcordancePanel((int) m_scaleValue);
-        		jFrame.revalidate(); 
+        		transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
+        		transVis.getConcordanceFrame().revalidate(); 
         	}
         });
 	}
 	
-	public void scrollPaneSlider(JScrollPane scrollPane, JFrame jFrame){
+	public void scrollPaneSlider(TranslationVisualization transVis){
 		int SCROLL_PANEL_WIDTH=420;
 		int SCROLL_PANEL_HEIGHT=330;
 		initializeSlider();
@@ -76,8 +78,8 @@ public class TransVislider extends JSlider{
         		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
         		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
         		Dimension dimension=new Dimension(widthScale, heightScale);
-        		scrollPane.setPreferredSize(dimension);
-        		jFrame.revalidate(); 
+        		transVis.getM_TransViScrollPane().setPreferredSize(dimension);
+        		transVis.getConcordanceFrame().revalidate(); 
 			}
         });
 	}
