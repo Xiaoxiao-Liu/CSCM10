@@ -7,8 +7,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +16,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import translationVisualizatonGUI.ColorLegendPanel;
 import translationVisualizatonGUI.ConcordanceButton;
 import translationVisualizatonGUI.ConcordancePanel;
+import translationVisualizatonGUI.ScrollPanel;
 import translationVisualizatonGUI.TextOnOffButton;
 import translationVisualizatonGUI.TransVislider;
+import translationVisualizatonGUI.UserOptionPanel;
 import translationVisualizatonGUI.VersionChoosenPanel;
 
 public class TranslationVisualization {
@@ -45,12 +42,13 @@ public class TranslationVisualization {
 	/** the height of the ConcordancePanel */
 	private final static int CONCORDANCE_PANEL_HEIGHT=2900;
 	
-	/** the width of the ScrollPanel */
-	private final static int SCROLL_PANEL_WIDTH=420;
+//	/** the width of the ScrollPanel */
+//	private final static int SCROLL_PANEL_WIDTH=420;
+//	
+//	/** the height of the ScrollPanel */
+//	private final static int SCROLL_PANEL_HEIGHT=330;
 	
-	/** the height of the ScrollPanel */
-	private final static int SCROLL_PANEL_HEIGHT=330;
-	
+	private UserOptionPanel m_UserOptionPanel;
 
 	/** a way to access the JFrame object (Layer 1) */
 	private JFrame m_ConcordanceFrame;
@@ -61,7 +59,7 @@ public class TranslationVisualization {
 	/** a JPanel object containing visualization components (Layer 3)*/
 	private JPanel m_visuallizationPanel;
 	
-	private JPanel m_ScrollPanel;
+	private ScrollPanel m_ScrollPanel;
 
 	/** a ColorLegendPanel object containing color legend for frequency colors (Layer 4) */
 	private  ColorLegendPanel m_ColorLegendPanel=new ColorLegendPanel();
@@ -70,7 +68,7 @@ public class TranslationVisualization {
 	private JScrollPane m_ScrollPane;
 
 	/** a JPanel object containing user-option components (Layer 3)*/
-	private JPanel m_UserOptionPanel;
+//	private JPanel m_UserOptionPanel;
 	
 	/** a JPanel object used to select which version displayed (Layer 4)*/
 	private JPanel m_VersionSelectionPanel;
@@ -115,7 +113,7 @@ public class TranslationVisualization {
 //	private JSlider m_ConcordanceSlider;
 	
 	/** a JSlider to zoom in and out concordancePanel */
-	private TransVislider m_ConcordanceSlider;
+//	private TransVislider m_ConcordanceSlider;
 	
 	private TransVislider m_TransViSlider;
 	
@@ -129,7 +127,7 @@ public class TranslationVisualization {
 	}
 
 	/** a JSlider to zoom in and out scrollPane */
-	private TransVislider m_ScrollPaneSlider;
+//	private TransVislider m_ScrollPaneSlider;
 	
 	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
@@ -176,30 +174,15 @@ public class TranslationVisualization {
 
 	public void setVersionChoosingPanel(VersionChoosenPanel versionChoosingPanel, ConcordancePanel concordancePanel, List<String> versionNames) {
 		this.versionChoosingPanel = versionChoosingPanel;
-		versionChoosingPanel.addVersions(versionNames, concordancePanel);
-		versionChoosingPanel.setLayout(new GridLayout(17,1)); //magic number
-		//
-		versionChoosingPanel.setBackground(Color.WHITE);
-		versionChoosingPanel.setPreferredSize(new Dimension(100, 400)); //magic number
-		versionChoosingPanel.setVisible(true);
+//		versionChoosingPanel.addVersions(versionNames, concordancePanel);
+//		versionChoosingPanel.setLayout(new GridLayout(17,1)); //magic number
+//		//
+//		versionChoosingPanel.setBackground(Color.WHITE);
+//		versionChoosingPanel.setPreferredSize(new Dimension(100, 400)); //magic number
+//		versionChoosingPanel.setVisible(true);
 	}
 
 	//accessor methods
-	/**
-	 *  Use this method to access m_ConcordanceSlider
-	 * @return m_ConcordanceSlider
-	 */
-	public TransVislider getM_ConcordanceSlider() {
-		return m_ConcordanceSlider;
-	}
-
-	/**
-	 *  Use this method to create and set m_ConcordanceSlider
-	 * @param m_ConcordanceSlider
-	 */
-	public void setM_ConcordanceSlider(TransVislider m_ConcordanceSlider) {
-		this.m_ConcordanceSlider = m_ConcordanceSlider;
-	}
 
 
 	public JCheckBox getVersionMenu() {
@@ -223,22 +206,15 @@ public class TranslationVisualization {
 //		getConcordanceFrame().setSize(FRAME_WIDTH, FRAME_HEIGHT);	
 	}
 	
-	public TransVislider getM_ScrollPaneSlider() {
-		return m_ScrollPaneSlider;
-	}
 
-	public void setM_ScrollPaneSlider(TransVislider m_ScrollPaneSlider) {
-		this.m_ScrollPaneSlider = m_ScrollPaneSlider;
-	}
-
-	public JPanel getM_ScrollPanel() {
+	public ScrollPanel getM_ScrollPanel() {
 		return m_ScrollPanel;
 	}
 
-	public void setM_ScrollPanel(JPanel m_ScrollPanel) {
+	public void setM_ScrollPanel(ScrollPanel m_ScrollPanel) {
 		this.m_ScrollPanel = m_ScrollPanel;
-		m_ScrollPanel.setBackground(Color.white);
-		m_ScrollPanel.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+//		m_ScrollPanel.setBackground(Color.white);
+//		m_ScrollPanel.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 		
 	}
 
@@ -259,7 +235,7 @@ public class TranslationVisualization {
 		//we need both horizontal and vertical scroll bars
 		getScrollPane().setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		getScrollPane().setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
+//		getScrollPane().setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 
 		//The layout manager used by JScrollPane. JScrollPaneLayout is responsible for nine components: 
 		//a viewport, two scrollbars, a row header, a column header, and four "corner" components.
@@ -309,7 +285,7 @@ public class TranslationVisualization {
 	 * Use this method to access m_buttonPanel
 	 * @return m_buttonPanel
 	 */
-	public JPanel getM_UserOptionPanel() {
+	public UserOptionPanel getM_UserOptionPanel() {
 		return m_UserOptionPanel;
 	}
 
@@ -317,11 +293,11 @@ public class TranslationVisualization {
 	 * Use this method to create and set m_buttonPanel
 	 * @param buttonPanel
 	 */
-	public void setM_UserOptionPanel(JPanel buttonPanel) {
+	public void setM_UserOptionPanel(UserOptionPanel buttonPanel) {
 		this.m_UserOptionPanel = buttonPanel;
-		m_UserOptionPanel.setBorder(BorderFactory.createTitledBorder(" User Options "));
-		getM_UserOptionPanel().setVisible(true);
-		getM_UserOptionPanel().setBackground(Color.WHITE);
+//		m_UserOptionPanel.setBorder(BorderFactory.createTitledBorder(" User Options "));
+//		getM_UserOptionPanel().setVisible(true);
+//		getM_UserOptionPanel().setBackground(Color.WHITE);
 	}
 	
 	public JPanel getM_VersionSelectionPanel() {
@@ -353,11 +329,11 @@ public class TranslationVisualization {
 		
 	}
 	
-	public void initialJslider(){
-		int min=50; //minimum value
-		int max=200; //maximum value
-		int initialVar=100; //initial value
-	}
+//	public void initialJslider(){
+//		int min=50; //minimum value
+//		int max=200; //maximum value
+//		int initialVar=100; //initial value
+//	}
 
 	/**
 	 * Use this method to access m_ConcordancePanel
@@ -397,14 +373,14 @@ public class TranslationVisualization {
 		transVis.setM_visuallizationPanel(new JPanel());
 		
 		//layer 3 - User-option Panel
-		transVis.setM_UserOptionPanel(new JPanel());
-		
+		transVis.setM_UserOptionPanel(new UserOptionPanel());
+		transVis.getM_UserOptionPanel().initialize();
 		//layer 4 - Scroll Panel
 		
 		transVis.setScrollPane(new JScrollPane(transVis.getConcordancePanel()));	
 //		transVis.getM_visuallizationPanel().add( transVis.getScrollPane());
 		
-		transVis.setM_ScrollPanel(new JPanel());
+		transVis.setM_ScrollPanel(new ScrollPanel());
 		transVis.getM_ScrollPanel().add(transVis.getScrollPane());
 		
 		
@@ -413,14 +389,14 @@ public class TranslationVisualization {
 		
 		//concordance slider
 //		transVis.setM_ConcordanceSlider(new TransVislider());
-		transVis.setM_TransViSlider(new TransVislider());
+//		transVis.setM_TransViSlider(new TransVislider());
 //		transVis.getM_ConcordanceSlider().initialize();
-		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
+//		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
 		
-		//scrollPane slider   SwingConstants.HORIZONTAL, min, max, initialVar
-		transVis.setM_ScrollPaneSlider(new TransVislider());
-		transVis.getM_ScrollPaneSlider().scrollPaneSlider(transVis.getScrollPane(), transVis.getConcordanceFrame());
-		
+//		//scrollPane slider   SwingConstants.HORIZONTAL, min, max, initialVar
+//		transVis.setM_ScrollPaneSlider(new TransVislider());
+//		transVis.getM_ScrollPaneSlider().scrollPaneSlider(transVis.getScrollPane(), transVis.getConcordanceFrame());
+//		
 		//versionChoosing Panel
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
 		
@@ -432,65 +408,36 @@ public class TranslationVisualization {
 
 	    transVis.getM_visuallizationPanel().add(transVis.getM_ColorLegendPanel(),transVis.getM_ColorLegendPanel().getConstraint());
 		
-		constraint.gridx = 2;
-		constraint.gridy = 1;
-//		constraint.gridwidth=5;
-	     constraint.weightx=5;
-	     constraint.weighty=0;
-//		constraint.fill=GridBagConstraints.
-		constraint.fill = GridBagConstraints.BOTH;
-		constraint.insets = new Insets(0,0,0,0);
-		transVis.getM_visuallizationPanel().add(transVis.getM_ScrollPanel(),constraint);
+//		constraint.gridx = 2;
+//		constraint.gridy = 1;
+////		constraint.gridwidth=5;
+//	     constraint.weightx=5;
+//	     constraint.weighty=0;
+////		constraint.fill=GridBagConstraints.
+//		constraint.fill = GridBagConstraints.BOTH;
+//		constraint.insets = new Insets(0,0,0,0);
+		transVis.getM_visuallizationPanel().add(transVis.getM_ScrollPanel(),transVis.getM_ScrollPanel().getConstraint());
 
 		// set layout for user-option panel
-		GridBagLayout userOptionPaneLayout = new GridBagLayout( );
-		GridBagConstraints useroptionConstraint=new GridBagConstraints();
-		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
+//		GridBagLayout userOptionPaneLayout = new GridBagLayout( );
+//		GridBagConstraints useroptionConstraint=new GridBagConstraints();
+//		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
 		
 		//ConcordanceButton
-        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),transVis.getConcordanceButton().getConstraint());
+//        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),transVis.getConcordanceButton().getConstraint());
         transVis.getConcordanceButton().initialize(transVis.getScrollPane(), transVis.getConcordanceFrame());
 
         //text on off button
 //		transVis.setM_TextOnOffButton(new TextOnOffButton("Text On"));
 		transVis.setM_TextOnOffButton(new TextOnOffButton());
-        transVis.getM_UserOptionPanel().add(transVis.getM_TextOnOffButton(),transVis.getM_TextOnOffButton().getConstraint());
+//        transVis.getM_UserOptionPanel().add(transVis.getM_TextOnOffButton(),transVis.getM_TextOnOffButton().getConstraint());
         transVis.getM_TextOnOffButton().initialize(transVis.getConcordancePanel());
 		
-        //concordanceSlider
-        transVis.getM_UserOptionPanel().add(transVis.getM_TransViSlider(),transVis.getM_TransViSlider().getM_Constraint());
+        //concordance slider
+		transVis.setM_TransViSlider(new TransVislider());
+		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
+//        transVis.getM_UserOptionPanel().add(transVis.getM_TransViSlider(),transVis.getM_TransViSlider().getM_Constraint());
         
-        //concordanceSlider label
-        transVis.setM_SliderLabel(new JLabel(), "Concordance");
-        useroptionConstraint.gridx = 2;
-        useroptionConstraint.gridy = 3;
-//      useroptionConstraint.anchor = GridBagConstraints.WEST;
-        useroptionConstraint.insets = new Insets(9,5,0,0);
-        transVis.getM_UserOptionPanel().add(transVis.getM_SliderLabel(),useroptionConstraint);
-        
-		//scrollpaneSlider
-        useroptionConstraint.gridx = 1;
-        useroptionConstraint.gridy =4;
-        useroptionConstraint.fill = GridBagConstraints.BOTH;
-        useroptionConstraint.insets = new Insets(13,0,50,5);
-        transVis.getM_UserOptionPanel().add(transVis.getM_ScrollPaneSlider(), useroptionConstraint);
-        
-      //scrollpaneSlider label
-        transVis.setM_SliderLabel(new JLabel(), "Panel");
-        useroptionConstraint.gridx = 2;
-        useroptionConstraint.gridy = 4;
-//        useroptionConstraint.anchor = GridBagConstraints.WEST;
-        useroptionConstraint.insets = new Insets(9,5,50,0);
-        transVis.getM_UserOptionPanel().add(transVis.getM_SliderLabel(),useroptionConstraint);
-        
-
-        // versionChoosingPanel
-		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 5;
-		constraint.weightx=1;
-		useroptionConstraint.fill = GridBagConstraints.BOTH;
-		transVis.getM_UserOptionPanel().add(transVis.getVersionChoosingPanel(),useroptionConstraint);
-		
 		//Layer 2 layout
 		GridBagLayout layout = new GridBagLayout();
 		transVis.getConcordanceFrame().setLayout(layout);
@@ -499,7 +446,11 @@ public class TranslationVisualization {
 		s.gridwidth=1;
 		s.weightx=0;
 		s.weighty=0;
-		layout.setConstraints(transVis.getM_UserOptionPanel(), s);
+//		transVis.getM_UserOptionPanel().initialize();
+//		transVis.getM_UserOptionPanel().addComponents(transVis);
+		transVis.getM_UserOptionPanel().addComponents(transVis);
+
+		layout.setConstraints(transVis.getM_UserOptionPanel(), transVis.getM_UserOptionPanel().getConstraint());
 		s.gridwidth=5;
 		s.weightx=1;
 		s.weighty=1;

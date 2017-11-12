@@ -1,6 +1,10 @@
 package translationVisualizatonGUI;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -129,9 +133,36 @@ public class VersionChoosenPanel extends JPanel {
 		getM_VersionNameCBox().addActionListener(add_ActionListener(concordancePanel));;
 	}
 	
-	public void setSelected(){
-		
+	
+	public void initialize(ConcordancePanel concordancePanel, List<String> versionNames){
+		addVersions(versionNames, concordancePanel);
+		int rows=17;
+		int cols=1;
+		this.setLayout(new GridLayout(rows,cols));
+		this.setBackground(Color.white);
+		int width=100;
+		int height=400;
+		this.setPreferredSize(new Dimension(width, height));
+		this.setVisible(true);
+	
 	}
+	
+	public GridBagConstraints getConstraint() {
+		GridBagConstraints constraint =new GridBagConstraints();
+		constraint.gridx = 1;
+		constraint.gridy = 5;
+		constraint.weightx=1;
+		constraint.fill = GridBagConstraints.BOTH;
+		//Insets(int top, int right, int bottom, int left)
+//		int top=0;
+//		int right=30;
+//		int bottom=10;
+//		int left=30;
+//		constraint.insets = new Insets(top, right, bottom, left);
+		return constraint;
+	}
+	
+	
 	
 
 }

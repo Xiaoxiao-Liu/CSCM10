@@ -60,14 +60,12 @@ public class TextOnOffButton extends JToggleButton{
 		constraint.gridx = 1;
 		constraint.gridy = 2;
 		constraint.fill = GridBagConstraints.BOTH;
-		
 		//Insets(int top, int right, int bottom, int left)
 		int top=0;
 		int right=30;
 		int bottom=10;
 		int left=30;
 		constraint.insets = new Insets(top, right, bottom, left);
-		
 		return constraint;
 	}
 	
