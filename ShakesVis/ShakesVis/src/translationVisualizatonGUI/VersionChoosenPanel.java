@@ -63,6 +63,7 @@ public class VersionChoosenPanel extends JPanel {
 		this.m_VersionNameCBox = m_VersionNameCBox;
 		m_VersionNameCBox.setText(str);
 		getM_checkList().add(m_VersionNameCBox);
+		m_VersionNameCBox.setBackground(Color.white);
 	}
 
 	public ActionListener add_ActionListener(ConcordancePanel concordancePanel){
@@ -138,8 +139,9 @@ public class VersionChoosenPanel extends JPanel {
 		addVersions(versionNames, concordancePanel);
 		int rows=17;
 		int cols=1;
-		this.setLayout(new GridLayout(rows,cols));
 		this.setBackground(Color.white);
+
+		this.setLayout(new GridLayout(rows,cols));
 		int width=100;
 		int height=400;
 		this.setPreferredSize(new Dimension(width, height));

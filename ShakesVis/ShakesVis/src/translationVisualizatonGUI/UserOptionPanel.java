@@ -65,37 +65,23 @@ public class UserOptionPanel extends JPanel{
 		this.setVisible(true);
 		this.setBackground(Color.white);
 		GridBagLayout userOptionPaneLayout = new GridBagLayout( );
-		this.setLayout(userOptionPaneLayout);
-		this.setUserOptionConstraint();
+		this.setLayout(new GridBagLayout());
+//		this.setUserOptionConstraint();
 //		JLabel sliderlabel=new JLabel("Heloo");
 	}
 	
-	//get userOptionPanelConstraint
-//	public GridBagConstraints getConstraint() {
-//		GridBagConstraints constraint =new GridBagConstraints();
-//		constraint.fill = GridBagConstraints.BOTH;
-//		constraint.gridwidth=1;
-//		constraint.weightx=0;
-//		constraint.weighty=0;
-//		return constraint;
-//	}
-//	
-	public void setUserOptionConstraint(){
-		m_Constraint =new GridBagConstraints();
+	public GridBagConstraints userOptionConstraint(){
+		GridBagConstraints constraint =new GridBagConstraints();
 //		m_Constraint.fill = GridBagConstraints.BOTH;
-		m_Constraint.gridwidth=1;
-		m_Constraint.weightx=0;
-		m_Constraint.weighty=0;
-		
+		constraint.gridwidth=1;
+		constraint.weightx=0;
+		constraint.weighty=0;
+//		
 //		m_Constraint.gridx = 1;
 //		m_Constraint.gridy = 1;
-		m_Constraint.fill = GridBagConstraints.BOTH;
+		constraint.fill = GridBagConstraints.BOTH;
 		//Insets(int top, int right, int bottom, int left)
-//		int top=0;
-//		int left=0;
-//		int bottom=0;
-//		int right=0;
-//		m_Constraint.insets = new Insets(top, left, bottom, right);
+		return constraint;
 	}
 	
 	public void setLabelConstraint(int gridy, int bottom) {

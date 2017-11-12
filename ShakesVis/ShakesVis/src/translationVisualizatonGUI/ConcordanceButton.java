@@ -47,6 +47,7 @@ public class ConcordanceButton extends JButton{
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Button pressed");
                 transVis.getM_ScrollPanel().setVisible(true);
+                transVis.getConcordancePanel().repaint();
                 transVis.getConcordanceFrame().revalidate(); 
             }
 		});

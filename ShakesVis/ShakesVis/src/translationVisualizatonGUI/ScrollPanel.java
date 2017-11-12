@@ -38,15 +38,16 @@ public class ScrollPanel extends JPanel{
 	}
 	
 	public void initialize(){
-		this.setBackground(Color.white);
+		this.setBackground(Color.WHITE);
+		this.setLayout(null);
 		this.setPreferredSize(new Dimension(SCROLL_PANEL_WIDTH, SCROLL_PANEL_HEIGHT));
 	}
-	
+	 
 	public void addComponents(TranslationVisualization transVis){
 		transVis.setM_TransViScrollPane(new TransViScrollPane(transVis.getConcordancePanel()));	
 		transVis.getM_TransViScrollPane().initialize(); 
 		transVis.getM_TransViScrollPane().addComponents(transVis);
-		add(transVis.getM_TransViScrollPane());
+		this.add(transVis.getM_TransViScrollPane());
 	}
 	
 	public GridBagConstraints getConstraint() {

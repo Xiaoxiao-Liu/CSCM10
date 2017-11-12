@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="getConcordanceFrame" key="selection"/>
+		<item value="Constraint" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="constraint"/>
+			<item value="setM_TextOnOffButton"/>
+			<item value="getM_ScrollPanel"/>
+			<item value="SCROLL_PANEL_WIDTH"/>
+			<item value="setVersionChoosingPanel"/>
 			<item value="getConcordanceFrame"/>
 			<item value="SwingConstants"/>
 			<item value="jslider"/>
-			<item value="init"/>
-			<item value="PaintPanelBob"/>
-			<item value="SetConcordanceSlider"/>
-			<item value="rectline"/>
-			<item value="stroke"/>
 		</list>
 		<list key="replacehistory">
+			<item value="getM_Constraint()"/>
 			<item value=""/>
 			<item value=" "/>
 			<item value="BUTTON"/>
@@ -25,7 +26,6 @@
 			<item value="m_frequencyIndex"/>
 			<item value="m_frequency"/>
 			<item value="fried"/>
-			<item value="flatter"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

@@ -20,21 +20,14 @@ public class VisualizationPanel extends JPanel{
 		return m_Constraint;
 	}
 	
-	public void setVisPanelConstraint(){
-		m_Constraint =new GridBagConstraints();
-		m_Constraint.gridwidth=5;
-		m_Constraint.weightx=1;
-		m_Constraint.weighty=1;
-		m_Constraint.fill = GridBagConstraints.BOTH;
-
-//		getM_Constraint().gridx = 1;
-//		getM_Constraint().gridy = 2;
-//		//Insets(int top, int right, int bottom, int left)
-//		int top=0;
-//		int right=0;
-//		int bottom=0;
-//		int left=0;
-//		getM_Constraint().insets = new Insets(top, right, bottom, left);
+	public GridBagConstraints visPanelConstraint(){
+		GridBagConstraints constraint =new GridBagConstraints();
+		constraint.gridwidth=5;
+		constraint.weightx=1;
+		constraint.weighty=1;
+//		m_Constraints.gridy=2;
+		constraint.fill = GridBagConstraints.BOTH;
+		return constraint;
 	}
 
 	public VisualizationPanel() {
@@ -63,11 +56,11 @@ public class VisualizationPanel extends JPanel{
 		this.setBackground(Color.white);
 		GridBagLayout panelLayout = new GridBagLayout( );
 		this.setLayout(panelLayout);
-		setVisPanelConstraint();
+//		this.setVisPanelConstraint();
 	}
 	
 	public void addComponents(TranslationVisualization transVis){
-		
+
 		//color legend panel
 		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
 		this.add(transVis.getM_ColorLegendPanel(),transVis.getM_ColorLegendPanel().getConstraint());

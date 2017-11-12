@@ -329,7 +329,7 @@ public class ConcordancePanel extends JPanel {
 	 * This method is called from ConcordancePanel. 
 	 */
 	public void paintComponent(Graphics  g){
-		repaint();
+//		repaint();
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);

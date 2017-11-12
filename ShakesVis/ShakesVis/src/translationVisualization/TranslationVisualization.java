@@ -65,19 +65,26 @@ public class TranslationVisualization {
 	/** a way to access the JScrollPane object (Layer 4)*/ 
 	private TransViScrollPane m_TransViScrollPane;
 
-	/** a JPanel object containing user-option components (Layer 2)*/
-//	private JPanel m_UserOptionPanel;
-	
-	/** a JPanel object used to select which version displayed (Layer 4)*/
-	private JPanel m_VersionSelectionPanel;
-
 	/** a JButton to initiate concordancePanel */
 	private ConcordanceButton m_ConcordanceButton;
 	
-	/** a JToggleButton to turn text on and off */
+	/** a TextOnOffButton to turn text on and off */
 	private  TextOnOffButton m_TextOnOffButton;
 
+	private TransVislider m_TransViSlider;
+	
 
+	/** an arrayList to pass version list to other classes */
+	private List<Version> m_VersionList=new ArrayList<Version>();
+	
+
+	private DataReader dataReader;
+
+	/** a JCheckBox to show version names */
+//	private JCheckBox versionMenu;
+	
+	private VersionChoosenPanel versionChoosingPanel;
+	
 	public TextOnOffButton getM_TextOnOffButton() {
 		return m_TextOnOffButton;
 	}
@@ -86,36 +93,6 @@ public class TranslationVisualization {
 		this.m_TextOnOffButton = m_TextOnOffButton;
 	}
 
-	private JLabel m_SliderLabel;
-	
-	
-	public JLabel getM_SliderLabel() {
-		return m_SliderLabel;
-	}
-
-	/**
-	 * 
-	 * @param m_SliderLabel
-	 * @param string
-	 */
-	public void setM_SliderLabel(JLabel m_SliderLabel, String string) {
-		this.m_SliderLabel = m_SliderLabel;
-		int fontSize=13;
-//		m_SliderLabel.setPreferredSize(new Dimension(10,10));
-		m_SliderLabel.setText(string);
-		m_SliderLabel.setForeground(Color.darkGray);
-		m_SliderLabel.setFont(new Font("Serif", Font.BOLD, fontSize));
-	}
-
-	/** a JSlider to zoom in and out concordancePanel */
-//	private JSlider m_ConcordanceSlider;
-	
-	/** a JSlider to zoom in and out concordancePanel */
-//	private TransVislider m_ConcordanceSlider;
-	
-	private TransVislider m_TransViSlider;
-	
-
 	public TransVislider getM_TransViSlider() {
 		return m_TransViSlider;
 	}
@@ -123,24 +100,6 @@ public class TranslationVisualization {
 	public void setM_TransViSlider(TransVislider m_TransViSlider) {
 		this.m_TransViSlider = m_TransViSlider;
 	}
-
-	/** a JSlider to zoom in and out scrollPane */
-//	private TransVislider m_ScrollPaneSlider;
-	
-	/** an arrayList to pass version list to other classes */
-	private List<Version> m_VersionList=new ArrayList<Version>();
-	
-
-	private DataReader dataReader;
-	
-	/**  */
-	private static double m_scaleValue=100;
-
-	
-	/** a JCheckBox to show version names */
-	private JCheckBox versionMenu;
-	
-	private VersionChoosenPanel versionChoosingPanel;
 	
 	public DataReader getDataReader() {
 		return dataReader;
@@ -172,20 +131,10 @@ public class TranslationVisualization {
 
 	public void setVersionChoosingPanel(VersionChoosenPanel versionChoosingPanel, ConcordancePanel concordancePanel, List<String> versionNames) {
 		this.versionChoosingPanel = versionChoosingPanel;
-//		versionChoosingPanel.addVersions(versionNames, concordancePanel);
-//		versionChoosingPanel.setLayout(new GridLayout(17,1)); //magic number
-//		//
-//		versionChoosingPanel.setBackground(Color.WHITE);
-//		versionChoosingPanel.setPreferredSize(new Dimension(100, 400)); //magic number
-//		versionChoosingPanel.setVisible(true);
 	}
 
 	//accessor methods
 
-
-	public JCheckBox getVersionMenu() {
-		return versionMenu;
-	}
 
 	/**
 	 *  Use this method to access m_ConcordanceFrame
@@ -293,18 +242,8 @@ public class TranslationVisualization {
 	 */
 	public void setM_UserOptionPanel(UserOptionPanel buttonPanel) {
 		this.m_UserOptionPanel = buttonPanel;
-//		m_UserOptionPanel.setBorder(BorderFactory.createTitledBorder(" User Options "));
-//		getM_UserOptionPanel().setVisible(true);
-//		getM_UserOptionPanel().setBackground(Color.WHITE);
 	}
 	
-	public JPanel getM_VersionSelectionPanel() {
-		return m_VersionSelectionPanel;
-	}
-
-	public void setM_VersionSelectionPanel(JPanel m_VersionSelectionPanel) {
-		this.m_VersionSelectionPanel = m_VersionSelectionPanel;
-	}
 
 	/**
 	 * Use this method to access m_ColorLegendPanel
@@ -326,12 +265,6 @@ public class TranslationVisualization {
 
 		
 	}
-	
-//	public void initialJslider(){
-//		int min=50; //minimum value
-//		int max=200; //maximum value
-//		int initialVar=100; //initial value
-//	}
 
 	/**
 	 * Use this method to access m_ConcordancePanel
@@ -358,12 +291,10 @@ public class TranslationVisualization {
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setDataReader(new DataReader());
 		
-		
 		//layer 2 - Visualization Panel
 		transVis.setM_visuallizationPanel(new VisualizationPanel());
 		transVis.getM_visuallizationPanel().initialize();
 		transVis.getM_visuallizationPanel().addComponents(transVis);
-
 		
 		//layer 2 - User-option Panel
 		transVis.setM_UserOptionPanel(new UserOptionPanel());
@@ -380,11 +311,9 @@ public class TranslationVisualization {
 		transVis.getConcordanceFrame().setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
 		GridBagLayout layout = new GridBagLayout();
 		transVis.getConcordanceFrame().setLayout(layout);
-		transVis.getConcordanceFrame().add(transVis.getM_UserOptionPanel(),transVis.getM_UserOptionPanel().getM_Constraint());
-		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel(),transVis.getM_visuallizationPanel().getM_Constraint());
+
+		transVis.getConcordanceFrame().add(transVis.getM_UserOptionPanel(),transVis.getM_UserOptionPanel().userOptionConstraint());
+		transVis.getConcordanceFrame().add(transVis.getM_visuallizationPanel(),transVis.getM_visuallizationPanel().visPanelConstraint());
 	}
 	
-	public void initializeConcordanceFrame(){
-//		this.setConcordanceFrame(concordanceFrame);
-	}
 }
