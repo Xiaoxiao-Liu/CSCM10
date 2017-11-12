@@ -7,15 +7,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -24,12 +21,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JToggleButton;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.ScrollPaneLayout;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import translationVisualizatonGUI.ColorLegendPanel;
+import translationVisualizatonGUI.ConcordanceButton;
 import translationVisualizatonGUI.ConcordancePanel;
+import translationVisualizatonGUI.TextOnOffButton;
 import translationVisualizatonGUI.TransVislider;
 import translationVisualizatonGUI.VersionChoosenPanel;
 
@@ -53,6 +51,7 @@ public class TranslationVisualization {
 	/** the height of the ScrollPanel */
 	private final static int SCROLL_PANEL_HEIGHT=330;
 	
+
 	/** a way to access the JFrame object (Layer 1) */
 	private JFrame m_ConcordanceFrame;
 
@@ -77,17 +76,17 @@ public class TranslationVisualization {
 	private JPanel m_VersionSelectionPanel;
 
 	/** a JButton to initiate concordancePanel */
-	private JButton m_ConcordanceButton;
+	private ConcordanceButton m_ConcordanceButton;
 	
 	/** a JToggleButton to turn text on and off */
-	private  JToggleButton m_TextOnOffButton;
+	private  TextOnOffButton m_TextOnOffButton;
 
 
-	public JToggleButton getM_TextOnOffButton() {
+	public TextOnOffButton getM_TextOnOffButton() {
 		return m_TextOnOffButton;
 	}
 
-	public void setM_TextOnOffButton(JToggleButton m_TextOnOffButton) {
+	public void setM_TextOnOffButton(TextOnOffButton m_TextOnOffButton) {
 		this.m_TextOnOffButton = m_TextOnOffButton;
 	}
 
@@ -118,7 +117,16 @@ public class TranslationVisualization {
 	/** a JSlider to zoom in and out concordancePanel */
 	private TransVislider m_ConcordanceSlider;
 	
+	private TransVislider m_TransViSlider;
 	
+
+	public TransVislider getM_TransViSlider() {
+		return m_TransViSlider;
+	}
+
+	public void setM_TransViSlider(TransVislider m_TransViSlider) {
+		this.m_TransViSlider = m_TransViSlider;
+	}
 
 	/** a JSlider to zoom in and out scrollPane */
 	private TransVislider m_ScrollPaneSlider;
@@ -264,7 +272,7 @@ public class TranslationVisualization {
 	 * Use this method to access m_ConcordanceButton
 	 * @return m_ConcordanceButton
 	 */
-	public JButton getConcordanceButton() {
+	public ConcordanceButton getConcordanceButton() {
 		return m_ConcordanceButton;
 	}
 
@@ -272,7 +280,7 @@ public class TranslationVisualization {
 	 * Use this method to create and set m_ConcordanceButton
 	 * @param concordanceButton
 	 */
-	public void setConcordanceButton(JButton concordanceButton) {
+	public void setConcordanceButton(ConcordanceButton concordanceButton) {
 		m_ConcordanceButton = concordanceButton;
 	}
 
@@ -401,34 +409,17 @@ public class TranslationVisualization {
 		
 		
 //		//concordance button
-		transVis.setConcordanceButton(new JButton("Concordances"));
+		transVis.setConcordanceButton(new ConcordanceButton("Concordances"));
 		
 		//concordance slider
-		
-		transVis.setM_ConcordanceSlider(new TransVislider());
-		transVis.getM_ConcordanceSlider().initialize();
-		transVis.getM_ConcordanceSlider().addChangeListener(new ChangeListener(){
-	        	public void stateChanged(ChangeEvent event){
-	        		m_scaleValue=transVis.getM_ConcordanceSlider().getValue();
-				transVis.getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
-				transVis.getConcordanceFrame().revalidate(); 
-	        	}
-	        });
+//		transVis.setM_ConcordanceSlider(new TransVislider());
+		transVis.setM_TransViSlider(new TransVislider());
+//		transVis.getM_ConcordanceSlider().initialize();
+		transVis.getM_TransViSlider().concordanceSlider(transVis.getConcordancePanel(), transVis.getConcordanceFrame());
 		
 		//scrollPane slider   SwingConstants.HORIZONTAL, min, max, initialVar
 		transVis.setM_ScrollPaneSlider(new TransVislider());
-		transVis.getM_ScrollPaneSlider().initialize();
-		transVis.getM_ScrollPaneSlider().addChangeListener(new ChangeListener(){
-        	public void stateChanged(ChangeEvent event) {
-        		m_scaleValue=transVis.getM_ScrollPaneSlider().getValue();
-        		m_scaleValue=m_scaleValue/100.0;
-        		int widthScale=(int) (SCROLL_PANEL_WIDTH*m_scaleValue);
-        		int heightScale=(int) (SCROLL_PANEL_HEIGHT*m_scaleValue);
-        		Dimension dimension=new Dimension(widthScale, heightScale);
-        		transVis.getScrollPane().setPreferredSize(dimension);
-        		transVis.getConcordanceFrame().revalidate(); 
-			}
-        });
+		transVis.getM_ScrollPaneSlider().scrollPaneSlider(transVis.getScrollPane(), transVis.getConcordanceFrame());
 		
 		//versionChoosing Panel
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
@@ -439,14 +430,7 @@ public class TranslationVisualization {
 		GridBagConstraints constraint=new GridBagConstraints();
 		transVis.getM_visuallizationPanel().setLayout(panelLayout);
 
-		 constraint.gridx = 1;
-	     constraint.gridy = 1;
-//	     constraint.gridwidth=1;
-	     constraint.weightx=1;
-	     constraint.weighty=1;
-	     constraint.fill = GridBagConstraints.BOTH;
-	     constraint.insets = new Insets(0,0,0,0);
-	     transVis.getM_visuallizationPanel().add(transVis.getM_ColorLegendPanel(),constraint);
+	    transVis.getM_visuallizationPanel().add(transVis.getM_ColorLegendPanel(),transVis.getM_ColorLegendPanel().getConstraint());
 		
 		constraint.gridx = 2;
 		constraint.gridy = 1;
@@ -464,50 +448,17 @@ public class TranslationVisualization {
 		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
 		
 		//ConcordanceButton
-		transVis.setConcordanceButton(new JButton("Concordances"));
-		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 1;
-		useroptionConstraint.fill = GridBagConstraints.BOTH;
-        useroptionConstraint.insets = new Insets(20,30,10,30);
-        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),useroptionConstraint);
-        
-        transVis.getConcordanceButton().addActionListener(new ActionListener(){
-			@Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Button pressed");
-                transVis.getScrollPane().setVisible(true);
-                transVis.getConcordanceFrame().revalidate(); 
-            }
-		});
-        
+        transVis.getM_UserOptionPanel().add(transVis.getConcordanceButton(),transVis.getConcordanceButton().getConstraint());
+        transVis.getConcordanceButton().initialize(transVis.getScrollPane(), transVis.getConcordanceFrame());
+
         //text on off button
-		transVis.setM_TextOnOffButton(new JToggleButton("Text On"));
-		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 2;
-		useroptionConstraint.fill = GridBagConstraints.BOTH;
-        useroptionConstraint.insets = new Insets(0,30,10,30);
-        transVis.getM_UserOptionPanel().add(transVis.getM_TextOnOffButton(),useroptionConstraint);
-        ItemListener itemListener = new ItemListener() {
-            public void itemStateChanged(ItemEvent itemEvent) {
-                int state = itemEvent.getStateChange();
-                if (state == ItemEvent.SELECTED) {
-                	 transVis.getM_TextOnOffButton().setText("Text On");//change the text on button
-                	 transVis.getConcordancePanel().setOnAndOff(false);
-                } else {
-                	transVis.getM_TextOnOffButton().setText("Text Off");
-                	 transVis.getConcordancePanel().setOnAndOff(true);
-                }
-            }
-        };
-        transVis.getM_TextOnOffButton().addItemListener(itemListener);
+//		transVis.setM_TextOnOffButton(new TextOnOffButton("Text On"));
+		transVis.setM_TextOnOffButton(new TextOnOffButton());
+        transVis.getM_UserOptionPanel().add(transVis.getM_TextOnOffButton(),transVis.getM_TextOnOffButton().getConstraint());
+        transVis.getM_TextOnOffButton().initialize(transVis.getConcordancePanel());
 		
         //concordanceSlider
-        useroptionConstraint.gridx = 1;
-        useroptionConstraint.gridy = 3;
-//        useroptionConstraint.fill = GridBagConstraints.BOTH;
-//        useroptionConstraint.anchor = GridBagConstraints.EAST;
-        useroptionConstraint.insets = new Insets(13,0,0,5);
-        transVis.getM_UserOptionPanel().add(transVis.getM_ConcordanceSlider(),useroptionConstraint);
+        transVis.getM_UserOptionPanel().add(transVis.getM_TransViSlider(),transVis.getM_TransViSlider().getM_Constraint());
         
         //concordanceSlider label
         transVis.setM_SliderLabel(new JLabel(), "Concordance");
@@ -520,9 +471,8 @@ public class TranslationVisualization {
 		//scrollpaneSlider
         useroptionConstraint.gridx = 1;
         useroptionConstraint.gridy =4;
-//        useroptionConstraint.fill = GridBagConstraints.BOTH;
+        useroptionConstraint.fill = GridBagConstraints.BOTH;
         useroptionConstraint.insets = new Insets(13,0,50,5);
-        transVis.getM_ScrollPaneSlider().setToolTipText("Hello");
         transVis.getM_UserOptionPanel().add(transVis.getM_ScrollPaneSlider(), useroptionConstraint);
         
       //scrollpaneSlider label

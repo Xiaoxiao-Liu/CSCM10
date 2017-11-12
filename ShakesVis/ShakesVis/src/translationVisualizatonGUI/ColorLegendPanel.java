@@ -2,7 +2,9 @@ package translationVisualizatonGUI;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -18,6 +20,21 @@ public class ColorLegendPanel extends JPanel {
 
 	private ConcordancePanel m_ConcordancePanel;
 	
+//	private GridBagConstraints constraint;
+	
+	public GridBagConstraints getConstraint() {
+		GridBagConstraints constraint =new GridBagConstraints();
+		constraint.gridx = 1;
+		constraint.gridy = 1;
+//	     constraint.gridwidth=1;
+		constraint.weightx=1;
+		constraint.weighty=1;
+		constraint.fill = GridBagConstraints.BOTH;
+		constraint.insets = new Insets(0,0,0,0);
+		return constraint;
+	}
+
+
 	public ConcordancePanel getM_ConcordancePanel() {
 		return m_ConcordancePanel;
 	}
