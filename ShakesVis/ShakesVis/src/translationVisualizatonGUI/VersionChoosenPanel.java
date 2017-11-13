@@ -96,7 +96,11 @@ public class VersionChoosenPanel extends JPanel {
 	            	
 	            	// if select only one item
 	            	else{
-	            		Object objName;
+	            		Object objName=((JCheckBox)actionEvent.getSource()).getName(); 
+	            		if(objName.equals("0000 BaseText Shakespeare.txt")){
+	            			concordancePanel.setFirstVersion(true);
+	            		}
+	            		System.out.println(objName.toString());
 	            		if(oneSelected==true){ //if the item is selected
 		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
 		            		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
