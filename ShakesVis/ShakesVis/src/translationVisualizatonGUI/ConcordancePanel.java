@@ -31,6 +31,10 @@ public class ConcordancePanel extends JPanel {
 	
 	private DataReader dataReader;
 	
+//	int spacingY=25;
+//	
+//	int spacingX=150;
+	
 	private boolean firstVersion=false;
 	
 	/** a boolean value to turn on and off the text on panel */
@@ -162,10 +166,6 @@ public class ConcordancePanel extends JPanel {
 		return point;
 	}
 	
-	
-	
-	
-	
 	/**
 	 * 
 	 * @param List<String>
@@ -229,8 +229,13 @@ public class ConcordancePanel extends JPanel {
 	}
 	
 	//when choose one color on color panel
-	public void highLight(String token){
-		firstVersion=true;
+	/**
+	 * if one color on color legend panel is clicked,
+	 * all tokens with the ame frequency will be highlighted
+	 * @param token
+	 */
+	public void freqHighlight(String token){
+//		firstVersion=true;
 		int size=13;
 		int frequency=Integer.parseInt(token);
 		float transparentValue=0.4f;
@@ -253,34 +258,48 @@ public class ConcordancePanel extends JPanel {
 				}
 			}
 		repaint();
-		firstVersion=false;
+//		firstVersion=false;
 	}
 		
 	
 	
 	//when choose one word on concordance panel
-	public void hightLightColor(Point point){
+	/**
+	 * set the transparency of the rectangles' when one token is clicked
+	 * @param point
+	 */
+	public void tokenHighLight(Point point){
 		int versionNumber=point.x;
 		int lineNumber=point.y;
 		int size=13;
 		float transparentValue=0.4f;
+		Concordance choosenConcordance=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber);
+
+		//if tokens in base text are clicked 
 		if(versionNumber==0){
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
-			Concordance choosenConcordance=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber);
+			
 			for(int m=0; m<getM_VersionList().size(); m++){
 				Version version=getM_VersionList().get(m);
 				for(int n=0; n<version.getM_ConcordanceList().size(); n++){
+					if(m==0){
+						choosenConcordance.setM_Token_Font(M_Token_Font);
+						choosenConcordance.setM_rectLine(true);
+						choosenConcordance.setM_RectColor(getDataReader().calculateColor(choosenConcordance.getM_Frequency(), 1));
+					}
 					Concordance concordance=version.getM_ConcordanceList().get(n);
 					if(!choosenConcordance.getM_TokenTranslations().contains(concordance.getM_Token())){
+						
 						Font token_Font=new Font("sansserif",Font.PLAIN, size);
 						concordance.setM_Token_Font(token_Font);
 						concordance.setM_rectLine(false);
 						concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
 						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
 					}else{
-						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
+						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1f));
 						concordance.setM_Token_Font(M_Token_Font);
 						concordance.setM_rectLine(true);
+//						System.out.println(choosenConcordance.getM_Token());
 					}
 				}
 			}
@@ -294,18 +313,26 @@ public class ConcordancePanel extends JPanel {
 				Version version=getM_VersionList().get(i);
 				for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 					Concordance concordance=version.getM_ConcordanceList().get(j);
-					
-					if(!choosenToken.equals(concordance.getM_Token())){
-						Font token_Font=new Font("sansserif",Font.PLAIN, size);
-						concordance.setM_Token_Font(token_Font);
-						concordance.setM_rectLine(false);
-						concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
-						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
+					if(i==0&&concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
+//						if(concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
+							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
+							concordance.setM_Token_Font(M_Token_Font);
+							concordance.setM_rectLine(true);
+//						}
 					}else{
-						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
-						concordance.setM_Token_Font(M_Token_Font);
-						concordance.setM_rectLine(true);
+						if(!choosenToken.equals(concordance.getM_Token())){
+							Font token_Font=new Font("sansserif",Font.PLAIN, size);
+							concordance.setM_Token_Font(token_Font);
+							concordance.setM_rectLine(false);
+							concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
+							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
+						}else{
+							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
+							concordance.setM_Token_Font(M_Token_Font);
+							concordance.setM_rectLine(true);
+						}
 					}
+					
 						
 				}
 			}
@@ -390,6 +417,7 @@ public class ConcordancePanel extends JPanel {
 				if(concordance.isM_rectLine()==true){
 					g2d.setColor(Color.black);
 					g2d.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
+					
 				}
 				
 				//draw the lines for rectangle
@@ -408,12 +436,13 @@ public class ConcordancePanel extends JPanel {
 								Graphics2D g2 = (Graphics2D)g;
 								g2.setStroke(new BasicStroke(2)); //make the line thicker
 								//draw line around rectangle
-								if(concordanceCompare.isM_rectLine()==true&&firstVersion==false){
+								if(concordance.isM_rectLine()==true){
 									g2.setColor(Color.BLACK);
 									g2.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
 								}
 								g2.setColor(concordance.getM_RectColor()); 
-								g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
+								int gapY=concordanceCompare.getM_RectHeight()/2;
+								g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y+gapY);
 
 //								g.setColor(concordance.getM_RectColor()); 
 //								g.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y);
@@ -478,7 +507,7 @@ public class ConcordancePanel extends JPanel {
 			// TODO Auto-generated method stub
 			Point point=event.getPoint();
 //			highlightPoint(point, getScaleValue());
-			hightLightColor(getHighlightPoint(point, getScaleValue()));
+			tokenHighLight(getHighlightPoint(point, getScaleValue()));
 //			rangeListener(point);
 //			int x=point.x;
 //			int y=point.y;

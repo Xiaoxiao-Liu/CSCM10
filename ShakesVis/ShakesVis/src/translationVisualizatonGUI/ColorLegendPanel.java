@@ -67,7 +67,7 @@ public class ColorLegendPanel extends JPanel {
                 public void mouseClicked(MouseEvent event) {
                 	Object objectAll=((JLabel) event.getSource()).getName();
                 	String thisString=((JLabel) event.getSource()).getName();
-                    getM_ConcordancePanel().highLight(thisString);
+                    getM_ConcordancePanel().freqHighlight(thisString);
                 }
 
             });

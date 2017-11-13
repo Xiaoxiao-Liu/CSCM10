@@ -35,6 +35,11 @@ public class Concordance {
 		return m_rectLine;
 	}
 
+	/**
+	 * if the value turns to true, 
+	 * this boolean value will be passed to graphic class and set this token's rectangle highLighted
+	 * @param m_rectLine
+	 */
 	public void setM_rectLine(boolean m_rectLine) {
 		this.m_rectLine = m_rectLine;
 	}
