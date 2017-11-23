@@ -345,7 +345,7 @@ public class DataReader {
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
-			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+//			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
@@ -368,12 +368,9 @@ public class DataReader {
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
 				lineNumber++;
-			}
+//			}
 		}
-//		if(versionNumber==0){
-//			googleAPIEng(getVersion());
-//		}
-		googleAPIAuth(getVersion());
+//		googleAPIAuth(getVersion());
 		
 		return true;
 	}
@@ -499,40 +496,40 @@ public class DataReader {
 //		return true;
 //	}
 
-	public void googleAPIAuth(Version version){
-		List<String> tokenTranslation=new ArrayList<String>();
-		tokenTranslation=version.getM_WordsList();
-		try {           
-	        // See comments on 
-	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-	        // on options to set
-	        Translate t = new Translate.Builder(
-	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-	                //Need to update this to your App-Name
-	                .setApplicationName("ShakesVis")                    
-	                .build(); 
-	        Translate.Translations.List list = t.new Translations().list(
-	        		version.getM_WordsList(), 
-	                    //Target language
-	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
-	                    "en");  
-	        //Set your API-Key from https://console.developers.google.com/
-	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-	        TranslationsListResponse response = list.execute();
-	        int i=0;
-	        for(TranslationsResource tr : response.getTranslations()) {
-//	        	tokenTranslation.add(tr.getTranslatedText());
-//	            System.out.println(i+": "+tr.getTranslatedText());
-	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-	            i++;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
-	
+//	public void googleAPIAuth(Version version){
+//		List<String> tokenTranslation=new ArrayList<String>();
+//		tokenTranslation=version.getM_WordsList();
+//		try {           
+//	        // See comments on 
+//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+//	        // on options to set
+//	        Translate t = new Translate.Builder(
+//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+//	                //Need to update this to your App-Name
+//	                .setApplicationName("ShakesVis")                    
+//	                .build(); 
+//	        Translate.Translations.List list = t.new Translations().list(
+//	        		version.getM_WordsList(), 
+//	                    //Target language
+//	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
+//	                    "en");  
+//	        //Set your API-Key from https://console.developers.google.com/
+//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+//	        TranslationsListResponse response = list.execute();
+//	        int i=0;
+//	        for(TranslationsResource tr : response.getTranslations()) {
+////	        	tokenTranslation.add(tr.getTranslatedText());
+////	            System.out.println(i+": "+tr.getTranslatedText());
+//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+//	            i++;
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+//	
 	public void googleAPIEng(Version version){
 		List<String> tokenTranslation=new ArrayList<String>();
 		tokenTranslation=version.getM_WordsList();
