@@ -54,11 +54,11 @@ public class TFIDFCalculator {
 				idfValue=idf(documents,currenToken);
 				tfIDF=termFrequency*idfValue;
 				getTfidfList().put(currenToken, (int) (tfIDF*widthValue));
-//				System.out.println("currenToken: "+currenToken);
-//				System.out.println("termFrequency: "+termFrequency);
-//				System.out.println("idfValue: "+idfValue);
-//				System.out.println("tfIDF: "+tfIDF);
-//				System.out.println("int: "+(int) (tfIDF*widthValue));
+				System.out.println("currenToken: "+currenToken);
+				System.out.println("termFrequency: "+termFrequency);
+				System.out.println("idfValue: "+idfValue);
+				System.out.println("tfIDF: "+tfIDF);
+				System.out.println("int: "+(int) (tfIDF*widthValue));
 			}
 			getLists().add(getTfidfList());
 		}
