@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\Users\45109\Desktop\ShakesVisualization"/>
 		<item value="C:\Users\45109\Desktop\Bob&apos;s shining code"/>
 		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis"/>
 		<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\Bob&apos;s shining code"/>

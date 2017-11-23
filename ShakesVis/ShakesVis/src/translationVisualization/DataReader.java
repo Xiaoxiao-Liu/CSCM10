@@ -35,15 +35,6 @@ public class DataReader {
 	/**an array list of word and frequency index after sorting as ascending order*/
 	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 	
-	public List<Map.Entry<String, Integer>> getM_FrequencyIndex() {
-		return m_FrequencyIndex;
-	}
-
-	public void setM_FrequencyIndex(List<Map.Entry<String, Integer>> m_FrequencyIndex) {
-		this.m_FrequencyIndex = m_FrequencyIndex;
-	}
-
-
 	/**an string array to store file paths for basic text and translation versions*/
 	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
 			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
@@ -54,8 +45,6 @@ public class DataReader {
 	/**a hashtable to store tokens and frequency but without sorting*/
 	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
 	
-	
-	
 	/***/
 	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
 	
@@ -64,10 +53,6 @@ public class DataReader {
 	
 	/**a list of String stored all version names*/
 	public List<String> m_VersionNameList = new ArrayList<String>();
-
-	/***/
-//	protected StanfordCoreNLP pipeline;
-
 
 	/***/
 	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
@@ -80,8 +65,36 @@ public class DataReader {
 
 	/***/
 	private JsonReader jsonReader;
+  
+	/**a list of string lists to store all tokens of all files*/
+	private List<Hashtable<String, Integer>> m_tokenLists = new ArrayList<Hashtable<String, Integer>>();
+
+	public List<Hashtable<String, Integer>> getM_tokenLists() {
+		return m_tokenLists;
+	}
+
+
+	private List<String> m_OneTokenList;
 	
-	
+	public void setM_OneTokenList(List<String> m_OneTokenList) {
+		this.m_OneTokenList = m_OneTokenList;
+	}
+
+	/**
+	 * an accessor method used to add and get one list of token
+	 * @return
+	 */
+	public List<String> getM_OneTokenList() {
+		return m_OneTokenList;
+	}
+
+	public List<Map.Entry<String, Integer>> getM_FrequencyIndex() {
+		return m_FrequencyIndex;
+	}
+
+	public void setM_FrequencyIndex(List<Map.Entry<String, Integer>> m_FrequencyIndex) {
+		this.m_FrequencyIndex = m_FrequencyIndex;
+	}
 
 	/**
 	 *  @return m_VersionNameList
@@ -157,6 +170,7 @@ public class DataReader {
 			// List<String> tmpWordsList=new ArrayList<String>();
 
 			String[] tmpWordsList; // a string array used to store strings after sCurrentLine beings splited
+//			setM_OneTokenList(new ArrayList<String>());
 			int lineCount = 0; 
 			while ((sCurrentLine = br.readLine()) != null) { //read a line of the text each time
 				if (sCurrentLine.trim().isEmpty()) { // get rid of empty lines
@@ -187,8 +201,14 @@ public class DataReader {
 					for (int i = 0; i < tmpWordsList.length; i++) {
 						addWordFrequency(tmpWordsList[i]);
 					}
+					
+					
+					
 				}
 			}
+//			if(!filePath.equals("src\\data\\0000 BaseText Shakespeare.txt")){
+//				getM_tokenLists().add(getM_OneTokenList());
+//			}
 			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -206,12 +226,18 @@ public class DataReader {
 	 * @return TRUE on success.
 	 */
 	public boolean addWordFrequency(String eachWord) {
-		if (!getM_UnsortedFrequency().containsKey(eachWord)) { //if the token appears first time
-			getM_UnsortedFrequency().put(eachWord, new Integer(1)); // set the frequency as 1
-		} else {
-			getM_UnsortedFrequency().put(eachWord, getM_UnsortedFrequency().get(eachWord).intValue() + 1);
-			//increment frequency number
+		if(!(eachWord.equals(""))){
+			if (!getM_UnsortedFrequency().containsKey(eachWord)) { //if the token appears first time
+				getM_UnsortedFrequency().put(eachWord, new Integer(1)); // set the frequency as 1
+			} else {
+				getM_UnsortedFrequency().put(eachWord, getM_UnsortedFrequency().get(eachWord).intValue() + 1);
+				//increment frequency number
+			}
 		}
+		
+//		System.out.println(eachWord+": "+getM_UnsortedFrequency().get(eachWord).intValue() + 1);
+
+		
 		return true;
 	}
 
@@ -359,21 +385,27 @@ public class DataReader {
 	 */
 	public List<Version> readAllFile() throws Exception {
 		
-		
-		/*
-		 * 
-		 */
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
-//			Version version = new Version(); 
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
+			if(!(i==0)){
+				getM_tokenLists().add(getM_UnsortedFrequency());
+			}
 			addVersionInfo(i); //pass i to method as version number and add information for one version
 			m_VersionList.add(getVersion()); //add one version to the version list
-			
 		}
-		
-		
+
+		TFIDFCalculator calculator = new TFIDFCalculator();
+//		addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
+	}
+	
+	public void addTfidf(List<Hashtable<String, Integer>> lists) throws Exception{
+		for(int i=0; i<lists.size(); i++){
+			sortFrequencyIndex(lists.get(i));
+			addVersionInfo(i);
+			m_VersionList.add(getVersion());
+		}
 	}
 
 	/**
