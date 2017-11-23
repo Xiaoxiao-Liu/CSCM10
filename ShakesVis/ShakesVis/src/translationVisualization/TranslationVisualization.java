@@ -99,7 +99,6 @@ public class TranslationVisualization {
 	}
 
 	/**
-	 * 
 	 * @param m_SliderLabel
 	 * @param string
 	 */
@@ -118,23 +117,6 @@ public class TranslationVisualization {
 	/** a JSlider to zoom in and out scrollPane */
 	private JSlider m_ScrollPaneSlider;
 	
-	/** a JSlider to zoom in and out concordancePanel */
-	private JSlider m_TfidfSlider;
-	
-	public JSlider getM_TfidfSlider() {
-		return m_TfidfSlider;
-	}
-
-	public void setM_TfidfSlider(JSlider m_TfidfSlider) {
-		this.m_TfidfSlider = m_TfidfSlider;
-		int fontSize=11;
-		int tickSpacing=10; //set tick space: 0, 10, 20...100
-		m_TfidfSlider.setMajorTickSpacing(tickSpacing);
-		m_TfidfSlider.setFont(new Font("Serif", Font.PLAIN, fontSize));
-		m_TfidfSlider.setPaintLabels(true);
-		m_TfidfSlider.setBackground(Color.WHITE);
-	}
-
 	/** an arrayList to pass version list to other classes */
 	private List<Version> m_VersionList=new ArrayList<Version>();
 	
@@ -434,11 +416,11 @@ public class TranslationVisualization {
 		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
 		
 		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
-		//tfidf slider
-				int minTfidf=0;
-				int maxTfidf=25;
-				transVis.setM_TfidfSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
-		        // end initialize concordance slide
+//		//tfidf slider
+//				int minTfidf=0;
+//				int maxTfidf=25;
+//				transVis.setM_TfidfSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
+//		        // end initialize concordance slide
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
 		
 		
@@ -562,25 +544,7 @@ public class TranslationVisualization {
 //        useroptionConstraint.anchor = GridBagConstraints.WEST;
         useroptionConstraint.insets = new Insets(9,5,50,0);
         transVis.getM_UserOptionPanel().add(transVis.getM_SliderLabel(),useroptionConstraint);
-        
 
-        //tfidf slider
-        useroptionConstraint.gridx = 1;
-        useroptionConstraint.gridy =5;
-//        useroptionConstraint.fill = GridBagConstraints.BOTH;
-        useroptionConstraint.insets = new Insets(13,0,0,5);
-        transVis.getM_UserOptionPanel().add(transVis.getM_TfidfSlider(), useroptionConstraint);
-        transVis.getM_TfidfSlider().addChangeListener(new ChangeListener(){
-        	public void stateChanged(ChangeEvent event) {
-        		m_scaleValue=transVis.getM_TfidfSlider().getValue();
-        		System.out.println(m_scaleValue);
-//        		m_scaleValue=m_scaleValue/100.0;
-        		
-			}
-        });
-        
-        
-        
         // versionChoosingPanel
 		useroptionConstraint.gridx = 1;
 		useroptionConstraint.gridy = 6;

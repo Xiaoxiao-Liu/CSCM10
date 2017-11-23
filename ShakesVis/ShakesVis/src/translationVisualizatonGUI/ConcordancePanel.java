@@ -397,8 +397,12 @@ public class ConcordancePanel extends JPanel {
 				//set color of strings/tokens
 				if(this.getM_OnAndOff()==true){
 					g.setColor(Color.black);
-					//paint both token and its frequency
-					String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
+					//paint both token and its tfidf value*100
+//					String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
+					
+					//paint only token without numbers
+					String string=concordance.getM_Token()+" ";
+
 					g.setFont(concordance.getM_WORD_FONT());
 					//draw the current string/token, drawString(String, int x, int y)
 					g.drawString(string, concordance.getM_StringPoint().x-fontMetrics.stringWidth(string), concordance.getM_StringPoint().y);
