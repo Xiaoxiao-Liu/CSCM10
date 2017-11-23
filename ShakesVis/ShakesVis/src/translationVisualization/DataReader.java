@@ -391,12 +391,12 @@ public class DataReader {
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-			addVersionInfo(i); //pass i to method as version number and add information for one version
-			m_VersionList.add(getVersion()); //add one version to the version list
+//			addVersionInfo(i); //pass i to method as version number and add information for one version
+//			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 
 		TFIDFCalculator calculator = new TFIDFCalculator();
-//		addTfidf(calculator.initiate(getM_tokenLists()));
+		addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
 	}
 	
