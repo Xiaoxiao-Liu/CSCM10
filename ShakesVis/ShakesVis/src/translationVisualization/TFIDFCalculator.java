@@ -43,7 +43,7 @@ public class TFIDFCalculator {
 		double tf;
 		double idfValue;
 		double tfIDF;
-		int widthValue=10;
+		int rectValue=10;
 		double maxtfidf = 0;
 		double mintfidf=10000;
 		for (Hashtable<String, Integer> doc : documents) {
@@ -51,17 +51,16 @@ public class TFIDFCalculator {
 			setOneDoc(new ArrayList<Map.Entry<String, Integer>>(doc.entrySet()));
 			for(Map.Entry<String, Integer> mapping : getOneDoc()){
 				currenToken=mapping.getKey();
-//				System.out.println("H"+currenToken+"M");
 				termFrequency=mapping.getValue();
 				tf= 1+Math.log(termFrequency);
 				idfValue=idf(documents,currenToken);
 				tfIDF=tf*idfValue;
-				getTfidfList().put(currenToken, (int) (tfIDF*widthValue));
-//				System.out.println("currenToken: "+currenToken);
-//				System.out.println("termFrequency: "+tf);
+				getTfidfList().put(currenToken, (int) (tfIDF*rectValue));
+//				System.out.println(currenToken +": " +idfValue);
+//				System.out.println("tf: "+tf);
 //				System.out.println("idfValue: "+idfValue);
 //				System.out.println("tfIDF: "+tfIDF);
-				//System.out.println("int: "+(int) (tfIDF*widthValue));
+//				System.out.println("tfIDF*rectValue: "+(int) (tfIDF*rectValue));
 				if(tfIDF > maxtfidf){
 					maxtfidf = tfIDF;
 				}
@@ -72,8 +71,6 @@ public class TFIDFCalculator {
 			}
 			getLists().add(getTfidfList());
 		}
-		System.out.println(maxtfidf);
-		System.out.println(mintfidf);
 
 		return getLists();
 	}

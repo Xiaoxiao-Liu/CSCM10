@@ -374,6 +374,8 @@ public class TranslationVisualization {
 		 
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.setDataReader(new DataReader());
+//		LemmatizeData ld=new LemmatizeData();
+//		ld.readAllFile();
 //		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
 		//layer 1 - Concordance Frame
 		transVis.setConcordanceFrame(new JFrame("Translation Visualization"));
