@@ -266,7 +266,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 //		firstVersion=false;
 	}
-		
 	
 	
 	//when choose one word on concordance panel

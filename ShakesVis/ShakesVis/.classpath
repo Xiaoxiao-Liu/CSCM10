@@ -43,6 +43,5 @@
 	<classpathentry kind="lib" path="C:/Users/45109/Desktop/google-api-java-client/libs/transaction-api-1.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/45109/Desktop/google-api-java-client/libs/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="lib" path="C:/Users/45109/Documents/GitHub/CSCM10/ShakesVis/ShakesVis/src/APIs/javax.json-api-1.0-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/45109/Documents/GitHub/CSCM10/ShakesVis/ShakesVis/src/APIs/java-json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
