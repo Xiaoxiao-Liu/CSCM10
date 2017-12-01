@@ -34,7 +34,7 @@ import translationVisualizatonGUI.ConcordancePanel;
 import translationVisualizatonGUI.VersionChoosenPanel;
  
 public class TranslationVisualization {
-	//Hello
+	//Hello, World
 //	/** the width of the frame */
 //	private final static int FRAME_WIDTH=800;
 // 	  
