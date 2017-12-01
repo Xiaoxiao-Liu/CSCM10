@@ -288,7 +288,6 @@ public class DataReader {
 		getVersion().setM_VersionYear(fileName);
 
 		getVersion().setM_Author(fileName);
-		
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 100, 0, 0)); //0 is line number, title has only one line
 		
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
