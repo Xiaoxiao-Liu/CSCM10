@@ -286,10 +286,8 @@ public class DataReader {
 		m_VersionNameList.add(fileName); //create a list of String to store all version names
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
-
 		getVersion().setM_Author(fileName);
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 100, 0, 0)); //0 is line number, title has only one line
-		
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
