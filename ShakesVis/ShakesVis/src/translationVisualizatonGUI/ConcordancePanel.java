@@ -464,22 +464,23 @@ public class ConcordancePanel extends JPanel {
 							}
 						}
 					}
+					
 						
 						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
 						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
-						if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
-							Graphics2D g2 = (Graphics2D)g;
-							g2.setStroke(new BasicStroke(2)); //make the line thicker
-							//draw line around rectangle
-							if(concordance.isM_rectLine()==true){
-								g2.setColor(Color.BLACK);
-								g2.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
-							}
-							g2.setColor(concordance.getM_RectColor()); 
-							int gapY=concordanceCompare.getM_RectHeight()/2;
-							g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y+gapY);
-						
-						}
+//						if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
+//							Graphics2D g2 = (Graphics2D)g;
+//							g2.setStroke(new BasicStroke(2)); //make the line thicker
+//							//draw line around rectangle
+//							if(concordance.isM_rectLine()==true){
+//								g2.setColor(Color.BLACK);
+//								g2.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
+//							}
+//							g2.setColor(concordance.getM_RectColor()); 
+//							int gapY=concordanceCompare.getM_RectHeight()/2;
+//							g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y+gapY);
+//						
+//						}
 						}		
 						
 					

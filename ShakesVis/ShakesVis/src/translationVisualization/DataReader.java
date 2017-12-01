@@ -350,10 +350,10 @@ public class DataReader {
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
 				concordance.getM_Tokens().add(mapping.getKey());
-				if(versionNumber==0){
-				concordance.setM_TokenTranslations(new ArrayList<String>());
-				jSonReader(concordance.getM_Token(), concordance);
-				}
+//				if(versionNumber==0){
+//				concordance.setM_TokenTranslations(new ArrayList<String>());
+//				jSonReader(concordance.getM_Token(), concordance);
+//				}
 				concordance.setM_Frequency(mapping.getValue());
 				concordance.getM_Frequencies().add(mapping.getValue());
 				concordance.setM_RectWidth(mapping.getValue(),100);
