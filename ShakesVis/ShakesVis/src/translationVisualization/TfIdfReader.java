@@ -30,7 +30,7 @@ import com.google.api.services.translate.model.TranslationsResource;
  * @author Rosa
  * This is a logic class to read the data from .txt file and compute the token frequency and other information
  */
-public class DataReader {
+public class TfIdfReader {
 	
 	/**an array list of word and frequency index after sorting as ascending order*/
 	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
@@ -273,6 +273,57 @@ public class DataReader {
 		});
 		return m_ColorIndex;
 	}
+
+//	public boolean addConcordanceInfo(int versionNumber)throws Exception{
+//		Concordance concordance = new Concordance();
+//		concordance.setM_Tokens(new ArrayList<String>());
+//		concordance.setM_Frequencies(new ArrayList<Integer>());
+//		concordance.setM_Rectangles(new ArrayList<Rectangle>());
+//		
+//		
+//		
+//		setVersion(new Version()); //initialize a new version
+//		int fileNamePosition = 2; //the author name and the year is the third element in the array
+//		String fileName=filePathProcess(getM_FilePath(), versionNumber, fileNamePosition);
+//		m_VersionNameList.add(fileName); //create a list of String to store all version names
+//		getVersion().setM_VersionName(fileName);
+//		getVersion().setM_VersionYear(fileName);
+//		getVersion().setM_Author(fileName);
+//		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 0)); //0 is line number, title has only one line
+//		int lineNumber = 1; //used to count line and pass the number to calculate the point location
+//		int listSize = 50; //used to fetch top 50 frequent tokens
+//		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
+//			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+//				getVersion().getM_WordsList().add(mapping.getKey());
+//				
+//				concordance.setM_Token(mapping.getKey());
+//				
+//				if(versionNumber==0){
+//				concordance.setM_TokenTranslations(new ArrayList<String>());
+//				jSonReader(concordance.getM_Token(), concordance);
+//				}
+//				concordance.setM_Frequency(mapping.getValue());
+//				concordance.setM_RectWidth(mapping.getValue(), 1);
+//				concordance.setM_StringPoint(calculatePoint(versionNumber, lineNumber, 0));
+//				concordance.setM_RectPoint(concordance.getM_StringPoint());
+//				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
+//				addStringIndex(mapping);
+//				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token())));
+//				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency()));
+//				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency()));
+//				getVersion().setM_ConcordanceList(concordance);
+//				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
+//				lineNumber++;
+//			}
+//		}
+////		if(versionNumber==0){
+////			googleAPIEng(getVersion());
+////		}
+//		googleAPIAuth(getVersion());
+//		
+//		return true;
+//	}
+	
 	/**
 	 * Process the data and set the data into the version
 	 * @param versionNumber
@@ -288,6 +339,7 @@ public class DataReader {
 		getVersion().setM_VersionYear(fileName);
 		getVersion().setM_Author(fileName);
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 100, 0, 0)); //0 is line number, title has only one line
+		
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
@@ -296,29 +348,27 @@ public class DataReader {
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
 				concordance.getM_Tokens().add(mapping.getKey());
-				if(versionNumber==0){
-				concordance.setM_TokenTranslations(new ArrayList<String>());
-				jSonReader(concordance.getM_Token(), concordance);
-				}
+//				if(versionNumber==0){
+//				concordance.setM_TokenTranslations(new ArrayList<String>());
+//				jSonReader(concordance.getM_Token(), concordance);
+//				}
 				concordance.setM_Frequency(mapping.getValue());
 				concordance.getM_Frequencies().add(mapping.getValue());
 				concordance.setM_RectWidth(mapping.getValue(),100);
 				concordance.setM_RectHeight(100);
 				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber, 100, concordance.getM_RectWidth(), concordance.getM_RectHeight()));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
+//				concordance.setM_RangeEndPoint(concordance.getM_RectPoint(), concordance.getM_RectHeight(), concordance.getM_RectWidth());
 				addStringIndex(mapping);
 				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token()), 1f));
-				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
+//				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
 				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency(), 1f));
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
 				lineNumber++;
 			}
 		}
-//		if(versionNumber==0){
-//			googleAPIEng(getVersion());
-//		}
-		googleAPIAuth(getVersion());
+//		googleAPIAuth(getVersion());
 		
 		return true;
 	}
@@ -336,12 +386,12 @@ public class DataReader {
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-			addVersionInfo(i); //pass i to method as version number and add information for one version
-			m_VersionList.add(getVersion()); //add one version to the version list
+//			addVersionInfo(i); //pass i to method as version number and add information for one version
+//			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 
 		TFIDFCalculator calculator = new TFIDFCalculator();
-//		addTfidf(calculator.initiate(getM_tokenLists()));
+		addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
 	}
 	
@@ -418,41 +468,66 @@ public class DataReader {
 		}
 	}
 
+//	/**
+//	 * Lemmatize the German tokens.
+//	 * @param documentText
+//	 * @return TRUE on success.
+//	 * @throws Exception
+//	 */
+//	public boolean germanLemmatizer(String[] documentText) throws Exception {
+//		lemmas = new ArrayList<String>();
+//		System.setProperty("treetagger.home", "src\\org\\annolab\\tt4j\\TreeTagger");
+//		TreeTaggerWrapper<String> tt = new TreeTaggerWrapper<String>();
+//		try {
+//			tt.setModel("src\\org\\annolab\\tt4j\\german.par");
+//			tt.setHandler(new TokenHandler<String>() {
+//				public void token(String token, String pos, String lemma) {
+//					lemmas.add(lemma);
+//					// System.out.println(token + "\t" + pos + "\t" + lemma);
+//				}
+//			});
+//			tt.process(documentText);
+//
+//		} finally {
+//			tt.destroy();
+//		}
+//		return true;
+//	}
 
-	public void googleAPIAuth(Version version){
-		List<String> tokenTranslation=new ArrayList<String>();
-		tokenTranslation=version.getM_WordsList();
-		try {           
-	        // See comments on 
-	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-	        // on options to set
-	        Translate t = new Translate.Builder(
-	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-	                //Need to update this to your App-Name
-	                .setApplicationName("ShakesVis")                    
-	                .build(); 
-	        Translate.Translations.List list = t.new Translations().list(
-	        		version.getM_WordsList(), 
-	                    //Target language
-	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
-	                    "en");  
-	        //Set your API-Key from https://console.developers.google.com/
-	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-	        TranslationsListResponse response = list.execute();
-	        int i=0;
-	        for(TranslationsResource tr : response.getTranslations()) {
-//	        	tokenTranslation.add(tr.getTranslatedText());
-//	            System.out.println(i+": "+tr.getTranslatedText());
-	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-	            i++;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
-	
+//	public void googleAPIAuth(Version version){
+//		List<String> tokenTranslation=new ArrayList<String>();
+//		tokenTranslation=version.getM_WordsList();
+//		try {           
+//	        // See comments on 
+//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+//	        // on options to set
+//	        Translate t = new Translate.Builder(
+//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+//	                //Need to update this to your App-Name
+//	                .setApplicationName("ShakesVis")                    
+//	                .build(); 
+//	        Translate.Translations.List list = t.new Translations().list(
+//	        		version.getM_WordsList(), 
+//	                    //Target language
+//	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
+//	                    "en");  
+//	        //Set your API-Key from https://console.developers.google.com/
+//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+//	        TranslationsListResponse response = list.execute();
+//	        int i=0;
+//	        for(TranslationsResource tr : response.getTranslations()) {
+////	        	tokenTranslation.add(tr.getTranslatedText());
+////	            System.out.println(i+": "+tr.getTranslatedText());
+//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+//	            i++;
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
+//	
 	public void googleAPIEng(Version version){
 		List<String> tokenTranslation=new ArrayList<String>();
 		tokenTranslation=version.getM_WordsList();
@@ -502,6 +577,34 @@ public class DataReader {
 		
 		return true;
 	}
+	
+	
+	/**
+	 * Lemmatize English tokens.
+	 * @param documentText
+	 * @return TRUE on success.
+	 */
+//	public boolean EnglishLemmatizer(String documentText) {
+//		Properties props = new Properties();
+//		String str;
+//		props.put("annotators", "tokenize, ssplit, pos, lemma");
+//
+//		this.pipeline = new StanfordCoreNLP(props);
+//
+//		lemmas = new ArrayList<String>();
+//		Annotation document = new Annotation(documentText);
+//		this.pipeline.annotate(document);
+//		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+//		for (CoreMap sentence : sentences) {
+//			for (CoreLabel token : sentence.get(TokensAnnotation.class)) {
+//				lemmas.add(token.get(LemmaAnnotation.class));
+//				str=token.get(LemmaAnnotation.class);
+//				
+//			}
+//		}
+//		
+//		return true;
+//	}
 	
 	
 }

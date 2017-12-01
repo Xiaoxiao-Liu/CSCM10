@@ -87,7 +87,6 @@ INDEX VERSION 1.129+C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\.metadata\.
 1235884802.index
 1383359477.index
 2582075171.index
-2833799885.index
 1417986683.index
 3786438684.index
 4119006631.index
