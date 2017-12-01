@@ -56,11 +56,6 @@ public class TFIDFCalculator {
 				idfValue=idf(documents,currenToken);
 				tfIDF=tf*idfValue;
 				getTfidfList().put(currenToken, (int) (tfIDF*rectValue));
-//				System.out.println(currenToken +": " +idfValue);
-//				System.out.println("tf: "+tf);
-//				System.out.println("idfValue: "+idfValue);
-//				System.out.println("tfIDF: "+tfIDF);
-//				System.out.println("tfIDF*rectValue: "+(int) (tfIDF*rectValue));
 				if(tfIDF > maxtfidf){
 					maxtfidf = tfIDF;
 				}

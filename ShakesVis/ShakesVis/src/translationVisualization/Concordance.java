@@ -50,6 +50,17 @@ public class Concordance {
 	/**the frequency number of each token*/
 	private int m_Frequency;
 	
+	/**	the tf-idf value for eath token */
+	private int m_TfIdf;
+	
+	public int getM_TfIdf() {
+		return m_TfIdf;
+	}
+
+	public void setM_TfIdf(int m_TfIdf) {
+		this.m_TfIdf = m_TfIdf;
+	}
+
 	/**use point to show the location of each token*/
 	private Point m_StringPoint;
 	
@@ -69,7 +80,6 @@ public class Concordance {
 		
 		int originalHeight=25;
 		double scaleLevel=scaleValue/100.0;
-//		m_RectHeight=originalHeight+originalHeight*scaleLevel;
 		m_RectHeight=(int) (originalHeight*scaleLevel*scaleLevel);
 	}
 

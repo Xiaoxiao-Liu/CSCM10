@@ -69,13 +69,12 @@ public class DataReader {
 	/**a list of string lists to store all tokens of all files*/
 	private List<Hashtable<String, Integer>> m_tokenLists = new ArrayList<Hashtable<String, Integer>>();
 
+	private List<String> m_OneTokenList;
+	
 	public List<Hashtable<String, Integer>> getM_tokenLists() {
 		return m_tokenLists;
 	}
 
-
-	private List<String> m_OneTokenList;
-	
 	public void setM_OneTokenList(List<String> m_OneTokenList) {
 		this.m_OneTokenList = m_OneTokenList;
 	}
@@ -158,8 +157,6 @@ public class DataReader {
 	 * @throws Exception
 	 */
 	public boolean readOneFile(String filePath) throws Exception {
-		
-		
 		/*
 		 * Read the text line by line and pass each token to other methods
 		 */
@@ -178,38 +175,14 @@ public class DataReader {
 					lineCount++;
 				} else { 
 					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
-
-					//split the sCurrentLine, make every string to lower case, remove all punctuation
-//					
-//					 if(filePath=="src\\data\\0000 BaseText Shakespeare.txt"){ //lemmatization for English version
-//					 EnglishLemmatizer(tmpWordsList.toString().replaceAll("\\p{Punct}", ""));
-//					 for(int i=0; i<lemmas.size(); i++){
-//					 addWordFrequency(lemmas.get(i));
-//					 
-//					 }
-//					 }
-//					germanLemmatizer(tmpWordsList);
-//					for (int i = 0; i < lemmas.size(); i++) {
-//						addWordFrequency(lemmas.get(i));
-//					}
-					
-//					System.out.println(tmpWordsList.length);
-
 					/*
 					 * pass each word to addWordFrequency() method
 					 */
 					for (int i = 0; i < tmpWordsList.length; i++) {
 						addWordFrequency(tmpWordsList[i]);
 					}
-					
-					
-					
 				}
 			}
-//			if(!filePath.equals("src\\data\\0000 BaseText Shakespeare.txt")){
-//				getM_tokenLists().add(getM_OneTokenList());
-//			}
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -234,10 +207,6 @@ public class DataReader {
 				//increment frequency number
 			}
 		}
-		
-//		System.out.println(eachWord+": "+getM_UnsortedFrequency().get(eachWord).intValue() + 1);
-
-		
 		return true;
 	}
 
@@ -273,6 +242,7 @@ public class DataReader {
 		});
 		return m_ColorIndex;
 	}
+	
 	/**
 	 * Process the data and set the data into the version
 	 * @param versionNumber
@@ -287,11 +257,12 @@ public class DataReader {
 		getVersion().setM_VersionName(fileName);
 		getVersion().setM_VersionYear(fileName);
 		getVersion().setM_Author(fileName);
-		getVersion().setM_titlePoint(calculatePoint(versionNumber, 0, 100, 0, 0)); //0 is line number, title has only one line
+		int titleLine=0;
+		getVersion().setM_titlePoint(calculatePoint(versionNumber, titleLine, 100)); //0 is line number, title has only one line
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
 		int listSize = 50; //used to fetch top 50 frequent tokens
 		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
-			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
+//			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
 				concordance.setM_Token(mapping.getKey());
@@ -304,7 +275,8 @@ public class DataReader {
 				concordance.getM_Frequencies().add(mapping.getValue());
 				concordance.setM_RectWidth(mapping.getValue(),100);
 				concordance.setM_RectHeight(100);
-				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber, 100, concordance.getM_RectWidth(), concordance.getM_RectHeight()));
+				int lineIncrement=2; //to low down the line in case the first line cover title
+				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber+lineIncrement, 100));
 				concordance.setM_RectPoint(concordance.getM_StringPoint());
 				addStringIndex(mapping);
 				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token()), 1f));
@@ -313,12 +285,12 @@ public class DataReader {
 				getVersion().setM_ConcordanceList(concordance);
 				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
 				lineNumber++;
-			}
+//			}
 		}
 //		if(versionNumber==0){
 //			googleAPIEng(getVersion());
 //		}
-		googleAPIAuth(getVersion());
+//		googleAPIAuth(getVersion());
 		
 		return true;
 	}
@@ -336,12 +308,28 @@ public class DataReader {
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-			addVersionInfo(i); //pass i to method as version number and add information for one version
-			m_VersionList.add(getVersion()); //add one version to the version list
+//			addVersionInfo(i); //pass i to method as version number and add information for one version
+//			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 
 		TFIDFCalculator calculator = new TFIDFCalculator();
-//		addTfidf(calculator.initiate(getM_tokenLists()));
+		addTfidf(calculator.initiate(getM_tokenLists()));
+		return m_VersionList;
+	}
+	
+	public List<Version> initiateTfIdf() throws Exception{
+		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
+			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
+			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
+			if(!(i==0)){
+				getM_tokenLists().add(getM_UnsortedFrequency());
+			}
+//			addVersionInfo(i); //pass i to method as version number and add information for one version
+//			m_VersionList.add(getVersion()); //add one version to the version list
+		}
+
+		TFIDFCalculator calculator = new TFIDFCalculator();
+		addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
 	}
 	
@@ -360,7 +348,7 @@ public class DataReader {
 	 * @return 
 	 * @return the point calculated
 	 */
-	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue, double rectWidth, double rectHeight) {
+	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue) {
 		double scaleValueProcess=scaleValue/100.0;
 		int spacingX=(int) (150*scaleValueProcess);
 		int spacingY=(int) (25*scaleValueProcess);

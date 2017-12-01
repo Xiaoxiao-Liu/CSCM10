@@ -11,7 +11,9 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -22,7 +24,6 @@ import translationVisualization.Version;
 
 public class TfIdfPanel extends JPanel {
 	
-
 	/**
 	 * Constructor
 	 * @param versionList
@@ -32,7 +33,6 @@ public class TfIdfPanel extends JPanel {
 		setM_VersionList(m_VersionList);
 		
 	}
-	
 	
 	/** the list of versions passed from translation visualization */
 	public List<Version> m_VersionList=new ArrayList<Version>();
@@ -137,6 +137,8 @@ public class TfIdfPanel extends JPanel {
 
 
 	
+	
+	
 	/**
 	 * a formula is applied here to make sure we return a float value
 	 * to fit the .scale() method.
@@ -207,7 +209,7 @@ public class TfIdfPanel extends JPanel {
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
 //			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				Point point=getDataReader().calculatePoint(i, j, 100, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				Point point=getDataReader().calculatePoint(i, j, 100);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
 								
@@ -215,19 +217,27 @@ public class TfIdfPanel extends JPanel {
 		}
 	}
 	
-	//when choose one words on concordance panel
+	/**
+	 * rescale concordance panel, recalculate the locations and widths
+	 * @param scaleValue
+	 */
 	public void scaleConcordancePanel(int scaleValue){
-		setDataReader(new DataReader());
-		setScaleValue(scaleValue);
-		for(int i=0; i<getM_VersionList().size(); i++){
-//			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
-			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(getScaleValue());
-				Point titlePoint=getDataReader().calculatePoint(i, 0, scaleValue, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), 0);
-				getM_VersionList().get(i).setM_titlePoint(titlePoint);
-				Point stringPoint=getDataReader().calculatePoint(i, j+1, getScaleValue(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+		setDataReader(new DataReader()); 
+		setScaleValue(scaleValue); //pass scale value to concordance panel class
+		for(int i=0; i<getM_VersionList().size(); i++){ //review the version list
+			Point titlePoint=getDataReader().calculatePoint(i, 0, scaleValue);
+			getM_VersionList().get(i).setM_titlePoint(titlePoint);
+
+			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){// read each version object
+				//reset rectangle height
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(getScaleValue()); 
+				//reset string location
+				int lineIncrement=3;
+				Point stringPoint=getDataReader().calculatePoint(i, j+lineIncrement, getScaleValue());
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(stringPoint);
+				//reset rectangle location
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
+				//reset rectangle width
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), getScaleValue());
 			}
 		}
@@ -266,7 +276,6 @@ public class TfIdfPanel extends JPanel {
 		repaint();
 //		firstVersion=false;
 	}
-		
 	
 	
 	//when choose one word on concordance panel
@@ -281,7 +290,6 @@ public class TfIdfPanel extends JPanel {
 		float transparentValue=0.4f;
 		Version choosenVersion=getM_VersionList().get(versionNumber);
 		Concordance choosenConcordance=choosenVersion.getM_ConcordanceList().get(lineNumber);
-
 		//if tokens in base text are clicked 
 		if(choosenVersion.getM_Author().equals("BaseText Shakespeare")){
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
