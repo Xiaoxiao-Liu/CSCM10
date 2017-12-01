@@ -495,6 +495,32 @@ public class TranslationVisualization {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Another button pressed");
                 transVis.getScrollPane().setVisible(true);
+                try {
+					transVis.setM_VersionList(transVis.getDataReader().initiateTfIdf());
+//					transVis.getConcordancePanel().repaint();
+					 transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
+		                transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
+
+		        		
+		        		//layer 3 - Visualization Panel
+		        		transVis.setM_visuallizationPanel(new JPanel());
+		        		
+		        		//layer 3 - User-option Panel
+		        		transVis.setM_UserOptionPanel(new JPanel());
+		        		
+		        		//layer 4 - Scroll Panel
+		        		
+		        		transVis.setScrollPane(new JScrollPane(transVis.getConcordancePanel()));	
+//		        		transVis.getM_visuallizationPanel().add( transVis.getScrollPane());
+		        		
+		        		transVis.setM_ScrollPanel(new JPanel());
+		        		transVis.getM_ScrollPanel().add(transVis.getScrollPane());
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+               
+                transVis.getScrollPane().setVisible(true);
                 transVis.getConcordanceFrame().revalidate(); 
             }
         });

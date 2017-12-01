@@ -301,19 +301,18 @@ public class DataReader {
 	 * @throws Exception
 	 */
 	public List<Version> readAllFile() throws Exception {
-		
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-//			addVersionInfo(i); //pass i to method as version number and add information for one version
-//			m_VersionList.add(getVersion()); //add one version to the version list
+			addVersionInfo(i); //pass i to method as version number and add information for one version
+			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 
-		TFIDFCalculator calculator = new TFIDFCalculator();
-		addTfidf(calculator.initiate(getM_tokenLists()));
+//		TFIDFCalculator calculator = new TFIDFCalculator();
+//		addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
 	}
 	
@@ -324,8 +323,6 @@ public class DataReader {
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-//			addVersionInfo(i); //pass i to method as version number and add information for one version
-//			m_VersionList.add(getVersion()); //add one version to the version list
 		}
 
 		TFIDFCalculator calculator = new TFIDFCalculator();

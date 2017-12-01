@@ -31,10 +31,6 @@ public class ConcordancePanel extends JPanel {
 	
 	private DataReader dataReader;
 	
-//	int spacingY=25;
-//	
-//	int spacingX=150;
-	
 	private boolean firstVersion=false;
 	
 	public boolean isFirstVersion() {
@@ -133,7 +129,7 @@ public class ConcordancePanel extends JPanel {
 	public ConcordancePanel(List<Version> versionList) {
 		m_VersionList = versionList;
 		setM_VersionList(m_VersionList);
-		
+		repaint();
 	}
 	
 	
