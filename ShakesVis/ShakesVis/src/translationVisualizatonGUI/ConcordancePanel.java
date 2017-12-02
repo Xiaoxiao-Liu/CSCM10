@@ -240,7 +240,6 @@ public class ConcordancePanel extends JPanel {
 //		firstVersion=false;
 	}
 	
-	
 	//when choose one word on concordance panel
 	/**
 	 * set the transparency of the rectangles' when one token is clicked
@@ -256,7 +255,6 @@ public class ConcordancePanel extends JPanel {
 		//if tokens in base text are clicked 
 		if(choosenVersion.getM_Author().equals("BaseText Shakespeare")){
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
-			
 			for(int m=0; m<getM_VersionList().size(); m++){
 				Version version=getM_VersionList().get(m);
 				for(int n=0; n<version.getM_ConcordanceList().size(); n++){
@@ -283,7 +281,6 @@ public class ConcordancePanel extends JPanel {
 			}
 //			repaint();
 //			String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_TokenTranslations();
-
 		}else{
 			String choosenToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
@@ -311,25 +308,21 @@ public class ConcordancePanel extends JPanel {
 							concordance.setM_rectLine(true);
 						}
 					}
-					
-						
 				}
 			}
 			repaint();
 		}
-		
 //		repaint();
 	}
 	
-	
-	public void defaultColor(int lineNumber){
-		for(int i=0; i<getM_VersionList().size(); i++){
-			Version version=getM_VersionList().get(i);
-			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
-			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
-		}
-		repaint();
-	}
+//	public void defaultColor(int lineNumber){
+//		for(int i=0; i<getM_VersionList().size(); i++){
+//			Version version=getM_VersionList().get(i);
+//			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
+//			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
+//		}
+//		repaint();
+//	}
 	/**
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
@@ -339,11 +332,9 @@ public class ConcordancePanel extends JPanel {
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);
-		
 		//create Graphics2D object to zoom ConcordancePanel
 //		Graphics2D g2d=(Graphics2D)g;
 //		g2d.scale(getZoomValue(),getZoomValue());
-		
 		//set the ConcordancePanel
 		this.setLayout(null);
 		this.setBackground(Color.white);
