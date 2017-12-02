@@ -80,6 +80,30 @@ public class TranslationVisualization {
 	/** a JButton to initiate concordancePanel */
 	private JButton m_ConcordanceButton;
 	
+	/** a JSlider to zoom in and out concordancePanel */
+	private JSlider m_ConcordanceSlider;
+
+	/** a JSlider to zoom in and out scrollPane */
+	private JSlider m_ScrollPaneSlider;
+
+	/** an arrayList to pass version list to other classes */
+	private List<Version> m_VersionList=new ArrayList<Version>();
+
+	private DataReader dataReader;
+
+	/**  */
+	private static double m_scaleValue=100;
+
+	/** a JCheckBox to show version names */
+	private JCheckBox versionMenu;
+
+	private VersionChoosenPanel versionChoosingPanel;
+
+	/** a JToggleButton to turn text on and off */
+	private  JToggleButton m_TextOnOffButton;
+
+	private JLabel m_SliderLabel;
+
 	/** a JButton to initiate concordancePanel */
 	private JButton m_TfIdfButton;
 	
@@ -91,10 +115,6 @@ public class TranslationVisualization {
 		this.m_TfIdfButton = m_TfIdfButton;
 	}
 
-	/** a JToggleButton to turn text on and off */
-	private  JToggleButton m_TextOnOffButton;
-
-
 	public JToggleButton getM_TextOnOffButton() {
 		return m_TextOnOffButton;
 	}
@@ -103,9 +123,6 @@ public class TranslationVisualization {
 		this.m_TextOnOffButton = m_TextOnOffButton;
 	}
 
-	private JLabel m_SliderLabel;
-	
-	
 	public JLabel getM_SliderLabel() {
 		return m_SliderLabel;
 	}
@@ -123,27 +140,6 @@ public class TranslationVisualization {
 		m_SliderLabel.setFont(new Font("Serif", Font.BOLD, fontSize));
 	}
 
-	/** a JSlider to zoom in and out concordancePanel */
-	private JSlider m_ConcordanceSlider;
-	
-	/** a JSlider to zoom in and out scrollPane */
-	private JSlider m_ScrollPaneSlider;
-	
-	/** an arrayList to pass version list to other classes */
-	private List<Version> m_VersionList=new ArrayList<Version>();
-	
-
-	private DataReader dataReader;
-	
-	/**  */
-	private static double m_scaleValue=100;
-
-	
-	/** a JCheckBox to show version names */
-	private JCheckBox versionMenu;
-	
-	private VersionChoosenPanel versionChoosingPanel;
-	
 	public DataReader getDataReader() {
 		return dataReader;
 	}

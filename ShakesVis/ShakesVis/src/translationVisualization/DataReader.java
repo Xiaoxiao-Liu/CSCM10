@@ -32,45 +32,6 @@ import com.google.api.services.translate.model.TranslationsResource;
  */
 public class DataReader {
 	
-	/**an array list of word and frequency index after sorting as ascending order*/
-	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
-	
-	/**an string array to store file paths for basic text and translation versions*/
-	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
-			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
-			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
-			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
-			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
-
-	/**a hashtable to store tokens and frequency but without sorting*/
-	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
-	
-	/***/
-	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
-	
-	/***/
-	public List<Version> m_VersionList = new ArrayList<Version>();
-	
-	/**a list of String stored all version names*/
-	public List<String> m_VersionNameList = new ArrayList<String>();
-
-	/***/
-	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
-
-	/***/
-	private List<Map.Entry<Integer, Color>> m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>();
-
-	/***/
-	private Version version;
-
-	/***/
-	private JsonReader jsonReader;
-  
-	/**a list of string lists to store all tokens of all files*/
-	private List<Hashtable<String, Integer>> m_tokenLists = new ArrayList<Hashtable<String, Integer>>();
-
-	private List<String> m_OneTokenList;
-	
 	public List<Hashtable<String, Integer>> getM_tokenLists() {
 		return m_tokenLists;
 	}
@@ -317,6 +278,7 @@ public class DataReader {
 	}
 	
 	public List<Version> initiateTfIdf() throws Exception{
+//		m_VersionList=new ArrayList<Version>();
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
@@ -474,7 +436,7 @@ public class DataReader {
 
 	public boolean jSonReader(String token, Concordance concordance) throws Exception{
 			jsonReader = Json.createReader(new FileReader("src\\data\\English-German.json"));
-
+	
 		JsonObject object = jsonReader.readObject();
 		JsonArray jsonArray = object.getJsonArray(token);
 		if(jsonArray!=null){
@@ -487,6 +449,46 @@ public class DataReader {
 		
 		return true;
 	}
+
+
+	/**an array list of word and frequency index after sorting as ascending order*/
+	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
+
+	/**an string array to store file paths for basic text and translation versions*/
+	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
+			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
+			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
+			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
+
+	/**a hashtable to store tokens and frequency but without sorting*/
+	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
+
+	/***/
+	public Hashtable<String, Integer> m_StringIndex = new Hashtable<String, Integer>();
+
+	/***/
+	public List<Version> m_VersionList = new ArrayList<Version>();
+
+	/**a list of String stored all version names*/
+	public List<String> m_VersionNameList = new ArrayList<String>();
+
+	/***/
+	private Hashtable<Integer, Color> m_frequencyColorIndex=new Hashtable<Integer, Color>();
+
+	/***/
+	private List<Map.Entry<Integer, Color>> m_ColorIndex = new ArrayList<Map.Entry<Integer, Color>>();
+
+	/***/
+	private Version version;
+
+	/***/
+	private JsonReader jsonReader;
+
+	/**a list of string lists to store all tokens of all files*/
+	private List<Hashtable<String, Integer>> m_tokenLists = new ArrayList<Hashtable<String, Integer>>();
+
+	private List<String> m_OneTokenList;
 	
 	
 }

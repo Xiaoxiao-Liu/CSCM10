@@ -11,9 +11,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -24,15 +22,17 @@ import translationVisualization.Version;
 
 public class ConcordancePanel extends JPanel {
 	
-	/** the list of versions passed from translation visualization */
-	public List<Version> m_VersionList=new ArrayList<Version>();
 	
-	private List<Version> m_VersionListCopied=new ArrayList<Version>();
-	
-	private DataReader dataReader;
-	
-	private boolean firstVersion=false;
-	
+	/**
+	 * Constructor
+	 * @param versionList
+	 */
+	public ConcordancePanel(List<Version> versionList) {
+		m_VersionList = versionList;
+		setM_VersionList(m_VersionList);
+	//		repaint();
+		}
+
 	public boolean isFirstVersion() {
 		return firstVersion;
 	}
@@ -42,9 +42,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 	}
 
-	/** a boolean value to turn on and off the text on panel */
-	private boolean m_OnAndOff=true;
-	
 	public boolean getM_OnAndOff() {
 		return m_OnAndOff;
 	}
@@ -54,12 +51,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 	}
 
-	private int scaleValue;
-	
-//	private Point startPoint=new Point();
-//	
-//	private Point endPoint=new Point();
-	
 	public int getScaleValue() {
 		return scaleValue;
 	}
@@ -79,18 +70,7 @@ public class ConcordancePanel extends JPanel {
 		this.dataReader = dataReader;
 	}
 
-	/** one Version object */
-	Version m_singleVersion=new Version();
-	
-
-	/** the default integer used to set zoom level, we use 10 is because when the first time 
-	 * the panel painted, we do not get zoom value from 
-	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
-	private double m_ZoomValue=40; //initiate zoomvalue
-
-	private int m_VersionNumber=0;
-	
-		public int getM_VersionNumber() {
+	public int getM_VersionNumber() {
 		return m_VersionNumber;
 	}
 
@@ -122,17 +102,6 @@ public class ConcordancePanel extends JPanel {
 	}
 
 
-	/**
-	 * Constructor
-	 * @param versionList
-	 */
-	public ConcordancePanel(List<Version> versionList) {
-		m_VersionList = versionList;
-		setM_VersionList(m_VersionList);
-		repaint();
-	}
-	
-	
 	/**
 	 * a formula is applied here to make sure we return a float value
 	 * to fit the .scale() method.
@@ -582,6 +551,31 @@ public class ConcordancePanel extends JPanel {
 		
 		
 	}
+
+	/** the list of versions passed from translation visualization */
+	public List<Version> m_VersionList=new ArrayList<Version>();
+
+	private List<Version> m_VersionListCopied=new ArrayList<Version>();
+
+	/**	an DataReader object */
+	private DataReader dataReader;
+
+	private boolean firstVersion=false;
+
+	private int scaleValue;
+
+	/** one Version object */
+	Version m_singleVersion=new Version();
+
+	/** a boolean value to turn on and off the text on panel */
+	private boolean m_OnAndOff=true;
+
+	/** the default integer used to set zoom level, we use 10 is because when the first time 
+	 * the panel painted, we do not get zoom value from 
+	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
+	private double m_ZoomValue=40; //initiate zoomvalue
+
+	private int m_VersionNumber=0;
 	
 	
 
