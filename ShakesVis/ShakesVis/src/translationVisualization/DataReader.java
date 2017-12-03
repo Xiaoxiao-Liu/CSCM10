@@ -267,20 +267,23 @@ public class DataReader {
 		this.frequentValue = frequentValue;
 	}
 	
-//	public void initiateDataReader() throws Exception{
-//		if(isFrequentValue()){
-//			versionList=readAllFile();
-//		}else{
-//			versionList=initiateTfIdf();
-//		}
-//	}
+	public List<Version> initiateDataReader() throws Exception{
+		if(isFrequentValue()){
+			readAllFile();
+		}else{
+			initiateTfIdf();
+		}
+		
+		return getM_VersionList();
+	}
 
 	/**
 	 * Read all files and process the data
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Version> readAllFile() throws Exception {
+	public void readAllFile() throws Exception {
+		setM_VersionList(new ArrayList<Version>());
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
@@ -288,21 +291,22 @@ public class DataReader {
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
 				addVersionInfo(i); //pass i to method as version number and add information for one version
-				m_VersionList.add(getVersion()); //add one version to the version list
+				getM_VersionList().add(getVersion()); //add one version to the version list
 		}
 //			TFIDFCalculator calculator = new TFIDFCalculator();
 //			addTfidf(calculator.initiate(getM_tokenLists()));
-		return m_VersionList;
+//		return getM_VersionList();
 	}
 	
 	public void addTfidf(List<Hashtable<String, Integer>> lists) throws Exception{
 		for(int i=0; i<lists.size(); i++){
 			sortFrequencyIndex(lists.get(i));
 			addVersionInfo(i);
-			m_VersionList.add(getVersion());
+			getM_VersionList().add(getVersion());
 		}
 	}
-	public List<Version> initiateTfIdf() throws Exception{
+	public void initiateTfIdf() throws Exception{
+		setM_VersionList(new ArrayList<Version>());
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
@@ -314,7 +318,7 @@ public class DataReader {
 		}
 			TFIDFCalculator calculator = new TFIDFCalculator();
 			addTfidf(calculator.initiate(getM_tokenLists()));
-		return m_VersionList;
+//		return getM_VersionList();
 	}
 	
 
@@ -488,6 +492,14 @@ public class DataReader {
 
 	/***/
 	public List<Version> m_VersionList = new ArrayList<Version>();
+
+	public List<Version> getM_VersionList() {
+		return m_VersionList;
+	}
+
+	public void setM_VersionList(List<Version> m_VersionList) {
+		this.m_VersionList = m_VersionList;
+	}
 
 	/**a list of String stored all version names*/
 	public List<String> m_VersionNameList = new ArrayList<String>();

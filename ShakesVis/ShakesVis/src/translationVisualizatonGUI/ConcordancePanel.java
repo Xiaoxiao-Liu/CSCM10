@@ -181,11 +181,11 @@ public class ConcordancePanel extends JPanel {
 		}
 	}
 	
-	public void getBooleanValue(boolean bool){
-		if(bool){
-			repaint();
-		}
-	}
+//	public void getBooleanValue(boolean bool){
+//		if(bool){
+//			repaint();
+//		}
+//	}
 	
 	/**
 	 * rescale concordance panel, recalculate the locations and widths
