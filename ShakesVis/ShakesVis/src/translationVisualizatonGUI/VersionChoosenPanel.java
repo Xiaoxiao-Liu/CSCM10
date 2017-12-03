@@ -69,11 +69,10 @@ public class VersionChoosenPanel extends JPanel {
 	            	Object oneBoxSelect=((JCheckBox) actionEvent.getSource()).isSelected(); //the object used to listen the selecting states of items
 	                Boolean oneSelected = new Boolean((boolean) oneBoxSelect); //change the oneBoxSelect Object to Boolean
 	               
-	                // if select "all"
 	            	if(((JCheckBox) actionEvent.getSource()).getName().toString().equals("All")){
 	            		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
 		                Boolean boolAll = new Boolean((boolean) objectAll);
-		                if(boolAll){
+		                if(boolAll){ // if select "all"
 		            		addAllVersions(string);
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
 		            		for(int  i=0; i<getM_versionNames().size(); i++){
@@ -81,7 +80,7 @@ public class VersionChoosenPanel extends JPanel {
 		            		}
 		                }
 		                else{
-		                	
+		                	//if unselect "all"
 		                	String[] strArr=new String[0];
 		                	addAllVersions(strArr);
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint

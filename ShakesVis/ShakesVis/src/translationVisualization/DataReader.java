@@ -177,9 +177,10 @@ public class DataReader {
 	 * @return TRUE on success.
 	 */
 	public boolean sortFrequencyIndex(Hashtable<String, Integer> frequencyUnsorted) {
-		m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());
+		setM_FrequencyIndex(new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet()));
+//		m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>(frequencyUnsorted.entrySet());
 		//map the hashtable of unsorted frequency and save them into arraylist
-		Collections.sort(m_FrequencyIndex, new Comparator<Map.Entry<String, Integer>>() {// sort the frequency
+		Collections.sort(getM_FrequencyIndex(), new Comparator<Map.Entry<String, Integer>>() {// sort the frequency
 			// descending order
 			public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {
 				return o2.getValue().compareTo(o1.getValue());
@@ -221,8 +222,8 @@ public class DataReader {
 		int titleLine=0;
 		getVersion().setM_titlePoint(calculatePoint(versionNumber, titleLine, 100)); //0 is line number, title has only one line
 		int lineNumber = 1; //used to count line and pass the number to calculate the point location
-		int listSize = 50; //used to fetch top 50 frequent tokens
-		for (Map.Entry<String, Integer> mapping : m_FrequencyIndex) { //read each token of the index
+//		int listSize = 50; //used to fetch top 50 frequent tokens
+		for (Map.Entry<String, Integer> mapping : getM_FrequencyIndex()) { //read each token of the index
 //			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
 				getVersion().getM_WordsList().add(mapping.getKey());
 				Concordance concordance = new Concordance();
@@ -256,6 +257,24 @@ public class DataReader {
 		return true;
 	}
 
+	private boolean frequentValue=true;
+	
+	public boolean isFrequentValue() {
+		return frequentValue;
+	}
+
+	public void setFrequentValue(boolean frequentValue) {
+		this.frequentValue = frequentValue;
+	}
+	
+//	public void initiateDataReader() throws Exception{
+//		if(isFrequentValue()){
+//			versionList=readAllFile();
+//		}else{
+//			versionList=initiateTfIdf();
+//		}
+//	}
+
 	/**
 	 * Read all files and process the data
 	 * @return
@@ -268,27 +287,11 @@ public class DataReader {
 			if(!(i==0)){
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-			addVersionInfo(i); //pass i to method as version number and add information for one version
-			m_VersionList.add(getVersion()); //add one version to the version list
+				addVersionInfo(i); //pass i to method as version number and add information for one version
+				m_VersionList.add(getVersion()); //add one version to the version list
 		}
-
-//		TFIDFCalculator calculator = new TFIDFCalculator();
-//		addTfidf(calculator.initiate(getM_tokenLists()));
-		return m_VersionList;
-	}
-	
-	public List<Version> initiateTfIdf() throws Exception{
-//		m_VersionList=new ArrayList<Version>();
-		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
-			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
-			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
-			if(!(i==0)){
-				getM_tokenLists().add(getM_UnsortedFrequency());
-			}
-		}
-
-		TFIDFCalculator calculator = new TFIDFCalculator();
-		addTfidf(calculator.initiate(getM_tokenLists()));
+//			TFIDFCalculator calculator = new TFIDFCalculator();
+//			addTfidf(calculator.initiate(getM_tokenLists()));
 		return m_VersionList;
 	}
 	
@@ -299,6 +302,22 @@ public class DataReader {
 			m_VersionList.add(getVersion());
 		}
 	}
+	public List<Version> initiateTfIdf() throws Exception{
+		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
+			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
+			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
+			if(!(i==0)){
+				getM_tokenLists().add(getM_UnsortedFrequency());
+			}
+//				addVersionInfo(i); //pass i to method as version number and add information for one version
+//				m_VersionList.add(getVersion()); //add one version to the version list
+		}
+			TFIDFCalculator calculator = new TFIDFCalculator();
+			addTfidf(calculator.initiate(getM_tokenLists()));
+		return m_VersionList;
+	}
+	
+
 
 	/**
 	 * Calculate the point location
@@ -366,72 +385,72 @@ public class DataReader {
 	}
 
 
-	public void googleAPIAuth(Version version){
-		List<String> tokenTranslation=new ArrayList<String>();
-		tokenTranslation=version.getM_WordsList();
-		try {           
-	        // See comments on 
-	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-	        // on options to set
-	        Translate t = new Translate.Builder(
-	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-	                //Need to update this to your App-Name
-	                .setApplicationName("ShakesVis")                    
-	                .build(); 
-	        Translate.Translations.List list = t.new Translations().list(
-	        		version.getM_WordsList(), 
-	                    //Target language
-	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
-	                    "en");  
-	        //Set your API-Key from https://console.developers.google.com/
-	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-	        TranslationsListResponse response = list.execute();
-	        int i=0;
-	        for(TranslationsResource tr : response.getTranslations()) {
-//	        	tokenTranslation.add(tr.getTranslatedText());
-//	            System.out.println(i+": "+tr.getTranslatedText());
-	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-	            i++;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+//	public void googleAPIAuth(Version version){
+//		List<String> tokenTranslation=new ArrayList<String>();
+//		tokenTranslation=version.getM_WordsList();
+//		try {           
+//	        // See comments on 
+//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+//	        // on options to set
+//	        Translate t = new Translate.Builder(
+//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+//	                //Need to update this to your App-Name
+//	                .setApplicationName("ShakesVis")                    
+//	                .build(); 
+//	        Translate.Translations.List list = t.new Translations().list(
+//	        		version.getM_WordsList(), 
+//	                    //Target language
+//	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
+//	                    "en");  
+//	        //Set your API-Key from https://console.developers.google.com/
+//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+//	        TranslationsListResponse response = list.execute();
+//	        int i=0;
+//	        for(TranslationsResource tr : response.getTranslations()) {
+////	        	tokenTranslation.add(tr.getTranslatedText());
+////	            System.out.println(i+": "+tr.getTranslatedText());
+//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+//	            i++;
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
 	
-	public void googleAPIEng(Version version){
-		List<String> tokenTranslation=new ArrayList<String>();
-		tokenTranslation=version.getM_WordsList();
-		try {           
-	        // See comments on 
-	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-	        // on options to set
-	        Translate t = new Translate.Builder(
-	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-	                //Need to update this to your App-Name
-	                .setApplicationName("ShakesVis")                    
-	                .build(); 
-	        Translate.Translations.List list = t.new Translations().list(
-	        		version.getM_WordsList(), 
-	                    //Target language 
-	                    "de");  
-	        //Set your API-Key from https://console.developers.google.com/
-	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-	        TranslationsListResponse response = list.execute();
-	        int i=0;
-	        for(TranslationsResource tr : response.getTranslations()) {
-//	        	tokenTranslation.add(tr.getTranslatedText());
-//	            System.out.println(i+": "+tr.getTranslatedText());
-	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-//	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-	            i++;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	}
+//	public void googleAPIEng(Version version){
+//		List<String> tokenTranslation=new ArrayList<String>();
+//		tokenTranslation=version.getM_WordsList();
+//		try {           
+//	        // See comments on 
+//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
+//	        // on options to set
+//	        Translate t = new Translate.Builder(
+//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
+//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
+//	                //Need to update this to your App-Name
+//	                .setApplicationName("ShakesVis")                    
+//	                .build(); 
+//	        Translate.Translations.List list = t.new Translations().list(
+//	        		version.getM_WordsList(), 
+//	                    //Target language 
+//	                    "de");  
+//	        //Set your API-Key from https://console.developers.google.com/
+//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
+//	        TranslationsListResponse response = list.execute();
+//	        int i=0;
+//	        for(TranslationsResource tr : response.getTranslations()) {
+////	        	tokenTranslation.add(tr.getTranslatedText());
+////	            System.out.println(i+": "+tr.getTranslatedText());
+//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
+////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
+//	            i++;
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	}
 	
 
 	public boolean jSonReader(String token, Concordance concordance) throws Exception{

@@ -133,9 +133,10 @@ public class ConcordancePanel extends JPanel {
 		spacingY=(int) (spacingY*scaleValueProcess*scaleValueProcess);
 		int spacingX=150;
 		spacingX=(int) (spacingX*scaleValueProcess*scaleValueProcess);
-		versionNumber=(eventPoint.x-75)/spacingX;
-		lineNumber=eventPoint.y/spacingY-2;
-		
+		int versionNumberAdjast=75;
+		versionNumber=(eventPoint.x-versionNumberAdjast)/spacingX;
+		int lineNumberAdjast=4; //The line is moved down by 4 to assure the line clicked is right one
+		lineNumber=eventPoint.y/spacingY-lineNumberAdjast;
 		Point point=new Point(versionNumber, lineNumber);
 		return point;
 	}
@@ -177,6 +178,12 @@ public class ConcordancePanel extends JPanel {
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
 								
 			}
+		}
+	}
+	
+	public void getBooleanValue(boolean bool){
+		if(bool){
+			repaint();
 		}
 	}
 	
@@ -265,7 +272,6 @@ public class ConcordancePanel extends JPanel {
 					}
 					Concordance concordance=version.getM_ConcordanceList().get(n);
 					if(!choosenConcordance.getM_TokenTranslations().contains(concordance.getM_Token())){
-						
 						Font token_Font=new Font("sansserif",Font.PLAIN, size);
 						concordance.setM_Token_Font(token_Font);
 						concordance.setM_rectLine(false);
@@ -281,14 +287,13 @@ public class ConcordancePanel extends JPanel {
 			}
 //			repaint();
 //			String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_TokenTranslations();
-		}else{
+		}else{//if translation version is clicked
 			String choosenToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
 			for(int i=0; i<getM_VersionList().size(); i++){
 				Version version=getM_VersionList().get(i);
 				for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 					Concordance concordance=version.getM_ConcordanceList().get(j);
-					
 					if(version.getM_Author().equals("BaseText Shakespeare")&&concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
 //						if(concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
 							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
@@ -327,7 +332,7 @@ public class ConcordancePanel extends JPanel {
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
 	 */
-	public void paintComponent(Graphics  g){
+	public void paintComponent(Graphics g){
 //		repaint();
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
@@ -361,7 +366,6 @@ public class ConcordancePanel extends JPanel {
 					g.setColor(Color.black);
 					//paint both token and its tfidf value*100
 //					String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
-					
 					//paint only token without numbers
 					String string=concordance.getM_Token()+" ";
 
@@ -402,9 +406,6 @@ public class ConcordancePanel extends JPanel {
 //				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
-				
-				
-				
 				//if this version is Base text
 				if(version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){
 					Concordance concordanceCompare;
@@ -426,7 +427,6 @@ public class ConcordancePanel extends JPanel {
 							}
 						}
 					}
-					
 						
 						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
 						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
@@ -486,15 +486,6 @@ public class ConcordancePanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent event) {
 			// TODO Auto-generated method stub
-			
-			
-
-//			rangeListener(point,)
-//			int x=point.x;
-//			int y=point.y;
-//			System.out.println("Moved:"+event.getSource().toString());
-		
-			repaint();
 		}
 		   
 

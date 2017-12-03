@@ -375,10 +375,8 @@ public class TranslationVisualization {
 		getConcordancePanel().setPreferredSize(new Dimension(CONCORDANCE_PANEL_WIDTH,CONCORDANCE_PANEL_HEIGHT));
 		
 	}
-
-	public static void main(String[] args) throws Exception{
-		 
-		TranslationVisualization transVis=new TranslationVisualization();
+	
+	public void setComponents(TranslationVisualization transVis) throws Exception{
 		transVis.setDataReader(new DataReader());
 //		LemmatizeData ld=new LemmatizeData();
 //		ld.readAllFile();
@@ -390,7 +388,6 @@ public class TranslationVisualization {
 		transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
 //		transVis.setConcordancePanel(new ConcordancePanel());
 		transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
-
 		
 		//layer 3 - Visualization Panel
 		transVis.setM_visuallizationPanel(new JPanel());
@@ -404,16 +401,14 @@ public class TranslationVisualization {
 //		transVis.getM_visuallizationPanel().add( transVis.getScrollPane());
 		
 		transVis.setM_ScrollPanel(new JPanel());
+		
+	}
+
+	public static void main(String[] args) throws Exception{
+		 
+		TranslationVisualization transVis=new TranslationVisualization();
+		transVis.setComponents(transVis);
 		transVis.getM_ScrollPanel().add(transVis.getScrollPane());
-		
-		
-//		//concordance button
-//		transVis.setConcordanceButton(new JButton("Concordances"));
-		
-		// add this method
-		// this.SetConcordanceSlider(new ConcordanceSlider());
-		// this.GetConcordanceSlider().Initialize();
-	
 		
 		//concordance slider
 		int min=50; //minimum value
@@ -424,14 +419,7 @@ public class TranslationVisualization {
 		transVis.setM_ConcordanceSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
 		
 		transVis.setM_ScrollPaneSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
-//		//tfidf slider
-//				int minTfidf=0;
-//				int maxTfidf=25;
-//				transVis.setM_TfidfSlider(new JSlider(SwingConstants.HORIZONTAL, min, max, initialVar));
-//		        // end initialize concordance slide
 		transVis.setVersionChoosingPanel(new VersionChoosenPanel(), transVis.getConcordancePanel(), transVis.getDataReader().getM_VersionNameList());
-		
-		
 		
 		// set layout for visualization panel
 		GridBagLayout panelLayout = new GridBagLayout( );
@@ -463,7 +451,7 @@ public class TranslationVisualization {
 		transVis.getM_UserOptionPanel().setLayout(userOptionPaneLayout);
 		
 		//ConcordanceButton
-		transVis.setConcordanceButton(new JButton("Concordances"));
+		transVis.setConcordanceButton(new JButton("Frequency"));
 		useroptionConstraint.gridx = 1;
 		useroptionConstraint.gridy = 1;
 		useroptionConstraint.fill = GridBagConstraints.BOTH;
@@ -490,32 +478,16 @@ public class TranslationVisualization {
         	@Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Another button pressed");
-                transVis.getScrollPane().setVisible(true);
+                transVis.setM_VersionList(null);
+//                transVis.getDataReader().setFrequentValue(false);
                 try {
 					transVis.setM_VersionList(transVis.getDataReader().initiateTfIdf());
-//					transVis.getConcordancePanel().repaint();
-					 transVis.setConcordancePanel(new ConcordancePanel(transVis.getVersionList()));
-		                transVis.setM_ColorLegendPanel(new ColorLegendPanel(), transVis.getDataReader()); 
-
-		        		
-		        		//layer 3 - Visualization Panel
-		        		transVis.setM_visuallizationPanel(new JPanel());
-		        		
-		        		//layer 3 - User-option Panel
-		        		transVis.setM_UserOptionPanel(new JPanel());
-		        		
-		        		//layer 4 - Scroll Panel
-		        		
-		        		transVis.setScrollPane(new JScrollPane(transVis.getConcordancePanel()));	
-//		        		transVis.getM_visuallizationPanel().add( transVis.getScrollPane());
-		        		
-		        		transVis.setM_ScrollPanel(new JPanel());
-		        		transVis.getM_ScrollPanel().add(transVis.getScrollPane());
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-               
+//                transVis.setM_VersionList(getDataReader().initiateDataReader(););
+                transVis.getConcordancePanel().getBooleanValue(true);
                 transVis.getScrollPane().setVisible(true);
                 transVis.getConcordanceFrame().revalidate(); 
             }
