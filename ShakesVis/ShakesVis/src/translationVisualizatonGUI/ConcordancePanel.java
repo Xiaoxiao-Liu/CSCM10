@@ -441,9 +441,6 @@ public class ConcordancePanel extends JPanel {
 //						
 //						}
 						}		
-						
-					
-					
 				}
 				//versionCompare>1, means we the compared version start from the third one
 				//versionCompare<m_VersionList.size(), controal the last version compared
