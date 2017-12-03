@@ -22,8 +22,6 @@ public class VersionChoosenPanel extends JPanel {
 	/**the list of String to store version names and pass this list to concordance panel and repaint new panel with versions only selected*/
 	public List<String> m_versionNames;
 	
-//	private ConcordancePanel concordancePanel;
-	
 	public String[] string={ "0000 BaseText Shakespeare.txt", "1832 Baudissin ed Wenig.txt", "1920 Gundolf.txt", "1941 Schwarz.txt",
 			"1947 Baudissin ed Brunner.txt",	"1952 Flatter.txt", "1962 Schroeder.txt",
 			"1963 Rothe.txt", "1970 Fried.txt", "1973 Lauterbach.txt",
@@ -31,7 +29,6 @@ public class VersionChoosenPanel extends JPanel {
 			"1992 Motschach.txt", "1995 Guenther.txt", "2003 Zaimoglu.txt" };
 	
 	public void addAllVersions(String[] string){
-		
 		setM_versionNames(new ArrayList<String>());
 		for(int i=0; i<string.length; i++){
 			getM_versionNames().add(string[i]);
@@ -72,11 +69,10 @@ public class VersionChoosenPanel extends JPanel {
 	            	Object oneBoxSelect=((JCheckBox) actionEvent.getSource()).isSelected(); //the object used to listen the selecting states of items
 	                Boolean oneSelected = new Boolean((boolean) oneBoxSelect); //change the oneBoxSelect Object to Boolean
 	               
-	                // if select "all"
 	            	if(((JCheckBox) actionEvent.getSource()).getName().toString().equals("All")){
 	            		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
 		                Boolean boolAll = new Boolean((boolean) objectAll);
-		                if(boolAll){
+		                if(boolAll){ // if select "all"
 		            		addAllVersions(string);
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
 		            		for(int  i=0; i<getM_versionNames().size(); i++){
@@ -84,7 +80,7 @@ public class VersionChoosenPanel extends JPanel {
 		            		}
 		                }
 		                else{
-		                	
+		                	//if unselect "all"
 		                	String[] strArr=new String[0];
 		                	addAllVersions(strArr);
 		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint

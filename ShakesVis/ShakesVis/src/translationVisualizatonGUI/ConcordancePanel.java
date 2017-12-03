@@ -11,9 +11,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Line2D;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -24,19 +22,17 @@ import translationVisualization.Version;
 
 public class ConcordancePanel extends JPanel {
 	
-	/** the list of versions passed from translation visualization */
-	public List<Version> m_VersionList=new ArrayList<Version>();
 	
-	private List<Version> m_VersionListCopied=new ArrayList<Version>();
-	
-	private DataReader dataReader;
-	
-//	int spacingY=25;
-//	
-//	int spacingX=150;
-	
-	private boolean firstVersion=false;
-	
+	/**
+	 * Constructor
+	 * @param versionList
+	 */
+	public ConcordancePanel(List<Version> versionList) {
+		m_VersionList = versionList;
+		setM_VersionList(m_VersionList);
+	//		repaint();
+		}
+
 	public boolean isFirstVersion() {
 		return firstVersion;
 	}
@@ -46,9 +42,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 	}
 
-	/** a boolean value to turn on and off the text on panel */
-	private boolean m_OnAndOff=true;
-	
 	public boolean getM_OnAndOff() {
 		return m_OnAndOff;
 	}
@@ -58,12 +51,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 	}
 
-	private int scaleValue;
-	
-//	private Point startPoint=new Point();
-//	
-//	private Point endPoint=new Point();
-	
 	public int getScaleValue() {
 		return scaleValue;
 	}
@@ -83,18 +70,7 @@ public class ConcordancePanel extends JPanel {
 		this.dataReader = dataReader;
 	}
 
-	/** one Version object */
-	Version m_singleVersion=new Version();
-	
-
-	/** the default integer used to set zoom level, we use 10 is because when the first time 
-	 * the panel painted, we do not get zoom value from 
-	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
-	private double m_ZoomValue=40; //initiate zoomvalue
-
-	private int m_VersionNumber=0;
-	
-		public int getM_VersionNumber() {
+	public int getM_VersionNumber() {
 		return m_VersionNumber;
 	}
 
@@ -127,17 +103,6 @@ public class ConcordancePanel extends JPanel {
 
 
 	/**
-	 * Constructor
-	 * @param versionList
-	 */
-	public ConcordancePanel(List<Version> versionList) {
-		m_VersionList = versionList;
-		setM_VersionList(m_VersionList);
-		
-	}
-	
-	
-	/**
 	 * a formula is applied here to make sure we return a float value
 	 * to fit the .scale() method.
 	 * @return zoomValue
@@ -168,9 +133,10 @@ public class ConcordancePanel extends JPanel {
 		spacingY=(int) (spacingY*scaleValueProcess*scaleValueProcess);
 		int spacingX=150;
 		spacingX=(int) (spacingX*scaleValueProcess*scaleValueProcess);
-		versionNumber=(eventPoint.x-75)/spacingX;
-		lineNumber=eventPoint.y/spacingY-2;
-		
+		int versionNumberAdjast=75;
+		versionNumber=(eventPoint.x-versionNumberAdjast)/spacingX;
+		int lineNumberAdjast=4; //The line is moved down by 4 to assure the line clicked is right one
+		lineNumber=eventPoint.y/spacingY-lineNumberAdjast;
 		Point point=new Point(versionNumber, lineNumber);
 		return point;
 	}
@@ -207,7 +173,7 @@ public class ConcordancePanel extends JPanel {
 			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
 //			getM_VersionList().get(i).setM_titlePoint(getDataReader().calculatePoint(versionNumber, 0 , 0));
 			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				Point point=getDataReader().calculatePoint(i, j, 100, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+				Point point=getDataReader().calculatePoint(i, j, 100);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(point);
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
 								
@@ -215,19 +181,33 @@ public class ConcordancePanel extends JPanel {
 		}
 	}
 	
-	//when choose one words on concordance panel
+//	public void getBooleanValue(boolean bool){
+//		if(bool){
+//			repaint();
+//		}
+//	}
+	
+	/**
+	 * rescale concordance panel, recalculate the locations and widths
+	 * @param scaleValue
+	 */
 	public void scaleConcordancePanel(int scaleValue){
-		setDataReader(new DataReader());
-		setScaleValue(scaleValue);
-		for(int i=0; i<getM_VersionList().size(); i++){
-//			versionNumber=getM_VersionList().get(i).getM_VersionNumber();
-			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){
-				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(getScaleValue());
-				Point titlePoint=getDataReader().calculatePoint(i, 0, scaleValue, getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), 0);
-				getM_VersionList().get(i).setM_titlePoint(titlePoint);
-				Point stringPoint=getDataReader().calculatePoint(i, j+1, getScaleValue(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectWidth(), getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_RectHeight());
+		setDataReader(new DataReader()); 
+		setScaleValue(scaleValue); //pass scale value to concordance panel class
+		for(int i=0; i<getM_VersionList().size(); i++){ //review the version list
+			Point titlePoint=getDataReader().calculatePoint(i, 0, scaleValue);
+			getM_VersionList().get(i).setM_titlePoint(titlePoint);
+
+			for(int j=0; j<getM_VersionList().get(i).getM_WordsList().size(); j++){// read each version object
+				//reset rectangle height
+				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectHeight(getScaleValue()); 
+				//reset string location
+				int lineIncrement=3;
+				Point stringPoint=getDataReader().calculatePoint(i, j+lineIncrement, getScaleValue());
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_StringPoint(stringPoint);
+				//reset rectangle location
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectPoint(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_StringPoint());
+				//reset rectangle width
 				getM_VersionList().get(i).getM_ConcordanceList().get(j).setM_RectWidth(getM_VersionList().get(i).getM_ConcordanceList().get(j).getM_Frequency(), getScaleValue());
 			}
 		}
@@ -266,8 +246,6 @@ public class ConcordancePanel extends JPanel {
 		repaint();
 //		firstVersion=false;
 	}
-		
-	
 	
 	//when choose one word on concordance panel
 	/**
@@ -281,11 +259,9 @@ public class ConcordancePanel extends JPanel {
 		float transparentValue=0.4f;
 		Version choosenVersion=getM_VersionList().get(versionNumber);
 		Concordance choosenConcordance=choosenVersion.getM_ConcordanceList().get(lineNumber);
-
 		//if tokens in base text are clicked 
 		if(choosenVersion.getM_Author().equals("BaseText Shakespeare")){
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
-			
 			for(int m=0; m<getM_VersionList().size(); m++){
 				Version version=getM_VersionList().get(m);
 				for(int n=0; n<version.getM_ConcordanceList().size(); n++){
@@ -296,7 +272,6 @@ public class ConcordancePanel extends JPanel {
 					}
 					Concordance concordance=version.getM_ConcordanceList().get(n);
 					if(!choosenConcordance.getM_TokenTranslations().contains(concordance.getM_Token())){
-						
 						Font token_Font=new Font("sansserif",Font.PLAIN, size);
 						concordance.setM_Token_Font(token_Font);
 						concordance.setM_rectLine(false);
@@ -312,15 +287,13 @@ public class ConcordancePanel extends JPanel {
 			}
 //			repaint();
 //			String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_TokenTranslations();
-
-		}else{
+		}else{//if translation version is clicked
 			String choosenToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
 			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
 			for(int i=0; i<getM_VersionList().size(); i++){
 				Version version=getM_VersionList().get(i);
 				for(int j=0; j<version.getM_ConcordanceList().size(); j++){
 					Concordance concordance=version.getM_ConcordanceList().get(j);
-					
 					if(version.getM_Author().equals("BaseText Shakespeare")&&concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
 //						if(concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
 							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
@@ -340,44 +313,37 @@ public class ConcordancePanel extends JPanel {
 							concordance.setM_rectLine(true);
 						}
 					}
-					
-						
 				}
 			}
 			repaint();
 		}
-		
 //		repaint();
 	}
 	
-	
-	public void defaultColor(int lineNumber){
-		for(int i=0; i<getM_VersionList().size(); i++){
-			Version version=getM_VersionList().get(i);
-			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
-			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
-		}
-		repaint();
-	}
+//	public void defaultColor(int lineNumber){
+//		for(int i=0; i<getM_VersionList().size(); i++){
+//			Version version=getM_VersionList().get(i);
+//			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
+//			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
+//		}
+//		repaint();
+//	}
 	/**
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
 	 */
-	public void paintComponent(Graphics  g){
+	public void paintComponent(Graphics g){
 //		repaint();
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);
-		
 		//create Graphics2D object to zoom ConcordancePanel
 //		Graphics2D g2d=(Graphics2D)g;
 //		g2d.scale(getZoomValue(),getZoomValue());
-		
 		//set the ConcordancePanel
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);  
-		
 		//read and paint all 16 versions on the panel
 		for(int i=0; i<getM_VersionList().size(); i++){
 			Version version=getM_VersionList().get(i); //get current Version object to fetch information stored in the Version
@@ -399,7 +365,6 @@ public class ConcordancePanel extends JPanel {
 					g.setColor(Color.black);
 					//paint both token and its tfidf value*100
 //					String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
-					
 					//paint only token without numbers
 					String string=concordance.getM_Token()+" ";
 
@@ -436,13 +401,8 @@ public class ConcordancePanel extends JPanel {
 				}
 				
 				//draw the lines for rectangle
-//				g.setColor(Color.GRAY);
-//				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
-				
-				
-				
 				//if this version is Base text
 				if(version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){
 					Concordance concordanceCompare;
@@ -465,7 +425,6 @@ public class ConcordancePanel extends JPanel {
 						}
 					}
 					
-						
 						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
 						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
 //						if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
@@ -524,15 +483,6 @@ public class ConcordancePanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent event) {
 			// TODO Auto-generated method stub
-			
-			
-
-//			rangeListener(point,)
-//			int x=point.x;
-//			int y=point.y;
-//			System.out.println("Moved:"+event.getSource().toString());
-		
-			repaint();
 		}
 		   
 
@@ -580,6 +530,31 @@ public class ConcordancePanel extends JPanel {
 		
 		
 	}
+
+	/** the list of versions passed from translation visualization */
+	public List<Version> m_VersionList=new ArrayList<Version>();
+
+	private List<Version> m_VersionListCopied=new ArrayList<Version>();
+
+	/**	an DataReader object */
+	private DataReader dataReader;
+
+	private boolean firstVersion=false;
+
+	private int scaleValue;
+
+	/** one Version object */
+	Version m_singleVersion=new Version();
+
+	/** a boolean value to turn on and off the text on panel */
+	private boolean m_OnAndOff=true;
+
+	/** the default integer used to set zoom level, we use 10 is because when the first time 
+	 * the panel painted, we do not get zoom value from 
+	 * slider listener(see translationVisualization.getM_Slider().addChangeListener()) */
+	private double m_ZoomValue=40; //initiate zoomvalue
+
+	private int m_VersionNumber=0;
 	
 	
 
