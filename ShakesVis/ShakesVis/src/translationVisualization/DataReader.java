@@ -287,11 +287,11 @@ public class DataReader {
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
-			if(!(i==0)){
-				getM_tokenLists().add(getM_UnsortedFrequency());
-			}
-				addVersionInfo(i); //pass i to method as version number and add information for one version
-				getM_VersionList().add(getVersion()); //add one version to the version list
+//			if(!(i==0)){
+//				getM_tokenLists().add(getM_UnsortedFrequency());
+//			}
+			addVersionInfo(i); //pass i to method as version number and add information for one version
+			getM_VersionList().add(getVersion()); //add one version to the version list
 		}
 //			TFIDFCalculator calculator = new TFIDFCalculator();
 //			addTfidf(calculator.initiate(getM_tokenLists()));
@@ -301,7 +301,7 @@ public class DataReader {
 	public void addTfidf(List<Hashtable<String, Integer>> lists) throws Exception{
 		for(int i=0; i<lists.size(); i++){
 			sortFrequencyIndex(lists.get(i));
-			addVersionInfo(i);
+			addVersionInfo(i+1);
 			getM_VersionList().add(getVersion());
 		}
 	}
@@ -310,11 +310,19 @@ public class DataReader {
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
-			if(!(i==0)){
+			if(i==0){
+				addVersionInfo(i);
+				getM_VersionList().add(getVersion());
+				
+			}else{
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-//				addVersionInfo(i); //pass i to method as version number and add information for one version
-//				m_VersionList.add(getVersion()); //add one version to the version list
+//			if(!(i==0)){
+//				getM_tokenLists().add(getM_UnsortedFrequency());
+//			}else{
+//				addVersionInfo(i);
+//				getM_VersionList().add(getVersion());
+//			}
 		}
 			TFIDFCalculator calculator = new TFIDFCalculator();
 			addTfidf(calculator.initiate(getM_tokenLists()));

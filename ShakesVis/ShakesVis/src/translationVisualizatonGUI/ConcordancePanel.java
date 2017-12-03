@@ -344,7 +344,6 @@ public class ConcordancePanel extends JPanel {
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);  
-		
 		//read and paint all 16 versions on the panel
 		for(int i=0; i<getM_VersionList().size(); i++){
 			Version version=getM_VersionList().get(i); //get current Version object to fetch information stored in the Version
@@ -402,8 +401,6 @@ public class ConcordancePanel extends JPanel {
 				}
 				
 				//draw the lines for rectangle
-//				g.setColor(Color.GRAY);
-//				g.drawRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
 				//if this version is Base text
