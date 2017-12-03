@@ -424,7 +424,7 @@ public class ConcordancePanel extends JPanel {
 							}
 						}
 					}
-						
+					
 						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
 						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
 //						if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
