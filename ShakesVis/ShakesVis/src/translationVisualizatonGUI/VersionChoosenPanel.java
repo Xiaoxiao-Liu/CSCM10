@@ -63,55 +63,63 @@ public class VersionChoosenPanel extends JPanel {
 		m_VersionNameCBox.setBackground(Color.white);
 	}
 
+	public void allSelection(ActionEvent actionEvent, ConcordancePanel concordancePanel){
+    		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
+            Boolean boolAll = new Boolean((boolean) objectAll);
+            if(boolAll){ // if select "all"
+        		addAllVersions(string);
+        		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
+        		for(int  i=0; i<getM_versionNames().size(); i++){
+        			getM_checkList().get(i).setSelected(true);
+        		}
+            }
+            else{
+            	//if unselect "all"
+            	for(int j=0; j<getM_versionNames().size(); j++){
+        			getM_checkList().get(j).setSelected(false);
+        		}
+            	String[] strArr=new String[0];
+            	addAllVersions(strArr);
+        		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
+        		
+            }
+	}
+	
+	public void singleSelection(ActionEvent actionEvent, ConcordancePanel concordancePanel,  Boolean oneSelected ){
+		Object objName=((JCheckBox)actionEvent.getSource()).getName(); 
+//		if(objName.equals("0000 BaseText Shakespeare.txt")){
+//			concordancePanel.setFirstVersion(true);
+//		}
+		System.out.println(objName.toString());
+		if(oneSelected==true){ //if the item is selected
+    		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
+    		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
+    		concordancePanel.displaySingleVersion(getM_versionNames());//invoke concordancePanel method to repaint
+    				
+    	}else{ //if the item is unselected
+    		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
+//    		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
+    		getM_versionNames().remove(objName); //remove this item from versionName list
+    		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
+
+    	}
+	}
+	
 	public ActionListener add_ActionListener(ConcordancePanel concordancePanel){
 		 ActionListener actionListener = new ActionListener() {
 	            public void actionPerformed(ActionEvent actionEvent) {
 	            	Object oneBoxSelect=((JCheckBox) actionEvent.getSource()).isSelected(); //the object used to listen the selecting states of items
 	                Boolean oneSelected = new Boolean((boolean) oneBoxSelect); //change the oneBoxSelect Object to Boolean
-	               
+	                
+	                //if select "all"
 	            	if(((JCheckBox) actionEvent.getSource()).getName().toString().equals("All")){
-	            		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
-		                Boolean boolAll = new Boolean((boolean) objectAll);
-		                if(boolAll){ // if select "all"
-		            		addAllVersions(string);
-		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
-		            		for(int  i=0; i<getM_versionNames().size(); i++){
-		            			getM_checkList().get(i).setSelected(true);
-		            		}
-		                }
-		                else{
-		                	//if unselect "all"
-		                	String[] strArr=new String[0];
-		                	addAllVersions(strArr);
-		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
-		            		for(int i=0; i<getM_versionNames().size(); i++){
-		            			getM_checkList().get(i).setSelected(false);
-		            		}
-		                }
+	            		  allSelection(actionEvent, concordancePanel);
 	            	}
 	            	
 	            	// if select only one item
 	            	else{
-	            		Object objName=((JCheckBox)actionEvent.getSource()).getName(); 
-	            		if(objName.equals("0000 BaseText Shakespeare.txt")){
-	            			concordancePanel.setFirstVersion(true);
-	            		}
-	            		System.out.println(objName.toString());
-	            		if(oneSelected==true){ //if the item is selected
-		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
-		            		getM_versionNames().add(objName.toString()); //add the name of item to m_VersionNamelist
-		            		concordancePanel.displaySingleVersion(getM_versionNames());//invoke concordancePanel method to repaint
-		            				
-		            	}else{ //if the item is unselected
-		            		objName=((JCheckBox)actionEvent.getSource()).getName(); //get the name of the object
-//		            		System.out.println("Selected item=" + ((JCheckBox)actionEvent.getSource()).getName()); 
-		            		getM_versionNames().remove(objName); //remove this item from versionName list
-		            		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
-
-		            	}
+	            		singleSelection(actionEvent, concordancePanel, oneSelected);
 	            	}
-	            		
-	            	
 	            }};
 	            return actionListener;
 	}

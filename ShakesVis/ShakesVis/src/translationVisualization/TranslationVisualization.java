@@ -600,6 +600,7 @@ public class TranslationVisualization {
 			public void stateChanged(ChangeEvent event) {
 				m_scaleValue = getM_ConcordanceSlider().getValue();
 				getConcordancePanel().scaleConcordancePanel((int) m_scaleValue);
+				
 				getConcordanceFrame().revalidate();
 			}
 		});

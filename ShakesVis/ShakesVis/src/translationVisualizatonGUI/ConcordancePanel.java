@@ -261,73 +261,134 @@ public class ConcordancePanel extends JPanel {
 		Concordance choosenConcordance=choosenVersion.getM_ConcordanceList().get(lineNumber);
 		//if tokens in base text are clicked 
 		if(choosenVersion.getM_Author().equals("BaseText Shakespeare")){
-			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
-			for(int m=0; m<getM_VersionList().size(); m++){
-				Version version=getM_VersionList().get(m);
-				for(int n=0; n<version.getM_ConcordanceList().size(); n++){
-					if(version.getM_Author().equals("BaseText Shakespeare")){
-						choosenConcordance.setM_Token_Font(M_Token_Font);
-						choosenConcordance.setM_rectLine(true);
-						choosenConcordance.setM_RectColor(getDataReader().calculateColor(choosenConcordance.getM_Frequency(), 1));
-					}
-					Concordance concordance=version.getM_ConcordanceList().get(n);
-					if(!choosenConcordance.getM_TokenTranslations().contains(concordance.getM_Token())){
+			clickBaseText(versionNumber, lineNumber, choosenVersion, choosenConcordance);
+		}else{//if translation version is clicked
+			clickTransVersion(versionNumber, lineNumber, choosenVersion, choosenConcordance);
+		}
+		repaint();
+	}
+	
+	public void clickTransVersion(int versionNumber, int lineNumber, Version choosenVersion, Concordance choosenConcordance){
+		int size=13;
+		float transparentValue=0.4f;
+		String choosenToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
+		Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
+		for(int i=0; i<getM_VersionList().size(); i++){
+			Version version=getM_VersionList().get(i);
+			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
+				Concordance concordance=version.getM_ConcordanceList().get(j);
+				if(version.getM_Author().equals("BaseText Shakespeare")&&concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
+//					if(concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
+						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
+						concordance.setM_Token_Font(M_Token_Font);
+						concordance.setM_rectLine(true);
+//					}
+				}else{
+					if(!choosenToken.equals(concordance.getM_Token())){
 						Font token_Font=new Font("sansserif",Font.PLAIN, size);
 						concordance.setM_Token_Font(token_Font);
 						concordance.setM_rectLine(false);
 						concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
 						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
 					}else{
-						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1f));
+						concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
 						concordance.setM_Token_Font(M_Token_Font);
 						concordance.setM_rectLine(true);
-//						System.out.println(choosenConcordance.getM_Token());
 					}
 				}
 			}
-//			repaint();
-//			String hightlightToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_TokenTranslations();
-		}else{//if translation version is clicked
-			String choosenToken=getM_VersionList().get(versionNumber).getM_ConcordanceList().get(lineNumber).getM_Token();
-			Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
-			for(int i=0; i<getM_VersionList().size(); i++){
-				Version version=getM_VersionList().get(i);
-				for(int j=0; j<version.getM_ConcordanceList().size(); j++){
-					Concordance concordance=version.getM_ConcordanceList().get(j);
-					if(version.getM_Author().equals("BaseText Shakespeare")&&concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
-//						if(concordance.getM_TokenTranslations().contains(choosenConcordance.getM_Token())){
-							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
-							concordance.setM_Token_Font(M_Token_Font);
-							concordance.setM_rectLine(true);
-//						}
-					}else{
-						if(!choosenToken.equals(concordance.getM_Token())){
-							Font token_Font=new Font("sansserif",Font.PLAIN, size);
-							concordance.setM_Token_Font(token_Font);
-							concordance.setM_rectLine(false);
-							concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
-							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
-						}else{
-							concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1));
-							concordance.setM_Token_Font(M_Token_Font);
-							concordance.setM_rectLine(true);
-						}
-					}
-				}
-			}
-			repaint();
 		}
-//		repaint();
+		repaint();
 	}
 	
-//	public void defaultColor(int lineNumber){
-//		for(int i=0; i<getM_VersionList().size(); i++){
-//			Version version=getM_VersionList().get(i);
-//			version.getM_ConcordanceList().get(lineNumber).setM_TokenColor(getDataReader().calculateColor(lineNumber, 1f));
-//			version.getM_ConcordanceList().get(lineNumber).setM_RectColor(getDataReader().calculateColor(lineNumber, 1f));
-//		}
-//		repaint();
-//	}
+	public void clickBaseText(int versionNumber, int lineNumber, Version choosenVersion, Concordance choosenConcordance){
+		int size=13;
+		float transparentValue=0.4f;
+//		Version choosenVersion=getM_VersionList().get(versionNumber);
+//		Concordance choosenConcordance=choosenVersion.getM_ConcordanceList().get(lineNumber);
+		Font M_Token_Font=new Font("sansserif",Font.BOLD, size);
+		for(int m=0; m<getM_VersionList().size(); m++){
+			Version version=getM_VersionList().get(m);
+			for(int n=0; n<version.getM_ConcordanceList().size(); n++){
+				if(version.getM_Author().equals("BaseText Shakespeare")){
+					choosenConcordance.setM_Token_Font(M_Token_Font);
+					choosenConcordance.setM_rectLine(true);
+					choosenConcordance.setM_RectColor(getDataReader().calculateColor(choosenConcordance.getM_Frequency(), 1));
+				}
+				Concordance concordance=version.getM_ConcordanceList().get(n);
+				if(!choosenConcordance.getM_TokenTranslations().contains(concordance.getM_Token())){
+					Font token_Font=new Font("sansserif",Font.PLAIN, size);
+					concordance.setM_Token_Font(token_Font);
+					concordance.setM_rectLine(false);
+					concordance.setM_TokenColor(getDataReader().calculateColor(lineNumber, transparentValue));
+					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), transparentValue));
+				}else{
+					concordance.setM_RectColor(getDataReader().calculateColor(concordance.getM_Frequency(), 1f));
+					concordance.setM_Token_Font(M_Token_Font);
+					concordance.setM_rectLine(true);
+//					System.out.println(choosenConcordance.getM_Token());
+				}
+			}
+		}
+		repaint();
+	}
+	
+	/**
+	 * Draw stirng of titles
+	 * @param version - current Version object
+	 * @param g - the Graphic to be drawed
+	 */
+	public void drawTitleString(Version version, Graphics g){
+		g.setColor(Color.black); //set color of strings(tokens)
+		g.setFont(version.getM_WORD_FONT()); //set font of strings
+		//drawString(String, int x, int y), x and y represents the leftmost position of the string
+		String title=version.getM_Author()+" "+ version.getM_VersionYear();
+		g.drawString(title, version.getM_titlePoint().x, version.getM_titlePoint().y);
+	}
+	
+	/**
+	 * Draw token strings
+	 * @param g - the Graphic to be drawed
+	 */
+	public void drawTokenStrings(Graphics g){
+		//set color of strings/tokens
+		g.setColor(Color.black);
+		//paint only token without numbers
+		String string=getM_Concordance().getM_Token()+" ";
+		
+		g.setFont(getM_Concordance().getM_WORD_FONT());
+		//draw the current string/token, drawString(String, int x, int y)
+		// a font metrics object used to set the alignment of version tokens
+		FontMetrics fontMetrics = g.getFontMetrics();
+		g.drawString(string, getM_Concordance().getM_StringPoint().x-fontMetrics.stringWidth(string), getM_Concordance().getM_StringPoint().y);
+	}
+	
+	/**
+	 * Draw all the rectangles for tokens
+	 * @param g - the Graphic to be drawed
+	 */
+	public void drawRectangles(Graphics g){
+		//set color of rectangles
+		g.setColor(getM_Concordance().getM_RectColor());
+		//drawr filled rectangles, fillRect(int x, int y, int width, int height),
+		//x and y represent the top left position of the rectangle,
+		int x=getM_Concordance().getM_RectPoint().x;
+		int y=getM_Concordance().getM_RectPoint().y;
+		//draw rectangle using double values
+		Graphics2D g2d = (Graphics2D)g;
+		Rectangle rectangle=new Rectangle();
+		rectangle.setRect(x, y, getM_Concordance().getM_RectWidth(), getM_Concordance().getM_RectHeight());
+		g2d.fill(rectangle);
+		
+		//draw line around rectangle
+		if(getM_Concordance().isM_rectLine()==true){
+			Graphics2D g2 = (Graphics2D)g;
+			g2.setStroke(new BasicStroke(2)); //make the line thicker
+			g2.setColor(Color.black);
+			g2.drawRect(getM_Concordance().getM_RectPoint().x, getM_Concordance().getM_RectPoint().y, (int) getM_Concordance().getM_RectWidth(), getM_Concordance().getM_RectHeight());
+			
+		}
+	}
 	/**
 	 * Draw the version visualization on ConcordancePanel.
 	 * This method is called from ConcordancePanel. 
@@ -337,133 +398,85 @@ public class ConcordancePanel extends JPanel {
 		MouseAction action=new MouseAction();
 		this.addMouseListener(action);
 		this.addMouseMotionListener(action);
-		//create Graphics2D object to zoom ConcordancePanel
-//		Graphics2D g2d=(Graphics2D)g;
-//		g2d.scale(getZoomValue(),getZoomValue());
 		//set the ConcordancePanel
 		this.setLayout(null);
 		this.setBackground(Color.white);
 		super.paintComponent(g);  
 		//read and paint all 16 versions on the panel
 		for(int i=0; i<getM_VersionList().size(); i++){
-			Version version=getM_VersionList().get(i); //get current Version object to fetch information stored in the Version
+			setM_Version(getM_VersionList().get(i));
 			// draw title Strings
-			g.setColor(Color.black); //set color of strings(tokens)
-			g.setFont(version.getM_WORD_FONT()); //set font of strings
-			//drawString(String, int x, int y), x and y represents the leftmost position of the string
-			String title=version.getM_Author()+" "+ version.getM_VersionYear();
-			g.drawString(title, version.getM_titlePoint().x, version.getM_titlePoint().y);
-			// a font metrics object used to set the alignment of version tokens
-			FontMetrics fontMetrics = g.getFontMetrics();
-			
-			//read and paint all 50 tokens/Concordance in the current Version
-			for(int j=0; j<version.getM_ConcordanceList().size(); j++){
-				Concordance concordance=new Concordance(); //every time read a new concordance
-				concordance=version.getM_ConcordanceList().get(j);
-				//set color of strings/tokens
+			drawTitleString(getM_Version(), g);
+			//read and paint all tokens/Concordances in the current Version
+			for(int j=0; j<getM_Version().getM_ConcordanceList().size(); j++){
+				setM_Concordance(getM_Version().getM_ConcordanceList().get(j));
+				
+				//get boolean value from "On/Off" button
 				if(this.getM_OnAndOff()==true){
-					g.setColor(Color.black);
-					//paint both token and its tfidf value*100
-//					String string=concordance.getM_Token()+" "+concordance.getM_Frequency();
-					//paint only token without numbers
-					String string=concordance.getM_Token()+" ";
-
-					g.setFont(concordance.getM_WORD_FONT());
-					//draw the current string/token, drawString(String, int x, int y)
-					g.drawString(string, concordance.getM_StringPoint().x-fontMetrics.stringWidth(string), concordance.getM_StringPoint().y);
-					
+					drawTokenStrings(g);
 				}
 				
-				//set color of rectangles
-				g.setColor(concordance.getM_RectColor());
-				//drawr filled rectangles, fillRect(int x, int y, int width, int height),
-				//x and y represent the top left position of the rectangle,
-//				g.fillRect(concordance.getM_RectPoint().x, concordance.getM_RectPoint().y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
-				int x=concordance.getM_RectPoint().x;
-				int y=concordance.getM_RectPoint().y;
-//				double x=(double)(concordance.getM_RectPoint().x);
-//				double y=(double)(concordance.getM_RectPoint().y);
-//				double height=(double)(concordance.getM_RectHeight());
-				//draw rectangle using double values
-				Graphics2D g2d = (Graphics2D)g;
-				Rectangle rectangle=new Rectangle();
-				rectangle.setRect(x, y, concordance.getM_RectWidth(), concordance.getM_RectHeight());
-				g2d.fill(rectangle);
-				g2d.setStroke(new BasicStroke(2));
+				drawRectangles(g);
 				
-				//draw line around rectangle
-				if(concordance.isM_rectLine()==true){
-//					Graphics2D g2 = (Graphics2D)g;
-//					g2.setStroke(new BasicStroke(2)); //make the line thicker
-					g2d.setColor(Color.black);
-					g2d.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
-					
-				}
-				
-				//draw the lines for rectangle
 				//draw the lines connect same word between versions
 				int versionCompare=i+1; //comparing from the second version
 				//if this version is Base text
-				if(version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){
-					Concordance concordanceCompare;
-					
-					for(int m=0; m<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); m++){
-						if(isFirstVersion()==true&&i>0){
-							concordanceCompare=getM_VersionList().get(i-1).getM_ConcordanceList().get(m);
-							if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
-										Graphics2D g2 = (Graphics2D)g;
-										g2.setStroke(new BasicStroke(2)); //make the line thicker
-										//draw line around rectangle
-										if(concordance.isM_rectLine()==true){
-											g2.setColor(Color.BLACK);
-											g2.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
-										}
-										g2.setColor(concordance.getM_RectColor()); 
-										int gapY=concordanceCompare.getM_RectHeight()/2;
-										g2.drawLine((int) (concordanceCompare.getM_StringPoint().x+concordanceCompare.getM_RectWidth()), concordanceCompare.getM_StringPoint().y, concordance.getM_RectPoint().x, concordance.getM_RectPoint().y+gapY);
-							}
-						}
-					}
-					
-						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
-						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
-//						if(concordance.getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
-//							Graphics2D g2 = (Graphics2D)g;
-//							g2.setStroke(new BasicStroke(2)); //make the line thicker
-//							//draw line around rectangle
-//							if(concordance.isM_rectLine()==true){
-//								g2.setColor(Color.BLACK);
-//								g2.drawRect(x, y, (int) concordance.getM_RectWidth(), concordance.getM_RectHeight());
+//				if(getM_Version().getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){
+//					Concordance concordanceCompare;
+//					
+//					for(int m=0; m<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); m++){
+//						if(isFirstVersion()==true&&i>0){
+//							concordanceCompare=getM_VersionList().get(i-1).getM_ConcordanceList().get(m);
+//							if(getM_Concordance().getM_TokenTranslations().contains(concordanceCompare.getM_Token())){
+//										Graphics2D g2 = (Graphics2D)g;
+//										g2.setStroke(new BasicStroke(2)); //make the line thicker
+//										//draw line around rectangle
+//										if(getM_Concordance().isM_rectLine()==true){
+//											g2.setColor(Color.BLACK);
+//											g2.drawRect(getM_Concordance().getM_RectPoint().x, getM_Concordance().getM_RectPoint().y, (int) getM_Concordance().getM_RectWidth(), getM_Concordance().getM_RectHeight());
+//										}
+//										g2.setColor(getM_Concordance().getM_RectColor()); 
+//										int gapY=concordanceCompare.getM_RectHeight()/2;
+//										g2.drawLine((int) (concordanceCompare.getM_StringPoint().x+concordanceCompare.getM_RectWidth()), concordanceCompare.getM_StringPoint().y, getM_Concordance().getM_RectPoint().x, getM_Concordance().getM_RectPoint().y+gapY);
 //							}
-//							g2.setColor(concordance.getM_RectColor()); 
-//							int gapY=concordanceCompare.getM_RectHeight()/2;
-//							g2.drawLine((int) (concordance.getM_StringPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_RectPoint().y+gapY);
-//						
 //						}
-						}		
-				}
-				//versionCompare>1, means we the compared version start from the third one
-				//versionCompare<m_VersionList.size(), controal the last version compared
+//					}
+//					
+//						for(int n=0; n<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); n++){
+//						concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(n);
+//						}		
+//				}
+				
 				//if this version is not base text
-				else if(!version.getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){ 
+//				else if(!getM_Version().getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){ 
+			    if(!getM_Version().getM_VersionName().equals("0000 BaseText Shakespeare.txt")&&versionCompare<getM_VersionList().size()){ 
 					//read and compare all the concordances in the compared version
 					for(int k=0; k<getM_VersionList().get(versionCompare).getM_ConcordanceList().size(); k++){
 						Concordance concordanceCompare=getM_VersionList().get(versionCompare).getM_ConcordanceList().get(k);
 						//compare the two tokens
-						if(concordanceCompare.getM_Token().equals(concordance.getM_Token())){
-							
+						if(concordanceCompare.getM_Token().equals(getM_Concordance().getM_Token())){
+							drawLines(concordanceCompare, g);
 							//set line colors
-//							g.setColor(concordance.getM_TokenColor()); // color edge according to strings
-							g.setColor(concordance.getM_RectColor()); // color edge according to frequency (same with rectangle color)
-							
-							//drawLine(int x1, int y1, int x2, int y2), x1 and y1 represent start point of the line, x2 and y2 represent end point of the line
-							g.drawLine((int) (concordance.getM_RectPoint().x+concordance.getM_RectWidth()), concordance.getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
+////							g.setColor(getM_Concordance().getM_TokenColor()); // color edge according to strings
+//							g.setColor(getM_Concordance().getM_RectColor()); // color edge according to frequency (same with rectangle color)
+//							//drawLine(int x1, int y1, int x2, int y2), x1 and y1 represent start point of the line, x2 and y2 represent end point of the line
+//							g.drawLine((int) (getM_Concordance().getM_RectPoint().x+getM_Concordance().getM_RectWidth()), getM_Concordance().getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
 						}
 					}
 					
 				}
 			}
 		}
+		repaint();
+	}
+	
+	public void drawLines(Concordance concordanceCompare, Graphics g){
+		//set line colors
+//		g.setColor(getM_Concordance().getM_TokenColor()); // color edge according to strings
+		g.setColor(getM_Concordance().getM_RectColor()); // color edge according to frequency (same with rectangle color)
+		
+		//drawLine(int x1, int y1, int x2, int y2), x1 and y1 represent start point of the line, x2 and y2 represent end point of the line
+		g.drawLine((int) (getM_Concordance().getM_RectPoint().x+getM_Concordance().getM_RectWidth()), getM_Concordance().getM_StringPoint().y, concordanceCompare.getM_RectPoint().x, concordanceCompare.getM_StringPoint().y);
 	}
 	
 	private class MouseAction implements MouseListener, MouseMotionListener{
@@ -543,7 +556,7 @@ public class ConcordancePanel extends JPanel {
 	/** one Version object */
 	Version m_singleVersion=new Version();
 
-	/** a boolean value to turn on and off the text on panel */
+	/** a boolean value passed from "Text On/Off" button to turn on and off the text on panel */
 	private boolean m_OnAndOff=true;
 
 	/** the default integer used to set zoom level, we use 10 is because when the first time 
@@ -552,6 +565,28 @@ public class ConcordancePanel extends JPanel {
 	private double m_ZoomValue=40; //initiate zoomvalue
 
 	private int m_VersionNumber=0;
+	
+	/**	a Version object */
+	private Version m_Version;
+	
+	public Version getM_Version() {
+		return m_Version;
+	}
+
+	public void setM_Version(Version m_Version) {
+		this.m_Version = m_Version;
+	}
+
+	/**	a concordance object */
+	private Concordance m_Concordance;
+
+	public Concordance getM_Concordance() {
+		return m_Concordance;
+	}
+
+	public void setM_Concordance(Concordance m_Concordance) {
+		this.m_Concordance = m_Concordance;
+	}
 	
 	
 
