@@ -26,14 +26,11 @@ public class LemmaProcess {
 		 * Read the text line by line and pass each token to other methods
 		 */
 		try {
+			File newTextFile = new File("D:/TextFile1.txt");
+			FileWriter fw = new FileWriter(newTextFile);
 			// setM_UnsortedFrequency(new Hashtable<String, Integer>());
 			// //initiate the frequency hashtable
 			BufferedReader br = new BufferedReader(new FileReader(filePath)); // create
-																				// a
-																				// BufferedReader
-																				// and
-																				// read
-																				// file
 			String sCurrentLine; // used to store string one line as a string
 			// List<String> tmpWordsList=new ArrayList<String>();
 
@@ -41,6 +38,7 @@ public class LemmaProcess {
 									// sCurrentLine beings splited
 			// setM_OneTokenList(new ArrayList<String>());
 			int lineCount = 0;
+			int count=0;
 			while ((sCurrentLine = br.readLine()) != null) { // read a line of
 																// the text each
 																// time
@@ -54,12 +52,17 @@ public class LemmaProcess {
 					 * pass each word to addWordFrequency() method
 					 */
 					for (int i = 0; i < tmpWordsList.length; i++) {
+						count++;
 						jSonReader(tmpWordsList[i]);
+//						System.out.println(count);
+//						System.out.println(tmpWordsList[i]);
+//						fw.write(str+"\n");
 					}
 				}
-				System.out.println(lineCount);
+				
 			}
 
+			fw.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,19 +74,28 @@ public class LemmaProcess {
 	}
 
 	public boolean jSonReader(String token) throws Exception {
-
 		jsonReader = Json.createReader(new FileReader("src\\data\\GermanLemma.json"));
 		JsonObject object = jsonReader.readObject();
-		 System.out.println(object.toString());
 		JsonArray jsonArray = object.getJsonArray(token);
+//		System.out.println(jsonArray.toString().length());
+//		fw.write(str+"\n");
 		if (jsonArray != null) {
 			for (int i = 0; i < jsonArray.size(); i++) {
 				int length = jsonArray.get(i).toString().length() - 1;
-				String string = jsonArray.get(i).toString().substring(1, length);
-				System.out.println(string);
-				// concordance.getM_TokenTranslations().add(string);
+				String string = jsonArray.get(0).toString().substring(1, length);
+				
+//				System.out.println(string);
+				String str=string.toString();
+				System.out.println(str);
+			
+//				 concordance.getM_TokenTranslations().add(string);
+				 
 			}
+		}else{
+			System.out.println(token);
+			
 		}
+		
 
 		return true;
 	}
@@ -105,6 +117,7 @@ public class LemmaProcess {
 			lineCount++;
 		}
 
+		
 		fw.write("}");
 		fw.close();
 		System.out.println(lineCount);
@@ -113,8 +126,10 @@ public class LemmaProcess {
 
 	public static void main(String[] args) throws Exception {
 		LemmaProcess lp = new LemmaProcess();
-		// lp.readCorpus("src\\data\\DeReKo-2014-II-MainArchive-STT.100000.freq");
-		lp.readOneFile(m_FilePath[1]);
+//		 lp.readCorpus("src\\data\\DeReKo-2014-II-MainArchive-STT.100000.freq");
+		System.out.println(m_FilePath[15]);
+		lp.readOneFile(m_FilePath[15]);
+		System.out.println("Finish");
 
 	}
 
@@ -131,7 +146,7 @@ public class LemmaProcess {
 	}
 
 	private final static String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt",
-			"src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+			"src\\data\\1832 Baudissin ed Wenig-Lemma.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
 			"src\\data\\1947 Baudissin ed Brunner.txt", "src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
 			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",

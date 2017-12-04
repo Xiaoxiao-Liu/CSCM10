@@ -29961,7 +29961,7 @@
 		"bergen"
 	],
 	"sowas": [
-		"sowas"
+		"sowas" 
 	],
 	"Landstraße": [
 		"Landstraße"
@@ -299990,10 +299990,8 @@
 	"Benefiz": [
 		"UNKNOWN"
 	],
-	"Frankfurt-Hahn": [
-		"unknown"
-	],
+
 	"politisieren": [
 		"politisieren"
-	],
+	]
 }
