@@ -53,6 +53,16 @@ public class TranslationVisualization {
 	/** the height of the ScrollPanel */
 	private final static int SCROLL_PANEL_HEIGHT = 330;
 
+	private String frameTitle="Translation Visualization";
+	
+	public String getFrameTitle() {
+		return frameTitle;
+	}
+
+	public void setFrameTitle(String frameTitle) {
+		this.frameTitle = frameTitle;
+	}
+
 	/** a way to access the JFrame object (Layer 1) */
 	private JFrame m_ConcordanceFrame;
 
@@ -108,6 +118,16 @@ public class TranslationVisualization {
 
 	/** a JButton to initiate concordancePanel */
 	private JButton m_TfIdfButton;
+	
+	private JButton m_lemmaButton;
+
+	public JButton getM_lemmaButton() {
+		return m_lemmaButton;
+	}
+
+	public void setM_lemmaButton(JButton m_lemmaButton) {
+		this.m_lemmaButton = m_lemmaButton;
+	}
 
 	private GridBagLayout m_PanelLayout = new GridBagLayout();
 
@@ -370,14 +390,6 @@ public class TranslationVisualization {
 		getM_UserOptionPanel().setBackground(Color.WHITE);
 	}
 
-	public JPanel getM_VersionSelectionPanel() {
-		return m_VersionSelectionPanel;
-	}
-
-	public void setM_VersionSelectionPanel(JPanel m_VersionSelectionPanel) {
-		this.m_VersionSelectionPanel = m_VersionSelectionPanel;
-	}
-
 	/**
 	 * Use this method to access m_ColorLegendPanel
 	 * 
@@ -398,7 +410,6 @@ public class TranslationVisualization {
 		m_ColorLegendPanel.setM_ConcordancePanel(getConcordancePanel());
 		m_ColorLegendPanel.setColorLegend(dataReader.sortColorIndex(dataReader.getM_frequencyColorIndex()),
 				dataReader.getM_FrequencyIndex());
-
 	}
 
 	/**
@@ -426,7 +437,7 @@ public class TranslationVisualization {
 	public void setComponents() throws Exception {
 		
 		// layer 1 - Concordance Frame
-		setConcordanceFrame(new JFrame("Translation Visualization"));
+		setConcordanceFrame(new JFrame(getFrameTitle()));
 		// layer 2 - Concordance Panel
 		setConcordancePanel(new ConcordancePanel(getVersionList()));
 		// setConcordancePanel(new ConcordancePanel());
@@ -518,7 +529,9 @@ public class TranslationVisualization {
 				System.out.println("Button pressed");
 //				getConcordanceFrame().dispose();
 				try {
+					setFrameTitle("Frequency Visualization");
 					setDataReader(new DataReader());
+					getDataReader().setInitialFilePath();
 					getDataReader().setFrequentValue(true);
 					setM_VersionList(getDataReader().initiateDataReader());
 					setComponents();
@@ -548,6 +561,7 @@ public class TranslationVisualization {
 				System.out.println("Another button pressed");
 //				getConcordanceFrame().dispose();
 				try {
+					setFrameTitle("Tf-Idf Visualization");
 					setDataReader(new DataReader());
 					getDataReader().setFrequentValue(false);
 					setM_VersionList(getDataReader().initiateDataReader());
@@ -564,10 +578,72 @@ public class TranslationVisualization {
 			}
 		});
 
+		//German lemma button
+		setM_lemmaButton(new JButton("Lemma+Frequency"));
+		useroptionConstraint.gridx = 1;
+		useroptionConstraint.gridy = 3;
+		useroptionConstraint.fill = GridBagConstraints.BOTH;
+		useroptionConstraint.insets = new Insets(0, 30, 5, 30);
+		getM_UserOptionPanel().add(getM_lemmaButton(), useroptionConstraint);
+		getM_lemmaButton().addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Lemma button pressed");
+				try {
+					setFrameTitle("Lemma Visualization");
+					setDataReader(new DataReader());
+					getDataReader().setGermanLemmaFilePath();
+					getDataReader().setFrequentValue(true);
+					setM_VersionList(getDataReader().initiateDataReader());
+					setComponents();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				initiateVisPanel();
+				initiateUserOptPanel();
+				initiateFrame();
+				getScrollPane().setVisible(true);
+				getConcordanceFrame().revalidate();
+				
+			}
+		});
+		
+		//German lemma button
+				setM_lemmaButton(new JButton("Lemma+TfIdf"));
+				useroptionConstraint.gridx = 1;
+				useroptionConstraint.gridy = 4;
+				useroptionConstraint.fill = GridBagConstraints.BOTH;
+				useroptionConstraint.insets = new Insets(0, 30, 5, 30);
+				getM_UserOptionPanel().add(getM_lemmaButton(), useroptionConstraint);
+				getM_lemmaButton().addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						System.out.println("Lemma button pressed");
+						try {
+							setFrameTitle("Lemma+TfIdf Visualization");
+							setDataReader(new DataReader());
+							getDataReader().setGermanLemmaFilePath();
+							getDataReader().setFrequentValue(false);
+							setM_VersionList(getDataReader().initiateDataReader());
+							setComponents();
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						initiateVisPanel();
+						initiateUserOptPanel();
+						initiateFrame();
+						getScrollPane().setVisible(true);
+						getConcordanceFrame().revalidate();
+						
+					}
+				});
+		
 		// text on off button
 		setM_TextOnOffButton(new JToggleButton("Text On"));
 		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 3;
+		useroptionConstraint.gridy = 5;
 		useroptionConstraint.fill = GridBagConstraints.BOTH;
 		useroptionConstraint.insets = new Insets(0, 30, 5, 30);
 		getM_UserOptionPanel().add(getM_TextOnOffButton(), useroptionConstraint);
@@ -575,14 +651,10 @@ public class TranslationVisualization {
 			public void itemStateChanged(ItemEvent itemEvent) {
 				int state = itemEvent.getStateChange();
 				if (state == ItemEvent.SELECTED) {
-					getM_TextOnOffButton().setText("Text On");// change
-																		// the
-																		// text
-																		// on
-																		// button
+					getM_TextOnOffButton().setText("Text Off");// change
 					getConcordancePanel().setOnAndOff(false);
 				} else {
-					getM_TextOnOffButton().setText("Text Off");
+					getM_TextOnOffButton().setText("Text On");
 					getConcordancePanel().setOnAndOff(true);
 				}
 			}
@@ -591,7 +663,7 @@ public class TranslationVisualization {
 
 		// concordanceSlider
 		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 4;
+		useroptionConstraint.gridy = 6;
 		// useroptionConstraint.fill = GridBagConstraints.BOTH;
 		// useroptionConstraint.anchor = GridBagConstraints.EAST;
 		useroptionConstraint.insets = new Insets(5, 0, 0, 5);
@@ -608,14 +680,14 @@ public class TranslationVisualization {
 		// concordanceSlider label
 		setM_SliderLabel(new JLabel(), "Concordance");
 		useroptionConstraint.gridx = 2;
-		useroptionConstraint.gridy = 4;
+		useroptionConstraint.gridy = 6;
 		// useroptionConstraint.anchor = GridBagConstraints.WEST;
 		useroptionConstraint.insets = new Insets(2, 5, 0, 0);
 		getM_UserOptionPanel().add(getM_SliderLabel(), useroptionConstraint);
 
 		// scrollpaneSlider
 		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 5;
+		useroptionConstraint.gridy = 7;
 		// useroptionConstraint.fill = GridBagConstraints.BOTH;
 		useroptionConstraint.insets = new Insets(3, 0, 20, 5);
 		getM_ScrollPaneSlider().setToolTipText("Hello");
@@ -636,14 +708,14 @@ public class TranslationVisualization {
 		// scrollpaneSlider label
 		setM_SliderLabel(new JLabel(), "Panel");
 		useroptionConstraint.gridx = 2;
-		useroptionConstraint.gridy = 5;
+		useroptionConstraint.gridy = 7;
 		// useroptionConstraint.anchor = GridBagConstraints.WEST;
 		useroptionConstraint.insets = new Insets(2, 5, 20, 0);
 		getM_UserOptionPanel().add(getM_SliderLabel(), useroptionConstraint);
 
 		// versionChoosingPanel
 		useroptionConstraint.gridx = 1;
-		useroptionConstraint.gridy = 7;
+		useroptionConstraint.gridy = 9;
 		getM_Constraint().weightx = 1;
 		useroptionConstraint.fill = GridBagConstraints.BOTH;
 		getM_UserOptionPanel().add(getVersionChoosingPanel(), useroptionConstraint);

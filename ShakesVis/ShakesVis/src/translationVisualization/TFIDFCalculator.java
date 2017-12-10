@@ -1,7 +1,6 @@
 package translationVisualization;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +16,16 @@ public class TFIDFCalculator {
 	
 	public List<Hashtable<String, Integer>> getLists() {
 		return lists;
+	}
+	
+	private Concordance concordance;
+
+	public Concordance getConcordance() {
+		return concordance;
+	}
+
+	public void setConcordance(Concordance concordance) {
+		this.concordance = concordance;
 	}
 
 	private Hashtable<String, Integer> tfidfList;

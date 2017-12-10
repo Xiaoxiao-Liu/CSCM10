@@ -19,12 +19,6 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 
-import com.google.api.services.translate.Translate;
-import com.google.api.services.translate.model.TranslationsListResponse;
-import com.google.api.services.translate.model.TranslationsResource;
-
-//import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-
 /**
  * 
  * @author Rosa
@@ -108,6 +102,27 @@ public class DataReader {
 	 */
 	public String[] getM_FilePath() {
 		return m_FilePath;
+	}
+	
+	public void setInitialFilePath(){
+		String[] FilePath={ "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+				"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
+				"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
+				"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
+				"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
+
+		m_FilePath=FilePath;
+	}
+	
+	public void setGermanLemmaFilePath(){
+		String[] FilePath={ "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig-Lemma.txt", "src\\data\\1920 Gundolf-Lemma.txt", "src\\data\\1941 Schwarz-Lemma.txt",
+				"src\\data\\1947 Baudissin ed Brunner-Lemma.txt",	"src\\data\\1952 Flatter-Lemma.txt", "src\\data\\1962 Schroeder-Lemma.txt",
+				"src\\data\\1963 Rothe-Lemma.txt", "src\\data\\1970 Fried-Lemma.txt", "src\\data\\1973 Lauterbach-Lemma.txt",
+				"src\\data\\1976 Engler-Lemma.txt", "src\\data\\1978 Laube-Lemma.txt", "src\\data\\1985 Bolte Hamblock-Lemma.txt",
+				"src\\data\\1992 Motschach-Lemma.txt", "src\\data\\1995 Guenther-Lemma.txt", "src\\data\\2003 Zaimoglu-Lemma.txt" };
+ 
+		m_FilePath=FilePath;
+		 
 	}
 	
 	
@@ -202,6 +217,7 @@ public class DataReader {
 				return o2.getKey().compareTo(o1.getKey());
 			}
 		});
+		
 		return m_ColorIndex;
 	}
 	
@@ -286,6 +302,7 @@ public class DataReader {
 		setM_VersionList(new ArrayList<Version>());
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
+			System.out.println("Size"+getM_UnsortedFrequency().size());
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
 //			if(!(i==0)){
 //				getM_tokenLists().add(getM_UnsortedFrequency());
@@ -340,15 +357,16 @@ public class DataReader {
 	 */
 	public Point calculatePoint(int versionNumber, int lineNumber, int scaleValue) {
 		double scaleValueProcess=scaleValue/100.0;
-		int spacingX=(int) (150*scaleValueProcess);
-		int spacingY=(int) (25*scaleValueProcess);
+		int versionDistance=150;
+		int versionDistanceScale=(int) (versionDistance*scaleValueProcess);
+		int lineDistance=25;
+		int lineDistanceScale=(int) (lineDistance*scaleValueProcess);
+		Point point=new Point();
+		// the versionNumber start from 0 in the array, so we add 1 for each version
+		point.x=(int) ((versionNumber+1)*versionDistanceScale*scaleValueProcess);
+		point.y=(int) ((lineNumber+2)*lineDistanceScale*scaleValueProcess);
 
-		int offSetX=75;
-		Point stringPoint=new Point();
-		stringPoint.x=(int) (versionNumber*spacingX*scaleValueProcess)+offSetX;
-		stringPoint.y=(int) ((lineNumber+2)*spacingY*scaleValueProcess);
-
-		return stringPoint;
+		return point;
 	}
 	
 	
@@ -366,7 +384,10 @@ public class DataReader {
 		int blueVar = 4;
 		double colorFrequency = 0.22;
 		double toDouble = (double) frequency;
-		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
+//		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
+//		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
+//		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
+		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + (halfRange + 1)) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
 		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
 		float b=1f;// transparent
@@ -396,75 +417,6 @@ public class DataReader {
 		}
 	}
 
-
-//	public void googleAPIAuth(Version version){
-//		List<String> tokenTranslation=new ArrayList<String>();
-//		tokenTranslation=version.getM_WordsList();
-//		try {           
-//	        // See comments on 
-//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-//	        // on options to set
-//	        Translate t = new Translate.Builder(
-//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-//	                //Need to update this to your App-Name
-//	                .setApplicationName("ShakesVis")                    
-//	                .build(); 
-//	        Translate.Translations.List list = t.new Translations().list(
-//	        		version.getM_WordsList(), 
-//	                    //Target language
-//	        		    //To find the abbreviation of language: https://cloud.google.com/translate/docs/languages
-//	                    "en");  
-//	        //Set your API-Key from https://console.developers.google.com/
-//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-//	        TranslationsListResponse response = list.execute();
-//	        int i=0;
-//	        for(TranslationsResource tr : response.getTranslations()) {
-////	        	tokenTranslation.add(tr.getTranslatedText());
-////	            System.out.println(i+": "+tr.getTranslatedText());
-//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-//	            i++;
-//	        }
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	}
-	
-//	public void googleAPIEng(Version version){
-//		List<String> tokenTranslation=new ArrayList<String>();
-//		tokenTranslation=version.getM_WordsList();
-//		try {           
-//	        // See comments on 
-//	        //   https://developers.google.com/resources/api-libraries/documentation/translate/v2/java/latest/
-//	        // on options to set
-//	        Translate t = new Translate.Builder(
-//	                com.google.api.client.googleapis.javanet.GoogleNetHttpTransport.newTrustedTransport()
-//	                , com.google.api.client.json.gson.GsonFactory.getDefaultInstance(), null)                                   
-//	                //Need to update this to your App-Name
-//	                .setApplicationName("ShakesVis")                    
-//	                .build(); 
-//	        Translate.Translations.List list = t.new Translations().list(
-//	        		version.getM_WordsList(), 
-//	                    //Target language 
-//	                    "de");  
-//	        //Set your API-Key from https://console.developers.google.com/
-//	        list.setKey("AIzaSyAs48FHTLNCZlmNLzTPPnpCjkgIz6THIFU");
-//	        TranslationsListResponse response = list.execute();
-//	        int i=0;
-//	        for(TranslationsResource tr : response.getTranslations()) {
-////	        	tokenTranslation.add(tr.getTranslatedText());
-////	            System.out.println(i+": "+tr.getTranslatedText());
-//	            version.getM_ConcordanceList().get(i).setM_TokenTranslation(tr.getTranslatedText());
-////	            System.out.println(version.getM_ConcordanceList().get(i).getM_Token()+": "+tr.getTranslatedText());
-//	            i++;
-//	        }
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	}
-	
-
 	public boolean jSonReader(String token, Concordance concordance) throws Exception{
 			jsonReader = Json.createReader(new FileReader("src\\data\\English-German.json"));
 	
@@ -486,11 +438,17 @@ public class DataReader {
 	private List<Map.Entry<String, Integer>> m_FrequencyIndex = new ArrayList<Map.Entry<String, Integer>>();
 
 	/**an string array to store file paths for basic text and translation versions*/
-	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+	private String[] m_FilePath = { "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
 			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
 			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
+
+//	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+//			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
+//			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
+//			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
+//			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
 
 	/**a hashtable to store tokens and frequency but without sorting*/
 	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();

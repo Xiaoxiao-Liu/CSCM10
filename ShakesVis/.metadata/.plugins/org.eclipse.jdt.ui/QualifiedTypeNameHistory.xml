@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="org.annolab.tt4j.TreeTaggerWrapper"/>
-<fullyQualifiedTypeName name="java.util.Properties"/>
 <fullyQualifiedTypeName name="edu.stanford.nlp.pipeline.Annotation"/>
 <fullyQualifiedTypeName name="org.json.JSONObject"/>
 <fullyQualifiedTypeName name="javax.json.JsonReader"/>
@@ -31,8 +30,10 @@
 <fullyQualifiedTypeName name="javax.swing.BorderFactory"/>
 <fullyQualifiedTypeName name="javax.swing.JScrollPane"/>
 <fullyQualifiedTypeName name="com.fasterxml.jackson.core.Version"/>
-<fullyQualifiedTypeName name="java.lang.annotation.Annotation"/>
 <fullyQualifiedTypeName name="treeTagger_GermanLemma.ExecutableResolver"/>
 <fullyQualifiedTypeName name="org.slf4j.helpers.Util"/>
 <fullyQualifiedTypeName name="java.io.UnsupportedEncodingException"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.lang.annotation.Annotation"/>
+<fullyQualifiedTypeName name="java.text.Annotation"/>
 </qualifiedTypeNameHistroy>

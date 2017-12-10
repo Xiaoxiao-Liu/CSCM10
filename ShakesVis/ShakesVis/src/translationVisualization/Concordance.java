@@ -88,13 +88,16 @@ public class Concordance {
 	
 	private int fontSize=13;
 	/** the font of tokens */
-	private Font M_Token_Font=new Font("sansserif",Font.PLAIN, fontSize); 
+	private Font M_Token_Font;
+//	private Font M_Token_Font=new Font("sansserif",Font.PLAIN, fontSize); 
 	public Font getM_Token_Font() {
 		return M_Token_Font;
 	}
 
-	public void setM_Token_Font(Font m_Token_Font) {
-		M_Token_Font = m_Token_Font;
+	public void setM_Token_Font(int scalValue) {
+		
+		M_Token_Font=new Font("sansserif",Font.PLAIN, fontSize);
+		
 	}
 
 	/**a way to access the English token translation*/

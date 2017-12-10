@@ -22,7 +22,35 @@ public class VersionChoosenPanel extends JPanel {
 	/**the list of String to store version names and pass this list to concordance panel and repaint new panel with versions only selected*/
 	public List<String> m_versionNames;
 	
-	public String[] string={ "0000 BaseText Shakespeare.txt", "1832 Baudissin ed Wenig.txt", "1920 Gundolf.txt", "1941 Schwarz.txt",
+
+	/**
+	 * @return file path string array
+	 */
+	public String[] getM_FilePath() {
+		return m_FilePath;
+	}
+	
+	public void setInitialFilePath(){
+		String[] FilePath={ "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
+				"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
+				"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
+				"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
+				"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
+
+		m_FilePath=FilePath;
+	}
+	
+	public void setGermanLemmaFilePath(){
+		String[] FilePath={ "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig-Lemma.txt", "src\\data\\1920 Gundolf-Lemma.txt", "src\\data\\1941 Schwarz-Lemma.txt",
+				"src\\data\\1947 Baudissin ed Brunner-Lemma.txt",	"src\\data\\1952 Flatter-Lemma.txt", "src\\data\\1962 Schroeder-Lemma.txt",
+				"src\\data\\1963 Rothe-Lemma.txt", "src\\data\\1970 Fried-Lemma.txt", "src\\data\\1973 Lauterbach-Lemma.txt",
+				"src\\data\\1976 Engler-Lemma.txt", "src\\data\\1978 Laube-Lemma.txt", "src\\data\\1985 Bolte Hamblock-Lemma.txt",
+				"src\\data\\1992 Motschach-Lemma.txt", "src\\data\\1995 Guenther-Lemma.txt", "src\\data\\2003 Zaimoglu-Lemma.txt" };
+ 
+		m_FilePath=FilePath;
+		 
+	}
+	public String[] m_FilePath={ "1604 BaseText Shakespeare.txt", "1832 Baudissin ed Wenig.txt", "1920 Gundolf.txt", "1941 Schwarz.txt",
 			"1947 Baudissin ed Brunner.txt",	"1952 Flatter.txt", "1962 Schroeder.txt",
 			"1963 Rothe.txt", "1970 Fried.txt", "1973 Lauterbach.txt",
 			"1976 Engler.txt", "1978 Laube.txt", "1985 Bolte Hamblock.txt",
@@ -67,7 +95,7 @@ public class VersionChoosenPanel extends JPanel {
     		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
             Boolean boolAll = new Boolean((boolean) objectAll);
             if(boolAll){ // if select "all"
-        		addAllVersions(string);
+        		addAllVersions(getM_FilePath());
         		concordancePanel.displaySingleVersion(getM_versionNames()); //invoke concordancePanel method to repaint
         		for(int  i=0; i<getM_versionNames().size(); i++){
         			getM_checkList().get(i).setSelected(true);

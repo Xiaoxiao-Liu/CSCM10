@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
-	<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\ShakesVis\src" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\45109\Documents\GitHub\CSCM10\ShakesVis\ShakesVis\src\APIs\stanford-corenlp-full-2017-06-09" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="480,510" key="UserLibraryLoadSaveDialog.size"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="renameSubpackages"/>
 		<item value="false" key="updateQualifiedNames"/>

@@ -1,3 +1,4 @@
+LexicalSortingAction.isChecked=true
 content_assist_add_import=true
 content_assist_autoactivation=true
 content_assist_autoactivation_delay=0
@@ -25,7 +26,7 @@ org.eclipse.jdt.ui.text.code_templates_migrated=true
 org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
 org.eclipse.jdt.ui.text.templates_migrated=true
-org.eclipse.jface.textfont=1|Consolas|10.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
+org.eclipse.jface.textfont=1|Consolas|12.0|0|WINDOWS|1|0|0|0|0|0|0|0|0|1|0|0|0|0|Consolas;
 proposalOrderMigrated=true
 sourceHoverBackgroundColor=255,255,225
 spelling_locale_initialized=true
