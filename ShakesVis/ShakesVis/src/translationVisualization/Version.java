@@ -23,10 +23,10 @@ public class Version {
     private int m_VersionYear;
 
     /**a concordance object */
-	private Concordance m_Concordance=new Concordance();
+	private Item m_Concordance=new Item();
 
     /**the list of all concordances */
-    private List<Concordance> m_ConcordanceList=new ArrayList<Concordance>();
+    private List<Item> m_ConcordanceList=new ArrayList<Item>();
     
     /**the location of title */
     private Point m_titlePoint= new Point();
@@ -131,7 +131,7 @@ public class Version {
 	/**
 	 * @return one concordance
 	 */
-	public Concordance getM_Concordance() {
+	public Item getM_Concordance() {
 		return m_Concordance;
 	}
 
@@ -139,14 +139,14 @@ public class Version {
 	 * An accessor method to set one concordance
 	 * @param m_Concordance
 	 */
-	public void setM_Concordance(Concordance m_Concordance) {
+	public void setM_Concordance(Item m_Concordance) {
 		this.m_Concordance = m_Concordance;
 	}
 
 	/**
 	 * @return a list of concordance in current version
 	 */
-	public List<Concordance> getM_ConcordanceList() {
+	public List<Item> getM_ConcordanceList() {
 		return m_ConcordanceList;
 	}
 
@@ -154,7 +154,7 @@ public class Version {
 	 * An accessor method to set the list of concordance
 	 * @param m_Concordance
 	 */
-	public void setM_ConcordanceList(Concordance m_Concordance) {
+	public void setM_ConcordanceList(Item m_Concordance) {
 		m_ConcordanceList.add(m_Concordance);
 	}
 

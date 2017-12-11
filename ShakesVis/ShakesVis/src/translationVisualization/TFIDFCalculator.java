@@ -18,14 +18,14 @@ public class TFIDFCalculator {
 		return lists;
 	}
 	
-	private Concordance concordance;
+	private Item item;
 
-	public Concordance getConcordance() {
-		return concordance;
+	public Item getConcordance() {
+		return item;
 	}
 
-	public void setConcordance(Concordance concordance) {
-		this.concordance = concordance;
+	public void setConcordance(Item item) {
+		this.item = item;
 	}
 
 	private Hashtable<String, Integer> tfidfList;

@@ -242,26 +242,26 @@ public class DataReader {
 		for (Map.Entry<String, Integer> mapping : getM_FrequencyIndex()) { //read each token of the index
 //			if (getVersion().getM_ConcordanceList().size() < listSize) { //get the top 50 frequent tokens in each version
 				getVersion().getM_WordsList().add(mapping.getKey());
-				Concordance concordance = new Concordance();
-				concordance.setM_Token(mapping.getKey());
-				concordance.getM_Tokens().add(mapping.getKey());
+				Item item = new Item();
+				item.setM_Token(mapping.getKey());
+				item.getM_Tokens().add(mapping.getKey());
 				if(versionNumber==0){
-				concordance.setM_TokenTranslations(new ArrayList<String>());
-				jSonReader(concordance.getM_Token(), concordance);
+				item.setM_TokenTranslations(new ArrayList<String>());
+				jSonReader(item.getM_Token(), item);
 				}
-				concordance.setM_Frequency(mapping.getValue());
-				concordance.getM_Frequencies().add(mapping.getValue());
-				concordance.setM_RectWidth(mapping.getValue(),100);
-				concordance.setM_RectHeight(100);
+				item.setM_Frequency(mapping.getValue());
+				item.getM_Frequencies().add(mapping.getValue());
+				item.setM_RectWidth(mapping.getValue(),100);
+				item.setM_RectHeight(100);
 				int lineIncrement=2; //to low down the line in case the first line cover title
-				concordance.setM_StringPoint(calculatePoint(versionNumber,lineNumber+lineIncrement, 100));
-				concordance.setM_RectPoint(concordance.getM_StringPoint());
+				item.setM_StringPoint(calculatePoint(versionNumber,lineNumber+lineIncrement, 100));
+				item.setM_RectPoint(item.getM_StringPoint());
 				addStringIndex(mapping);
-				concordance.setM_TokenColor(calculateColor(m_StringIndex.get(concordance.getM_Token()), 1f));
-				concordance.setM_TokenColor(calculateColor(concordance.getM_Frequency(), 1f));
-				concordance.setM_RectColor(calculateColor(concordance.getM_Frequency(), 1f));
-				getVersion().setM_ConcordanceList(concordance);
-				addfrequencyColorIndex(mapping,concordance.getM_RectColor()); 
+				item.setM_TokenColor(calculateColor(m_StringIndex.get(item.getM_Token()), 1f));
+				item.setM_TokenColor(calculateColor(item.getM_Frequency(), 1f));
+				item.setM_RectColor(calculateColor(item.getM_Frequency(), 1f));
+				getVersion().setM_ConcordanceList(item);
+				addfrequencyColorIndex(mapping,item.getM_RectColor()); 
 				lineNumber++;
 //			}
 		}
@@ -417,7 +417,7 @@ public class DataReader {
 		}
 	}
 
-	public boolean jSonReader(String token, Concordance concordance) throws Exception{
+	public boolean jSonReader(String token, Item item) throws Exception{
 			jsonReader = Json.createReader(new FileReader("src\\data\\English-German.json"));
 	
 		JsonObject object = jsonReader.readObject();
@@ -426,7 +426,7 @@ public class DataReader {
 		for(int i=0; i<jsonArray.size(); i++){
 			int length=jsonArray.get(i).toString().length()-1;
 			String string=jsonArray.get(i).toString().substring(1, length);
-			concordance.getM_TokenTranslations().add(string);
+			item.getM_TokenTranslations().add(string);
 		}
 		}
 		

@@ -26,7 +26,7 @@ public class Rectangle extends JPanel {
 
 	/**
 	 * Pass the point of string to
-	 * Concordance object and calculate location
+	 * Item object and calculate location
 	 * @param stringPoint
 	 */
 	public void setM_RectPoint(Point stringPoint) {

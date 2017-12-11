@@ -436,9 +436,9 @@ public class TranslationVisualization {
 
 	public void setComponents() throws Exception {
 		
-		// layer 1 - Concordance Frame
+		// layer 1 - Item Frame
 		setConcordanceFrame(new JFrame(getFrameTitle()));
-		// layer 2 - Concordance Panel
+		// layer 2 - Item Panel
 		setConcordancePanel(new ConcordancePanel(getVersionList()));
 		// setConcordancePanel(new ConcordancePanel());
 		setM_ColorLegendPanel(new ColorLegendPanel(), getDataReader());
@@ -678,7 +678,7 @@ public class TranslationVisualization {
 		});
 
 		// concordanceSlider label
-		setM_SliderLabel(new JLabel(), "Concordance");
+		setM_SliderLabel(new JLabel(), "Item");
 		useroptionConstraint.gridx = 2;
 		useroptionConstraint.gridy = 6;
 		// useroptionConstraint.anchor = GridBagConstraints.WEST;

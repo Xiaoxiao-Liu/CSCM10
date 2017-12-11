@@ -10,7 +10,7 @@ import java.util.List;
  * @author Rosa
  *
  */
-public class Concordance {
+public class Item {
 	
 	private List<String> m_Tokens=new ArrayList<String>();
 	
@@ -176,7 +176,7 @@ public class Concordance {
 
 	/**
 	 * An accessor method to pass string to
-	 * Concordance object and set token  
+	 * Item object and set token  
 	 * @param m_Token
 	 */
 	public void setM_Token(String m_Token) {
@@ -206,7 +206,7 @@ public class Concordance {
 
 	/**
 	 * An accessor method to pass number to 
-	 * Concordance object and set frequency
+	 * Item object and set frequency
 	 * @param m_Frequency 
 	 */
 	public void setM_Frequency(int m_Frequency) {
@@ -222,7 +222,7 @@ public class Concordance {
 
 	/**
 	 * An accessor method to pass point to 
-	 * Concordance object and set location 
+	 * Item object and set location 
 	 * of the string
 	 * @param point
 	 */
@@ -239,7 +239,7 @@ public class Concordance {
 
 	/**
 	 * An accessor method to pass the color to
-	 * Concordance object and set color
+	 * Item object and set color
 	 * @param color
 	 */
 	public void setM_TokenColor(Color color) {
@@ -256,7 +256,7 @@ public class Concordance {
 
 	/**
 	 * Pass the point of string to
-	 * Concordance object and calculate location
+	 * Item object and calculate location
 	 * @param stringPoint
 	 */
 	public void setM_RectPoint(Point stringPoint) {
@@ -289,4 +289,4 @@ public class Concordance {
     
 	
 	
-}  /* end class Concordance */
+}  /* end class Item */
