@@ -10,17 +10,15 @@ public class MainMethod {
 	
 	public static void main(String[] args) throws Exception{
 		
-		long startTime=System.currentTimeMillis();   //获取开始时间  
+		long startTime=System.currentTimeMillis();   //鑾峰彇寮�濮嬫椂闂�  
 		
 		
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.initiateTransVis();
 		transVis.initiateFrame();
-//		doSomeThing();  //测试的代码段  
-//		long startTime=System.currentTimeMillis();   //获取开始时间  
 		
-		long endTime=System.currentTimeMillis(); //获取结束时间  
-		System.out.println("Time： "+(endTime-startTime)+"ms");  
+		long endTime=System.currentTimeMillis(); //鑾峰彇缁撴潫鏃堕棿  
+		System.out.println("Time:"+(endTime-startTime)+"ms");  
 	}
 
 }
