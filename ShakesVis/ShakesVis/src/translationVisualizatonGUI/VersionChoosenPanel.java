@@ -39,10 +39,10 @@ public class VersionChoosenPanel extends JPanel {
 
 		m_FilePath=FilePath;
 	}
-	
+//	"src\\data\\1947 Baudissin ed Brunner-Lemma.txt",	
 	public void setGermanLemmaFilePath(){
 		String[] FilePath={ "src\\data\\1604 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig-Lemma.txt", "src\\data\\1920 Gundolf-Lemma.txt", "src\\data\\1941 Schwarz-Lemma.txt",
-				"src\\data\\1947 Baudissin ed Brunner-Lemma.txt",	"src\\data\\1952 Flatter-Lemma.txt", "src\\data\\1962 Schroeder-Lemma.txt",
+				"src\\data\\1952 Flatter-Lemma.txt", "src\\data\\1962 Schroeder-Lemma.txt",
 				"src\\data\\1963 Rothe-Lemma.txt", "src\\data\\1970 Fried-Lemma.txt", "src\\data\\1973 Lauterbach-Lemma.txt",
 				"src\\data\\1976 Engler-Lemma.txt", "src\\data\\1978 Laube-Lemma.txt", "src\\data\\1985 Bolte Hamblock-Lemma.txt",
 				"src\\data\\1992 Motschach-Lemma.txt", "src\\data\\1995 Guenther-Lemma.txt", "src\\data\\2003 Zaimoglu-Lemma.txt" };

@@ -151,6 +151,8 @@ public class DataReader {
 					lineCount++;
 				} else { 
 					tmpWordsList = sCurrentLine.toLowerCase().replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
+//					tmpWordsList = sCurrentLine.replaceAll("\\p{Punct}", "").replaceAll("--", "").split(" ");
+
 					/*
 					 * pass each word to addWordFrequency() method
 					 */
@@ -302,17 +304,10 @@ public class DataReader {
 		setM_VersionList(new ArrayList<Version>());
 		for (int i = 0; i < getM_FilePath().length; i++) { //get one path of file
 			readOneFile(getM_FilePath()[i]); //pass the file path and read the file
-			System.out.println("Size"+getM_UnsortedFrequency().size());
 			sortFrequencyIndex(getM_UnsortedFrequency()); //sort the frequency as descending order
-//			if(!(i==0)){
-//				getM_tokenLists().add(getM_UnsortedFrequency());
-//			}
 			addVersionInfo(i); //pass i to method as version number and add information for one version
 			getM_VersionList().add(getVersion()); //add one version to the version list
 		}
-//			TFIDFCalculator calculator = new TFIDFCalculator();
-//			addTfidf(calculator.initiate(getM_tokenLists()));
-//		return getM_VersionList();
 	}
 	
 	public void addTfidf(List<Hashtable<String, Integer>> lists) throws Exception{
@@ -334,12 +329,6 @@ public class DataReader {
 			}else{
 				getM_tokenLists().add(getM_UnsortedFrequency());
 			}
-//			if(!(i==0)){
-//				getM_tokenLists().add(getM_UnsortedFrequency());
-//			}else{
-//				addVersionInfo(i);
-//				getM_VersionList().add(getVersion());
-//			}
 		}
 			TFIDFCalculator calculator = new TFIDFCalculator();
 			addTfidf(calculator.initiate(getM_tokenLists()));
@@ -384,9 +373,6 @@ public class DataReader {
 		int blueVar = 4;
 		double colorFrequency = 0.22;
 		double toDouble = (double) frequency;
-//		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + halfRange + 1) / colorRange;
-//		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
-//		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
 		float red = (float) (Math.sin(colorFrequency * toDouble + redVar) * halfRange + (halfRange + 1)) / colorRange;
 		float green = (float) (Math.sin(colorFrequency * toDouble + greenVar) * halfRange + halfRange + 1) / colorRange;
 		float blue = (float) (Math.sin(colorFrequency * toDouble + blueVar) * halfRange + halfRange + 1) / colorRange;
@@ -444,11 +430,6 @@ public class DataReader {
 			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
 			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
 
-//	private final String[] m_FilePath = { "src\\data\\0000 BaseText Shakespeare.txt", "src\\data\\1832 Baudissin ed Wenig.txt", "src\\data\\1920 Gundolf.txt", "src\\data\\1941 Schwarz.txt",
-//			"src\\data\\1947 Baudissin ed Brunner.txt",	"src\\data\\1952 Flatter.txt", "src\\data\\1962 Schroeder.txt",
-//			"src\\data\\1963 Rothe.txt", "src\\data\\1970 Fried.txt", "src\\data\\1973 Lauterbach.txt",
-//			"src\\data\\1976 Engler.txt", "src\\data\\1978 Laube.txt", "src\\data\\1985 Bolte Hamblock.txt",
-//			"src\\data\\1992 Motschach.txt", "src\\data\\1995 Guenther.txt", "src\\data\\2003 Zaimoglu.txt" };
 
 	/**a hashtable to store tokens and frequency but without sorting*/
 	private Hashtable<String, Integer> m_UnsortedFrequency = new Hashtable<String, Integer>();
