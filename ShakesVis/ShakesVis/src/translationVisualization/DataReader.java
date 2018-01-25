@@ -25,11 +25,18 @@ import javax.json.JsonReader;
  * This is a logic class to read the data from .txt file and compute the token frequency and other information
  */
 public class DataReader {
-	
+	/**
+	 * an accessor method used to get m_tokenlists
+	 * @return m_tokenlists
+	 */
 	public List<Hashtable<String, Integer>> getM_tokenLists() {
 		return m_tokenLists;
 	}
 
+	/**
+	 * an accessor method used to access 
+	 * @param m_OneTokenList
+	 */
 	public void setM_OneTokenList(List<String> m_OneTokenList) {
 		this.m_OneTokenList = m_OneTokenList;
 	}
@@ -83,6 +90,7 @@ public class DataReader {
 	}
 	
 	/**
+	 * 
 	 * @return m_UnsortedFrequency
 	 */
 	public Hashtable<String, Integer> getM_UnsortedFrequency() {

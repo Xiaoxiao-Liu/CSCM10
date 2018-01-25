@@ -21,7 +21,10 @@ public class ColorLegendPanel extends JPanel {
 	private ConcordancePanel m_ConcordancePanel;
 	
 //	private GridBagConstraints constraint;
-	
+	/**
+	 * get Constraints layout used 
+	 * @return
+	 */
 	public GridBagConstraints getConstraint() {
 		GridBagConstraints constraint =new GridBagConstraints();
 		constraint.gridx = 1;
@@ -35,14 +38,27 @@ public class ColorLegendPanel extends JPanel {
 	}
 
 
+	/**
+	 * An ConcordancePanel object
+	 * @return
+	 */
 	public ConcordancePanel getM_ConcordancePanel() {
 		return m_ConcordancePanel;
 	}
 
+	/**
+	 * initialize the m_ConcordancePanel
+	 * @param m_ConcordancePanel
+	 */
 	public void setM_ConcordancePanel(ConcordancePanel m_ConcordancePanel) {
 		this.m_ConcordancePanel = m_ConcordancePanel;
 	}
 
+	/**
+	 * the colorLegend panel shows the most posifuul thing
+	 * @param m_ColorIndex
+	 * @param m_FrequencyIndex
+	 */
 	public void setColorLegend(List<Map.Entry<Integer, Color>> m_ColorIndex, List<Map.Entry<String, Integer>> m_FrequencyIndex){
 		int i=0;
 		String[] currentIndex;

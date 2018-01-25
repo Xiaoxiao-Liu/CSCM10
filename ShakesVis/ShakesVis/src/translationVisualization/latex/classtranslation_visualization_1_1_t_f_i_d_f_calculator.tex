@@ -1,0 +1,61 @@
+\hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator}{}\section{translation\+Visualization.\+T\+F\+I\+D\+F\+Calculator Class Reference}
+\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator}\index{translation\+Visualization.\+T\+F\+I\+D\+F\+Calculator@{translation\+Visualization.\+T\+F\+I\+D\+F\+Calculator}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a1881598c99aeace13b7922c69edda980}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a1881598c99aeace13b7922c69edda980}} 
+List$<$ Hashtable$<$ String, Integer $>$ $>$ {\bfseries get\+Lists} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_aeeeb099a394fb2cb7c935c9f544bd303}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_aeeeb099a394fb2cb7c935c9f544bd303}} 
+\hyperlink{classtranslation_visualization_1_1_item}{Item} {\bfseries get\+Concordance} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_ac16eeafdf9eb60f960a3a09c10368d0a}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_ac16eeafdf9eb60f960a3a09c10368d0a}} 
+void {\bfseries set\+Concordance} (\hyperlink{classtranslation_visualization_1_1_item}{Item} item)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a284d7de1902d3fef52c11e448c08dd8e}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a284d7de1902d3fef52c11e448c08dd8e}} 
+Hashtable$<$ String, Integer $>$ {\bfseries get\+Tfidf\+List} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a79ac5963ad3479bfcccfcbf5f07ab45b}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a79ac5963ad3479bfcccfcbf5f07ab45b}} 
+void {\bfseries set\+Tfidf\+List} (Hashtable$<$ String, Integer $>$ tfidf\+List)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a3f779c17eab4b2cff9b07a097e5574e0}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a3f779c17eab4b2cff9b07a097e5574e0}} 
+List$<$ Map.\+Entry$<$ String, Integer $>$ $>$ {\bfseries get\+One\+Doc} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a64251c1bdf686853c836ba6f34624164}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a64251c1bdf686853c836ba6f34624164}} 
+void {\bfseries set\+One\+Doc} (List$<$ Map.\+Entry$<$ String, Integer $>$$>$ one\+Doc)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a8123f80fe4f52c0ebe64de416850b732}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_a8123f80fe4f52c0ebe64de416850b732}} 
+List$<$ Hashtable$<$ String, Integer $>$ $>$ {\bfseries initiate} (List$<$ Hashtable$<$ String, Integer $>$$>$ documents)
+\item 
+double \hyperlink{classtranslation_visualization_1_1_t_f_i_d_f_calculator_ad2d8c3cea991e56ac2c25dee58a65f07}{idf} (List$<$ Hashtable$<$ String, Integer $>$$>$ documents, String term)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Mohamed Guendouz 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_t_f_i_d_f_calculator_ad2d8c3cea991e56ac2c25dee58a65f07}\label{classtranslation_visualization_1_1_t_f_i_d_f_calculator_ad2d8c3cea991e56ac2c25dee58a65f07}} 
+\index{translation\+Visualization\+::\+T\+F\+I\+D\+F\+Calculator@{translation\+Visualization\+::\+T\+F\+I\+D\+F\+Calculator}!idf@{idf}}
+\index{idf@{idf}!translation\+Visualization\+::\+T\+F\+I\+D\+F\+Calculator@{translation\+Visualization\+::\+T\+F\+I\+D\+F\+Calculator}}
+\subsubsection{\texorpdfstring{idf()}{idf()}}
+{\footnotesize\ttfamily double translation\+Visualization.\+T\+F\+I\+D\+F\+Calculator.\+idf (\begin{DoxyParamCaption}\item[{List$<$ Hashtable$<$ String, Integer $>$$>$}]{documents,  }\item[{String}]{term }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em docs} & list of list of strings represents the dataset \\
+\hline
+{\em term} & String represents a term \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the inverse term frequency of term in documents 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+T\+F\+I\+D\+F\+Calculator.\+java\end{DoxyCompactItemize}

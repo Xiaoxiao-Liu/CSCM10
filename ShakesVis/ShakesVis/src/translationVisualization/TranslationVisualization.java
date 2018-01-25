@@ -31,7 +31,7 @@ import javax.swing.event.ChangeListener;
 
 import translationVisualizatonGUI.ColorLegendPanel;
 import translationVisualizatonGUI.ConcordancePanel;
-import translationVisualizatonGUI.VersionChoosenPanel;
+import translationVisualizatonGUI.VersionChosenPanel;
 
 public class TranslationVisualization {
 	// Hello, World
@@ -109,7 +109,7 @@ public class TranslationVisualization {
 	/** a JCheckBox to show version names */
 	private JCheckBox versionMenu;
 
-	private VersionChoosenPanel versionChoosingPanel;
+	private VersionChosenPanel versionChoosingPanel;
 
 	/** a JToggleButton to turn text on and off */
 	private JToggleButton m_TextOnOffButton;
@@ -189,11 +189,11 @@ public class TranslationVisualization {
 		this.m_VersionList = m_VersionList;
 	}
 
-	public VersionChoosenPanel getVersionChoosingPanel() {
+	public VersionChosenPanel getVersionChoosingPanel() {
 		return versionChoosingPanel;
 	}
 
-	public void setVersionChoosingPanel(VersionChoosenPanel versionChoosingPanel, ConcordancePanel concordancePanel,
+	public void setVersionChoosingPanel(VersionChosenPanel versionChoosingPanel, ConcordancePanel concordancePanel,
 			List<String> versionNames) {
 		this.versionChoosingPanel = versionChoosingPanel;
 		versionChoosingPanel.addVersions(versionNames, concordancePanel);
@@ -460,7 +460,7 @@ public class TranslationVisualization {
 		// concordance slider
 		setM_ConcordanceSlider();
 		setM_ScrollPaneSlider();
-		setVersionChoosingPanel(new VersionChoosenPanel(), getConcordancePanel(),
+		setVersionChoosingPanel(new VersionChosenPanel(), getConcordancePanel(),
 				getDataReader().getM_VersionNameList());
 
 	}

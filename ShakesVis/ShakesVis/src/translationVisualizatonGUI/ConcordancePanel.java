@@ -33,53 +33,88 @@ public class ConcordancePanel extends JPanel {
 	//		repaint();
 		}
 
-	public boolean isFirstVersion() {
-		return firstVersion;
-	}
+	/**
+	 * a boolean value to 
+	 * @return
+	 */
+//	public boolean isFirstVersion() {
+//		return firstVersion;
+//	}
 
-	public void setFirstVersion(boolean firstVersion) {
-		this.firstVersion = firstVersion;
-		repaint();
-	}
+//	public void setFirstVersion(boolean firstVersion) {
+//		this.firstVersion = firstVersion;
+//		repaint();
+//	}
 
+	/**
+	 * @return text on and off resutls
+	 */
 	public boolean getM_OnAndOff() {
 		return m_OnAndOff;
 	}
 
+	/**
+	 * initialze text by adding a new On and Off visualisation
+	 * @param onAndOff
+	 */
 	public void setOnAndOff(boolean onAndOff) {
 		m_OnAndOff = onAndOff;
 		repaint();
 	}
 
+	/**
+	 * @return scale value from other colasses
+	 */
 	public int getScaleValue() {
 		return scaleValue;
 	}
 
 
+	/**
+	 * an accessor to pass value from other classes
+	 * @param scaleValue
+	 */
 	public void setScaleValue(int scaleValue) {
 		this.scaleValue = scaleValue;
 	}
 
 
+	/**
+	 * @return dataReader object
+	 */
 	public DataReader getDataReader() {
 		return dataReader;
 	}
 
 
+	/**
+	 * initialise Data Reader object
+	 * @param dataReader
+	 */
 	public void setDataReader(DataReader dataReader) {
 		this.dataReader = dataReader;
 	}
 
+	/**
+	 * @return the version number
+	 */
 	public int getM_VersionNumber() {
 		return m_VersionNumber;
 	}
 
 
+	/**
+	 * initializing set thethder
+	 * @param m_VersionNumber
+	 */
 	public void setM_VersionNumber(int m_VersionNumber) {
 		this.m_VersionNumber = m_VersionNumber;
 	}
 
 
+	/**
+	 * @return the copied list
+	 */
 		public List<Version> getM_VersionList() {
 			
 	//		return m_VersionList;
@@ -87,11 +122,18 @@ public class ConcordancePanel extends JPanel {
 		}
 
 
+		/**
+		 * initial new m_versionList
+		 * @param m_VersionList 
+		 */
 	public void setM_VersionList(List<Version> m_VersionList) {
 		this.m_VersionListCopied = m_VersionList;
 	}
 
 
+	/**
+	 * @return the aothor name of the selecting version
+	 */
 	public Version getM_singleVersion() {
 		return m_singleVersion;
 	}

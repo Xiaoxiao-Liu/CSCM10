@@ -1,0 +1,355 @@
+\hypertarget{classtranslation_visualization_1_1_data_reader}{}\section{translation\+Visualization.\+Data\+Reader Class Reference}
+\label{classtranslation_visualization_1_1_data_reader}\index{translation\+Visualization.\+Data\+Reader@{translation\+Visualization.\+Data\+Reader}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ Hashtable$<$ String, Integer $>$ $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_a9f7d0eb449890ad6fcf871f79f7a614c}{get\+M\+\_\+token\+Lists} ()
+\item 
+void \hyperlink{classtranslation_visualization_1_1_data_reader_a6ae3b7c60cbbad3269bc35c03e25b65d}{set\+M\+\_\+\+One\+Token\+List} (List$<$ String $>$ m\+\_\+\+One\+Token\+List)
+\item 
+List$<$ String $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_a4f289a631f261a4c1f2cc1ba67fa755a}{get\+M\+\_\+\+One\+Token\+List} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_afbf6285cc3386ca40da206de79639610}\label{classtranslation_visualization_1_1_data_reader_afbf6285cc3386ca40da206de79639610}} 
+List$<$ Map.\+Entry$<$ String, Integer $>$ $>$ {\bfseries get\+M\+\_\+\+Frequency\+Index} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ab55bcf952d5471424844eb0821269247}\label{classtranslation_visualization_1_1_data_reader_ab55bcf952d5471424844eb0821269247}} 
+void {\bfseries set\+M\+\_\+\+Frequency\+Index} (List$<$ Map.\+Entry$<$ String, Integer $>$$>$ m\+\_\+\+Frequency\+Index)
+\item 
+List$<$ String $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_ad0a0ac646cdac28b433749fcea05f4a0}{get\+M\+\_\+\+Version\+Name\+List} ()
+\item 
+String \hyperlink{classtranslation_visualization_1_1_data_reader_ad2803d802112687247d767d3a229ddb4}{file\+Path\+Process} (String\mbox{[}$\,$\mbox{]} file\+Path, int version\+Number, int position)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aff02553b4c6b703718c338663231dcda}\label{classtranslation_visualization_1_1_data_reader_aff02553b4c6b703718c338663231dcda}} 
+\hyperlink{classtranslation_visualization_1_1_version}{Version} {\bfseries get\+Version} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_acbc13d9940c7fe61b3640d344584a5b0}\label{classtranslation_visualization_1_1_data_reader_acbc13d9940c7fe61b3640d344584a5b0}} 
+void {\bfseries set\+Version} (\hyperlink{classtranslation_visualization_1_1_version}{Version} version)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a1cbe84585b3b117c82f9d7d656214b38}\label{classtranslation_visualization_1_1_data_reader_a1cbe84585b3b117c82f9d7d656214b38}} 
+Hashtable$<$ Integer, Color $>$ {\bfseries get\+M\+\_\+frequency\+Color\+Index} ()
+\item 
+Hashtable$<$ String, Integer $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_a66b14c96211f28844bd2f96aa276b434}{get\+M\+\_\+\+Unsorted\+Frequency} ()
+\item 
+void \hyperlink{classtranslation_visualization_1_1_data_reader_ab49397171d2134b9caedb30a34d747c0}{set\+M\+\_\+\+Unsorted\+Frequency} (Hashtable$<$ String, Integer $>$ m\+\_\+\+Unsorted\+Frequency)
+\item 
+String \mbox{[}$\,$\mbox{]} \hyperlink{classtranslation_visualization_1_1_data_reader_aa5b1f0d53735615e99f5ebf96805bfc4}{get\+M\+\_\+\+File\+Path} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a18112fbd7b7dfa317159d604776b0398}\label{classtranslation_visualization_1_1_data_reader_a18112fbd7b7dfa317159d604776b0398}} 
+void {\bfseries set\+Initial\+File\+Path} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a8240b943ad2619e8d7540c5af977b495}\label{classtranslation_visualization_1_1_data_reader_a8240b943ad2619e8d7540c5af977b495}} 
+void {\bfseries set\+German\+Lemma\+File\+Path} ()
+\item 
+boolean \hyperlink{classtranslation_visualization_1_1_data_reader_afd65c90eabcb680ccb187aeeb8d0fa49}{read\+One\+File} (String file\+Path)  throws Exception 
+\item 
+boolean \hyperlink{classtranslation_visualization_1_1_data_reader_adcaa3aa9ce1e79118983f153abf8b12d}{add\+Word\+Frequency} (String each\+Word)
+\item 
+boolean \hyperlink{classtranslation_visualization_1_1_data_reader_a16d1de55b83f9563d899b814b8b72041}{sort\+Frequency\+Index} (Hashtable$<$ String, Integer $>$ frequency\+Unsorted)
+\item 
+List$<$ Map.\+Entry$<$ Integer, Color $>$ $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_aa06a2341e6c975569440d90cec7b30e9}{sort\+Color\+Index} (Hashtable$<$ Integer, Color $>$ frequency\+Color\+Index)
+\item 
+boolean \hyperlink{classtranslation_visualization_1_1_data_reader_a17eeaa7ca486fbfa82cf52436c60c0bd}{add\+Version\+Info} (int version\+Number)  throws Exception
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_acf23af7a2af4d89f706fb4eddb7794e9}\label{classtranslation_visualization_1_1_data_reader_acf23af7a2af4d89f706fb4eddb7794e9}} 
+boolean {\bfseries is\+Frequent\+Value} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ac5b3892832e7e51aed1c11b98908ab39}\label{classtranslation_visualization_1_1_data_reader_ac5b3892832e7e51aed1c11b98908ab39}} 
+void {\bfseries set\+Frequent\+Value} (boolean frequent\+Value)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a3143eb4328205136afcd9cddbe308536}\label{classtranslation_visualization_1_1_data_reader_a3143eb4328205136afcd9cddbe308536}} 
+List$<$ \hyperlink{classtranslation_visualization_1_1_version}{Version} $>$ {\bfseries initiate\+Data\+Reader} ()  throws Exception
+\item 
+void \hyperlink{classtranslation_visualization_1_1_data_reader_aafb5b51c8b16401b46977a26c79e6050}{read\+All\+File} ()  throws Exception 
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_af4a20038b3d335b3816ab028395b5c54}\label{classtranslation_visualization_1_1_data_reader_af4a20038b3d335b3816ab028395b5c54}} 
+void {\bfseries add\+Tfidf} (List$<$ Hashtable$<$ String, Integer $>$$>$ lists)  throws Exception
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a86fac2103289f95428e9ca8940cdf8fb}\label{classtranslation_visualization_1_1_data_reader_a86fac2103289f95428e9ca8940cdf8fb}} 
+void {\bfseries initiate\+Tf\+Idf} ()  throws Exception
+\item 
+Point \hyperlink{classtranslation_visualization_1_1_data_reader_a54d1cf51ae6bb37c002422aa53a10811}{calculate\+Point} (int version\+Number, int line\+Number, int scale\+Value)
+\item 
+Color \hyperlink{classtranslation_visualization_1_1_data_reader_af6396c7c658d44859ab2e7b9a52d9230}{calculate\+Color} (int frequency, float a)
+\item 
+void \hyperlink{classtranslation_visualization_1_1_data_reader_a9ba21aa239b09589289b5f89215a96de}{add\+String\+Index} (Map.\+Entry$<$ String, Integer $>$ mapping)
+\item 
+void \hyperlink{classtranslation_visualization_1_1_data_reader_aa9da818caa573b52c9a35e01b2f5ed13}{addfrequency\+Color\+Index} (Map.\+Entry$<$ String, Integer $>$ mapping, Color color)
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ab1443b5594b84b6a7efb5c5b0e3d8f5d}\label{classtranslation_visualization_1_1_data_reader_ab1443b5594b84b6a7efb5c5b0e3d8f5d}} 
+boolean {\bfseries j\+Son\+Reader} (String token, \hyperlink{classtranslation_visualization_1_1_item}{Item} item)  throws Exception
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a56175a8c90602f43f50774e9ba9f0962}\label{classtranslation_visualization_1_1_data_reader_a56175a8c90602f43f50774e9ba9f0962}} 
+List$<$ \hyperlink{classtranslation_visualization_1_1_version}{Version} $>$ {\bfseries get\+M\+\_\+\+Version\+List} ()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aa54ba80cb9f990505887ce137bbc4b63}\label{classtranslation_visualization_1_1_data_reader_aa54ba80cb9f990505887ce137bbc4b63}} 
+void {\bfseries set\+M\+\_\+\+Version\+List} (List$<$ \hyperlink{classtranslation_visualization_1_1_version}{Version} $>$ m\+\_\+\+Version\+List)
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a14be5db06decff77ee886a7c9e2e3f36}\label{classtranslation_visualization_1_1_data_reader_a14be5db06decff77ee886a7c9e2e3f36}} 
+Hashtable$<$ String, Integer $>$ {\bfseries m\+\_\+\+String\+Index} = new Hashtable$<$String, Integer$>$()
+\item 
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a80ba7c2a13f9eacbb00b50fae9523210}\label{classtranslation_visualization_1_1_data_reader_a80ba7c2a13f9eacbb00b50fae9523210}} 
+List$<$ \hyperlink{classtranslation_visualization_1_1_version}{Version} $>$ {\bfseries m\+\_\+\+Version\+List} = new Array\+List$<$\hyperlink{classtranslation_visualization_1_1_version}{Version}$>$()
+\item 
+List$<$ String $>$ \hyperlink{classtranslation_visualization_1_1_data_reader_a6d82a8e75d6620a2ea93bb3367eccdf2}{m\+\_\+\+Version\+Name\+List} = new Array\+List$<$String$>$()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Rosa This is a logic class to read the data from .txt file and compute the token frequency and other information 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aa9da818caa573b52c9a35e01b2f5ed13}\label{classtranslation_visualization_1_1_data_reader_aa9da818caa573b52c9a35e01b2f5ed13}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!addfrequency\+Color\+Index@{addfrequency\+Color\+Index}}
+\index{addfrequency\+Color\+Index@{addfrequency\+Color\+Index}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{addfrequency\+Color\+Index()}{addfrequencyColorIndex()}}
+{\footnotesize\ttfamily void translation\+Visualization.\+Data\+Reader.\+addfrequency\+Color\+Index (\begin{DoxyParamCaption}\item[{Map.\+Entry$<$ String, Integer $>$}]{mapping,  }\item[{Color}]{color }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compute the color index 
+\begin{DoxyParams}{Parameters}
+{\em mapping} & \\
+\hline
+{\em color} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a9ba21aa239b09589289b5f89215a96de}\label{classtranslation_visualization_1_1_data_reader_a9ba21aa239b09589289b5f89215a96de}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!add\+String\+Index@{add\+String\+Index}}
+\index{add\+String\+Index@{add\+String\+Index}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{add\+String\+Index()}{addStringIndex()}}
+{\footnotesize\ttfamily void translation\+Visualization.\+Data\+Reader.\+add\+String\+Index (\begin{DoxyParamCaption}\item[{Map.\+Entry$<$ String, Integer $>$}]{mapping }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compute how many strings occurred in all versions used to compute the color for each token 
+\begin{DoxyParams}{Parameters}
+{\em mapping} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a17eeaa7ca486fbfa82cf52436c60c0bd}\label{classtranslation_visualization_1_1_data_reader_a17eeaa7ca486fbfa82cf52436c60c0bd}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!add\+Version\+Info@{add\+Version\+Info}}
+\index{add\+Version\+Info@{add\+Version\+Info}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{add\+Version\+Info()}{addVersionInfo()}}
+{\footnotesize\ttfamily boolean translation\+Visualization.\+Data\+Reader.\+add\+Version\+Info (\begin{DoxyParamCaption}\item[{int}]{version\+Number }\end{DoxyParamCaption}) throws Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+Process the data and set the data into the version 
+\begin{DoxyParams}{Parameters}
+{\em version\+Number} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_adcaa3aa9ce1e79118983f153abf8b12d}\label{classtranslation_visualization_1_1_data_reader_adcaa3aa9ce1e79118983f153abf8b12d}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!add\+Word\+Frequency@{add\+Word\+Frequency}}
+\index{add\+Word\+Frequency@{add\+Word\+Frequency}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{add\+Word\+Frequency()}{addWordFrequency()}}
+{\footnotesize\ttfamily boolean translation\+Visualization.\+Data\+Reader.\+add\+Word\+Frequency (\begin{DoxyParamCaption}\item[{String}]{each\+Word }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Compute the frequency for each word. 
+\begin{DoxyParams}{Parameters}
+{\em each\+Word} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+UE on success. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_af6396c7c658d44859ab2e7b9a52d9230}\label{classtranslation_visualization_1_1_data_reader_af6396c7c658d44859ab2e7b9a52d9230}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!calculate\+Color@{calculate\+Color}}
+\index{calculate\+Color@{calculate\+Color}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{calculate\+Color()}{calculateColor()}}
+{\footnotesize\ttfamily Color translation\+Visualization.\+Data\+Reader.\+calculate\+Color (\begin{DoxyParamCaption}\item[{int}]{frequency,  }\item[{float}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculate the color according to the variable numbers 
+\begin{DoxyParams}{Parameters}
+{\em string\+Number} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+color variable 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a54d1cf51ae6bb37c002422aa53a10811}\label{classtranslation_visualization_1_1_data_reader_a54d1cf51ae6bb37c002422aa53a10811}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!calculate\+Point@{calculate\+Point}}
+\index{calculate\+Point@{calculate\+Point}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{calculate\+Point()}{calculatePoint()}}
+{\footnotesize\ttfamily Point translation\+Visualization.\+Data\+Reader.\+calculate\+Point (\begin{DoxyParamCaption}\item[{int}]{version\+Number,  }\item[{int}]{line\+Number,  }\item[{int}]{scale\+Value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Calculate the point location 
+\begin{DoxyParams}{Parameters}
+{\em version\+Number} & \\
+\hline
+{\em line\+Number} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+
+the point calculated 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ad2803d802112687247d767d3a229ddb4}\label{classtranslation_visualization_1_1_data_reader_ad2803d802112687247d767d3a229ddb4}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!file\+Path\+Process@{file\+Path\+Process}}
+\index{file\+Path\+Process@{file\+Path\+Process}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{file\+Path\+Process()}{filePathProcess()}}
+{\footnotesize\ttfamily String translation\+Visualization.\+Data\+Reader.\+file\+Path\+Process (\begin{DoxyParamCaption}\item[{String \mbox{[}$\,$\mbox{]}}]{file\+Path,  }\item[{int}]{version\+Number,  }\item[{int}]{position }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Path-\/a} & string array of file paths \\
+\hline
+{\em version\+Number} & -\/ an integer of version\textquotesingle{}s number \\
+\hline
+{\em position} & -\/ an integer telling the method which string in the array you want \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+name -\/ the name of the version 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aa5b1f0d53735615e99f5ebf96805bfc4}\label{classtranslation_visualization_1_1_data_reader_aa5b1f0d53735615e99f5ebf96805bfc4}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!get\+M\+\_\+\+File\+Path@{get\+M\+\_\+\+File\+Path}}
+\index{get\+M\+\_\+\+File\+Path@{get\+M\+\_\+\+File\+Path}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{get\+M\+\_\+\+File\+Path()}{getM\_FilePath()}}
+{\footnotesize\ttfamily String \mbox{[}$\,$\mbox{]} translation\+Visualization.\+Data\+Reader.\+get\+M\+\_\+\+File\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+file path string array 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a4f289a631f261a4c1f2cc1ba67fa755a}\label{classtranslation_visualization_1_1_data_reader_a4f289a631f261a4c1f2cc1ba67fa755a}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!get\+M\+\_\+\+One\+Token\+List@{get\+M\+\_\+\+One\+Token\+List}}
+\index{get\+M\+\_\+\+One\+Token\+List@{get\+M\+\_\+\+One\+Token\+List}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{get\+M\+\_\+\+One\+Token\+List()}{getM\_OneTokenList()}}
+{\footnotesize\ttfamily List$<$String$>$ translation\+Visualization.\+Data\+Reader.\+get\+M\+\_\+\+One\+Token\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+an accessor method used to add and get one list of token \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a9f7d0eb449890ad6fcf871f79f7a614c}\label{classtranslation_visualization_1_1_data_reader_a9f7d0eb449890ad6fcf871f79f7a614c}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!get\+M\+\_\+token\+Lists@{get\+M\+\_\+token\+Lists}}
+\index{get\+M\+\_\+token\+Lists@{get\+M\+\_\+token\+Lists}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{get\+M\+\_\+token\+Lists()}{getM\_tokenLists()}}
+{\footnotesize\ttfamily List$<$Hashtable$<$String, Integer$>$ $>$ translation\+Visualization.\+Data\+Reader.\+get\+M\+\_\+token\+Lists (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+an accessor method used to get m\+\_\+tokenlists \begin{DoxyReturn}{Returns}
+m\+\_\+tokenlists 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a66b14c96211f28844bd2f96aa276b434}\label{classtranslation_visualization_1_1_data_reader_a66b14c96211f28844bd2f96aa276b434}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!get\+M\+\_\+\+Unsorted\+Frequency@{get\+M\+\_\+\+Unsorted\+Frequency}}
+\index{get\+M\+\_\+\+Unsorted\+Frequency@{get\+M\+\_\+\+Unsorted\+Frequency}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{get\+M\+\_\+\+Unsorted\+Frequency()}{getM\_UnsortedFrequency()}}
+{\footnotesize\ttfamily Hashtable$<$String, Integer$>$ translation\+Visualization.\+Data\+Reader.\+get\+M\+\_\+\+Unsorted\+Frequency (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+m\+\_\+\+Unsorted\+Frequency 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ad0a0ac646cdac28b433749fcea05f4a0}\label{classtranslation_visualization_1_1_data_reader_ad0a0ac646cdac28b433749fcea05f4a0}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!get\+M\+\_\+\+Version\+Name\+List@{get\+M\+\_\+\+Version\+Name\+List}}
+\index{get\+M\+\_\+\+Version\+Name\+List@{get\+M\+\_\+\+Version\+Name\+List}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{get\+M\+\_\+\+Version\+Name\+List()}{getM\_VersionNameList()}}
+{\footnotesize\ttfamily List$<$String$>$ translation\+Visualization.\+Data\+Reader.\+get\+M\+\_\+\+Version\+Name\+List (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\begin{DoxyReturn}{Returns}
+m\+\_\+\+Version\+Name\+List 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aafb5b51c8b16401b46977a26c79e6050}\label{classtranslation_visualization_1_1_data_reader_aafb5b51c8b16401b46977a26c79e6050}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!read\+All\+File@{read\+All\+File}}
+\index{read\+All\+File@{read\+All\+File}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{read\+All\+File()}{readAllFile()}}
+{\footnotesize\ttfamily void translation\+Visualization.\+Data\+Reader.\+read\+All\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) throws Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+Read all files and process the data \begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_afd65c90eabcb680ccb187aeeb8d0fa49}\label{classtranslation_visualization_1_1_data_reader_afd65c90eabcb680ccb187aeeb8d0fa49}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!read\+One\+File@{read\+One\+File}}
+\index{read\+One\+File@{read\+One\+File}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{read\+One\+File()}{readOneFile()}}
+{\footnotesize\ttfamily boolean translation\+Visualization.\+Data\+Reader.\+read\+One\+File (\begin{DoxyParamCaption}\item[{String}]{file\+Path }\end{DoxyParamCaption}) throws Exception\hspace{0.3cm}{\ttfamily [inline]}}
+
+pass the file path and read one file 
+\begin{DoxyParams}{Parameters}
+{\em file\+Path} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+UE on success 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+\end{DoxyExceptions}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a6ae3b7c60cbbad3269bc35c03e25b65d}\label{classtranslation_visualization_1_1_data_reader_a6ae3b7c60cbbad3269bc35c03e25b65d}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!set\+M\+\_\+\+One\+Token\+List@{set\+M\+\_\+\+One\+Token\+List}}
+\index{set\+M\+\_\+\+One\+Token\+List@{set\+M\+\_\+\+One\+Token\+List}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{set\+M\+\_\+\+One\+Token\+List()}{setM\_OneTokenList()}}
+{\footnotesize\ttfamily void translation\+Visualization.\+Data\+Reader.\+set\+M\+\_\+\+One\+Token\+List (\begin{DoxyParamCaption}\item[{List$<$ String $>$}]{m\+\_\+\+One\+Token\+List }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+an accessor method used to access 
+\begin{DoxyParams}{Parameters}
+{\em m\+\_\+\+One\+Token\+List} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_ab49397171d2134b9caedb30a34d747c0}\label{classtranslation_visualization_1_1_data_reader_ab49397171d2134b9caedb30a34d747c0}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!set\+M\+\_\+\+Unsorted\+Frequency@{set\+M\+\_\+\+Unsorted\+Frequency}}
+\index{set\+M\+\_\+\+Unsorted\+Frequency@{set\+M\+\_\+\+Unsorted\+Frequency}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{set\+M\+\_\+\+Unsorted\+Frequency()}{setM\_UnsortedFrequency()}}
+{\footnotesize\ttfamily void translation\+Visualization.\+Data\+Reader.\+set\+M\+\_\+\+Unsorted\+Frequency (\begin{DoxyParamCaption}\item[{Hashtable$<$ String, Integer $>$}]{m\+\_\+\+Unsorted\+Frequency }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+an accessor method to set the unsorted frequency hashtable 
+\begin{DoxyParams}{Parameters}
+{\em m\+\_\+\+Unsorted\+Frequency} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_aa06a2341e6c975569440d90cec7b30e9}\label{classtranslation_visualization_1_1_data_reader_aa06a2341e6c975569440d90cec7b30e9}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!sort\+Color\+Index@{sort\+Color\+Index}}
+\index{sort\+Color\+Index@{sort\+Color\+Index}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{sort\+Color\+Index()}{sortColorIndex()}}
+{\footnotesize\ttfamily List$<$Map.\+Entry$<$Integer, Color$>$ $>$ translation\+Visualization.\+Data\+Reader.\+sort\+Color\+Index (\begin{DoxyParamCaption}\item[{Hashtable$<$ Integer, Color $>$}]{frequency\+Color\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sort the Color index as descending order 
+\begin{DoxyParams}{Parameters}
+{\em frequency\+Color\+Index} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a16d1de55b83f9563d899b814b8b72041}\label{classtranslation_visualization_1_1_data_reader_a16d1de55b83f9563d899b814b8b72041}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!sort\+Frequency\+Index@{sort\+Frequency\+Index}}
+\index{sort\+Frequency\+Index@{sort\+Frequency\+Index}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{sort\+Frequency\+Index()}{sortFrequencyIndex()}}
+{\footnotesize\ttfamily boolean translation\+Visualization.\+Data\+Reader.\+sort\+Frequency\+Index (\begin{DoxyParamCaption}\item[{Hashtable$<$ String, Integer $>$}]{frequency\+Unsorted }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Sort the frequency in m\+\_\+fequency\+Index as descending order. 
+\begin{DoxyParams}{Parameters}
+{\em frequency\+Unsorted} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+T\+R\+UE on success. 
+\end{DoxyReturn}
+
+
+\subsection{Member Data Documentation}
+\mbox{\Hypertarget{classtranslation_visualization_1_1_data_reader_a6d82a8e75d6620a2ea93bb3367eccdf2}\label{classtranslation_visualization_1_1_data_reader_a6d82a8e75d6620a2ea93bb3367eccdf2}} 
+\index{translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}!m\+\_\+\+Version\+Name\+List@{m\+\_\+\+Version\+Name\+List}}
+\index{m\+\_\+\+Version\+Name\+List@{m\+\_\+\+Version\+Name\+List}!translation\+Visualization\+::\+Data\+Reader@{translation\+Visualization\+::\+Data\+Reader}}
+\subsubsection{\texorpdfstring{m\+\_\+\+Version\+Name\+List}{m\_VersionNameList}}
+{\footnotesize\ttfamily List$<$String$>$ translation\+Visualization.\+Data\+Reader.\+m\+\_\+\+Version\+Name\+List = new Array\+List$<$String$>$()}
+
+a list of String stored all version names 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Data\+Reader.\+java\end{DoxyCompactItemize}

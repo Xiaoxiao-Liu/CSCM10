@@ -13,7 +13,7 @@ import java.util.List;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
-public class VersionChoosenPanel extends JPanel {
+public class VersionChosenPanel extends JPanel {
 	private JCheckBox m_VersionNameCBox;
 	
 	private List<JCheckBox> m_checkList=new ArrayList<JCheckBox>();
@@ -91,6 +91,11 @@ public class VersionChoosenPanel extends JPanel {
 		m_VersionNameCBox.setBackground(Color.white);
 	}
 
+	/**
+	 * 
+	 * @param actionEvent
+	 * @param concordancePanel
+	 */
 	public void allSelection(ActionEvent actionEvent, ConcordancePanel concordancePanel){
     		Object objectAll=((JCheckBox) actionEvent.getSource()).isSelected();
             Boolean boolAll = new Boolean((boolean) objectAll);
