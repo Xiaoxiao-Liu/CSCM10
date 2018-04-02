@@ -10,14 +10,14 @@ public class MainMethod {
 	
 	public static void main(String[] args) throws Exception{
 		
-		long startTime=System.currentTimeMillis();   //鑾峰彇寮�濮嬫椂闂�  
+		long startTime=System.currentTimeMillis();   
 		 
 		
 		TranslationVisualization transVis=new TranslationVisualization();
 		transVis.initiateTransVis();
 		transVis.initiateFrame();
 		
-		long endTime=System.currentTimeMillis(); //鑾峰彇缁撴潫鏃堕棿  
+		long endTime=System.currentTimeMillis(); 
 		System.out.println("Time:"+(endTime-startTime)+"ms");  
 	}
 

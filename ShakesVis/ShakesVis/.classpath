@@ -3,7 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Standford NLP library"/>
-	<classpathentry kind="lib" path="C:/Users/45109/Desktop/translate/google-api-services-translate-v2-rev51-1.22.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Google Translate API"/>
 	<classpathentry kind="lib" path="C:/Users/45109/Documents/GitHub/TransVis/ShakesVis/ShakesVis/src/APIs/javax.json-api-1.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/45109/Documents/GitHub/TransVis/ShakesVis/ShakesVis/src/APIs/java-json.jar"/>

@@ -166,6 +166,10 @@ public class TranslationVisualization {
 		m_SliderLabel.setFont(new Font("Serif", Font.BOLD, fontSize));
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public DataReader getDataReader() {
 		return dataReader;
 	}
