@@ -1,4 +1,4 @@
-# CSCM10
+# trnasVis
 Translation Visulization:  
 This is a project aims to dispaly the varieties of tokens between different translation versions.  
 Our base text is English version of Shakespeare's Othello.  
