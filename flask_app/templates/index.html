@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TransVis - Translation Visualization</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <button id="sidebar-toggle" aria-label="Toggle sidebar">
+            <span></span><span></span><span></span>
+        </button>
+        <h1>TransVis</h1>
+        <span id="mode-indicator">Frequency</span>
+    </header>
+
+    <div id="app">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="open">
+            <section class="sidebar-section">
+                <h3>Visualization Mode</h3>
+                <div class="mode-buttons">
+                    <button id="btn-frequency" class="mode-btn active" data-mode="frequency">Frequency</button>
+                    <button id="btn-tfidf" class="mode-btn" data-mode="tfidf">TF-IDF</button>
+                    <button id="btn-lemma-freq" class="mode-btn" data-mode="lemma_frequency">Lemma + Freq</button>
+                    <button id="btn-lemma-tfidf" class="mode-btn" data-mode="lemma_tfidf">Lemma + TF-IDF</button>
+                </div>
+            </section>
+
+            <section class="sidebar-section">
+                <h3>Display</h3>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="chk-text-toggle" checked>
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label">Show Token Text</span>
+                </label>
+            </section>
+
+            <section class="sidebar-section">
+                <h3>Zoom</h3>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>Item Scale</span>
+                        <span id="item-scale-value" class="slider-value">100%</span>
+                    </div>
+                    <input type="range" id="slider-item-scale" min="50" max="200" value="100" class="styled-slider">
+                </div>
+                <div class="slider-group">
+                    <div class="slider-header">
+                        <span>Panel Scale</span>
+                        <span id="panel-scale-value" class="slider-value">100%</span>
+                    </div>
+                    <input type="range" id="slider-panel-scale" min="50" max="200" value="100" class="styled-slider">
+                </div>
+            </section>
+
+            <section class="sidebar-section">
+                <h3>Versions</h3>
+                <div id="version-checkboxes"></div>
+            </section>
+        </aside>
+
+        <!-- Main visualization area -->
+        <main id="main-area">
+            <!-- Color legend bar -->
+            <div id="color-legend-bar">
+                <div id="color-legend"></div>
+            </div>
+
+            <!-- SVG visualization -->
+            <div id="vis-wrapper">
+                <svg id="vis-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+
+            <!-- Loading overlay -->
+            <div id="loading-overlay" class="hidden">
+                <div class="spinner"></div>
+                <span>Loading data...</span>
+            </div>
+        </main>
+    </div>
+
+    <!-- Tooltip -->
+    <div id="tooltip" class="hidden"></div>
+
+    <script src="{{ url_for('static', filename='js/color.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/renderer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
